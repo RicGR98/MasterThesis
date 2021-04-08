@@ -1,9 +1,6 @@
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -44,6 +41,15 @@ public class Utils {
     }
 
     /**
+     * @param possibilities Array of possibilities
+     * @param <T> Type of the possibilities
+     * @return Random object in the list of possibilities
+     */
+    public static <T> T randomChoice(T[] possibilities){
+        return possibilities[getRandomInt(0, possibilities.length)];
+    }
+
+    /**
      * @param possibilities List of possibilities
      * @param nbElems Number of random elements to retrieve
      * @param <T> Type of the possibilities
@@ -64,6 +70,10 @@ public class Utils {
         return randomChoices(possibilities, (int) (possibilities.size()*percentage));
     }
 
+    /**
+     * @param filename Name of the file in which to store the text
+     * @param text Text to store in the file
+     */
     public static void writeToFile(String filename, String text){
         try {
             PrintWriter writer = new PrintWriter(filename, StandardCharsets.UTF_8);

@@ -12,7 +12,7 @@ public final class Constants {
     public static final class Agent {
         private Agent() {}
 
-        public static final float RATIO_BUY = 0.1f;
+        public static final float RATIO_BUY = 0.2f;
         public static final float RATIO_PRODUCE = 0.2f;
     }
 }

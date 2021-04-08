@@ -11,10 +11,6 @@ public class State extends Entity{
         return Stream.of(getName());
     }
 
-    public void collectVAT(){
-
-    }
-
     public void tick(){
 
     }

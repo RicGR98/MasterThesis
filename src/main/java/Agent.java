@@ -1,22 +1,25 @@
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Agent extends Entity {
     private final World world;
-    private final Market market;
     private final State state;
     private float money;
+    private final Product product;
 
-    public Agent(World world, Market market, State state, float money) {
+    public Agent(World world, State state, float money) {
         super("Agent");
         this.world = world;
-        this.market = market;
         this.state = state;
         this.money = money;
+        this.product = new Product(this);
     }
 
     public State getState() {
         return state;
+    }
+
+    public Product getProduct(){
+        return product;
     }
 
     public float getMoney() {
@@ -31,12 +34,17 @@ public class Agent extends Entity {
         this.money -= value;
     }
 
+
     public void produce(){
-        this.market.produce(new Product(this));
+        product.incrementStock();
+    }
+
+    public void sell(){
+        this.product.decrementStock();
     }
 
     public void buy(){
-        this.market.buy(this, Product.getRandomType());
+        this.world.market.buy(this, Product.getRandomType());
     }
 
     public void tick(){

@@ -1,31 +1,25 @@
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Market {
-    private final ArrayList<Product> products;
-    private int nbTransactions = 0;
+    public final ArrayList<Product> products;
 
-    public Market(){
-        this.products = new ArrayList<>();
+    public Market(ArrayList<Agent> agents){
+        products = new ArrayList<>();
+        agents.forEach(agent -> products.add(agent.getProduct()));
     }
 
-    public void produce(Product product){
-        this.products.add(product);
+    public int getProductCount(){
+        return products.stream().mapToInt(Product::getStock).sum();
     }
 
-    /**
-     * @param buyer Agent that buys a product
-     * @param type Type of the product wished to be bought
-     * @return List of products which match multiple criteria (type, price, ...)
-     */
-    public ArrayList<Product> getProductsMatch(Agent buyer, Product.Type type){
-        var res = new ArrayList<Product>();
-        for(Product product: products){
-            if (product.getType() != type) continue;
-            if (product.getPrice() > buyer.getMoney()) continue;
-            if (product.getProducer().getState() != buyer.getState()) continue;
-            res.add(product);
-        }
-        return res;
+    public List<Product> getMatchingProducts(Agent buyer, Product.Type type){
+        return products.stream()
+                .filter(product -> product.getStock() > 0)
+                .filter(product -> product.getType() == type)
+                .filter(product -> product.getProducer().getState() == buyer.getState())
+                .collect(Collectors.toList());
     }
 
     /**
@@ -33,16 +27,13 @@ public class Market {
      * @param type Type of product the buyer wishes to buy
      */
     public void buy(Agent buyer, Product.Type type){
-        var possibleProducts = getProductsMatch(buyer, type);
-        if (possibleProducts.size() == 0) return;
-        var chosenProduct = Utils.randomChoice(possibleProducts);
+        var matchingProducts = getMatchingProducts(buyer, type);
+        if (matchingProducts.size() == 0) return;
+        var chosenProduct = Utils.randomChoice(matchingProducts);
         var price = chosenProduct.getPrice();
         var seller = chosenProduct.getProducer();
         seller.addMoney(price);
         buyer.subtractMoney(price);
-        this.products.remove(chosenProduct);
-        System.out.println("Transaction: " + buyer +
-                " bought from " + seller + " for " + chosenProduct.getPrice());
-        nbTransactions++;
+        chosenProduct.decrementStock();
     }
 }

@@ -7,16 +7,10 @@ import java.util.stream.Stream;
 import static org.apache.commons.lang3.StringUtils.capitalize;
 
 public abstract class Entity {
-    private final String id;
     private final String name;
 
     public Entity(String type){
-        this.id = UUID.randomUUID().toString();
         this.name = type + "-" + capitalize(new Faker().lorem().word());
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getName() {
