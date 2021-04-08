@@ -1,25 +1,29 @@
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class Agent extends Entity {
     private final World world;
     private final State state;
     private float money;
-    private final Product product;
+    private final ArrayList<Product> products;
 
     public Agent(World world, State state, float money) {
         super("Agent");
         this.world = world;
         this.state = state;
         this.money = money;
-        this.product = new Product(this);
+        this.products = new ArrayList<>();
+        for (int i = 0; i < Constants.Agent.NB_PRODUCTS; i++) {
+            this.products.add(new Product(this));
+        }
     }
 
     public State getState() {
         return state;
     }
 
-    public Product getProduct(){
-        return product;
+    public ArrayList<Product> getProducts(){
+        return products;
     }
 
     public float getMoney() {
@@ -34,17 +38,12 @@ public class Agent extends Entity {
         this.money -= value;
     }
 
-
     public void produce(){
-        product.incrementStock();
-    }
-
-    public void sell(){
-        this.product.decrementStock();
+        Utils.randomChoice(products).incrementStock();
     }
 
     public void buy(){
-        this.world.market.buy(this, Product.getRandomType());
+        this.world.market.buy(this, Utils.getRandomInt(0, Constants.Product.NB_UNIQUE));
     }
 
     public void tick(){

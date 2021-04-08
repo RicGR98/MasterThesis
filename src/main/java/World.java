@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class World {
-    private int nbTicks;
+    private final int nbTicks;
     public final Market market;
     private final ArrayList<State> states;
     private final ArrayList<Agent> agents;

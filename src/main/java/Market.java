@@ -5,17 +5,19 @@ import java.util.stream.Collectors;
 
 public class Market {
     // Market.get(State).get(Product.Type) = ArrayList<Product>
-    public final HashMap<State, HashMap<Product.Type, ArrayList<Product>>> products;
+    public final HashMap<State, HashMap<Integer, ArrayList<Product>>> products;
 
     public Market(ArrayList<State> states, ArrayList<Agent> agents){
         products = new HashMap<>();
         for (State state : states) {
             products.put(state, new HashMap<>());
-            for (Product.Type type: Product.getTypes()){
+            for (int type = 0; type < Constants.Product.NB_UNIQUE; type++){
                 products.get(state).put(type, new ArrayList<>());
                 for (Agent agent: agents){
-                    if (agent.getState() == state && agent.getProduct().getType() == type){
-                        products.get(state).get(type).add(agent.getProduct());
+                    for (Product product: agent.getProducts()){
+                        if (agent.getState() == state && product.getType() == type){
+                            products.get(state).get(type).add(product);
+                        }
                     }
                 }
             }
@@ -28,7 +30,7 @@ public class Market {
     public int getProductCount(){
         int res = 0;
         for (State state : products.keySet()) {
-            for (Product.Type type: Product.getTypes()){
+            for (int type = 0; type < Constants.Product.NB_UNIQUE; type++){
                 for (Product product: products.get(state).get(type)){
                     res += product.getStock();
                 }
@@ -42,7 +44,7 @@ public class Market {
      * @param type Type of product the agent wants to buy
      * @return List of filtered product according to State, Type, Stocks, Price, ...
      */
-    public List<Product> getFilteredProducts(Agent buyer, Product.Type type){
+    public List<Product> getFilteredProducts(Agent buyer, int type){
         return products
                 .get(buyer.getState())
                 .get(type)
@@ -56,7 +58,7 @@ public class Market {
      * @param buyer Consumer who wishes to buy a product on the Market
      * @param type Type of product the buyer wishes to buy
      */
-    public void buy(Agent buyer, Product.Type type){
+    public void buy(Agent buyer, int type){
         var matchingProducts = getFilteredProducts(buyer, type);
         if (matchingProducts.size() == 0) return;
         var chosenProduct = Utils.randomChoice(matchingProducts);
