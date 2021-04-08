@@ -18,7 +18,7 @@ public class World {
             Agent agent = new Agent(this, Utils.randomChoice(states), Utils.getRandomInt(0, 1000));
             this.agents.add(agent);
         }
-        this.market = new Market(agents);
+        this.market = new Market(states, agents);
     }
 
     public void tick(){

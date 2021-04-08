@@ -1,24 +1,54 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Market {
-    public final ArrayList<Product> products;
+    // Market.get(State).get(Product.Type) = ArrayList<Product>
+    public final HashMap<State, HashMap<Product.Type, ArrayList<Product>>> products;
 
-    public Market(ArrayList<Agent> agents){
-        products = new ArrayList<>();
-        agents.forEach(agent -> products.add(agent.getProduct()));
+    public Market(ArrayList<State> states, ArrayList<Agent> agents){
+        products = new HashMap<>();
+        for (State state : states) {
+            products.put(state, new HashMap<>());
+            for (Product.Type type: Product.getTypes()){
+                products.get(state).put(type, new ArrayList<>());
+                for (Agent agent: agents){
+                    if (agent.getState() == state && agent.getProduct().getType() == type){
+                        products.get(state).get(type).add(agent.getProduct());
+                    }
+                }
+            }
+        }
     }
 
+    /**
+     * @return Total stocks of all products of the market
+     */
     public int getProductCount(){
-        return products.stream().mapToInt(Product::getStock).sum();
+        int res = 0;
+        for (State state : products.keySet()) {
+            for (Product.Type type: Product.getTypes()){
+                for (Product product: products.get(state).get(type)){
+                    res += product.getStock();
+                }
+            }
+        }
+        return res;
     }
 
-    public List<Product> getMatchingProducts(Agent buyer, Product.Type type){
-        return products.stream()
+    /**
+     * @param buyer Agent who wants to buy a product on the market
+     * @param type Type of product the agent wants to buy
+     * @return List of filtered product according to State, Type, Stocks, Price, ...
+     */
+    public List<Product> getFilteredProducts(Agent buyer, Product.Type type){
+        return products
+                .get(buyer.getState())
+                .get(type)
+                .stream()
                 .filter(product -> product.getStock() > 0)
-                .filter(product -> product.getType() == type)
-                .filter(product -> product.getProducer().getState() == buyer.getState())
+                .filter(product -> product.getPrice() < buyer.getMoney())
                 .collect(Collectors.toList());
     }
 
@@ -27,7 +57,7 @@ public class Market {
      * @param type Type of product the buyer wishes to buy
      */
     public void buy(Agent buyer, Product.Type type){
-        var matchingProducts = getMatchingProducts(buyer, type);
+        var matchingProducts = getFilteredProducts(buyer, type);
         if (matchingProducts.size() == 0) return;
         var chosenProduct = Utils.randomChoice(matchingProducts);
         var price = chosenProduct.getPrice();
