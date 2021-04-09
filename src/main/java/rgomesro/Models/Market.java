@@ -1,10 +1,16 @@
+package rgomesro.Models;
+
+import rgomesro.Constants;
+import rgomesro.Utils;
+
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Market {
-    // Market.get(State).get(Product.Type) = ArrayList<Product>
+    // Market.get(State).get(Product.Type) = ArrayList<ricardo.Models.Product>
     public final HashMap<State, HashMap<Integer, ArrayList<Product>>> products;
 
     public Market(ArrayList<State> states, ArrayList<Agent> agents){
@@ -40,18 +46,20 @@ public class Market {
     }
 
     /**
-     * @param buyer Agent who wants to buy a product on the market
+     * @param buyer ricardo.Models.Agent who wants to buy a product on the market
      * @param type Type of product the agent wants to buy
-     * @return List of filtered product according to State, Type, Stocks, Price, ...
+     * @return List of filtered product according to ricardo.Models.State, Type, Stocks, Price, ...
      */
     public List<Product> getFilteredProducts(Agent buyer, int type){
-        return products
-                .get(buyer.getState())
-                .get(type)
-                .stream()
-                .filter(product -> product.getStock() > 0)
-                .filter(product -> product.getPrice() < buyer.getMoney())
-                .collect(Collectors.toList());
+        var res = new ArrayList<Product>();
+        products.get(buyer.getState()).get(type).forEach(product -> {
+            if (product.getStock() <= 0) return;
+            var stateVAT = product.getProducer().getState().getVat();
+            if (product.getPrice() +  stateVAT.compute(product) > buyer.getMoney()) return;
+            res.add(product);
+        });
+        res.sort(Comparator.comparing(Product::getPrice)); // From lowest to highest price
+        return res;
     }
 
     /**
@@ -61,11 +69,20 @@ public class Market {
     public void buy(Agent buyer, int type){
         var matchingProducts = getFilteredProducts(buyer, type);
         if (matchingProducts.size() == 0) return;
-        var chosenProduct = Utils.randomChoice(matchingProducts);
-        var price = chosenProduct.getPrice();
-        var seller = chosenProduct.getProducer();
-        seller.addMoney(price);
-        buyer.subtractMoney(price);
-        chosenProduct.decrementStock();
+        var product = Utils.randomChoice(matchingProducts);
+        transaction(buyer, product);
+    }
+
+    /**
+     * @param buyer Consumer who wishes to buy a product on the Market
+     * @param product Product the consumer chose to buy
+     */
+    public void transaction(Agent buyer, Product product){
+        var seller = product.getProducer();
+        var state = seller.getState();
+        seller.addMoney(product.getPrice());
+        state.addMoney(state.getVat().compute(product));
+        buyer.subtractMoney(product.getPrice());
+        product.decrementStock();
     }
 }

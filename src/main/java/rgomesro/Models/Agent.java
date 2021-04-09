@@ -1,10 +1,15 @@
+package rgomesro.Models;
+
+import rgomesro.Constants;
+import rgomesro.Utils;
+
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class Agent extends Entity {
     private final World world;
     private final State state;
-    private float money;
+    private Float money;
     private final ArrayList<Product> products;
 
     public Agent(World world, State state, float money) {
@@ -26,7 +31,7 @@ public class Agent extends Entity {
         return products;
     }
 
-    public float getMoney() {
+    public Float getMoney() {
         return money;
     }
 
@@ -53,7 +58,11 @@ public class Agent extends Entity {
             produce();
     }
 
+    public static String csvColumnsNames(){
+        return "Name,Money,State";
+    }
+
     public Stream<String> csvFields(){
-        return Stream.of(getName(), String.valueOf(money), getState().toString());
+        return Stream.of(getName(), money.toString(), getState().toString());
     }
 }

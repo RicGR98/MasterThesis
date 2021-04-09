@@ -1,6 +1,7 @@
+package rgomesro.Models;
+
 import com.github.javafaker.Faker;
 
-import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 

@@ -1,5 +1,8 @@
+package rgomesro.Models;
+
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+import rgomesro.Utils;
 
 public class World {
     private final int nbTicks;
@@ -27,10 +30,10 @@ public class World {
     }
 
     public void run(){
-        for (int i = 0; i < nbTicks; i++) {
+        for (int t = 0; t < nbTicks; t++) {
             this.tick();
-            if (i%100 == 0)
-                System.out.println(i + " " + market.getProductCount());
+            if (t % 100 == 0)
+                System.out.println(t + " " + market.getProductCount());
         }
     }
 
@@ -40,16 +43,18 @@ public class World {
     }
 
     public void saveAgentsToCsv(){
-        String csv = agents.stream()
+        String csv = Agent.csvColumnsNames() + "\n";
+        csv += agents.stream()
                 .map(Agent::toCsv)
-                .collect(Collectors.joining(System.getProperty("line.separator")));
+                .collect(Collectors.joining("\n"));
         Utils.writeToFile("res/agents.csv", csv);
     }
 
     public void saveStatesToCsv(){
-        String csv = states.stream()
+        String csv = State.csvColumnsNames() + "\n";
+        csv += states.stream()
                 .map(State::toCsv)
-                .collect(Collectors.joining(System.getProperty("line.separator")));
+                .collect(Collectors.joining("\n"));
         Utils.writeToFile("res/states.csv", csv);
     }
 }

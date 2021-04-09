@@ -1,8 +1,11 @@
-import java.util.Arrays;
-import java.util.List;
+package rgomesro.Models;
+
+import rgomesro.Constants;
+import rgomesro.Utils;
+
 import java.util.stream.Stream;
 
-public class Product extends Entity{
+public class Product extends Entity {
     private final Agent producer;
     private final int type;
     private final float price;
@@ -32,7 +35,7 @@ public class Product extends Entity{
         return type;
     }
 
-    public float getPrice() {
+    public Float getPrice() {
         return price;
     }
 
