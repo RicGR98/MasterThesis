@@ -10,8 +10,8 @@ import static org.apache.commons.lang3.StringUtils.capitalize;
 public abstract class Entity {
     private final String name;
 
-    public Entity(String type){
-        this.name = type + "-" + capitalize(new Faker().lorem().word());
+    public Entity(){
+        this.name = capitalize(new Faker().lorem().fixedString(5));
     }
 
     public String getName() {

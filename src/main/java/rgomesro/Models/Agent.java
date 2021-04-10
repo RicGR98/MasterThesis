@@ -14,7 +14,7 @@ public class Agent extends Entity {
     private final ArrayList<Product> products;
 
     public Agent(World world, State state, float money) {
-        super("Agent");
+        super();
         this.world = world;
         this.state = state;
         this.money = money;

@@ -1,7 +1,6 @@
 package rgomesro.Models;
 
 import rgomesro.Constants;
-import rgomesro.Models.Entity;
 import rgomesro.Taxes.VAT;
 import rgomesro.Utils;
 
@@ -12,7 +11,7 @@ public class State extends Entity {
     private final VAT vat;
 
     public State() {
-        super("State");
+        super();
         this.vat = new VAT(Utils.getRandomFloat(Constants.State.MIN_VAT, Constants.State.MAX_VAT));
     }
 
@@ -21,7 +20,7 @@ public class State extends Entity {
     }
 
     public static String csvColumnsNames(){
-        return "Name,Vat,Money";
+        return "Name,VAT,Money";
     }
 
     public Stream<String> csvFields(){

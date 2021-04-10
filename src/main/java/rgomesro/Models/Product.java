@@ -12,7 +12,7 @@ public class Product extends Entity {
     private int stock;
 
     public Product(Agent agent, int type, float price) {
-        super("Product");
+        super();
         this.producer = agent;
         this.type = type;
         this.price = price;
