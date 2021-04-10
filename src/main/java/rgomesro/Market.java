@@ -1,13 +1,15 @@
-package rgomesro.Models;
+package rgomesro;
 
 import rgomesro.Constants;
+import rgomesro.Models.Agent;
+import rgomesro.Models.Product;
+import rgomesro.Models.State;
 import rgomesro.Utils;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Market {
     // Market.get(State).get(Product.Type) = ArrayList<ricardo.Models.Product>

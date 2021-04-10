@@ -1,8 +1,10 @@
-package rgomesro.Models;
+package rgomesro;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-import rgomesro.Utils;
+
+import rgomesro.Models.Agent;
+import rgomesro.Models.State;
 
 public class World {
     private final int nbTicks;

@@ -1,7 +1,8 @@
 package rgomesro.Models;
 
 import rgomesro.Constants;
-import rgomesro.Models.Taxes.VAT;
+import rgomesro.Models.Entity;
+import rgomesro.Taxes.VAT;
 import rgomesro.Utils;
 
 import java.util.stream.Stream;

@@ -2,6 +2,7 @@ package rgomesro.Models;
 
 import rgomesro.Constants;
 import rgomesro.Utils;
+import rgomesro.World;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;

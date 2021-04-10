@@ -1,4 +1,4 @@
-package rgomesro.Models.Taxes;
+package rgomesro.Taxes;
 
 import rgomesro.Models.Product;
 
