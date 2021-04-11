@@ -1,8 +1,9 @@
-package rgomesro;
+package rgomesro.models;
 
-import rgomesro.Models.Agent;
-import rgomesro.Models.Product;
-import rgomesro.Models.State;
+import rgomesro.models.entities.Agent;
+import rgomesro.models.entities.Product;
+import rgomesro.models.entities.State;
+import rgomesro.utils.RandomUtils;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -11,24 +12,24 @@ import java.util.List;
 
 import static rgomesro.Constants.Product.NB_DIFF_PRODUCTS;
 
+/**
+ * Represents a Market where Products are sold by Agent's
+ */
 public class Market {
     public final World world;
     public final HashMap<State, HashMap<Integer, ArrayList<Product>>> products; // Market.get(State).get(Product.Type) = ArrayList<Product>
 
     /* ==================================
-     *  ==== Constructors
-     *  ================================== */
-    /**
-     * Represents a Market where Products are sold by Agent's
-     */
+     * ==== Constructors
+     * ================================== */
     public Market(World world){
         this.world = world;
         products = new HashMap<>();
     }
 
     /* ==================================
-     *  ==== Getters
-     *  ================================== */
+     * ==== Getters
+     * ================================== */
     /**
      * @return Total stocks of all products of the market
      */
@@ -45,8 +46,8 @@ public class Market {
     }
 
     /* ==================================
-     *  ==== Methods: products
-     *  ================================== */
+     * ==== Methods: products
+     * ================================== */
     /**
      * Initialize the Market's products classified by State and Product type
      */
@@ -82,8 +83,8 @@ public class Market {
     }
 
     /* ==================================
-     *  ==== Methods: actions
-     *  ================================== */
+     * ==== Methods: actions
+     * ================================== */
     /**
      * @param buyer Consumer who wishes to buy a product on the Market
      * @param type Type of product the buyer wishes to buy
@@ -91,12 +92,12 @@ public class Market {
     public void buy(Agent buyer, int type){
         var matchingProducts = getFilteredProducts(buyer, type);
         if (matchingProducts.size() == 0) return;
-        var product = Utils.randomChoice(matchingProducts);
+        var product = RandomUtils.randomChoice(matchingProducts);
         transaction(buyer, product);
     }
 
     public void buy(Agent buyer){
-        this.buy(buyer, Utils.getRandomInt(0, NB_DIFF_PRODUCTS));
+        this.buy(buyer, RandomUtils.getRandomInt(0, NB_DIFF_PRODUCTS));
     }
 
     /**

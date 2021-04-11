@@ -1,4 +1,4 @@
-package rgomesro.Models;
+package rgomesro.models.entities;
 
 import com.github.javafaker.Faker;
 
@@ -7,29 +7,29 @@ import java.util.stream.Stream;
 
 import static org.apache.commons.lang3.StringUtils.capitalize;
 
+/**
+ * Represents the base for the Models who need an Id
+ */
 public abstract class Entity {
     protected final String id;
 
     /* ==================================
-     *  ==== Constructors
-     *  ================================== */
-    /**
-     * Represents the base for the Models who need an Id
-     */
+     * ==== Constructors
+     * ================================== */
     public Entity(){
         this.id = capitalize(new Faker().lorem().fixedString(5));
     }
 
     /* ==================================
-     *  ==== Getters
-     *  ================================== */
+     * ==== Getters
+     * ================================== */
     public String getId() {
         return id;
     }
 
     /* ==================================
-     *  ==== Methods: csv
-     *  ================================== */
+     * ==== Methods: csv
+     * ================================== */
     /**
      * @return Stream of all the property values of an Entity
      */

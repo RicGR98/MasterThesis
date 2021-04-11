@@ -1,27 +1,30 @@
-package rgomesro.Models;
+package rgomesro.models.entities;
 
-import rgomesro.Market;
-import rgomesro.Utils;
+import rgomesro.models.Market;
+import rgomesro.utils.RandomUtils;
 
 import java.util.stream.Stream;
 
 import static rgomesro.Constants.Agent.RATIO_BUY;
 import static rgomesro.Constants.Agent.RATIO_PRODUCE;
 
+/**
+ * Represents an Agent in the World who produces, sells, and buys Products on the Market
+ */
 public class Agent extends Entity {
     private final Market market;
     private final State state;
     private Float money;
     private final Product product;
 
+    /* ==================================
+     * ==== Constructors
+     * ================================== */
     /**
      * @param market Market of the World
      * @param state State to which the Agent belongs
      * @param money Initial money of the Agent
      */
-    /* ==================================
-     *  ==== Constructors
-     *  ================================== */
     public Agent(Market market, State state, float money) {
         super();
         this.market = market;
@@ -31,8 +34,8 @@ public class Agent extends Entity {
     }
 
     /* ==================================
-     *  ==== Getters
-     *  ================================== */
+     * ==== Getters
+     * ================================== */
     public State getState() {
         return state;
     }
@@ -42,8 +45,8 @@ public class Agent extends Entity {
     }
 
     /* ==================================
-     *  ==== Methods: csv
-     *  ================================== */
+     * ==== Methods: csv
+     * ================================== */
     public static String csvHeader() {
         return "Id,Product,Money,State";
     }
@@ -53,8 +56,8 @@ public class Agent extends Entity {
     }
 
     /* ==================================
-     *  ==== Methods: money
-     *  ================================== */
+     * ==== Methods: money
+     * ================================== */
     /**
      * @param money Amount of money to check
      * @return true if user has, at least, the amount of money
@@ -79,8 +82,8 @@ public class Agent extends Entity {
     }
 
     /* ==================================
-     *  ==== Methods: actions
-     *  ================================== */
+     * ==== Methods: actions
+     * ================================== */
     /**
      * Produce a unit of its product
      */
@@ -99,9 +102,9 @@ public class Agent extends Entity {
      * Represent a step in the Agent's lifetime where it can perform actions
      */
     public void tick(){
-        if (Utils.getRandom() < RATIO_BUY)
+        if (RandomUtils.getRandom() < RATIO_BUY)
             buy();
-        if (Utils.getRandom() < RATIO_PRODUCE)
+        if (RandomUtils.getRandom() < RATIO_PRODUCE)
             produce();
     }
 }

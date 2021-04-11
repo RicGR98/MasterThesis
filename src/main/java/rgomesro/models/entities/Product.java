@@ -1,11 +1,14 @@
-package rgomesro.Models;
+package rgomesro.models.entities;
 
-import rgomesro.Utils;
+import rgomesro.utils.RandomUtils;
 
 import java.util.stream.Stream;
 
 import static rgomesro.Constants.Product.*;
 
+/**
+ * Represent a Product that can be produced, sold and bought by an Agent on the Market
+ */
 public class Product extends Entity {
     private final Agent producer;
     private final int type;
@@ -14,10 +17,9 @@ public class Product extends Entity {
     private int sold;
 
     /* ==================================
-    *  ==== Constructors
-    *  ================================== */
+     * ==== Constructors
+     * ================================== */
     /**
-     * Represnts
      * @param agent Agent who produces this product
      * @param type Type of the product
      * @param price Price of the product (without taxes)
@@ -32,16 +34,16 @@ public class Product extends Entity {
     }
 
     public Product(Agent agent, float price){
-        this(agent, Utils.getRandomInt(0, NB_DIFF_PRODUCTS), price);
+        this(agent, RandomUtils.getRandomInt(0, NB_DIFF_PRODUCTS), price);
     }
 
     public Product(Agent agent){
-        this(agent, Utils.getRandomInt(0, NB_DIFF_PRODUCTS), Utils.getRandomFloat(MIN_PRICE, MAX_PRICE));
+        this(agent, RandomUtils.getRandomInt(0, NB_DIFF_PRODUCTS), RandomUtils.getRandomFloat(MIN_PRICE, MAX_PRICE));
     }
 
     /* ==================================
-     *  ==== Getters
-     *  ================================== */
+     * ==== Getters
+     * ================================== */
     public Agent getProducer() {
         return producer;
     }
@@ -63,8 +65,8 @@ public class Product extends Entity {
     }
 
     /* ==================================
-     *  === Methods: csv
-     *  ================================== */
+     * === Methods: csv
+     * ================================== */
     public String csvHeader() {
         return "Id";
     }
@@ -74,8 +76,8 @@ public class Product extends Entity {
     }
 
     /* ==================================
-     *  === Methods: actions
-     *  ================================== */
+     * === Methods: actions
+     * ================================== */
     /**
      * Sell of a unit of this Product
      */

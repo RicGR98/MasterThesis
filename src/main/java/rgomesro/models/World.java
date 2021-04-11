@@ -1,24 +1,25 @@
-package rgomesro;
+package rgomesro.models;
 
-import rgomesro.Models.Agent;
-import rgomesro.Models.State;
+import rgomesro.models.entities.Agent;
+import rgomesro.models.entities.State;
+import rgomesro.utils.FileUtils;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import static rgomesro.Constants.World.*;
 
+/**
+ * Represents the World holding the Market, States, Agents, ...
+ */
 public class World {
     private final Market market;
     private final ArrayList<State> states;
     private final ArrayList<Agent> agents;
 
     /* ==================================
-     *  ==== Constructors
-     *  ================================== */
-    /**
-     * Represents the World holding the Market, States, Agents, ...
-     */
+     * ==== Constructors
+     * ================================== */
     public World(){
         this.market = new Market(this);
         this.states = new ArrayList<>(NB_STATES);
@@ -34,8 +35,8 @@ public class World {
     }
 
     /* ==================================
-     *  ==== Getters
-     *  ================================== */
+     * ==== Getters
+     * ================================== */
     public ArrayList<State> getStates() {
         return states;
     }
@@ -45,8 +46,8 @@ public class World {
     }
 
     /* ==================================
-     *  ==== Methods: actions
-     *  ================================== */
+     * ==== Methods: actions
+     * ================================== */
     /**
      * Represent a step in the World's lifetime where its Entities can performd actions
      */
@@ -67,8 +68,8 @@ public class World {
     }
 
     /* ==================================
-     *  ==== Methods: csv
-     *  ================================== */
+     * ==== Methods: csv
+     * ================================== */
     /**
      * Save all Entities to csv files for analysis later
      */
@@ -85,7 +86,7 @@ public class World {
         csv += agents.stream()
                 .map(Agent::toCsv)
                 .collect(Collectors.joining("\n"));
-        Utils.writeToFile("res/agents.csv", csv);
+        FileUtils.writeToFile("res/agents.csv", csv);
     }
 
     /**
@@ -96,6 +97,6 @@ public class World {
         csv += states.stream()
                 .map(State::toCsv)
                 .collect(Collectors.joining("\n"));
-        Utils.writeToFile("res/states.csv", csv);
+        FileUtils.writeToFile("res/states.csv", csv);
     }
 }

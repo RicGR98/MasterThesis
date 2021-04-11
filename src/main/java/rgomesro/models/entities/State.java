@@ -1,39 +1,39 @@
-package rgomesro.Models;
+package rgomesro.models.entities;
 
-import rgomesro.Taxes.VAT;
-import rgomesro.Utils;
+import rgomesro.models.taxes.VAT;
+import rgomesro.utils.RandomUtils;
 
 import java.util.stream.Stream;
 
 import static rgomesro.Constants.State.MAX_VAT;
 import static rgomesro.Constants.State.MIN_VAT;
 
+/**
+ * Represents a State to which Agents belong
+ */
 public class State extends Entity {
     private Float money = 0f;
     private final VAT vat;
 
     /* ==================================
-     *  ==== Constructors
-     *  ================================== */
-    /**
-     * Represents a State to which Agents belong
-     */
+     * ==== Constructors
+     * ================================== */
     public State() {
         super();
-        this.vat = new VAT(Utils.getRandomFloat(MIN_VAT, MAX_VAT));
+        this.vat = new VAT(RandomUtils.getRandomFloat(MIN_VAT, MAX_VAT));
     }
 
     /* ==================================
-     *  ==== Getters
-     *  ================================== */
+     * ==== Getters
+     * ================================== */
     public VAT getVat(){
         return this.vat;
     }
 
 
     /* ==================================
-     *  ==== Methods: csv
-     *  ================================== */
+     * ==== Methods: csv
+     * ================================== */
     public static String csvHeader(){
         return "Id,VAT,Money";
     }
@@ -43,8 +43,8 @@ public class State extends Entity {
     }
 
     /* ==================================
-     *  ==== Methods: money
-     *  ================================== */
+     * ==== Methods: money
+     * ================================== */
     /**
      * @param value Money to add to the State's money
      */
@@ -61,8 +61,8 @@ public class State extends Entity {
     }
 
     /* ==================================
-     *  ==== Methods: actions
-     *  ================================== */
+     * ==== Methods: actions
+     * ================================== */
     /**
      * Collect all taxes the State has implemented
      */
