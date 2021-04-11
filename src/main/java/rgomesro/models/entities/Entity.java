@@ -27,6 +27,11 @@ public abstract class Entity {
         return id;
     }
 
+    @Override
+    public String toString() {
+        return this.getId();
+    }
+
     /* ==================================
      * ==== Methods: csv
      * ================================== */

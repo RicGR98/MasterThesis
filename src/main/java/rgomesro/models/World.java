@@ -3,6 +3,7 @@ package rgomesro.models;
 import rgomesro.models.entities.Agent;
 import rgomesro.models.entities.State;
 import rgomesro.utils.FileUtils;
+import rgomesro.utils.RandomUtils;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -24,11 +25,11 @@ public class World {
         this.market = new Market(this);
         this.states = new ArrayList<>(NB_STATES);
         for (int i = 0; i < NB_STATES; i++) {
-            this.states.add(new State());
+            this.states.add(new State(this));
         }
         this.agents = new ArrayList<>(NB_AGENTS);
         for (int i = 0; i < NB_AGENTS; i++) {
-            Agent agent = new Agent(market, states.get(i % NB_STATES), 1000);
+            Agent agent = new Agent(market, RandomUtils.randomChoice(states), 1000);
             this.agents.add(agent);
         }
         market.initMarket();
@@ -43,6 +44,19 @@ public class World {
 
     public ArrayList<Agent> getAgents() {
         return agents;
+    }
+
+    /**
+     * @param state State
+     * @return Agents belonging to a State
+     */
+    public ArrayList<Agent> getPopulationOfState(State state){
+        var population = new ArrayList<Agent>();
+        agents.forEach(agent -> {
+            if (agent.getState() == state)
+                population.add(agent);
+        });
+        return population;
     }
 
     /* ==================================

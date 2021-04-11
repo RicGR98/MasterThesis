@@ -1,8 +1,10 @@
 package rgomesro.models.entities;
 
+import rgomesro.models.World;
 import rgomesro.models.taxes.VAT;
 import rgomesro.utils.RandomUtils;
 
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import static rgomesro.Constants.State.MAX_VAT;
@@ -12,14 +14,19 @@ import static rgomesro.Constants.State.MIN_VAT;
  * Represents a State to which Agents belong
  */
 public class State extends Entity {
-    private Float money = 0f;
+    private final World world;
     private final VAT vat;
+    private Float money = 0f;
 
     /* ==================================
      * ==== Constructors
      * ================================== */
-    public State() {
+    /**
+     * @param world Reference to the World
+     */
+    public State(World world) {
         super();
+        this.world = world;
         this.vat = new VAT(RandomUtils.getRandomFloat(MIN_VAT, MAX_VAT));
     }
 
@@ -30,16 +37,35 @@ public class State extends Entity {
         return this.vat;
     }
 
+    public ArrayList<Agent> getPopulation(){
+        return world.getPopulationOfState(this);
+    }
+
+    /**
+     * @return Total amount of money of the population
+     */
+    public Float getPopulationMoney(){
+        Float total = 0f;
+        for (Agent agent: getPopulation()){
+            total += agent.getMoney();
+        }
+        return total;
+    }
 
     /* ==================================
      * ==== Methods: csv
      * ================================== */
     public static String csvHeader(){
-        return "Id,VAT,Money";
+        return "Id,VAT,Money,PopulationSize,PopulationMoney";
     }
 
     public Stream<String> properties(){
-        return Stream.of(id, vat.getValue().toString(), money.toString());
+        return Stream.of(
+                id,
+                vat.getValue().toString(),
+                money.toString(),
+                String.valueOf(getPopulation().size()),
+                getPopulationMoney().toString());
     }
 
     /* ==================================

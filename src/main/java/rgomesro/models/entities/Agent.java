@@ -44,6 +44,10 @@ public class Agent extends Entity {
         return product;
     }
 
+    public Float getMoney(){
+        return money;
+    }
+
     /* ==================================
      * ==== Methods: csv
      * ================================== */
@@ -52,7 +56,11 @@ public class Agent extends Entity {
     }
 
     public Stream<String> properties(){
-        return Stream.of(id, product.getType().toString(), money.toString(), state.toString());
+        return Stream.of(
+                id,
+                product.getType().toString(),
+                money.toString(),
+                state.toString());
     }
 
     /* ==================================
