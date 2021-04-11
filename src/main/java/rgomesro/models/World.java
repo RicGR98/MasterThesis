@@ -96,7 +96,7 @@ public class World {
      * Save all Agents to csv
      */
     public void saveAgentsToCsv(){
-//        FileUtils.fileDelete(CSV_AGENTS);
+        FileUtils.fileDelete(CSV_AGENTS);
         String csv = "";
         if (!FileUtils.fileExists(CSV_AGENTS))
             csv += Agent.csvHeader() + "\n";
@@ -110,7 +110,7 @@ public class World {
      * Save all States to csv
      */
     public void saveStatesToCsv(){
-//        FileUtils.fileDelete(CSV_STATES);
+        FileUtils.fileDelete(CSV_STATES);
         String csv = "";
         if (!FileUtils.fileExists(CSV_STATES))
             csv += State.csvHeader() + "\n";
