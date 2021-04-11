@@ -96,21 +96,27 @@ public class World {
      * Save all Agents to csv
      */
     public void saveAgentsToCsv(){
-        String csv = Agent.csvHeader() + "\n";
+//        FileUtils.fileDelete(CSV_AGENTS);
+        String csv = "";
+        if (!FileUtils.fileExists(CSV_AGENTS))
+            csv += Agent.csvHeader() + "\n";
         csv += agents.stream()
                 .map(Agent::toCsv)
                 .collect(Collectors.joining("\n"));
-        FileUtils.writeToFile("res/agents.csv", csv);
+        FileUtils.writeToFile(CSV_AGENTS, csv);
     }
 
     /**
      * Save all States to csv
      */
     public void saveStatesToCsv(){
-        String csv = State.csvHeader() + "\n";
+//        FileUtils.fileDelete(CSV_STATES);
+        String csv = "";
+        if (!FileUtils.fileExists(CSV_STATES))
+            csv += State.csvHeader() + "\n";
         csv += states.stream()
                 .map(State::toCsv)
                 .collect(Collectors.joining("\n"));
-        FileUtils.writeToFile("res/states.csv", csv);
+        FileUtils.writeToFile(CSV_STATES, csv);
     }
 }

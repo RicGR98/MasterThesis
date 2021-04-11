@@ -12,6 +12,9 @@ public final class Constants {
         public static final int NB_TICKS = 20001;
         public static final int NB_STATES = 30;
         public static final int NB_AGENTS = 5000;
+
+        public static final String CSV_STATES = "res/states.csv";
+        public static final String CSV_AGENTS = "res/agents.csv";
     }
 
     /**

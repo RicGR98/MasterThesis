@@ -23,7 +23,7 @@ def vatInfluence():
     """
     Analyse the influence of the State's VAT on two metrics:
     1. The money of the State itself
-    2. The money of an average agent of this State
+    2. The average money of an agent of this State
     """
     df = sanitizedStates()
     df = df.sort_values('VAT')
@@ -41,7 +41,7 @@ def vatInfluence():
 
     # Draw line 2: money of an average agent of this State
     color = 'tab:blue'
-    ax2.set_ylabel("Money of an average agent", color=color)
+    ax2.set_ylabel("Average money of an agent", color=color)
     ax2.plot(df["VAT"], df["PopulationMoney"], color=color)
     ax2.tick_params(axis='y', labelcolor=color)
 
