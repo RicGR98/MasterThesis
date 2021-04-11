@@ -30,6 +30,7 @@ def vatInfluence():
     df = df.sort_values('VAT')
 
     fig, ax1 = plt.subplots()
+    fig.suptitle("Influence of a State's VAT on wealth")
     ax1.set_xlabel("State's VAT")
 
     # Draw line 1: money of the State itself
@@ -40,7 +41,7 @@ def vatInfluence():
 
     ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
 
-    # Draw line 2: money of an average agent of this State
+    # Draw line 2: average money of an agent of this State
     color = 'tab:blue'
     ax2.set_ylabel("Average money of an agent", color=color)
     ax2.plot(df["VAT"], df["PopulationMoney"], color=color)
@@ -50,21 +51,31 @@ def vatInfluence():
     plt.show()
 
 
-def lorenzCurve():
+def gini():
+    df = pd.read_csv(CSV_AGENTS)
+    X = df.sort_values('Money')["Money"]
+    n = X.size
+    coef_ = 2. / n
+    const_ = (n + 1.) / n
+    weighted_sum = sum([(i+1)*yi for i, yi in enumerate(X)])
+    return round(coef_*weighted_sum/(X.sum()) - const_, 3)
+
+
+def agentsWealthDistribution():
     df = pd.read_csv(CSV_AGENTS)
     X = df["Money"]
 
     X_lorenz = X.cumsum() / X.sum()
     fig, ax = plt.subplots()
 
-    fig.suptitle('Wealth distribution')
+    fig.suptitle('Wealth distribution (Gini coeff: ' + str(gini()) + ")")
     ax.set_xlabel("Fraction of population")
     ax.set_ylabel("Fraction of wealth")
 
-    # scatter plot of Lorenz curve
+    # Scatter plot of Lorenz curve
     ax.scatter(np.arange(X_lorenz.size)/(X_lorenz.size-1), X_lorenz, color='blue', label="Lorenz curve")
 
-    # line plot of equality
+    # Line plot of equality
     ax.plot([0, 1], [0, 1], color='red', label="Perfect equality")
 
     plt.legend()
@@ -72,7 +83,7 @@ def lorenzCurve():
 
 
 def main():
-    lorenzCurve()
+    agentsWealthDistribution()
     vatInfluence()
 
 

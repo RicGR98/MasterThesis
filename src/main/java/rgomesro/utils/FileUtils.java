@@ -36,6 +36,7 @@ public class FileUtils {
      * @param filename Filename to delete
      */
     public static void fileDelete(String filename){
-        new File(filename).delete();
+        if (fileExists(filename))
+            new File(filename).delete();
     }
 }
