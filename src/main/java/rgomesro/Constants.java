@@ -4,6 +4,14 @@ public final class Constants {
 
     private Constants() { }
 
+    public static final class World {
+        private World() {}
+
+        public static final int NB_TICKS = 20001;
+        public static final int NB_STATES = 30;
+        public static final int NB_AGENTS = 5000;
+    }
+
     public static final class State {
         private State() {}
 
@@ -22,7 +30,7 @@ public final class Constants {
     public static final class Product {
         private Product() {}
 
-        public static final int NB_UNIQUE = 10;
+        public static final int NB_DIFF_PRODUCTS = 10;
         public static final float MIN_PRICE = 0;
         public static final float MAX_PRICE = 100;
     }

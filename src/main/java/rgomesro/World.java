@@ -1,29 +1,30 @@
 package rgomesro;
 
-import java.util.ArrayList;
-import java.util.stream.Collectors;
-
 import rgomesro.Models.Agent;
 import rgomesro.Models.State;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
+import static rgomesro.Constants.World.*;
+
 public class World {
-    private final int nbTicks;
-    public final Market market;
+    private final Market market;
     private final ArrayList<State> states;
     private final ArrayList<Agent> agents;
 
-    public World(int nbTicks, int nbStates, int nbAgents){
-        this.nbTicks = nbTicks;
-        this.states = new ArrayList<>(nbStates);
-        for (int i = 0; i < nbStates; i++) {
+    public World(){
+        this.market = new Market();
+        this.states = new ArrayList<>(NB_STATES);
+        for (int i = 0; i < NB_STATES; i++) {
             this.states.add(new State());
         }
-        this.agents = new ArrayList<>(nbAgents);
-        for (int i = 0; i < nbAgents; i++) {
-            Agent agent = new Agent(this, Utils.randomChoice(states), Utils.getRandomInt(0, 1000));
+        this.agents = new ArrayList<>(NB_AGENTS);
+        for (int i = 0; i < NB_AGENTS; i++) {
+            Agent agent = new Agent(market, states.get(i % NB_STATES), 1000);
             this.agents.add(agent);
         }
-        this.market = new Market(states, agents);
+        market.initMarket(states, agents);
     }
 
     public void tick(){
@@ -32,7 +33,7 @@ public class World {
     }
 
     public void run(){
-        for (int t = 0; t < nbTicks; t++) {
+        for (int t = 0; t < NB_TICKS; t++) {
             this.tick();
             if (t % 100 == 0)
                 System.out.println(t + " " + market.getProductCount());

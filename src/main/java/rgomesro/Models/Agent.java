@@ -1,39 +1,41 @@
 package rgomesro.Models;
 
-import rgomesro.Constants;
+import rgomesro.Market;
 import rgomesro.Utils;
-import rgomesro.World;
 
-import java.util.ArrayList;
 import java.util.stream.Stream;
 
+import static rgomesro.Constants.Agent.RATIO_BUY;
+import static rgomesro.Constants.Agent.RATIO_PRODUCE;
+
 public class Agent extends Entity {
-    private final World world;
+    private final Market market;
     private final State state;
     private Float money;
-    private final ArrayList<Product> products;
+    private final Product product;
 
-    public Agent(World world, State state, float money) {
+    public Agent(Market market, State state, float money) {
         super();
-        this.world = world;
+        this.market = market;
         this.state = state;
         this.money = money;
-        this.products = new ArrayList<>();
-        for (int i = 0; i < Constants.Agent.NB_PRODUCTS; i++) {
-            this.products.add(new Product(this));
-        }
+        this.product = new Product(this);
     }
 
     public State getState() {
         return state;
     }
 
-    public ArrayList<Product> getProducts(){
-        return products;
+    public Product getProduct(){
+        return product;
     }
 
     public Float getMoney() {
         return money;
+    }
+
+    public Boolean hasEnoughMoney(Float money) {
+        return this.money > money;
     }
 
     public void addMoney(float value){
@@ -42,28 +44,29 @@ public class Agent extends Entity {
 
     public void subtractMoney(float value){
         this.money -= value;
+        assert (this.money > 0);
     }
 
     public void produce(){
-        Utils.randomChoice(products).incrementStock();
+        product.produce();
     }
 
     public void buy(){
-        this.world.market.buy(this, Utils.getRandomInt(0, Constants.Product.NB_UNIQUE));
+        this.market.buy(this);
     }
 
     public void tick(){
-        if (Utils.getRandom() < Constants.Agent.RATIO_BUY)
+        if (Utils.getRandom() < RATIO_BUY)
             buy();
-        if (Utils.getRandom() < Constants.Agent.RATIO_PRODUCE)
+        if (Utils.getRandom() < RATIO_PRODUCE)
             produce();
     }
 
     public static String csvColumnsNames(){
-        return "Name,Money,State";
+        return "Id,Product,Money,State";
     }
 
     public Stream<String> csvFields(){
-        return Stream.of(getName(), money.toString(), getState().toString());
+        return Stream.of(getId(), product.getType().toString(), money.toString(), getState().toString());
     }
 }

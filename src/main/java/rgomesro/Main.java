@@ -2,10 +2,13 @@ package rgomesro;
 
 public class Main {
     public static void main(String[] args){
-        World world = new World(20001, 5, 5000);
         long start = System.nanoTime();
+        World world = new World();
+        long startRun = System.nanoTime();
         world.run();
-        System.out.println((System.nanoTime()-start)/1000000000.0);
+        long end = System.nanoTime();
+        long denom = 1000000000;
+        System.out.println((startRun - start)/denom + " + " + (end - startRun)/denom + " = " + (end - start)/denom + "s");
         world.saveToCsv();
     }
 }

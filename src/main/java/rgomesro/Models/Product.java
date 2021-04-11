@@ -10,6 +10,7 @@ public class Product extends Entity {
     private final int type;
     private final float price;
     private int stock;
+    private int sold;
 
     public Product(Agent agent, int type, float price) {
         super();
@@ -17,21 +18,22 @@ public class Product extends Entity {
         this.type = type;
         this.price = price;
         this.stock = 0;
+        this.sold = 0;
     }
 
     public Product(Agent agent, float price){
-        this(agent, Utils.getRandomInt(0, Constants.Product.NB_UNIQUE), price);
+        this(agent, Utils.getRandomInt(0, Constants.Product.NB_DIFF_PRODUCTS), price);
     }
 
     public Product(Agent agent){
-        this(agent, Utils.getRandomInt(0, Constants.Product.NB_UNIQUE), Utils.getRandomFloat(Constants.Product.MIN_PRICE, Constants.Product.MAX_PRICE));
+        this(agent, Utils.getRandomInt(0, Constants.Product.NB_DIFF_PRODUCTS), Utils.getRandomFloat(Constants.Product.MIN_PRICE, Constants.Product.MAX_PRICE));
     }
 
     public Agent getProducer() {
         return producer;
     }
 
-    public int getType() {
+    public Integer getType() {
         return type;
     }
 
@@ -43,15 +45,17 @@ public class Product extends Entity {
         return stock;
     }
 
-    public void incrementStock(){
+    public void sell(){
+        assert (stock > 0);
+        stock--;
+        sold++;
+    }
+
+    public void produce(){
         stock++;
     }
 
-    public void decrementStock(){
-        stock--;
-    }
-
     public Stream<String> csvFields(){
-        return Stream.of(getName());
+        return Stream.of(getId());
     }
 }

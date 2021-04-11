@@ -8,19 +8,19 @@ import java.util.stream.Stream;
 import static org.apache.commons.lang3.StringUtils.capitalize;
 
 public abstract class Entity {
-    private final String name;
+    private final String id;
 
     public Entity(){
-        this.name = capitalize(new Faker().lorem().fixedString(5));
+        this.id = capitalize(new Faker().lorem().fixedString(5));
     }
 
-    public String getName() {
-        return name;
+    public String getId() {
+        return id;
     }
 
     @Override
     public String toString() {
-        return this.name;
+        return this.id;
     }
 
     public abstract Stream<String> csvFields();

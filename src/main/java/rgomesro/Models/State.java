@@ -1,10 +1,12 @@
 package rgomesro.Models;
 
-import rgomesro.Constants;
 import rgomesro.Taxes.VAT;
 import rgomesro.Utils;
 
 import java.util.stream.Stream;
+
+import static rgomesro.Constants.State.MAX_VAT;
+import static rgomesro.Constants.State.MIN_VAT;
 
 public class State extends Entity {
     private Float money = 0f;
@@ -12,7 +14,7 @@ public class State extends Entity {
 
     public State() {
         super();
-        this.vat = new VAT(Utils.getRandomFloat(Constants.State.MIN_VAT, Constants.State.MAX_VAT));
+        this.vat = new VAT(Utils.getRandomFloat(MIN_VAT, MAX_VAT));
     }
 
     public VAT getVat(){
@@ -20,11 +22,11 @@ public class State extends Entity {
     }
 
     public static String csvColumnsNames(){
-        return "Name,VAT,Money";
+        return "Id,VAT,Money";
     }
 
     public Stream<String> csvFields(){
-        return Stream.of(getName(), vat.getValue().toString(), money.toString());
+        return Stream.of(getId(), vat.getValue().toString(), money.toString());
     }
 
     public void addMoney(float money){
