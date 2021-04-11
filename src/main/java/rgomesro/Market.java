@@ -12,27 +12,23 @@ import java.util.List;
 import static rgomesro.Constants.Product.NB_DIFF_PRODUCTS;
 
 public class Market {
-    // Market.get(State).get(Product.Type) = ArrayList<Product>
-    public final HashMap<State, HashMap<Integer, ArrayList<Product>>> products;
+    public final World world;
+    public final HashMap<State, HashMap<Integer, ArrayList<Product>>> products; // Market.get(State).get(Product.Type) = ArrayList<Product>
 
-    public Market(){
+    /* ==================================
+     *  ==== Constructors
+     *  ================================== */
+    /**
+     * Represents a Market where Products are sold by Agent's
+     */
+    public Market(World world){
+        this.world = world;
         products = new HashMap<>();
     }
 
-    public void initMarket(ArrayList<State> states, ArrayList<Agent> agents){
-        for (State state : states) {
-            products.put(state, new HashMap<>());
-            for (int type = 0; type < NB_DIFF_PRODUCTS; type++){
-                products.get(state).put(type, new ArrayList<>());
-                for (Agent agent: agents){
-                    if (agent.getState() == state && agent.getProduct().getType() == type){
-                        products.get(state).get(type).add(agent.getProduct());
-                    }
-                }
-            }
-        }
-    }
-
+    /* ==================================
+     *  ==== Getters
+     *  ================================== */
     /**
      * @return Total stocks of all products of the market
      */
@@ -46,6 +42,26 @@ public class Market {
             }
         }
         return res;
+    }
+
+    /* ==================================
+     *  ==== Methods: products
+     *  ================================== */
+    /**
+     * Initialize the Market's products classified by State and Product type
+     */
+    public void initMarket(){
+        for (State state : world.getStates()) {
+            products.put(state, new HashMap<>());
+            for (int type = 0; type < NB_DIFF_PRODUCTS; type++){
+                products.get(state).put(type, new ArrayList<>());
+                for (Agent agent: world.getAgents()){
+                    if (agent.getState() == state && agent.getProduct().getType() == type){
+                        products.get(state).get(type).add(agent.getProduct());
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -65,6 +81,9 @@ public class Market {
         return res;
     }
 
+    /* ==================================
+     *  ==== Methods: actions
+     *  ================================== */
     /**
      * @param buyer Consumer who wishes to buy a product on the Market
      * @param type Type of product the buyer wishes to buy

@@ -1,9 +1,11 @@
 package rgomesro;
 
 public final class Constants {
-
     private Constants() { }
 
+    /**
+     * World's constants
+     */
     public static final class World {
         private World() {}
 
@@ -12,6 +14,9 @@ public final class Constants {
         public static final int NB_AGENTS = 5000;
     }
 
+    /**
+     * State's constants
+     */
     public static final class State {
         private State() {}
 
@@ -19,14 +24,20 @@ public final class Constants {
         public static final float MAX_VAT = 100f;
     }
 
+    /**
+     * Agent's constants
+     */
     public static final class Agent {
         private Agent() {}
 
-        public static final int NB_PRODUCTS = 3;
+        public static final int NB_PRODUCED_PRODUCTS = 3;
         public static final float RATIO_BUY = 0.05f;
         public static final float RATIO_PRODUCE = 0.05f;
     }
 
+    /**
+     * Product's constants
+     */
     public static final class Product {
         private Product() {}
 

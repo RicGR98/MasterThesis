@@ -8,25 +8,38 @@ import java.util.stream.Stream;
 import static org.apache.commons.lang3.StringUtils.capitalize;
 
 public abstract class Entity {
-    private final String id;
+    protected final String id;
 
+    /* ==================================
+     *  ==== Constructors
+     *  ================================== */
+    /**
+     * Represents the base for the Models who need an Id
+     */
     public Entity(){
         this.id = capitalize(new Faker().lorem().fixedString(5));
     }
 
+    /* ==================================
+     *  ==== Getters
+     *  ================================== */
     public String getId() {
         return id;
     }
 
-    @Override
-    public String toString() {
-        return this.id;
-    }
+    /* ==================================
+     *  ==== Methods: csv
+     *  ================================== */
+    /**
+     * @return Stream of all the property values of an Entity
+     */
+    public abstract Stream<String> properties();
 
-    public abstract Stream<String> csvFields();
-
+    /**
+     * @return representation of a csv row of all the property values of an Entity
+     */
     public String toCsv() {
-        return csvFields()
+        return properties()
                 .map(value -> value.replaceAll("\"", "\"\""))
                 .map(value -> Stream.of("\"", ",").anyMatch(value::contains) ? "\"" + value + "\"" : value)
                 .collect(Collectors.joining(","));

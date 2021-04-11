@@ -1,9 +1,10 @@
 package rgomesro.Models;
 
-import rgomesro.Constants;
 import rgomesro.Utils;
 
 import java.util.stream.Stream;
+
+import static rgomesro.Constants.Product.*;
 
 public class Product extends Entity {
     private final Agent producer;
@@ -12,6 +13,15 @@ public class Product extends Entity {
     private int stock;
     private int sold;
 
+    /* ==================================
+    *  ==== Constructors
+    *  ================================== */
+    /**
+     * Represnts
+     * @param agent Agent who produces this product
+     * @param type Type of the product
+     * @param price Price of the product (without taxes)
+     */
     public Product(Agent agent, int type, float price) {
         super();
         this.producer = agent;
@@ -22,13 +32,16 @@ public class Product extends Entity {
     }
 
     public Product(Agent agent, float price){
-        this(agent, Utils.getRandomInt(0, Constants.Product.NB_DIFF_PRODUCTS), price);
+        this(agent, Utils.getRandomInt(0, NB_DIFF_PRODUCTS), price);
     }
 
     public Product(Agent agent){
-        this(agent, Utils.getRandomInt(0, Constants.Product.NB_DIFF_PRODUCTS), Utils.getRandomFloat(Constants.Product.MIN_PRICE, Constants.Product.MAX_PRICE));
+        this(agent, Utils.getRandomInt(0, NB_DIFF_PRODUCTS), Utils.getRandomFloat(MIN_PRICE, MAX_PRICE));
     }
 
+    /* ==================================
+     *  ==== Getters
+     *  ================================== */
     public Agent getProducer() {
         return producer;
     }
@@ -41,21 +54,41 @@ public class Product extends Entity {
         return price;
     }
 
-    public int getStock(){
+    public Integer getStock(){
         return stock;
     }
 
+    public Integer getSold(){
+        return sold;
+    }
+
+    /* ==================================
+     *  === Methods: csv
+     *  ================================== */
+    public String csvHeader() {
+        return "Id";
+    }
+
+    public Stream<String> properties(){
+        return Stream.of(id);
+    }
+
+    /* ==================================
+     *  === Methods: actions
+     *  ================================== */
+    /**
+     * Sell of a unit of this Product
+     */
     public void sell(){
         assert (stock > 0);
         stock--;
         sold++;
     }
 
+    /**
+     * Produce a unit of this Product
+     */
     public void produce(){
         stock++;
-    }
-
-    public Stream<String> csvFields(){
-        return Stream.of(getId());
     }
 }

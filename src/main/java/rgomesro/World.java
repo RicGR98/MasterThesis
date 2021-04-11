@@ -13,8 +13,14 @@ public class World {
     private final ArrayList<State> states;
     private final ArrayList<Agent> agents;
 
+    /* ==================================
+     *  ==== Constructors
+     *  ================================== */
+    /**
+     * Represents the World holding the Market, States, Agents, ...
+     */
     public World(){
-        this.market = new Market();
+        this.market = new Market(this);
         this.states = new ArrayList<>(NB_STATES);
         for (int i = 0; i < NB_STATES; i++) {
             this.states.add(new State());
@@ -24,14 +30,34 @@ public class World {
             Agent agent = new Agent(market, states.get(i % NB_STATES), 1000);
             this.agents.add(agent);
         }
-        market.initMarket(states, agents);
+        market.initMarket();
     }
 
+    /* ==================================
+     *  ==== Getters
+     *  ================================== */
+    public ArrayList<State> getStates() {
+        return states;
+    }
+
+    public ArrayList<Agent> getAgents() {
+        return agents;
+    }
+
+    /* ==================================
+     *  ==== Methods: actions
+     *  ================================== */
+    /**
+     * Represent a step in the World's lifetime where its Entities can performd actions
+     */
     public void tick(){
         agents.forEach(Agent::tick);
         states.forEach(State::tick);
     }
 
+    /**
+     * Start the World simulation
+     */
     public void run(){
         for (int t = 0; t < NB_TICKS; t++) {
             this.tick();
@@ -40,21 +66,33 @@ public class World {
         }
     }
 
+    /* ==================================
+     *  ==== Methods: csv
+     *  ================================== */
+    /**
+     * Save all Entities to csv files for analysis later
+     */
     public void saveToCsv(){
         saveAgentsToCsv();
         saveStatesToCsv();
     }
 
+    /**
+     * Save all Agents to csv
+     */
     public void saveAgentsToCsv(){
-        String csv = Agent.csvColumnsNames() + "\n";
+        String csv = Agent.csvHeader() + "\n";
         csv += agents.stream()
                 .map(Agent::toCsv)
                 .collect(Collectors.joining("\n"));
         Utils.writeToFile("res/agents.csv", csv);
     }
 
+    /**
+     * Save all States to csv
+     */
     public void saveStatesToCsv(){
-        String csv = State.csvColumnsNames() + "\n";
+        String csv = State.csvHeader() + "\n";
         csv += states.stream()
                 .map(State::toCsv)
                 .collect(Collectors.joining("\n"));
