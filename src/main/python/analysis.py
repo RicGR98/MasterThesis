@@ -15,8 +15,9 @@ def sanitizedStates() -> pd.DataFrame:
     (to be able to compare State with different population sizes)
     """
     df: pd.DataFrame = pd.read_csv(CSV_STATES)
-    df['Money'] = df['Money']/df['PopulationSize']  # Money proportional to population size
-    df['PopulationMoney'] = df['Money']/df['PopulationSize']  # Money proportional to population size
+    df['Money'] = df['Money']/df['PopSize']  # Money proportional to population size
+    df['PopTotalMoney'] = df['PopTotalMoney']/df['PopSize']  # Money proportional to population size
+    df['PopTotalSoldProducts'] = df['PopTotalSoldProducts']/df['PopSize']  # Money proportional to population size
     return df
 
 
@@ -24,13 +25,13 @@ def vatInfluence():
     """
     Analyse the influence of the State's VAT on two metrics:
     1. The money of the State itself
-    2. The average money of an agent of this State
+    2. The average number of product sold by an agent of this State
     """
     df = sanitizedStates()
     df = df.sort_values('VAT')
 
     fig, ax1 = plt.subplots()
-    fig.suptitle("Influence of a State's VAT on wealth")
+    fig.suptitle("Influence of a State's VAT")
     ax1.set_xlabel("State's VAT")
 
     # Draw line 1: money of the State itself
@@ -41,10 +42,10 @@ def vatInfluence():
 
     ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
 
-    # Draw line 2: average money of an agent of this State
+    # Draw line 2: average number of product sold by an agent
     color = 'tab:blue'
-    ax2.set_ylabel("Average money of an agent", color=color)
-    ax2.plot(df["VAT"], df["PopulationMoney"], color=color)
+    ax2.set_ylabel("Average number of product sold by an agent", color=color)
+    ax2.plot(df["VAT"], df["PopTotalSoldProducts"], color=color)
     ax2.tick_params(axis='y', labelcolor=color)
 
     fig.tight_layout()

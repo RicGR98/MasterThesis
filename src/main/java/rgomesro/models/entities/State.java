@@ -44,10 +44,21 @@ public class State extends Entity {
     /**
      * @return Total amount of money of the population
      */
-    public Float getPopulationMoney(){
+    public Float getTotalMoney(){
         Float total = 0f;
         for (Agent agent: getPopulation()){
             total += agent.getMoney();
+        }
+        return total;
+    }
+
+    /**
+     * @return Total amount of sold products of the population
+     */
+    public Integer getTotalProductsSold(){
+        Integer total = 0;
+        for (Agent agent: getPopulation()){
+            total += agent.getProduct().getSold();
         }
         return total;
     }
@@ -56,7 +67,7 @@ public class State extends Entity {
      * ==== Methods: csv
      * ================================== */
     public static String csvHeader(){
-        return "Id,VAT,Money,PopulationSize,PopulationMoney";
+        return "Id,VAT,Money,PopSize,PopTotalMoney,PopTotalSoldProducts";
     }
 
     public Stream<String> properties(){
@@ -65,7 +76,8 @@ public class State extends Entity {
                 vat.getValue().toString(),
                 money.toString(),
                 String.valueOf(getPopulation().size()),
-                getPopulationMoney().toString());
+                getTotalMoney().toString(),
+                getTotalProductsSold().toString());
     }
 
     /* ==================================

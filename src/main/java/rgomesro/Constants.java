@@ -9,9 +9,9 @@ public final class Constants {
     public static final class World {
         private World() {}
 
-        public static final int NB_TICKS = 20001;
-        public static final int NB_STATES = 30;
-        public static final int NB_AGENTS = 5000;
+        public static final int NB_TICKS = 10001;
+        public static final int NB_STATES = 20;
+        public static final int NB_AGENTS = 2000;
 
         public static final String CSV_STATES = "res/states.csv";
         public static final String CSV_AGENTS = "res/agents.csv";
