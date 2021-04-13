@@ -52,7 +52,7 @@ public class Agent extends Entity {
      * ==== Methods: csv
      * ================================== */
     public static String csvHeader() {
-        return "Id,Product,Money,State";
+        return "Id,Product,Money,State,SoldProducts";
     }
 
     public Stream<String> properties(){
@@ -60,7 +60,8 @@ public class Agent extends Entity {
                 id,
                 product.getType().toString(),
                 money.toString(),
-                state.toString());
+                state.toString(),
+                product.getSold().toString());
     }
 
     /* ==================================

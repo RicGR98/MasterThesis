@@ -76,8 +76,10 @@ public class World {
     public void run(){
         for (int t = 0; t < NB_TICKS; t++) {
             this.tick();
-            if (t % 100 == 0)
+            if (t % NB_TICKS_SAVE_CSV == 0){
                 System.out.println(t + " " + market.getProductCount());
+                saveToCsv(); //Partial save
+            }
         }
     }
 

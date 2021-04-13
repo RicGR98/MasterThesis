@@ -9,9 +9,10 @@ public final class Constants {
     public static final class World {
         private World() {}
 
-        public static final int NB_TICKS = 10001;
-        public static final int NB_STATES = 20;
+        public static final int NB_STATES = 50;
         public static final int NB_AGENTS = 2000;
+        public static final int NB_TICKS = 1000;
+        public static final int NB_TICKS_SAVE_CSV = 500;
 
         public static final String CSV_STATES = "res/states.csv";
         public static final String CSV_AGENTS = "res/agents.csv";
@@ -34,8 +35,8 @@ public final class Constants {
         private Agent() {}
 
         public static final int NB_PRODUCED_PRODUCTS = 3;
-        public static final float RATIO_BUY = 0.05f;
-        public static final float RATIO_PRODUCE = 0.05f;
+        public static final float RATIO_BUY = 0.2f;
+        public static final float RATIO_PRODUCE = 0.2f;
     }
 
     /**
