@@ -1,14 +1,14 @@
 package rgomesro.models.entities;
 
 import rgomesro.models.World;
+import rgomesro.models.allowances.UniversalBasicIncome;
 import rgomesro.models.taxes.VAT;
-import rgomesro.utils.RandomUtils;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-import static rgomesro.Constants.State.Tax.VAT_MAX;
-import static rgomesro.Constants.State.Tax.VAT_MIN;
+import static rgomesro.Constants.State.NB_TICKS_COLLECT_TAXES;
+import static rgomesro.Constants.State.NB_TICKS_DISTRIBUTE_UBI;
 
 /**
  * Represents a State to which Agents belong
@@ -16,6 +16,7 @@ import static rgomesro.Constants.State.Tax.VAT_MIN;
 public class State extends Entity {
     private final World world;
     private final VAT vat;
+    private final UniversalBasicIncome ubi;
     private Float money = 0f;
     private final ArrayList<Agent> agents;
 
@@ -28,8 +29,9 @@ public class State extends Entity {
     public State(World world) {
         super();
         this.world = world;
-        this.vat = new VAT(RandomUtils.getRandomFloat(VAT_MIN, VAT_MAX));
+        this.vat = new VAT();
         this.agents = new ArrayList<>();
+        this.ubi = new UniversalBasicIncome(this, 0);
     }
 
     /* ==================================
@@ -43,10 +45,14 @@ public class State extends Entity {
         return this.agents;
     }
 
+    public Float getMoney() {
+        return money;
+    }
+
     /**
      * @return Total amount of money of the population
      */
-    public Float getTotalMoney(){
+    public Float getAgentsTotalMoney(){
         Float total = 0f;
         for (Agent agent: getAgents()){
             total += agent.getMoney();
@@ -79,17 +85,18 @@ public class State extends Entity {
      * ==== Methods: csv
      * ================================== */
     public static String csvHeader(){
-        return "Id,VAT,Money,PopSize,PopTotalMoney,PopTotalSoldProducts";
+        return "Id,VAT,Money,PopSize,PopTotalMoney,PopTotalSoldProducts,Ubi";
     }
 
     public Stream<String> properties(){
         return Stream.of(
                 id,
-                vat.getValue().toString(),
-                money.toString(),
+                getVat().getValue().toString(),
+                getMoney().toString(),
                 String.valueOf(getAgents().size()),
-                getTotalMoney().toString(),
-                getTotalProductsSold().toString());
+                getAgentsTotalMoney().toString(),
+                getTotalProductsSold().toString(),
+                ubi.getAllowance().toString());
     }
 
     /* ==================================
@@ -117,11 +124,16 @@ public class State extends Entity {
      * Collect all taxes the State has implemented
      */
     public void collectTaxes(){
+        //
     }
 
     /**
      * Represent a step in the State's lifetime where it can perform actions
      */
     public void tick(int currentTick){
+        if (currentTick % NB_TICKS_COLLECT_TAXES == 0)
+            collectTaxes();
+        if (currentTick % NB_TICKS_DISTRIBUTE_UBI == 0)
+            ubi.distribute();
     }
 }

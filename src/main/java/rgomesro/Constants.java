@@ -25,7 +25,8 @@ public final class Constants {
     public static final class State {
         private State() {}
 
-        public static final int NB_TICKS_COLLECT_TAXES = World.NB_TICKS/365;
+        public static final int NB_TICKS_COLLECT_TAXES = World.NB_TICKS/100;
+        public static final int NB_TICKS_DISTRIBUTE_UBI = NB_TICKS_COLLECT_TAXES;
 
         /**
          * Taxes' constants
@@ -41,6 +42,16 @@ public final class Constants {
 
             public static final float WEALTH_TAX_MIN_VALUE = 0f;
             public static final float WEALTH_TAX_MAX_VALUE = 100f;
+        }
+
+        /**
+         * Allowances' constants
+         */
+        public static final class Allowance {
+            private Allowance() {}
+
+            public static final float UBI_MIN = 0f;
+            public static final float UBI_MAX = Agent.INIT_MONEY/10;
         }
     }
 
