@@ -17,6 +17,7 @@ public class World {
     private final Market market;
     private final ArrayList<State> states;
     private final ArrayList<Agent> agents;
+    private int currentTick = 0;
 
     /* ==================================
      * ==== Constructors
@@ -29,7 +30,7 @@ public class World {
         }
         this.agents = new ArrayList<>(NB_AGENTS);
         for (int i = 0; i < NB_AGENTS; i++) {
-            Agent agent = new Agent(market, RandomUtils.randomChoice(states), 1000);
+            Agent agent = new Agent(market, RandomUtils.randomChoice(states));
             this.agents.add(agent);
         }
         market.initMarket();
@@ -66,20 +67,21 @@ public class World {
      * Represent a step in the World's lifetime where its Entities can performd actions
      */
     public void tick(){
+        if (currentTick % NB_TICKS_SAVE_CSV == 0){
+            System.out.println(currentTick + " " + market.getProductCount());
+            saveToCsv(); //Partial save
+        }
         agents.forEach(Agent::tick);
-        states.forEach(State::tick);
+        states.forEach(state -> state.tick(this.currentTick));
+        this.currentTick++;
     }
 
     /**
      * Start the World simulation
      */
     public void run(){
-        for (int t = 0; t < NB_TICKS; t++) {
+        for (int i = 0; i < NB_TICKS; i++) {
             this.tick();
-            if (t % NB_TICKS_SAVE_CSV == 0){
-                System.out.println(t + " " + market.getProductCount());
-                saveToCsv(); //Partial save
-            }
         }
     }
 

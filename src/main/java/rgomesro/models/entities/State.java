@@ -7,8 +7,8 @@ import rgomesro.utils.RandomUtils;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-import static rgomesro.Constants.State.MAX_VAT;
-import static rgomesro.Constants.State.MIN_VAT;
+import static rgomesro.Constants.State.Tax.VAT_MAX;
+import static rgomesro.Constants.State.Tax.VAT_MIN;
 
 /**
  * Represents a State to which Agents belong
@@ -27,7 +27,7 @@ public class State extends Entity {
     public State(World world) {
         super();
         this.world = world;
-        this.vat = new VAT(RandomUtils.getRandomFloat(MIN_VAT, MAX_VAT));
+        this.vat = new VAT(RandomUtils.getRandomFloat(VAT_MIN, VAT_MAX));
     }
 
     /* ==================================
@@ -105,13 +105,11 @@ public class State extends Entity {
      * Collect all taxes the State has implemented
      */
     public void collectTaxes(){
-
     }
 
     /**
      * Represent a step in the State's lifetime where it can perform actions
      */
-    public void tick(){
-        collectTaxes();
+    public void tick(int currentTick){
     }
 }

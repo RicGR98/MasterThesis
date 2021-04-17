@@ -7,7 +7,6 @@ import rgomesro.models.entities.Product;
  */
 public class VAT extends Tax {
     private final float value;
-
     /* ==================================
      * ==== Constructors
      * ================================== */
@@ -33,6 +32,6 @@ public class VAT extends Tax {
      * @return The value of the VAT for this Product
      */
     public float compute(Product product){
-        return product.getPrice() * value;
+        return product.getPrice() * getValue();
     }
 }

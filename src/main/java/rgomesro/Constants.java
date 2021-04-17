@@ -24,8 +24,23 @@ public final class Constants {
     public static final class State {
         private State() {}
 
-        public static final float MIN_VAT = 0f;
-        public static final float MAX_VAT = 100f;
+        public static final int NB_TICKS_COLLECT_TAXES = World.NB_TICKS/365;
+
+        /**
+         * Taxes' constants
+         */
+        public static final class Tax {
+            private Tax() {}
+
+            public static final float VAT_MIN = 0f;
+            public static final float VAT_MAX = 100f;
+
+            public static final float WEALTH_TAX_MIN_THRESHOLD = 0f;
+            public static final float WEALTH_TAX_MAX_THRESHOLD = Agent.INIT_MONEY;
+
+            public static final float WEALTH_TAX_MIN_VALUE = 0f;
+            public static final float WEALTH_TAX_MAX_VALUE = 100f;
+        }
     }
 
     /**
@@ -33,6 +48,8 @@ public final class Constants {
      */
     public static final class Agent {
         private Agent() {}
+
+        public static final float INIT_MONEY = 1000f;
 
         public static final int NB_PRODUCED_PRODUCTS = 3;
         public static final float RATIO_BUY = 0.2f;

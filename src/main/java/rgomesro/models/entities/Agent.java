@@ -5,8 +5,7 @@ import rgomesro.utils.RandomUtils;
 
 import java.util.stream.Stream;
 
-import static rgomesro.Constants.Agent.RATIO_BUY;
-import static rgomesro.Constants.Agent.RATIO_PRODUCE;
+import static rgomesro.Constants.Agent.*;
 
 /**
  * Represents an Agent in the World who produces, sells, and buys Products on the Market
@@ -31,6 +30,10 @@ public class Agent extends Entity {
         this.state = state;
         this.money = money;
         this.product = new Product(this);
+    }
+
+    public Agent(Market market, State state){
+        this(market, state, INIT_MONEY);
     }
 
     /* ==================================
