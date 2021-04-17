@@ -6,6 +6,10 @@ import rgomesro.models.entities.State;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Represents the Wealth Tax a State might implement:
+ * The top {top}% are taxed {value}%
+ */
 public class WealthTax extends Tax {
     private final State state;
     private final Integer top; //Top x% of wealthiest. E.g.: Top 10%
