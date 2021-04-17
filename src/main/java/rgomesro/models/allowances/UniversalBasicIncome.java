@@ -26,7 +26,7 @@ public class UniversalBasicIncome extends Allowance {
     }
 
     public UniversalBasicIncome(State state){
-        this(state, RandomUtils.getRandomFloat(UBI_MIN, UBI_MAX));
+        this(state, RandomUtils.getFloat(UBI_MIN, UBI_MAX));
     }
 
     /* ==================================

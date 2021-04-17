@@ -93,13 +93,13 @@ public class Market {
     public boolean buy(Agent buyer, int type){
         var matchingProducts = getFilteredProducts(buyer, type);
         if (matchingProducts.size() == 0) return false;
-        var product = RandomUtils.randomChoice(matchingProducts);
+        var product = RandomUtils.choose(matchingProducts);
         transaction(buyer, product);
         return true;
     }
 
     public Boolean buy(Agent buyer){
-        return this.buy(buyer, RandomUtils.getRandomInt(0, NB_DIFF_PRODUCTS));
+        return this.buy(buyer, RandomUtils.getInt(0, NB_DIFF_PRODUCTS));
     }
 
     /**

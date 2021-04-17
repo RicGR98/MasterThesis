@@ -22,7 +22,7 @@ public class VAT extends Tax {
     }
 
     public VAT(){
-        this(RandomUtils.getRandomFloat(VAT_MIN, VAT_MAX));
+        this(RandomUtils.getFloat(VAT_MIN, VAT_MAX));
     }
 
     /* ==================================

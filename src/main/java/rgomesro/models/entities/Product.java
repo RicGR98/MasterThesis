@@ -41,7 +41,7 @@ public class Product extends Entity {
     }
 
     public Product(Agent agent){
-        this(agent, RandomUtils.getRandomInt(0, NB_DIFF_PRODUCTS), RandomUtils.getRandomFloat(MIN_PRICE, MAX_PRICE));
+        this(agent, RandomUtils.getInt(0, NB_DIFF_PRODUCTS), RandomUtils.getFloat(MIN_PRICE, MAX_PRICE));
     }
 
     /* ==================================

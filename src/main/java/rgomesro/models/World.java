@@ -31,7 +31,7 @@ public class World {
         }
         this.agents = new ArrayList<>(NB_AGENTS);
         for (int i = 0; i < NB_AGENTS; i++) {
-            Agent agent = new Agent(market, RandomUtils.randomChoice(states));
+            Agent agent = new Agent(market, RandomUtils.choose(states));
             this.agents.add(agent);
         }
         market.initMarket();
