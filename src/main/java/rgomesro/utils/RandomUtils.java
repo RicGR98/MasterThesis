@@ -4,13 +4,15 @@ import java.util.List;
 import java.util.Random;
 
 public class RandomUtils {
+    private static final Random gen = new Random(0); // System.currentTimeMillis()
+
     /**
      * @param min Minimum value
      * @param max Maximum value
      * @return Random integer in [min, max[
      */
     public static int getInt(int min, int max){
-        return new Random().nextInt(max - min) + min;
+        return gen.nextInt(max - min) + min;
     }
 
     /**
@@ -19,7 +21,7 @@ public class RandomUtils {
      * @return Random float in [min, max[
      */
     public static float getFloat(float min, float max){
-        return new Random().nextFloat() * (max - min) + min;
+        return gen.nextFloat() * (max - min) + min;
     }
 
     /**
