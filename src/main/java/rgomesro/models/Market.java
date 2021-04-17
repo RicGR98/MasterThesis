@@ -66,18 +66,40 @@ public class Market {
     }
 
     /**
+     * Checks if a buyer is allowed to buy a Prodct
+     * @param buyer Buyer of the Product
+     * @param product Product we want to buy
+     * @return True if the Buyer can buy the Product, else false
+     */
+    public Boolean isProductBuyable(Agent buyer, Product product){
+        if (product.getStock() <= 0)
+            return false;
+        var stateVAT = product.getProducer().getState().getVat();
+        if (!buyer.hasEnoughMoney(product.getSellingPrice() +  stateVAT.compute(product)))
+            return false;
+        return true;
+    }
+
+    /**
      * @param buyer Agent who wants to buy a product on the market
      * @param type Type of product the agent wants to buy
      * @return List of filtered product according to State, Type, Stocks, Price, ...
      */
     public List<Product> getFilteredProducts(Agent buyer, int type){
         var res = new ArrayList<Product>();
-        products.get(buyer.getState()).get(type).forEach(product -> {
-            if (product.getStock() <= 0) return;
-            var stateVAT = product.getProducer().getState().getVat();
-            if (!buyer.hasEnoughMoney(product.getSellingPrice() +  stateVAT.compute(product))) return;
-            res.add(product);
-        });
+        if (!world.getCluster().contains(buyer.getState())){ //Buyer's State not in Cluster
+            products.get(buyer.getState()).get(type).forEach(product -> {
+                if (isProductBuyable(buyer, product))
+                    res.add(product);
+            });
+        } else { //Buyer's State in the Cluster, we visit all the other States in it too
+            for (State state: world.getCluster().getStates()){
+                products.get(state).get(type).forEach(product -> {
+                    if (isProductBuyable(buyer, product))
+                        res.add(product);
+                });
+            }
+        }
         res.sort(Comparator.comparing(Product::getSellingPrice)); // From lowest to highest price
         return res;
     }

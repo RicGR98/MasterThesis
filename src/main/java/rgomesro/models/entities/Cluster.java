@@ -26,6 +26,10 @@ public class Cluster extends Entity {
         this.states.add(state);
     }
 
+    public Boolean contains(State state){
+        return states.contains(state);
+    }
+
     /* ==================================
      * ==== Methods: csv
      * ================================== */

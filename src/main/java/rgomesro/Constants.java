@@ -9,14 +9,23 @@ public final class Constants {
     public static final class World {
         private World() {}
 
-        public static final int NB_STATES = 200;
-        public static final int NB_AGENTS = 10000;
+        public static final int NB_STATES = 100;
+        public static final int NB_AGENTS = 5000;
         public static final int NB_TICKS = 10000;
         public static final int NB_TICKS_SAVE_CSV = 500;
 
         public static final String CSV_STATES = "res/states.csv";
         public static final String CSV_AGENTS = "res/agents.csv";
         public static final String CSV_PRODUCTS = "res/products.csv";
+    }
+
+    /**
+     * Cluster's constants
+     */
+    public static final class Cluster {
+        private Cluster() {}
+
+        public static final Float PROB_ATTACHED = 0f; // TODO: 17/04/2021
     }
 
     /**

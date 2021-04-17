@@ -1,6 +1,7 @@
 package rgomesro.models;
 
 import rgomesro.models.entities.Agent;
+import rgomesro.models.entities.Cluster;
 import rgomesro.models.entities.Product;
 import rgomesro.models.entities.State;
 import rgomesro.utils.FileUtils;
@@ -9,6 +10,7 @@ import rgomesro.utils.RandomUtils;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+import static rgomesro.Constants.Cluster.PROB_ATTACHED;
 import static rgomesro.Constants.World.*;
 
 /**
@@ -16,6 +18,7 @@ import static rgomesro.Constants.World.*;
  */
 public class World {
     private final Market market;
+    private final Cluster cluster;
     private final ArrayList<State> states;
     private final ArrayList<Agent> agents;
     private int currentTick = 0;
@@ -25,9 +28,14 @@ public class World {
      * ================================== */
     public World(){
         this.market = new Market(this);
+        this.cluster = new Cluster();
         this.states = new ArrayList<>(NB_STATES);
         for (int i = 0; i < NB_STATES; i++) {
-            this.states.add(new State(this));
+            State state = new State(this);
+            this.states.add(state);
+            if (RandomUtils.getRandom() < PROB_ATTACHED){
+                this.cluster.addState(state);
+            }
         }
         this.agents = new ArrayList<>(NB_AGENTS);
         for (int i = 0; i < NB_AGENTS; i++) {
@@ -42,6 +50,10 @@ public class World {
      * ================================== */
     public ArrayList<State> getStates() {
         return states;
+    }
+
+    public Cluster getCluster() {
+        return cluster;
     }
 
     /* ==================================
