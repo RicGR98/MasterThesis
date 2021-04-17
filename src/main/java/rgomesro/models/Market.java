@@ -56,8 +56,8 @@ public class Market {
             products.put(state, new HashMap<>());
             for (int type = 0; type < NB_DIFF_PRODUCTS; type++){
                 products.get(state).put(type, new ArrayList<>());
-                for (Agent agent: world.getAgents()){
-                    if (agent.getState() == state && agent.getProduct().getType() == type){
+                for (Agent agent: state.getAgents()){
+                    if (agent.getProduct().getType() == type){
                         products.get(state).get(type).add(agent.getProduct());
                     }
                 }

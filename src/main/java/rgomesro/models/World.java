@@ -43,23 +43,6 @@ public class World {
         return states;
     }
 
-    public ArrayList<Agent> getAgents() {
-        return agents;
-    }
-
-    /**
-     * @param state State
-     * @return Agents belonging to a State
-     */
-    public ArrayList<Agent> getPopulationOfState(State state){
-        var population = new ArrayList<Agent>();
-        agents.forEach(agent -> {
-            if (agent.getState() == state)
-                population.add(agent);
-        });
-        return population;
-    }
-
     /* ==================================
      * ==== Methods: actions
      * ================================== */

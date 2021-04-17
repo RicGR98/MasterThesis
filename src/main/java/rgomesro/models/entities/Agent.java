@@ -28,6 +28,7 @@ public class Agent extends Entity {
         super();
         this.market = market;
         this.state = state;
+        this.state.addAgent(this);
         this.money = money;
         this.product = new Product(this);
     }

@@ -17,6 +17,7 @@ public class State extends Entity {
     private final World world;
     private final VAT vat;
     private Float money = 0f;
+    private final ArrayList<Agent> agents;
 
     /* ==================================
      * ==== Constructors
@@ -28,6 +29,7 @@ public class State extends Entity {
         super();
         this.world = world;
         this.vat = new VAT(RandomUtils.getRandomFloat(VAT_MIN, VAT_MAX));
+        this.agents = new ArrayList<>();
     }
 
     /* ==================================
@@ -37,8 +39,8 @@ public class State extends Entity {
         return this.vat;
     }
 
-    public ArrayList<Agent> getPopulation(){
-        return world.getPopulationOfState(this);
+    public ArrayList<Agent> getAgents(){
+        return this.agents;
     }
 
     /**
@@ -46,7 +48,7 @@ public class State extends Entity {
      */
     public Float getTotalMoney(){
         Float total = 0f;
-        for (Agent agent: getPopulation()){
+        for (Agent agent: getAgents()){
             total += agent.getMoney();
         }
         return total;
@@ -57,10 +59,20 @@ public class State extends Entity {
      */
     public Integer getTotalProductsSold(){
         Integer total = 0;
-        for (Agent agent: getPopulation()){
+        for (Agent agent: getAgents()){
             total += agent.getProduct().getSold();
         }
         return total;
+    }
+
+    /* ==================================
+     * ==== Setters
+     * ================================== */
+    /**
+     * @param agent Agent to add to the population of the State
+     */
+    public void addAgent(Agent agent){
+        agents.add(agent);
     }
 
     /* ==================================
@@ -75,7 +87,7 @@ public class State extends Entity {
                 id,
                 vat.getValue().toString(),
                 money.toString(),
-                String.valueOf(getPopulation().size()),
+                String.valueOf(getAgents().size()),
                 getTotalMoney().toString(),
                 getTotalProductsSold().toString());
     }
