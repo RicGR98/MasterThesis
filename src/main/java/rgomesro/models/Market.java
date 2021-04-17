@@ -75,10 +75,10 @@ public class Market {
         products.get(buyer.getState()).get(type).forEach(product -> {
             if (product.getStock() <= 0) return;
             var stateVAT = product.getProducer().getState().getVat();
-            if (!buyer.hasEnoughMoney(product.getPrice() +  stateVAT.compute(product))) return;
+            if (!buyer.hasEnoughMoney(product.getSellingPrice() +  stateVAT.compute(product))) return;
             res.add(product);
         });
-        res.sort(Comparator.comparing(Product::getPrice)); // From lowest to highest price
+        res.sort(Comparator.comparing(Product::getSellingPrice)); // From lowest to highest price
         return res;
     }
 
@@ -107,9 +107,9 @@ public class Market {
     public void transaction(Agent buyer, Product product){
         var seller = product.getProducer();
         var state = seller.getState();
-        seller.addMoney(product.getPrice());
+        seller.addMoney(product.getSellingPrice());
         state.addMoney(state.getVat().compute(product));
-        buyer.subtractMoney(product.getPrice());
+        buyer.subtractMoney(product.getSellingPrice());
         product.sell();
     }
 }

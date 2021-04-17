@@ -1,6 +1,7 @@
 package rgomesro.models;
 
 import rgomesro.models.entities.Agent;
+import rgomesro.models.entities.Product;
 import rgomesro.models.entities.State;
 import rgomesro.utils.FileUtils;
 import rgomesro.utils.RandomUtils;
@@ -49,10 +50,10 @@ public class World {
     /**
      * Represent a step in the World's lifetime where its Entities can performd actions
      */
-    public void tick(){
+    private void tick(){
         if (currentTick % NB_TICKS_SAVE_CSV == 0){
             System.out.println(currentTick + " " + market.getProductCount());
-            saveToCsv(); //Partial save
+            saveAllToCsv(); //Partial save
         }
         agents.forEach(Agent::tick);
         states.forEach(state -> state.tick(this.currentTick));
@@ -74,36 +75,63 @@ public class World {
     /**
      * Save all Entities to csv files for analysis later
      */
-    public void saveToCsv(){
+    public void saveAllToCsv(){
         saveAgentsToCsv();
         saveStatesToCsv();
+        saveProductsToCsv();
+    }
+
+    /**
+     * @param filename Filename of the csv in which to write the results
+     * @param header Header of the csv, i.e. column names
+     * @param rows Rows of the csv file (each one representing one Entity)
+     */
+    private void saveToCsv(String filename, String header, String rows){
+        FileUtils.fileDelete(filename);
+        String csv = "";
+        if (!FileUtils.fileExists(filename))
+            csv += header + "\n";
+        csv += rows;
+        FileUtils.writeToFile(filename, csv);
     }
 
     /**
      * Save all Agents to csv
      */
-    public void saveAgentsToCsv(){
-        FileUtils.fileDelete(CSV_AGENTS);
-        String csv = "";
-        if (!FileUtils.fileExists(CSV_AGENTS))
-            csv += Agent.csvHeader() + "\n";
-        csv += agents.stream()
-                .map(Agent::toCsv)
-                .collect(Collectors.joining("\n"));
-        FileUtils.writeToFile(CSV_AGENTS, csv);
+    private void saveAgentsToCsv(){
+        saveToCsv(
+                CSV_AGENTS,
+                Agent.csvHeader(),
+                agents.stream()
+                        .map(Agent::toCsv)
+                        .collect(Collectors.joining("\n"))
+        );
     }
 
     /**
      * Save all States to csv
      */
-    public void saveStatesToCsv(){
-        FileUtils.fileDelete(CSV_STATES);
-        String csv = "";
-        if (!FileUtils.fileExists(CSV_STATES))
-            csv += State.csvHeader() + "\n";
-        csv += states.stream()
-                .map(State::toCsv)
-                .collect(Collectors.joining("\n"));
-        FileUtils.writeToFile(CSV_STATES, csv);
+    private void saveStatesToCsv(){
+        saveToCsv(
+                CSV_STATES,
+                State.csvHeader(),
+                states.stream()
+                        .map(State::toCsv)
+                        .collect(Collectors.joining("\n"))
+        );
+    }
+
+    /**
+     * Save all Products to csv
+     */
+    private void saveProductsToCsv(){
+        saveToCsv(
+                CSV_PRODUCTS,
+                Product.csvHeader(),
+                agents.stream()
+                        .map(Agent::getProduct)
+                        .map(Product::toCsv)
+                        .collect(Collectors.joining("\n"))
+        );
     }
 }

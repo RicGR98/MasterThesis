@@ -11,6 +11,6 @@ public class Main {
         long end = System.nanoTime();
         long denom = 1000000000;
         System.out.println((startRun - start)/denom + " + " + (end - startRun)/denom + " = " + (end - start)/denom + "s");
-        world.saveToCsv();
+        world.saveAllToCsv();
     }
 }

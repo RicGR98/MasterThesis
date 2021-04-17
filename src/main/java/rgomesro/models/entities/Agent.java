@@ -101,7 +101,10 @@ public class Agent extends Entity {
      * Produce a unit of its product
      */
     public void produce(){
-        product.produce();
+        if (hasEnoughMoney(product.getProductionPrice()) && product.canBeProduced()){
+            product.produce();
+            this.subtractMoney(product.getProductionPrice());
+        }
     }
 
     /**

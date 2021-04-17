@@ -12,7 +12,8 @@ import static rgomesro.Constants.Product.*;
 public class Product extends Entity {
     private final Agent producer;
     private final int type;
-    private final float price;
+    private final float productionPrice;
+    private final float sellingPrice;
     private int stock;
     private int sold;
 
@@ -22,19 +23,21 @@ public class Product extends Entity {
     /**
      * @param agent Agent who produces this product
      * @param type Type of the product
-     * @param price Price of the product (without taxes)
+     * @param sellingPrice Selling price of the product (without taxes)
+     * @param productionPrice Price when producing a unit of this Product
      */
-    public Product(Agent agent, int type, float price) {
+    public Product(Agent agent, int type, float sellingPrice, float productionPrice) {
         super();
         this.producer = agent;
         this.type = type;
-        this.price = price;
+        this.productionPrice = productionPrice;
+        this.sellingPrice = sellingPrice;
         this.stock = 0;
         this.sold = 0;
     }
 
-    public Product(Agent agent, float price){
-        this(agent, RandomUtils.getRandomInt(0, NB_DIFF_PRODUCTS), price);
+    public Product(Agent agent, int type, float sellingPrice){
+        this(agent, type, sellingPrice, 0f);
     }
 
     public Product(Agent agent){
@@ -52,8 +55,12 @@ public class Product extends Entity {
         return type;
     }
 
-    public Float getPrice() {
-        return price;
+    public Float getSellingPrice() {
+        return sellingPrice;
+    }
+
+    public Float getProductionPrice() {
+        return productionPrice;
     }
 
     public Integer getStock(){
@@ -64,15 +71,26 @@ public class Product extends Entity {
         return sold;
     }
 
+    public Boolean canBeProduced(){
+        return this.stock < MAX_STOCK;
+    }
+
     /* ==================================
      * === Methods: csv
      * ================================== */
-    public String csvHeader() {
-        return "Id";
+    public static String csvHeader() {
+        return "Id,Type,ProductionPrice,SellingPrice,Stock,Sold";
     }
 
     public Stream<String> properties(){
-        return Stream.of(id);
+        return Stream.of(
+                id,
+                getType().toString(),
+                getProductionPrice().toString(),
+                getSellingPrice().toString(),
+                getStock().toString(),
+                getSold().toString()
+        );
     }
 
     /* ==================================
