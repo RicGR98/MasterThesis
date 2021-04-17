@@ -10,8 +10,8 @@ public final class Constants {
         private World() {}
 
         public static final int NB_STATES = 200;
-        public static final int NB_AGENTS = 5000;
-        public static final int NB_TICKS = 5000;
+        public static final int NB_AGENTS = 10000;
+        public static final int NB_TICKS = 10000;
         public static final int NB_TICKS_SAVE_CSV = 500;
 
         public static final String CSV_STATES = "res/states.csv";

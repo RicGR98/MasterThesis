@@ -3,6 +3,7 @@ package rgomesro.models.entities;
 import rgomesro.models.World;
 import rgomesro.models.allowances.UniversalBasicIncome;
 import rgomesro.models.taxes.VAT;
+import rgomesro.models.taxes.WealthTax;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;
@@ -16,6 +17,7 @@ import static rgomesro.Constants.State.NB_TICKS_DISTRIBUTE_UBI;
 public class State extends Entity {
     private final World world;
     private final VAT vat;
+    private final WealthTax wealthTax;
     private final UniversalBasicIncome ubi;
     private Float money = 0f;
     private final ArrayList<Agent> agents;
@@ -29,9 +31,10 @@ public class State extends Entity {
     public State(World world) {
         super();
         this.world = world;
-        this.vat = new VAT();
         this.agents = new ArrayList<>();
-        this.ubi = new UniversalBasicIncome(this, 0);
+        this.vat = new VAT();
+        this.wealthTax = new WealthTax(this, 0, 0f); // TODO: 17/04/2021
+        this.ubi = new UniversalBasicIncome(this, 0); // TODO: 17/04/2021
     }
 
     /* ==================================
@@ -124,7 +127,14 @@ public class State extends Entity {
      * Collect all taxes the State has implemented
      */
     public void collectTaxes(){
-        //
+        wealthTax.collect();
+    }
+
+    /**
+     * Distribute allowances to all Agents
+     */
+    public void distributeAllowances(){
+        ubi.distribute();
     }
 
     /**
@@ -134,6 +144,6 @@ public class State extends Entity {
         if (currentTick % NB_TICKS_COLLECT_TAXES == 0)
             collectTaxes();
         if (currentTick % NB_TICKS_DISTRIBUTE_UBI == 0)
-            ubi.distribute();
+            distributeAllowances();
     }
 }

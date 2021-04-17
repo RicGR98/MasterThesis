@@ -30,7 +30,7 @@ public class Product extends Entity {
         super();
         this.producer = agent;
         this.type = type;
-        this.productionPrice = productionPrice;
+        this.productionPrice = productionPrice; // TODO: 17/04/2021
         this.sellingPrice = sellingPrice;
         this.stock = 0;
         this.sold = 0;
