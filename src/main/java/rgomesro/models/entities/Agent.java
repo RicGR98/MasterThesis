@@ -15,6 +15,7 @@ public class Agent extends Entity {
     private final State state;
     private Float money;
     private final Product product;
+    private Integer nbProductsBought = 0;
 
     /* ==================================
      * ==== Constructors
@@ -56,7 +57,7 @@ public class Agent extends Entity {
      * ==== Methods: csv
      * ================================== */
     public static String csvHeader() {
-        return "Id,Product,Money,State,SoldProducts";
+        return "Id,Product,Money,State,SoldProducts,BoughtProducts";
     }
 
     public Stream<String> properties(){
@@ -65,7 +66,8 @@ public class Agent extends Entity {
                 product.getType().toString(),
                 money.toString(),
                 state.toString(),
-                product.getSold().toString());
+                product.getSold().toString(),
+                nbProductsBought.toString());
     }
 
     /* ==================================
@@ -111,7 +113,8 @@ public class Agent extends Entity {
      * Buy a product on the market
      */
     public void buy(){
-        this.market.buy(this);
+        if (this.market.buy(this))
+            nbProductsBought++;
     }
 
     /**

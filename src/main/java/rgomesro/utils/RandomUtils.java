@@ -31,6 +31,13 @@ public class RandomUtils {
     }
 
     /**
+     * @return Random percentage value in [0, 100[
+     */
+    public static float getRandomPercentage(){
+        return getRandomFloat(0, 100);
+    }
+
+    /**
      * @param possibilities List of possibilities
      * @param <T> Type of the possibilities
      * @return Random object in the list of possibilities

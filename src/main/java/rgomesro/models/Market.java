@@ -88,16 +88,18 @@ public class Market {
     /**
      * @param buyer Consumer who wishes to buy a product on the Market
      * @param type Type of product the buyer wishes to buy
+     * @return True if a product was bought, else false
      */
-    public void buy(Agent buyer, int type){
+    public boolean buy(Agent buyer, int type){
         var matchingProducts = getFilteredProducts(buyer, type);
-        if (matchingProducts.size() == 0) return;
+        if (matchingProducts.size() == 0) return false;
         var product = RandomUtils.randomChoice(matchingProducts);
         transaction(buyer, product);
+        return true;
     }
 
-    public void buy(Agent buyer){
-        this.buy(buyer, RandomUtils.getRandomInt(0, NB_DIFF_PRODUCTS));
+    public Boolean buy(Agent buyer){
+        return this.buy(buyer, RandomUtils.getRandomInt(0, NB_DIFF_PRODUCTS));
     }
 
     /**
