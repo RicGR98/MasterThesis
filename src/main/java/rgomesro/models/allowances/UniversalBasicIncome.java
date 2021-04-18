@@ -3,8 +3,8 @@ package rgomesro.models.allowances;
 import rgomesro.models.entities.State;
 import rgomesro.utils.RandomUtils;
 
-import static rgomesro.Constants.State.Allowance.UBI_MAX;
-import static rgomesro.Constants.State.Allowance.UBI_MIN;
+import static rgomesro.Constants.State.Allowance.MAX_UBI;
+import static rgomesro.Constants.State.Allowance.MIN_UBI;
 
 /**
  * Represents the Universal Basic Income allowance given to Agents by their State
@@ -26,7 +26,7 @@ public class UniversalBasicIncome extends Allowance {
     }
 
     public UniversalBasicIncome(State state){
-        this(state, RandomUtils.getFloat(UBI_MIN, UBI_MAX));
+        this(state, RandomUtils.getFloat(MIN_UBI, MAX_UBI));
     }
 
     /* ==================================

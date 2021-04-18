@@ -14,9 +14,10 @@ public final class Constants {
         public static final int NB_TICKS = 10000;
         public static final int NB_TICKS_SAVE_CSV = 500;
 
-        public static final String CSV_STATES = "res/states.csv";
-        public static final String CSV_AGENTS = "res/agents.csv";
-        public static final String CSV_PRODUCTS = "res/products.csv";
+        public static final String DIRECTORY_RES = "res/";
+        public static final String CSV_STATES = DIRECTORY_RES + "states.csv";
+        public static final String CSV_AGENTS = DIRECTORY_RES + "agents.csv";
+        public static final String CSV_PRODUCTS = DIRECTORY_RES + "products.csv";
     }
 
     /**
@@ -43,14 +44,11 @@ public final class Constants {
         public static final class Tax {
             private Tax() {}
 
-            public static final float VAT_MIN = 0f;
-            public static final float VAT_MAX = 100f;
+            public static final float MIN_VAT = 0f;
+            public static final float MAX_VAT = 100f;
 
-            public static final float WEALTH_TAX_MIN_THRESHOLD = 0f;
-            public static final float WEALTH_TAX_MAX_THRESHOLD = Agent.INIT_MONEY;
-
-            public static final float WEALTH_TAX_MIN_VALUE = 0f;
-            public static final float WEALTH_TAX_MAX_VALUE = 100f;
+            public static final int VAL_WEALTH_TAX_TOP = 10; //Top x% of wealthiest. E.g.: Top 10%
+            public static final float VAL_WEALTH_TAX_VALUE = 100f;  //E.g.: 10% Wealth tax
         }
 
         /**
@@ -59,8 +57,8 @@ public final class Constants {
         public static final class Allowance {
             private Allowance() {}
 
-            public static final float UBI_MIN = 0f;
-            public static final float UBI_MAX = Agent.INIT_MONEY/10;
+            public static final float MIN_UBI = 0f;
+            public static final float MAX_UBI = Agent.INIT_MONEY/10;
         }
     }
 
