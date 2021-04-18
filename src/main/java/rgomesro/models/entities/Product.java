@@ -27,7 +27,7 @@ public class Product extends Entity {
      * @param productionPrice Price when producing a unit of this Product
      */
     public Product(Agent agent, int type, float sellingPrice, float productionPrice) {
-        super();
+        super(Integer.parseInt(agent.getId()));
         this.producer = agent;
         this.type = type;
         this.productionPrice = productionPrice; // TODO: 17/04/2021
@@ -83,12 +83,13 @@ public class Product extends Entity {
      * === Methods: csv
      * ================================== */
     public static String csvHeader() {
-        return "Id,Type,ProductionPrice,SellingPrice,Stock,Sold";
+        return "Id,Producer,Type,ProductionPrice,SellingPrice,Stock,Sold";
     }
 
     public Stream<String> properties(){
         return Stream.of(
                 id,
+                getProducer().toString(),
                 getType().toString(),
                 getProductionPrice().toString(),
                 getSellingPrice().toString(),

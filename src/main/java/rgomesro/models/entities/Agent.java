@@ -25,8 +25,8 @@ public class Agent extends Entity {
      * @param state State to which the Agent belongs
      * @param money Initial money of the Agent
      */
-    public Agent(Market market, State state, float money) {
-        super();
+    public Agent(int id, Market market, State state, float money) {
+        super(id);
         this.market = market;
         this.state = state;
         this.state.addAgent(this);
@@ -34,8 +34,8 @@ public class Agent extends Entity {
         this.product = new Product(this);
     }
 
-    public Agent(Market market, State state){
-        this(market, state, VAL_INIT_MONEY); // TODO: Analyze
+    public Agent(int id, Market market, State state){
+        this(id, market, state, VAL_INIT_MONEY); // TODO: Analyze
     }
 
     /* ==================================
@@ -57,16 +57,14 @@ public class Agent extends Entity {
      * ==== Methods: csv
      * ================================== */
     public static String csvHeader() {
-        return "Id,Product,Money,State,SoldProducts,BoughtProducts";
+        return "Id,State,Money,Bought";
     }
 
     public Stream<String> properties(){
         return Stream.of(
                 id,
-                product.getType().toString(),
-                money.toString(),
                 state.toString(),
-                product.getSold().toString(),
+                money.toString(),
                 nbProductsBought.toString());
     }
 

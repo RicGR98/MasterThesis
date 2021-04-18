@@ -11,7 +11,8 @@ public class Cluster extends Entity {
     /* ==================================
      * ==== Constructors
      * ================================== */
-    public Cluster() {
+    public Cluster(int id) {
+        super(id);
         this.states = new ArrayList<>();
     }
 

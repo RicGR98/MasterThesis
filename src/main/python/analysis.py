@@ -3,12 +3,22 @@ import pandas as pd
 
 from src.main.python.chart import Chart
 
+pd.set_option('display.max_columns', 500)
+pd.set_option('display.width', 1000)
+
 DIR_RES = "res/"
 DIR_RES_IMG = DIR_RES + "img/"
 DIR_RES_CSV = DIR_RES + "csv/"
 CSV_AGENTS = DIR_RES_CSV + "agents.csv"
 CSV_STATES = DIR_RES_CSV + "states.csv"
 CSV_PRODUCTS = DIR_RES_CSV + "products.csv"
+
+DF_AGENTS = pd.read_csv(CSV_AGENTS)
+DF_PRODUCTS = pd.read_csv(CSV_PRODUCTS)
+DF_AGENTS_PRODUCTS: pd.DataFrame = pd.merge(DF_AGENTS, DF_PRODUCTS, how='left', left_on='Id', right_on='Producer')
+del DF_AGENTS_PRODUCTS['Id_y']
+del DF_AGENTS_PRODUCTS['Producer']
+print(DF_AGENTS_PRODUCTS)
 
 
 def sanitizedStates() -> pd.DataFrame:
@@ -40,8 +50,10 @@ def vatInfluence():
 
 
 def gini():
-    df = pd.read_csv(CSV_AGENTS)
-    X = df.sort_values('Money')["Money"]
+    """
+    :return Gini coefficient of Agents
+    """
+    X = DF_AGENTS_PRODUCTS.sort_values('Money')["Money"]
     n = X.size
     coef_ = 2. / n
     const_ = (n + 1.) / n
@@ -50,8 +62,11 @@ def gini():
 
 
 def agentsWealthDistribution():
-    df = pd.read_csv(CSV_AGENTS)
-    X = df["Money"]
+    """
+    Analyze the wealth distribution among Agents with
+    the Gini coefficient and the Lorenz curve
+    """
+    X = DF_AGENTS_PRODUCTS["Money"]
     X_lorenz = X.cumsum() / X.sum()
     x = np.arange(X_lorenz.size)/(X_lorenz.size-1)
     y = X_lorenz

@@ -4,7 +4,7 @@ import org.json.simple.JSONObject;
 import rgomesro.utils.JsonUtils;
 
 public final class Params {
-    private static final JSONObject json = JsonUtils.read("params/small.json");
+    private static final JSONObject json = JsonUtils.read("params/medium.json");
 
     private Params() { }
 

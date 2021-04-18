@@ -28,10 +28,10 @@ public class World {
      * ================================== */
     public World(){
         this.market = new Market(this);
-        this.cluster = new Cluster();
+        this.cluster = new Cluster(0);
         this.states = new ArrayList<>(NB_STATES);
         for (int i = 0; i < NB_STATES; i++) {
-            State state = new State(this);
+            State state = new State(i, this);
             this.states.add(state);
             if (RandomUtils.getRandom() < PROB_ATTACHED){
                 this.cluster.addState(state);
@@ -39,7 +39,7 @@ public class World {
         }
         this.agents = new ArrayList<>(NB_AGENTS);
         for (int i = 0; i < NB_AGENTS; i++) {
-            Agent agent = new Agent(market, RandomUtils.choose(states));
+            Agent agent = new Agent(i, market, RandomUtils.choose(states));
             this.agents.add(agent);
         }
         market.initMarket();

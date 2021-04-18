@@ -28,8 +28,8 @@ public class State extends Entity {
     /**
      * @param world Reference to the World
      */
-    public State(World world) {
-        super();
+    public State(int id, World world) {
+        super(id);
         this.world = world;
         this.agents = new ArrayList<>();
         this.vat = new VAT();
