@@ -10,8 +10,8 @@ import rgomesro.utils.RandomUtils;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import static rgomesro.Constants.Cluster.PROB_ATTACHED;
-import static rgomesro.Constants.World.*;
+import static rgomesro.Params.Cluster.PROB_ATTACHED;
+import static rgomesro.Params.World.*;
 
 /**
  * Represents the World holding the Market, States, Agents, ...

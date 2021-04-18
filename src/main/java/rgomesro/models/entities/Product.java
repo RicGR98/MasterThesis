@@ -4,7 +4,7 @@ import rgomesro.utils.RandomUtils;
 
 import java.util.stream.Stream;
 
-import static rgomesro.Constants.Product.*;
+import static rgomesro.Params.Product.*;
 
 /**
  * Represent a Product that can be produced, sold and bought by an Agent on the Market

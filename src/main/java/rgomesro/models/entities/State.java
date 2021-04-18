@@ -8,8 +8,8 @@ import rgomesro.models.taxes.WealthTax;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-import static rgomesro.Constants.State.NB_TICKS_COLLECT_TAXES;
-import static rgomesro.Constants.State.NB_TICKS_DISTRIBUTE_UBI;
+import static rgomesro.Params.State.NB_TICKS_COLLECT_TAXES;
+import static rgomesro.Params.State.NB_TICKS_DISTRIBUTE_UBI;
 
 /**
  * Represents a State to which Agents belong

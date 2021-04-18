@@ -5,7 +5,7 @@ import rgomesro.utils.RandomUtils;
 
 import java.util.stream.Stream;
 
-import static rgomesro.Constants.Agent.*;
+import static rgomesro.Params.Agent.*;
 
 /**
  * Represents an Agent in the World who produces, sells, and buys Products on the Market

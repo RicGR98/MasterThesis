@@ -10,7 +10,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
-import static rgomesro.Constants.Product.NB_DIFF_PRODUCTS;
+import static rgomesro.Params.Product.NB_DIFF_PRODUCTS;
 
 /**
  * Represents a Market where Products are sold by Agent's

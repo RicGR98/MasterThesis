@@ -3,8 +3,8 @@ package rgomesro.models.taxes;
 import rgomesro.models.entities.Product;
 import rgomesro.utils.RandomUtils;
 
-import static rgomesro.Constants.State.Tax.MAX_VAT;
-import static rgomesro.Constants.State.Tax.MIN_VAT;
+import static rgomesro.Params.State.Tax.MAX_VAT;
+import static rgomesro.Params.State.Tax.MIN_VAT;
 
 /**
  * Represents the Value Added Tax on a Product

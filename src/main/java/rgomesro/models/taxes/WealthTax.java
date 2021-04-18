@@ -6,8 +6,8 @@ import rgomesro.models.entities.State;
 import java.util.Comparator;
 import java.util.List;
 
-import static rgomesro.Constants.State.Tax.VAL_WEALTH_TAX_TOP;
-import static rgomesro.Constants.State.Tax.VAL_WEALTH_TAX_VALUE;
+import static rgomesro.Params.State.Tax.VAL_WEALTH_TAX_TOP;
+import static rgomesro.Params.State.Tax.VAL_WEALTH_TAX_VALUE;
 
 /**
  * Represents the Wealth Tax a State might implement:

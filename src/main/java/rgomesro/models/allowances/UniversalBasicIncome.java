@@ -2,7 +2,7 @@ package rgomesro.models.allowances;
 
 import rgomesro.models.entities.State;
 
-import static rgomesro.Constants.State.Allowance.VAL_UBI;
+import static rgomesro.Params.State.Allowance.VAL_UBI;
 
 /**
  * Represents the Universal Basic Income allowance given to Agents by their State
