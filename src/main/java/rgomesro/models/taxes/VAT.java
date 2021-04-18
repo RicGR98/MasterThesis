@@ -1,8 +1,10 @@
 package rgomesro.models.taxes;
 
 import rgomesro.models.entities.Product;
+import rgomesro.utils.RandomUtils;
 
-import static rgomesro.Constants.State.Tax.VAL_VAT;
+import static rgomesro.Constants.State.Tax.MAX_VAT;
+import static rgomesro.Constants.State.Tax.MIN_VAT;
 
 /**
  * Represents the Value Added Tax on a Product
@@ -20,7 +22,7 @@ public class VAT extends Tax {
     }
 
     public VAT(){
-        this(VAL_VAT);
+        this(RandomUtils.getFloat(MIN_VAT, MAX_VAT)); // TODO: Analyze
     }
 
     /* ==================================

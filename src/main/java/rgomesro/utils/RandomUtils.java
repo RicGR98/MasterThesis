@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 public class RandomUtils {
-    private static final Random gen = new Random(0); // System.currentTimeMillis()
+    private static final Random gen = new Random();
 
     /**
      * @param min Minimum value

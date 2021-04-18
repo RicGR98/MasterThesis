@@ -35,7 +35,7 @@ public class Agent extends Entity {
     }
 
     public Agent(Market market, State state){
-        this(market, state, INIT_MONEY);
+        this(market, state, VAL_INIT_MONEY); // TODO: Analyze
     }
 
     /* ==================================

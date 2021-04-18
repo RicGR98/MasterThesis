@@ -24,7 +24,7 @@ public class UniversalBasicIncome extends Allowance {
     }
 
     public UniversalBasicIncome(State state){
-        this(state, VAL_UBI);
+        this(state, VAL_UBI); // TODO: Analyze
     }
 
     /* ==================================

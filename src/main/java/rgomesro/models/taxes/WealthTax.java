@@ -28,7 +28,7 @@ public class WealthTax extends Tax {
     }
 
     public WealthTax(State state){
-        this(state, VAL_WEALTH_TAX_TOP, VAL_WEALTH_TAX_VALUE);
+        this(state, VAL_WEALTH_TAX_TOP, VAL_WEALTH_TAX_VALUE); // TODO: Analyze
     }
 
     /* ==================================

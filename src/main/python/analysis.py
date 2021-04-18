@@ -4,9 +4,9 @@ import pandas as pd
 
 plt.style.use('dark_background')
 
-DIR_RES = "res/"
-CSV_AGENTS = DIR_RES + "agents.csv"
-CSV_STATES = DIR_RES + "states.csv"
+DIR_RES_CSV = "res/csv/"
+CSV_AGENTS = DIR_RES_CSV + "agents.csv"
+CSV_STATES = DIR_RES_CSV + "states.csv"
 
 
 def sanitizedStates() -> pd.DataFrame:
