@@ -1,12 +1,14 @@
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-plt.style.use('dark_background')
+from src.main.python.chart import Chart
 
-DIR_RES_CSV = "res/csv/"
+DIR_RES = "res/"
+DIR_RES_IMG = DIR_RES + "img/"
+DIR_RES_CSV = DIR_RES + "csv/"
 CSV_AGENTS = DIR_RES_CSV + "agents.csv"
 CSV_STATES = DIR_RES_CSV + "states.csv"
+CSV_PRODUCTS = DIR_RES_CSV + "products.csv"
 
 
 def sanitizedStates() -> pd.DataFrame:
@@ -30,26 +32,11 @@ def vatInfluence():
     df = sanitizedStates()
     df = df.sort_values('VAT')
 
-    fig, ax1 = plt.subplots()
-    fig.suptitle("Influence of a State's VAT")
-    ax1.set_xlabel("State's VAT")
-
-    # Draw line 1: money of the State itself
-    color = 'tab:red'
-    ax1.set_ylabel("State's money", color=color)
-    ax1.plot(df["VAT"], df["Money"], color=color)
-    ax1.tick_params(axis='y', labelcolor=color)
-
-    ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
-
-    # Draw line 2: average number of product sold by an agent
-    color = 'tab:blue'
-    ax2.set_ylabel("Average number of product sold by an agent", color=color)
-    ax2.plot(df["VAT"], df["PopTotalSoldProducts"], color=color)
-    ax2.tick_params(axis='y', labelcolor=color)
-
-    fig.tight_layout()
-    plt.show()
+    chart = Chart("Influence of a State's VAT", 2)
+    chart.set_axis_labels("State's VAT", "State's money", "Average number of product sold by an agent")
+    chart.plot(df["VAT"], df["Money"], color="red")
+    chart.plot_y2(df["VAT"], df["PopTotalSoldProducts"], color="blue")
+    chart.show()
 
 
 def gini():
@@ -65,22 +52,15 @@ def gini():
 def agentsWealthDistribution():
     df = pd.read_csv(CSV_AGENTS)
     X = df["Money"]
-
     X_lorenz = X.cumsum() / X.sum()
-    fig, ax = plt.subplots()
+    x = np.arange(X_lorenz.size)/(X_lorenz.size-1)
+    y = X_lorenz
 
-    fig.suptitle('Wealth distribution (Gini coeff: ' + str(gini()) + ")")
-    ax.set_xlabel("Fraction of population")
-    ax.set_ylabel("Fraction of wealth")
-
-    # Scatter plot of Lorenz curve
-    ax.scatter(np.arange(X_lorenz.size)/(X_lorenz.size-1), X_lorenz, color='blue', label="Lorenz curve")
-
-    # Line plot of equality
-    ax.plot([0, 1], [0, 1], color='red', label="Perfect equality")
-
-    plt.legend()
-    plt.show()
+    chart = Chart('Wealth distribution (Gini coeff: ' + str(gini()) + ")")
+    chart.set_axis_labels("Fraction of population", "Fraction of wealth")
+    chart.plot([0, 1], [0, 1], color='red', label="Perfect equality")
+    chart.scatter(x, y, color='blue', label="Lorenz curve")
+    chart.show()
 
 
 def main():
