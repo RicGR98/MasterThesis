@@ -41,7 +41,7 @@ public class Product extends Entity {
     }
 
     public Product(Agent agent){
-        this(agent, RandomUtils.getInt(0, NB_DIFF_PRODUCTS), RandomUtils.getFloat(MIN_PRICE, MAX_PRICE));
+        this(agent, getRandomType(), RandomUtils.getFloat(MIN_PRICE, MAX_PRICE));
     }
 
     /* ==================================
@@ -73,6 +73,10 @@ public class Product extends Entity {
 
     public Boolean canBeProduced(){
         return this.stock < MAX_STOCK;
+    }
+
+    public static Integer getRandomType(){
+        return RandomUtils.getInt(0, NB_DIFF_PRODUCTS);
     }
 
     /* ==================================

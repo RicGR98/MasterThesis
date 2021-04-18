@@ -46,9 +46,11 @@ public final class Constants {
 
             public static final float MIN_VAT = 0f;
             public static final float MAX_VAT = 100f;
+            public static final float VAL_VAT = 21f;
 
-            public static final int VAL_WEALTH_TAX_TOP = 10; //Top x% of wealthiest. E.g.: Top 10%
-            public static final float VAL_WEALTH_TAX_VALUE = 100f;  //E.g.: 10% Wealth tax
+            // TODO: 18/04/2021
+            public static final float VAL_WEALTH_TAX_TOP = 0.1f; //E.g.: Top 10% (top = 0.1) wealthiest Agents are taxed
+            public static final float VAL_WEALTH_TAX_VALUE = 0.1f;  //E.g.: 10% (value = 0.1) Wealth tax
         }
 
         /**
@@ -59,6 +61,7 @@ public final class Constants {
 
             public static final float MIN_UBI = 0f;
             public static final float MAX_UBI = Agent.INIT_MONEY/10;
+            public static final float VAL_UBI = 0f;
         }
     }
 

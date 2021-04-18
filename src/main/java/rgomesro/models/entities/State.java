@@ -33,8 +33,8 @@ public class State extends Entity {
         this.world = world;
         this.agents = new ArrayList<>();
         this.vat = new VAT();
-        this.wealthTax = new WealthTax(this, 0, 0f); // TODO: 17/04/2021
-        this.ubi = new UniversalBasicIncome(this, 0); // TODO: 17/04/2021
+        this.wealthTax = new WealthTax(this);
+        this.ubi = new UniversalBasicIncome(this);
     }
 
     /* ==================================

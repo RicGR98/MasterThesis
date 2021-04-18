@@ -121,7 +121,7 @@ public class Market {
     }
 
     public Boolean buy(Agent buyer){
-        return this.buy(buyer, RandomUtils.getInt(0, NB_DIFF_PRODUCTS));
+        return this.buy(buyer, Product.getRandomType());
     }
 
     /**
