@@ -12,8 +12,12 @@ public abstract class Entity {
     /* ==================================
      * ==== Constructors
      * ================================== */
+    public Entity(String id){
+        this.id = id;
+    }
+
     public Entity(int id){
-        this.id = String.valueOf(id);
+        this(String.valueOf(id));
     }
 
     /* ==================================

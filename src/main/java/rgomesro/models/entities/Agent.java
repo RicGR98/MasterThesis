@@ -1,6 +1,6 @@
 package rgomesro.models.entities;
 
-import rgomesro.models.Market;
+import rgomesro.models.WorldMarket;
 import rgomesro.utils.RandomUtils;
 
 import java.util.stream.Stream;
@@ -11,7 +11,7 @@ import static rgomesro.Params.Agent.*;
  * Represents an Agent in the World who produces, sells, and buys Products on the Market
  */
 public class Agent extends Entity {
-    private final Market market;
+    private final WorldMarket worldMarket;
     private final State state;
     private Float money;
     private final Product product;
@@ -21,21 +21,21 @@ public class Agent extends Entity {
      * ==== Constructors
      * ================================== */
     /**
-     * @param market Market of the World
+     * @param worldMarket Market of the World
      * @param state State to which the Agent belongs
      * @param money Initial money of the Agent
      */
-    public Agent(int id, Market market, State state, float money) {
+    public Agent(int id, WorldMarket worldMarket, State state, float money) {
         super(id);
-        this.market = market;
+        this.worldMarket = worldMarket;
         this.state = state;
         this.state.addAgent(this);
         this.money = money;
         this.product = new Product(this);
     }
 
-    public Agent(int id, Market market, State state){
-        this(id, market, state, VAL_INIT_MONEY); // TODO: Analyze
+    public Agent(int id, WorldMarket worldMarket, State state){
+        this(id, worldMarket, state, VAL_INIT_MONEY); // TODO: Analyze
     }
 
     /* ==================================
@@ -112,7 +112,7 @@ public class Agent extends Entity {
      * Buy a product on the market
      */
     public void buy(){
-        if (this.market.buy(this))
+        if (this.worldMarket.buy(this))
             nbProductsBought++;
     }
 

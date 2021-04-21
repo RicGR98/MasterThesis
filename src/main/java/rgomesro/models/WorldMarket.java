@@ -1,46 +1,40 @@
 package rgomesro.models;
 
 import rgomesro.models.entities.Agent;
+import rgomesro.models.entities.Market;
 import rgomesro.models.entities.Product;
 import rgomesro.models.entities.State;
 import rgomesro.utils.RandomUtils;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
-import static rgomesro.Params.Product.NB_DIFF_PRODUCTS;
-
 /**
  * Represents a Market where Products are sold by Agent's
  */
-public class Market {
+public class WorldMarket {
     public final World world;
-    public final HashMap<State, HashMap<Integer, ArrayList<Product>>> products; // Market.get(State).get(Product.Type) = ArrayList<Product>
+    public final HashMap<State, Market> markets;
 
     /* ==================================
      * ==== Constructors
      * ================================== */
-    public Market(World world){
+    public WorldMarket(World world){
         this.world = world;
-        products = new HashMap<>();
+        markets = new HashMap<>();
     }
 
     /* ==================================
      * ==== Getters
      * ================================== */
     /**
-     * @return Total stocks of all products of the market
+     * @return Total stocks of all products of the World's Market
      */
     public int getProductCount(){
         int res = 0;
-        for (State state : products.keySet()) {
-            for (int type = 0; type < NB_DIFF_PRODUCTS; type++){
-                for (Product product: products.get(state).get(type)){
-                    res += product.getStock();
-                }
-            }
+        for (State state : markets.keySet()) {
+            res += state.getMarket().getProductCount();
         }
         return res;
     }
@@ -51,33 +45,22 @@ public class Market {
     /**
      * Initialize the Market's products classified by State and Product type
      */
-    public void initMarket(){
+    public void init(){
         for (State state : world.getStates()) {
-            products.put(state, new HashMap<>());
-            for (int type = 0; type < NB_DIFF_PRODUCTS; type++){
-                products.get(state).put(type, new ArrayList<>());
-                for (Agent agent: state.getAgents()){
-                    if (agent.getProduct().getType() == type){
-                        products.get(state).get(type).add(agent.getProduct());
-                    }
-                }
-            }
+            markets.put(state, state.getMarket());
+            state.getMarket().initMarket();
         }
     }
 
     /**
-     * Checks if a buyer is allowed to buy a Prodct
+     * Checks if a buyer is allowed to buy a Product
      * @param buyer Buyer of the Product
      * @param product Product we want to buy
      * @return True if the Buyer can buy the Product, else false
      */
     public Boolean isProductBuyable(Agent buyer, Product product){
-        if (product.getStock() <= 0)
-            return false;
-        var stateVAT = product.getProducer().getState().getVat();
-        if (!buyer.hasEnoughMoney(product.getSellingPrice() +  stateVAT.compute(product)))
-            return false;
-        return true;
+        //TODO
+        return null;
     }
 
     /**
@@ -86,20 +69,7 @@ public class Market {
      * @return List of filtered product according to State, Type, Stocks, Price, ...
      */
     public List<Product> getFilteredProducts(Agent buyer, int type){
-        var res = new ArrayList<Product>();
-        if (!world.getCluster().contains(buyer.getState())){ //Buyer's State not in Cluster
-            products.get(buyer.getState()).get(type).forEach(product -> {
-                if (isProductBuyable(buyer, product))
-                    res.add(product);
-            });
-        } else { //Buyer's State in the Cluster, we visit all the other States in it too
-            for (State state: world.getCluster().getStates()){
-                products.get(state).get(type).forEach(product -> {
-                    if (isProductBuyable(buyer, product))
-                        res.add(product);
-                });
-            }
-        }
+        var res = buyer.getState().getMarket().getFilteredProducts(buyer, type);
         res.sort(Comparator.comparing(Product::getSellingPrice)); // From lowest to highest price
         return res;
     }

@@ -27,7 +27,7 @@ public class Product extends Entity {
      * @param productionPrice Price when producing a unit of this Product
      */
     public Product(Agent agent, int type, float sellingPrice, float productionPrice) {
-        super(Integer.parseInt(agent.getId()));
+        super(agent.getId());
         this.producer = agent;
         this.type = type;
         this.productionPrice = productionPrice; // TODO: 17/04/2021

@@ -16,6 +16,7 @@ import static rgomesro.Params.State.NB_TICKS_DISTRIBUTE_UBI;
  */
 public class State extends Entity {
     private final World world;
+    private final Market market;
     private final VAT vat;
     private final WealthTax wealthTax;
     private final UniversalBasicIncome ubi;
@@ -31,6 +32,7 @@ public class State extends Entity {
     public State(int id, World world) {
         super(id);
         this.world = world;
+        this.market = new Market(this);
         this.agents = new ArrayList<>();
         this.vat = new VAT();
         this.wealthTax = new WealthTax(this);
@@ -50,6 +52,10 @@ public class State extends Entity {
 
     public Float getMoney() {
         return money;
+    }
+
+    public Market getMarket() {
+        return market;
     }
 
     /**

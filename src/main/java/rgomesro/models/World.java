@@ -17,7 +17,7 @@ import static rgomesro.Params.World.*;
  * Represents the World holding the Market, States, Agents, ...
  */
 public class World {
-    private final Market market;
+    private final WorldMarket worldMarket;
     private final Cluster cluster;
     private final ArrayList<State> states;
     private final ArrayList<Agent> agents;
@@ -27,7 +27,7 @@ public class World {
      * ==== Constructors
      * ================================== */
     public World(){
-        this.market = new Market(this);
+        this.worldMarket = new WorldMarket(this);
         this.cluster = new Cluster(0);
         this.states = new ArrayList<>(NB_STATES);
         for (int i = 0; i < NB_STATES; i++) {
@@ -39,10 +39,10 @@ public class World {
         }
         this.agents = new ArrayList<>(NB_AGENTS);
         for (int i = 0; i < NB_AGENTS; i++) {
-            Agent agent = new Agent(i, market, RandomUtils.choose(states));
+            Agent agent = new Agent(i, worldMarket, RandomUtils.choose(states));
             this.agents.add(agent);
         }
-        market.initMarket();
+        worldMarket.init();
     }
 
     /* ==================================
@@ -64,7 +64,7 @@ public class World {
      */
     private void tick(){
         if (currentTick % NB_TICKS_SAVE_CSV == 0){
-            System.out.println(currentTick + " " + market.getProductCount());
+            System.out.println(currentTick + " " + worldMarket.getProductCount());
             saveAllToCsv(); //Partial save
         }
         agents.forEach(Agent::tick);
