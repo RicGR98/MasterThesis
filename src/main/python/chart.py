@@ -68,6 +68,24 @@ class Chart:
     def scatter_y2(self, x, y, label=None, color=None):
         self.__scatter(self.ax2, x, y, label=label, color=color)
 
+    def __bar(self, y_axis, x, y, label=None, color=None):
+        """
+        Bar plot
+        :param y_axis: Y axis in which to scatter the points
+        :param x: X data
+        :param y: Y data
+        :param label: label of the scattered points
+        :param color: color of the scattered points
+        """
+        y_axis.bar(x, y, label=label, color=color)
+        self.colors.append(color)
+
+    def bar(self, x, y, label=None, color=None):
+        self.__bar(self.ax1, x, y, label=label, color=color)
+
+    def bar_y2(self, x, y, label=None, color=None):
+        self.__bar(self.ax2, x, y, label=label, color=color)
+
     def show(self, filename=None):
         """
         Show (and save) the Chart

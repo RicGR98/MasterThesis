@@ -78,9 +78,22 @@ def agentsWealthDistribution():
     chart.show()
 
 
+def connectStatesInfluence():
+    """
+    Influence of the number of connected States to one State
+    """
+    x = DF_STATES["ConnectedStates"].astype(str).map(lambda val: len(val.split(","))) - 1
+    y = DF_STATES["Money"]
+    chart = Chart("Influence of a State's number of connections")
+    chart.set_axis_labels("Number of connected States", "State's money")
+    chart.bar(x, y, color='blue')
+    chart.show()
+
+
 def main():
     agentsWealthDistribution()
     vatInfluence()
+    connectStatesInfluence()
 
 
 if __name__ == '__main__':
