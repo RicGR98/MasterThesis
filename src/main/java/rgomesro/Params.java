@@ -25,6 +25,7 @@ public final class Params {
         public static final String CSV_STATES = DIRECTORY_RES_CSV + "states.csv";
         public static final String CSV_AGENTS = DIRECTORY_RES_CSV + "agents.csv";
         public static final String CSV_PRODUCTS = DIRECTORY_RES_CSV + "products.csv";
+        public static final String CSV_CONNECTIONS = DIRECTORY_RES_CSV + "connections.csv";
     }
 
     /**

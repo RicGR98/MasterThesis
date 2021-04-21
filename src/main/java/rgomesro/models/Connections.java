@@ -1,12 +1,14 @@
 package rgomesro.models;
 
 import org.jgrapht.Graph;
+import org.jgrapht.Graphs;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 import rgomesro.models.entities.State;
 import rgomesro.utils.RandomUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static rgomesro.Params.Connections.CLUSTER_SIZE;
 import static rgomesro.Params.Connections.PROB_CONNECTION;
@@ -21,22 +23,22 @@ public class Connections {
      * ================================== */
     /**
      * @param states List of States
-     * @param clusterSize Size of the Cluster of States
-     * @param probAttached Probability of two States being connected to each other
      */
-    public Connections(ArrayList<State> states, int clusterSize, float probAttached) {
+    public Connections(ArrayList<State> states) {
         this.states = states;
         this.clusterMembers = new ArrayList<>();
         this.graph = new SimpleGraph<>(DefaultEdge.class);
         for (State state: states){
             graph.addVertex(state);
         }
-        this.createCluster(clusterSize);
-        this.createEdges(probAttached);
     }
 
-    public Connections(ArrayList<State> states){
-        this(states, CLUSTER_SIZE, PROB_CONNECTION);
+    /* ==================================
+     * ==== Methods: Getters
+     * ================================== */
+    public List<State> getConnectedStates(State state){
+        assert (states.contains(state));
+        return Graphs.neighborListOf(graph, state);
     }
 
     /* ==================================
@@ -46,8 +48,8 @@ public class Connections {
      * Create a cluster where all States are connected to each other
      * @param size How many State members are in the Cluster
      */
-    public void createCluster(int size){
-        assert (size < states.size());
+    private void createCluster(int size){
+        assert (size <= states.size());
         while (clusterMembers.size() != size){
             clusterMembers.add(RandomUtils.choose(states));
         }
@@ -63,7 +65,7 @@ public class Connections {
      * Create random edges between States
      * @param probability probability of two States being connected
      */
-    public void createEdges(float probability){
+    private void createEdges(float probability){
         var freeStates = new ArrayList<>(states);
         freeStates.removeAll(clusterMembers);
         for (State state: freeStates){
@@ -80,6 +82,8 @@ public class Connections {
      * in the graph.
      */
     public void updateConnectedStates(){
+        this.createCluster(CLUSTER_SIZE);
+        this.createEdges(PROB_CONNECTION);
         graph.edgeSet().forEach(edge -> {
             State state1 = graph.getEdgeSource(edge);
             State state2 = graph.getEdgeTarget(edge);
