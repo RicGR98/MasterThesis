@@ -18,7 +18,6 @@ public class World {
     private final WorldMarket worldMarket;
     private final ArrayList<State> states;
     private final ArrayList<Agent> agents;
-    private Connections connections;
     private int currentTick = 0;
 
     /* ==================================
@@ -62,7 +61,7 @@ public class World {
         worldMarket.init();
 
         //Update Connections
-        connections = new Connections(states);
+        Connections connections = new Connections(states);
         connections.updateConnectedStates();
     }
 
@@ -98,7 +97,6 @@ public class World {
         saveAgentsToCsv();
         saveStatesToCsv();
         saveProductsToCsv();
-        saveConnectionsToCsv();
     }
 
     /**
@@ -153,20 +151,5 @@ public class World {
                         .map(Product::toCsv)
                         .collect(Collectors.joining("\n"))
         );
-    }
-
-    /**
-     * Save all Connections between States to csv
-     */
-    private void saveConnectionsToCsv(){
-        String csv = "";
-        for (State state: states){
-            csv += state + ",\"";
-            for (State connectedState: connections.getConnectedStates(state)){
-                csv += connectedState + ",";
-            }
-            csv += "\"\n";
-        }
-        saveToCsv(CSV_CONNECTIONS, "Id,ConnectedIds", csv);
     }
 }

@@ -86,6 +86,14 @@ public class State extends Entity {
         return total;
     }
 
+    public String getConnectedStatesCsv(){
+        String csv = "";
+        for (State connectedState: connectedStates){
+            csv += connectedState + ",";
+        }
+        return csv;
+    }
+
     /* ==================================
      * ==== Setters
      * ================================== */
@@ -107,7 +115,7 @@ public class State extends Entity {
      * ==== Methods: csv
      * ================================== */
     public static String csvHeader(){
-        return "Id,VAT,Money,PopSize,PopTotalMoney,PopTotalSoldProducts,Ubi";
+        return "Id,VAT,Money,PopSize,PopTotalMoney,PopTotalSoldProducts,ConnectedStates,Ubi";
     }
 
     @Override
@@ -119,6 +127,7 @@ public class State extends Entity {
                 String.valueOf(getAgents().size()),
                 getAgentsTotalMoney().toString(),
                 getTotalProductsSold().toString(),
+                getConnectedStatesCsv(),
                 ubi.getAllowance().toString());
     }
 
