@@ -3,10 +3,13 @@
         "NB_STATES": 200,
         "NB_AGENTS": 10000,
         "NB_TICKS": 20000,
-        "NB_TICKS_SAVE_CSV": 500
+        "NB_TICKS_SAVE_CSV": 500,
+        "CLUSTER_SIZE": 4,
+        "PROB_CONNECTION": 0.2
     },
-    "Cluster": {
-        "PROB_ATTACHED": 0.0
+    "Connections": {
+        "CLUSTER_SIZE": 10,
+        "PROB_CONNECTION": 0.1
     },
     "State": {
         "Tax": {

@@ -17,6 +17,7 @@ import static rgomesro.Params.State.NB_TICKS_DISTRIBUTE_UBI;
 public class State extends Entity {
     private final World world;
     private final Market market;
+    private final ArrayList<State> connectedStates;
     private final VAT vat;
     private final WealthTax wealthTax;
     private final UniversalBasicIncome ubi;
@@ -33,6 +34,7 @@ public class State extends Entity {
         super(id);
         this.world = world;
         this.market = new Market(this);
+        this.connectedStates = new ArrayList<>();
         this.agents = new ArrayList<>();
         this.vat = new VAT();
         this.wealthTax = new WealthTax(this);
@@ -56,6 +58,10 @@ public class State extends Entity {
 
     public Market getMarket() {
         return market;
+    }
+
+    public ArrayList<State> getConnectedStates() {
+        return connectedStates;
     }
 
     /**
@@ -88,6 +94,13 @@ public class State extends Entity {
      */
     public void addAgent(Agent agent){
         agents.add(agent);
+    }
+
+    /**
+     * @param state Connected State to the current one
+     */
+    public void addConnectedState(State state){
+        connectedStates.add(state);
     }
 
     /* ==================================

@@ -28,18 +28,19 @@ public final class Params {
     }
 
     /**
-     * Cluster's constants
+     * Connections' constants
      */
-    public static final class Cluster {
-        private static final JSONObject jsonCluster = JsonUtils.getJsonObject(json, "Cluster");
+    public static final class Connections {
+        private static final JSONObject jsonConnections = JsonUtils.getJsonObject(json, "Connections");
 
-        private Cluster() {}
+        private Connections() {}
 
-        // TODO: Analyze
-        public static final Float PROB_ATTACHED = JsonUtils.getFloat(jsonCluster, "PROB_ATTACHED");
+        public static final int CLUSTER_SIZE = JsonUtils.getInt(jsonConnections, "CLUSTER_SIZE");
+        public static final float PROB_CONNECTION = JsonUtils.getFloat(jsonConnections, "PROB_CONNECTION");
+
     }
 
-    /**
+        /**
      * State's constants
      */
     public static final class State {

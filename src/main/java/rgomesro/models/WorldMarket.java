@@ -6,6 +6,7 @@ import rgomesro.models.entities.Product;
 import rgomesro.models.entities.State;
 import rgomesro.utils.RandomUtils;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -53,23 +54,19 @@ public class WorldMarket {
     }
 
     /**
-     * Checks if a buyer is allowed to buy a Product
-     * @param buyer Buyer of the Product
-     * @param product Product we want to buy
-     * @return True if the Buyer can buy the Product, else false
-     */
-    public Boolean isProductBuyable(Agent buyer, Product product){
-        //TODO
-        return null;
-    }
-
-    /**
      * @param buyer Agent who wants to buy a product on the market
      * @param type Type of product the agent wants to buy
      * @return List of filtered product according to State, Type, Stocks, Price, ...
      */
     public List<Product> getFilteredProducts(Agent buyer, int type){
-        var res = buyer.getState().getMarket().getFilteredProducts(buyer, type);
+        var connectedStates = new ArrayList<State>();
+        connectedStates.add(buyer.getState());
+        connectedStates.addAll(buyer.getState().getConnectedStates());
+
+        var res = new ArrayList<Product>();
+        for (State state: connectedStates){
+            res.addAll(state.getMarket().getFilteredProducts(buyer, type));
+        }
         res.sort(Comparator.comparing(Product::getSellingPrice)); // From lowest to highest price
         return res;
     }

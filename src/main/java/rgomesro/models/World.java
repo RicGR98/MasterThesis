@@ -1,7 +1,6 @@
 package rgomesro.models;
 
 import rgomesro.models.entities.Agent;
-import rgomesro.models.entities.Cluster;
 import rgomesro.models.entities.Product;
 import rgomesro.models.entities.State;
 import rgomesro.utils.FileUtils;
@@ -10,7 +9,6 @@ import rgomesro.utils.RandomUtils;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import static rgomesro.Params.Cluster.PROB_ATTACHED;
 import static rgomesro.Params.World.*;
 
 /**
@@ -18,7 +16,6 @@ import static rgomesro.Params.World.*;
  */
 public class World {
     private final WorldMarket worldMarket;
-    private final Cluster cluster;
     private final ArrayList<State> states;
     private final ArrayList<Agent> agents;
     private int currentTick = 0;
@@ -28,21 +25,9 @@ public class World {
      * ================================== */
     public World(){
         this.worldMarket = new WorldMarket(this);
-        this.cluster = new Cluster(0);
         this.states = new ArrayList<>(NB_STATES);
-        for (int i = 0; i < NB_STATES; i++) {
-            State state = new State(i, this);
-            this.states.add(state);
-            if (RandomUtils.getRandom() < PROB_ATTACHED){
-                this.cluster.addState(state);
-            }
-        }
         this.agents = new ArrayList<>(NB_AGENTS);
-        for (int i = 0; i < NB_AGENTS; i++) {
-            Agent agent = new Agent(i, worldMarket, RandomUtils.choose(states));
-            this.agents.add(agent);
-        }
-        worldMarket.init();
+        this.init();
     }
 
     /* ==================================
@@ -52,13 +37,34 @@ public class World {
         return states;
     }
 
-    public Cluster getCluster() {
-        return cluster;
-    }
-
     /* ==================================
      * ==== Methods: actions
      * ================================== */
+
+    /**
+     * Initialize the World with its States, Agents, ...
+     */
+    private void init(){
+        //Initialize States
+        for (int i = 0; i < NB_STATES; i++) {
+            State state = new State(i, this);
+            this.states.add(state);
+        }
+
+        //Initialize Agents
+        for (int i = 0; i < NB_AGENTS; i++) {
+            Agent agent = new Agent(i, worldMarket, RandomUtils.choose(states));
+            this.agents.add(agent);
+        }
+
+        //Initialize Markets
+        worldMarket.init();
+
+        //Initialize Connections
+        Connections connections = new Connections(states);
+        connections.updateConnectedStates();
+    }
+
     /**
      * Represent a step in the World's lifetime where its Entities can performd actions
      */
