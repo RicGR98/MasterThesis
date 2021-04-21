@@ -60,6 +60,7 @@ public class Agent extends Entity {
         return "Id,State,Money,Bought";
     }
 
+    @Override
     public Stream<String> properties(){
         return Stream.of(
                 id,

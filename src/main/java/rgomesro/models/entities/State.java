@@ -91,6 +91,7 @@ public class State extends Entity {
         return "Id,VAT,Money,PopSize,PopTotalMoney,PopTotalSoldProducts,Ubi";
     }
 
+    @Override
     public Stream<String> properties(){
         return Stream.of(
                 id,

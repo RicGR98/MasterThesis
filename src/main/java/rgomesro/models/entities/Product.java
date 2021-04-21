@@ -86,6 +86,7 @@ public class Product extends Entity {
         return "Id,Producer,Type,ProductionPrice,SellingPrice,Stock,Sold";
     }
 
+    @Override
     public Stream<String> properties(){
         return Stream.of(
                 id,
