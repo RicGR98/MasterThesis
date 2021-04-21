@@ -67,14 +67,14 @@ def agentsWealthDistribution():
     the Gini coefficient and the Lorenz curve
     """
     X = DF_AGENTS_PRODUCTS["Money"]
-    X_lorenz = X.cumsum() / X.sum()
-    x = np.arange(X_lorenz.size)/(X_lorenz.size-1)
-    y = X_lorenz
+    X = X.sort_values()
+    lorenz_x = np.linspace(0.0, 1.0, X.size)
+    lorenz_y = X.cumsum() / X.sum()
 
     chart = Chart('Wealth distribution (Gini coeff: ' + str(gini()) + ")")
     chart.set_axis_labels("Fraction of population", "Fraction of wealth")
     chart.plot([0, 1], [0, 1], color='red', label="Perfect equality")
-    chart.scatter(x, y, color='blue', label="Lorenz curve")
+    chart.plot(lorenz_x, lorenz_y, color='blue', label="Lorenz curve")
     chart.show()
 
 
