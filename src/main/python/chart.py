@@ -32,59 +32,50 @@ class Chart:
         self.label_y = y
         self.label_y2 = y2
 
-    def __plot(self, y_axis, x, y, label=None, color=None):
+    def plot(self, x, y, label=None, color=None, y2=False):
         """
         Plot a line on the Chart
-        :param y_axis: Y axis in which to plot
         :param x: X data
         :param y: Y data
         :param label: label of the plotted line
         :param color: color of the plotted line
+        :param y2: True if we use the second y axis
         """
-        y_axis.plot(x, y, label=label, color=color)
+        if not y2:
+            self.ax1.plot(x, y, label=label, color=color)
+        else:
+            self.ax2.plot(x, y, label=label, color=color)
         self.colors.append(color)
 
-    def plot(self, x, y, label=None, color=None):
-        self.__plot(self.ax1, x, y, label=label, color=color)
-
-    def plot_y2(self, x, y, label=None, color=None):
-        self.__plot(self.ax2, x, y, label=label, color=color)
-
-    def __scatter(self, y_axis, x, y, label=None, color=None):
+    def scatter(self, x, y, label=None, color=None, y2=False):
         """
         Scatter points on the Chart
-        :param y_axis: Y axis in which to scatter the points
         :param x: X data
         :param y: Y data
         :param label: label of the scattered points
         :param color: color of the scattered points
+        :param y2: True if we use the second y axis
         """
-        y_axis.scatter(x, y, label=label, color=color)
+        if not y2:
+            self.ax1.scatter(x, y, label=label, color=color)
+        else:
+            self.ax2.scatter(x, y, label=label, color=color)
         self.colors.append(color)
 
-    def scatter(self, x, y, label=None, color=None):
-        self.__scatter(self.ax1, x, y, label=label, color=color)
-
-    def scatter_y2(self, x, y, label=None, color=None):
-        self.__scatter(self.ax2, x, y, label=label, color=color)
-
-    def __bar(self, y_axis, x, y, label=None, color=None):
+    def bar(self, x, y, label=None, color=None, y2=False):
         """
         Bar plot
-        :param y_axis: Y axis in which to scatter the points
         :param x: X data
         :param y: Y data
         :param label: label of the scattered points
         :param color: color of the scattered points
+        :param y2: True if we use the second y axis
         """
-        y_axis.bar(x, y, label=label, color=color)
+        if not y2:
+            self.ax1.bar(x, y, label=label, color=color)
+        else:
+            self.ax2.bar(x, y, label=label, color=color)
         self.colors.append(color)
-
-    def bar(self, x, y, label=None, color=None):
-        self.__bar(self.ax1, x, y, label=label, color=color)
-
-    def bar_y2(self, x, y, label=None, color=None):
-        self.__bar(self.ax2, x, y, label=label, color=color)
 
     def show(self, filename=None):
         """

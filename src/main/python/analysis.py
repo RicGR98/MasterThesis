@@ -17,13 +17,13 @@ CSV_PRODUCTS = DIR_RES_CSV + "products.csv"
 
 def getStatesDF() -> pd.DataFrame:
     """
-    Return dataframe whose values are independent from the population size
-    (to be able to compare State with different population sizes)
+    Return dataframe with some new columns for easier analysis later
     """
     df: pd.DataFrame = pd.read_csv(CSV_STATES)
-    df['Money'] = df['Money']/df['PopSize']  # Money proportional to population size
-    df['PopTotalMoney'] = df['PopTotalMoney']/df['PopSize']  # Money proportional to population size
-    df['PopTotalSoldProducts'] = df['PopTotalSoldProducts']/df['PopSize']  # Money proportional to population size
+    # Money/PopTotalMoney/PopTotalSoldProducts proportional to population size
+    df['Money'] = df['Money']/df['PopSize']
+    df['PopTotalMoney'] = df['PopTotalMoney']/df['PopSize']
+    df['PopTotalSoldProducts'] = df['PopTotalSoldProducts']/df['PopSize']
     # Map ConnectedStates = "4,37,21,10," to NbConnectedStates = 4:
     df["NbConnectedStates"] = df["ConnectedStates"].astype(str).map(lambda val: len(val.split(","))) - 1
     return df
@@ -47,15 +47,15 @@ def vatInfluence():
     chart = Chart("Influence of a State's VAT", 2)
     chart.set_axis_labels("State's VAT", "State's money", "Average number of product sold by an agent")
     chart.plot(df["VAT"], df["Money"], color="red")
-    chart.plot_y2(df["VAT"], df["PopTotalSoldProducts"], color="blue")
+    chart.plot(df["VAT"], df["PopTotalSoldProducts"], color="blue", y2=True)
     chart.show()
 
 
-def gini():
+def gini(df: pd.DataFrame):
     """
     :return Gini coefficient of Agents
     """
-    X = DF_AGENTS_PRODUCTS.sort_values('Money')["Money"]
+    X = df.sort_values('Money')["Money"]
     n = X.size
     coeff = 2. / n
     const_ = (n + 1.) / n
@@ -73,7 +73,7 @@ def agentsWealthDistribution():
     lorenz_x = np.linspace(0.0, 1.0, X.size)
     lorenz_y = X.cumsum() / X.sum()
 
-    chart = Chart('Wealth distribution (Gini coeff: ' + str(gini()) + ")")
+    chart = Chart('Wealth distribution (Gini coeff: ' + str(gini(DF_AGENTS_PRODUCTS)) + ")")
     chart.set_axis_labels("Fraction of population", "Fraction of wealth")
     chart.plot([0, 1], [0, 1], color='red', label="Perfect equality")
     chart.plot(lorenz_x, lorenz_y, color='blue', label="Lorenz curve")
