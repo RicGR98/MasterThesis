@@ -84,7 +84,6 @@ def connectedStatesInfluence():
     """
     Influence of the number of connected States to one State
     """
-    print(DF_STATES.sort_values("Money"))
     df = DF_STATES.groupby("NbConnectedStates")["Money"].mean()
     chart = Chart("Influence of a State's number of connections")
     chart.set_axis_labels("Number of connected States", "State's money")
@@ -95,7 +94,7 @@ def connectedStatesInfluence():
 def main():
     agentsWealthDistribution()
     vatInfluence()
-    connectStatesInfluence()
+    connectedStatesInfluence()
 
 
 if __name__ == '__main__':

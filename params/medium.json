@@ -13,22 +13,19 @@
     },
     "State": {
         "Tax": {
-            "MIN_VAT": 0.0,
-            "MAX_VAT": 100.0,
-            "VAL_VAT": 21.0,
+            "MIN_VAT": 21.0,
+            "MAX_VAT": 21.0,
             "VAL_WEALTH_TAX_TOP": 0.1,
             "VAL_WEALTH_TAX_VALUE": 0.1
         },
         "Allowance": {
             "MIN_UBI": 0.0,
-            "MAX_UBI": 100.0,
-            "VAL_UBI": 0.0
+            "MAX_UBI": 0.0
         }
     },
     "Agent": {
-        "MIN_INIT_MONEY": 0.0,
+        "MIN_INIT_MONEY": 1000.0,
         "MAX_INIT_MONEY": 1000.0,
-        "VAL_INIT_MONEY": 1000.0,
         "NB_PRODUCED_PRODUCTS": 3,
         "RATIO_BUY": 0.2,
         "RATIO_PRODUCE": 0.2

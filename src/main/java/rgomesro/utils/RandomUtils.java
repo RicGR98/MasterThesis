@@ -12,6 +12,7 @@ public class RandomUtils {
      * @return Random integer in [min, max[
      */
     public static int getInt(int min, int max){
+        if (min == max) return min;
         return gen.nextInt(max - min) + min;
     }
 
@@ -21,6 +22,7 @@ public class RandomUtils {
      * @return Random float in [min, max[
      */
     public static float getFloat(float min, float max){
+        if (min == max) return min;
         return gen.nextFloat() * (max - min) + min;
     }
 
@@ -29,13 +31,6 @@ public class RandomUtils {
      */
     public static float getRandom(){
         return getFloat(0, 1);
-    }
-
-    /**
-     * @return Random percentage value in [0, 100[
-     */
-    public static float getPercentage(){
-        return getFloat(0, 100);
     }
 
     /**

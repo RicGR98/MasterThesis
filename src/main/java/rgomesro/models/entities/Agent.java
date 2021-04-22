@@ -35,7 +35,7 @@ public class Agent extends Entity {
     }
 
     public Agent(int id, WorldMarket worldMarket, State state){
-        this(id, worldMarket, state, VAL_INIT_MONEY); // TODO: Analyze
+        this(id, worldMarket, state, RandomUtils.getFloat(MIN_INIT_MONEY, MAX_INIT_MONEY)); // TODO: Analyze
     }
 
     /* ==================================

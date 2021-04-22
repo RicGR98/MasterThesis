@@ -25,7 +25,6 @@ public final class Params {
         public static final String CSV_STATES = DIRECTORY_RES_CSV + "states.csv";
         public static final String CSV_AGENTS = DIRECTORY_RES_CSV + "agents.csv";
         public static final String CSV_PRODUCTS = DIRECTORY_RES_CSV + "products.csv";
-        public static final String CSV_CONNECTIONS = DIRECTORY_RES_CSV + "connections.csv";
     }
 
     /**
@@ -63,7 +62,6 @@ public final class Params {
             //TODO: Analyze
             public static final float MIN_VAT = JsonUtils.getFloat(jsonTax, "MIN_VAT");
             public static final float MAX_VAT = JsonUtils.getFloat(jsonTax, "MAX_VAT");
-            public static final float VAL_VAT = JsonUtils.getFloat(jsonTax, "VAL_VAT");
 
             // TODO: Analyze
             public static final float VAL_WEALTH_TAX_TOP = JsonUtils.getFloat(jsonTax, "VAL_WEALTH_TAX_TOP"); //E.g.: Top 10% (top = 0.1) wealthiest Agents are taxed
@@ -81,7 +79,6 @@ public final class Params {
             // TODO: Analyze
             public static final float MIN_UBI = JsonUtils.getFloat(jsonAllowance, "MIN_UBI");
             public static final float MAX_UBI = JsonUtils.getFloat(jsonAllowance, "MAX_UBI");
-            public static final float VAL_UBI = JsonUtils.getFloat(jsonAllowance, "VAL_UBI");
         }
     }
 
@@ -96,7 +93,6 @@ public final class Params {
         // TODO: Analyze
         public static final float MIN_INIT_MONEY = JsonUtils.getFloat(jsonAgent, "MIN_INIT_MONEY");
         public static final float MAX_INIT_MONEY = JsonUtils.getFloat(jsonAgent, "MAX_INIT_MONEY");
-        public static final float VAL_INIT_MONEY = JsonUtils.getFloat(jsonAgent, "VAL_INIT_MONEY");
 
         // TODO: Analyze
         public static final int NB_PRODUCED_PRODUCTS = JsonUtils.getInt(jsonAgent, "NB_PRODUCED_PRODUCTS");
