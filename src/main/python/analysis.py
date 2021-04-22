@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 
 from src.main.python.chart import Chart
+from src.main.python.params import Params
 
 pd.set_option('display.max_columns', 500)
 # pd.set_option('display.max_rows', 500)
@@ -97,5 +98,12 @@ def main():
     connectedStatesInfluence()
 
 
+def paramsTweaking():
+    p = Params("medium.json")
+    p["World"]["NB_STATES"] = 200
+    p.save()
+
+
 if __name__ == '__main__':
     main()
+    # paramsTweaking()
