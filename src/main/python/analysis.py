@@ -24,6 +24,8 @@ def getStatesDF() -> pd.DataFrame:
     df['Money'] = df['Money']/df['PopSize']  # Money proportional to population size
     df['PopTotalMoney'] = df['PopTotalMoney']/df['PopSize']  # Money proportional to population size
     df['PopTotalSoldProducts'] = df['PopTotalSoldProducts']/df['PopSize']  # Money proportional to population size
+    # Map ConnectedStates = "4,37,21,10," to NbConnectedStates = 4:
+    df["NbConnectedStates"] = df["ConnectedStates"].astype(str).map(lambda val: len(val.split(","))) - 1
     return df
 
 
@@ -55,10 +57,10 @@ def gini():
     """
     X = DF_AGENTS_PRODUCTS.sort_values('Money')["Money"]
     n = X.size
-    coef_ = 2. / n
+    coeff = 2. / n
     const_ = (n + 1.) / n
     weighted_sum = sum([(i+1)*yi for i, yi in enumerate(X)])
-    return round(coef_*weighted_sum/(X.sum()) - const_, 3)
+    return round(coeff*weighted_sum/(X.sum()) - const_, 3)
 
 
 def agentsWealthDistribution():
@@ -78,15 +80,15 @@ def agentsWealthDistribution():
     chart.show()
 
 
-def connectStatesInfluence():
+def connectedStatesInfluence():
     """
     Influence of the number of connected States to one State
     """
-    x = DF_STATES["ConnectedStates"].astype(str).map(lambda val: len(val.split(","))) - 1
-    y = DF_STATES["Money"]
+    print(DF_STATES.sort_values("Money"))
+    df = DF_STATES.groupby("NbConnectedStates")["Money"].mean()
     chart = Chart("Influence of a State's number of connections")
     chart.set_axis_labels("Number of connected States", "State's money")
-    chart.bar(x, y, color='blue')
+    chart.bar(df.index, df, color='blue')
     chart.show()
 
 
