@@ -1,6 +1,5 @@
 package rgomesro.models.entities;
 
-import rgomesro.models.World;
 import rgomesro.models.allowances.UniversalBasicIncome;
 import rgomesro.models.taxes.Tariff;
 import rgomesro.models.taxes.VAT;
@@ -16,25 +15,23 @@ import static rgomesro.Params.State.NB_TICKS_DISTRIBUTE_UBI;
  * Represents a State to which Agents belong
  */
 public class State extends Entity {
-    private final World world;
     private final Market market;
     private final ArrayList<State> connectedStates;
     private final VAT vat;
     private final Tariff tariff;
     private final WealthTax wealthTax;
     private final UniversalBasicIncome ubi;
-    private Float money = 0f;
     private final ArrayList<Agent> agents;
+    private Float money = 0f;
 
     /* ==================================
      * ==== Constructors
      * ================================== */
     /**
-     * @param world Reference to the World
+     * @param id Id of the State
      */
-    public State(int id, World world) {
+    public State(int id) {
         super(id);
-        this.world = world;
         this.market = new Market(this);
         this.connectedStates = new ArrayList<>();
         this.agents = new ArrayList<>();

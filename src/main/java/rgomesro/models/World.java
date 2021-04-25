@@ -14,7 +14,8 @@ import static rgomesro.Params.World.*;
 /**
  * Represents the World holding the Market, States, Agents, ...
  */
-public class World {
+public class World implements Runnable {
+    private final Integer id;
     private final WorldMarket worldMarket;
     private final ArrayList<State> states;
     private final ArrayList<Agent> agents;
@@ -23,7 +24,8 @@ public class World {
     /* ==================================
      * ==== Constructors
      * ================================== */
-    public World(){
+    public World(int id){
+        this.id = id;
         this.worldMarket = new WorldMarket(this);
         this.states = new ArrayList<>(NB_STATES);
         this.agents = new ArrayList<>(NB_AGENTS);
@@ -47,7 +49,7 @@ public class World {
     private void init(){
         //Initialize States
         for (int i = 0; i < NB_STATES; i++) {
-            State state = new State(i, this);
+            State state = new State(i);
             this.states.add(state);
         }
 
@@ -70,8 +72,8 @@ public class World {
      */
     private void tick(){
         if (currentTick % NB_TICKS_SAVE_CSV == 0){
-            System.out.println(currentTick + " " + worldMarket.getProductCount());
-            saveAllToCsv(); //Partial save
+            System.out.println(id + ": " + currentTick + " " + worldMarket.getProductCount());
+            saveAllToCsv(); //Temporary save
         }
         agents.forEach(Agent::tick);
         states.forEach(state -> state.tick(this.currentTick));
@@ -85,6 +87,7 @@ public class World {
         for (int i = 0; i < NB_TICKS; i++) {
             this.tick();
         }
+        this.saveAllToCsv();
     }
 
     /* ==================================
@@ -105,6 +108,7 @@ public class World {
      * @param rows Rows of the csv file (each one representing one Entity)
      */
     private void saveToCsv(String filename, String header, String rows){
+        filename = filename + id + ".csv";
         FileUtils.fileDelete(filename);
         String csv = "";
         if (!FileUtils.fileExists(filename))
