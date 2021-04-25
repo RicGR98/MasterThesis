@@ -48,8 +48,10 @@ def vatInfluence():
     print(df)
     chart = Chart("Influence of a State's VAT", 2)
     chart.set_axis_labels("State's VAT", "State's money", "Average money of an Agent")
-    chart.plot(df["VAT"], df["Money"], color="red")
-    chart.plot(df["VAT"], df["PopTotalMoney"], color="blue", y2=True)
+    chart.scatter(df["VAT"], df["Money"], color="red")
+    chart.scatter(df["VAT"], df["PopTotalMoney"], color="blue", y2=True)
+    chart.plot(df["VAT"], df["Money"], color="red", smooth=True)
+    chart.plot(df["VAT"], df["PopTotalMoney"], color="blue", y2=True, smooth=True)
     chart.show()
 
 

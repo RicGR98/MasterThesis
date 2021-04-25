@@ -1,4 +1,6 @@
 import matplotlib.pyplot as plt
+import numpy as np
+
 
 plt.style.use('dark_background')
 
@@ -32,15 +34,11 @@ class Chart:
         self.label_y = y
         self.label_y2 = y2
 
-    def plot(self, x, y, label=None, color=None, y2=False):
-        """
-        Plot a line on the Chart
-        :param x: X data
-        :param y: Y data
-        :param label: label of the plotted line
-        :param color: color of the plotted line
-        :param y2: True if we use the second y axis
-        """
+    def plot(self, x, y, label=None, color=None, y2=False, smooth=False):
+        if smooth:
+            f = np.poly1d(np.polyfit(x, y, deg=2))
+            x = np.linspace(np.amin(x), np.amax(x), 100)
+            y = f(x)
         if not y2:
             self.ax1.plot(x, y, label=label, color=color)
         else:
@@ -48,14 +46,6 @@ class Chart:
         self.colors.append(color)
 
     def scatter(self, x, y, label=None, color=None, y2=False):
-        """
-        Scatter points on the Chart
-        :param x: X data
-        :param y: Y data
-        :param label: label of the scattered points
-        :param color: color of the scattered points
-        :param y2: True if we use the second y axis
-        """
         if not y2:
             self.ax1.scatter(x, y, label=label, color=color)
         else:
@@ -63,14 +53,6 @@ class Chart:
         self.colors.append(color)
 
     def bar(self, x, y, label=None, color=None, y2=False):
-        """
-        Bar plot
-        :param x: X data
-        :param y: Y data
-        :param label: label of the scattered points
-        :param color: color of the scattered points
-        :param y2: True if we use the second y axis
-        """
         if not y2:
             self.ax1.bar(x, y, label=label, color=color)
         else:
