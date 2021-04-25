@@ -59,12 +59,8 @@ public class WorldMarket {
      * @return List of filtered product according to State, Type, Stocks, Price, ...
      */
     public List<Product> getFilteredProducts(Agent buyer, int type){
-        var connectedStates = new ArrayList<State>();
-        connectedStates.add(buyer.getState());
-        connectedStates.addAll(buyer.getState().getConnectedStates());
-
         var res = new ArrayList<Product>();
-        for (State state: connectedStates){
+        for (State state: world.getStates()){
             res.addAll(state.getMarket().getFilteredProducts(buyer, type));
         }
         res.sort(Comparator.comparing(Product::getSellingPrice)); // From lowest to highest price

@@ -2,6 +2,7 @@ package rgomesro.models.entities;
 
 import rgomesro.models.World;
 import rgomesro.models.allowances.UniversalBasicIncome;
+import rgomesro.models.taxes.Tariff;
 import rgomesro.models.taxes.VAT;
 import rgomesro.models.taxes.WealthTax;
 
@@ -19,6 +20,7 @@ public class State extends Entity {
     private final Market market;
     private final ArrayList<State> connectedStates;
     private final VAT vat;
+    private final Tariff tariff;
     private final WealthTax wealthTax;
     private final UniversalBasicIncome ubi;
     private Float money = 0f;
@@ -37,6 +39,7 @@ public class State extends Entity {
         this.connectedStates = new ArrayList<>();
         this.agents = new ArrayList<>();
         this.vat = new VAT();
+        this.tariff = new Tariff();
         this.wealthTax = new WealthTax(this);
         this.ubi = new UniversalBasicIncome(this);
     }
@@ -48,12 +51,12 @@ public class State extends Entity {
         return this.vat;
     }
 
-    public ArrayList<Agent> getAgents(){
-        return this.agents;
+    public Tariff getTariff() {
+        return tariff;
     }
 
-    public Float getMoney() {
-        return money;
+    public ArrayList<Agent> getAgents(){
+        return this.agents;
     }
 
     public Market getMarket() {
@@ -115,20 +118,21 @@ public class State extends Entity {
      * ==== Methods: csv
      * ================================== */
     public static String csvHeader(){
-        return "Id,VAT,Money,PopSize,PopTotalMoney,PopTotalSoldProducts,ConnectedStates,Ubi";
+        return "Id,VAT,Tariff,Ubi,Money,PopSize,PopTotalMoney,PopTotalSoldProducts,ConnectedStates";
     }
 
     @Override
     public Stream<String> properties(){
         return Stream.of(
                 id,
-                getVat().getValue().toString(),
-                getMoney().toString(),
+                vat.getValue().toString(),
+                tariff.getValue().toString(),
+                ubi.getAllowance().toString(),
+                money.toString(),
                 String.valueOf(getAgents().size()),
                 getAgentsTotalMoney().toString(),
                 getTotalProductsSold().toString(),
-                getConnectedStatesCsv(),
-                ubi.getAllowance().toString());
+                getConnectedStatesCsv());
     }
 
     /* ==================================

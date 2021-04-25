@@ -22,6 +22,7 @@ public class WealthTax extends Tax {
      * ==== Constructors
      * ================================== */
     public WealthTax(State state, Float top, Float value){
+        super(value);
         this.state = state;
         this.top = top;
         this.value = value;

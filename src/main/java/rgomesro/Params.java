@@ -63,6 +63,10 @@ public final class Params {
             public static final float MIN_VAT = JsonUtils.getFloat(jsonTax, "MIN_VAT");
             public static final float MAX_VAT = JsonUtils.getFloat(jsonTax, "MAX_VAT");
 
+            //TODO: Analyze
+            public static final float MIN_TARIFF = JsonUtils.getFloat(jsonTax, "MIN_TARIFF");
+            public static final float MAX_TARIFF = JsonUtils.getFloat(jsonTax, "MAX_TARIFF");
+
             // TODO: Analyze
             public static final float VAL_WEALTH_TAX_TOP = JsonUtils.getFloat(jsonTax, "VAL_WEALTH_TAX_TOP"); //E.g.: Top 10% (top = 0.1) wealthiest Agents are taxed
             public static final float VAL_WEALTH_TAX_VALUE = JsonUtils.getFloat(jsonTax, "VAL_WEALTH_TAX_VALUE");  //E.g.: 10% (value = 0.1) Wealth tax

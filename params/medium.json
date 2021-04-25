@@ -1,20 +1,20 @@
 {
     "World": {
-        "NB_STATES": 200,
-        "NB_AGENTS": 10000,
-        "NB_TICKS": 20000,
-        "NB_TICKS_SAVE_CSV": 500,
-        "CLUSTER_SIZE": 4,
-        "PROB_CONNECTION": 0.2
+        "NB_STATES": 100,
+        "NB_AGENTS": 5000,
+        "NB_TICKS": 2000,
+        "NB_TICKS_SAVE_CSV": 500
     },
     "Connections": {
-        "CLUSTER_SIZE": 10,
+        "CLUSTER_SIZE": 4,
         "PROB_CONNECTION": 0.1
     },
     "State": {
         "Tax": {
             "MIN_VAT": 21.0,
             "MAX_VAT": 21.0,
+            "MIN_TARIFF": 0.0,
+            "MAX_TARIFF": 100.0,
             "VAL_WEALTH_TAX_TOP": 0.1,
             "VAL_WEALTH_TAX_VALUE": 0.1
         },

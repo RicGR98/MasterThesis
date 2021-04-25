@@ -82,8 +82,10 @@ public class Market extends Entity {
         if (product.getStock() <= 0)
             return false;
         var stateVAT = product.getProducer().getState().getVat();
+        var stateTariff = buyer.getState().getTariff();
         var totalPrice = product.getSellingPrice();
         totalPrice +=  stateVAT.compute(product);
+        totalPrice += stateTariff.compute(buyer, product);
         return buyer.hasEnoughMoney(totalPrice);
     }
 
