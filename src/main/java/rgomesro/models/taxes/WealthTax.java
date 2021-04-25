@@ -15,8 +15,7 @@ import static rgomesro.Params.State.Tax.VAL_WEALTH_TAX_VALUE;
  */
 public class WealthTax extends Tax {
     private final State state;
-    private final Float top; //E.g.: Top 10% (top = 0.1) wealthiest Agents are taxed
-    private final Float value; //E.g.: 10% (value = 0.1) Wealth tax
+    private final Float top;
 
     /* ==================================
      * ==== Constructors
@@ -25,7 +24,6 @@ public class WealthTax extends Tax {
         super(value);
         this.state = state;
         this.top = top;
-        this.value = value;
     }
 
     public WealthTax(State state){
@@ -37,10 +35,6 @@ public class WealthTax extends Tax {
      * ================================== */
     public Float getTop() {
         return top;
-    }
-
-    public Float getValue() {
-        return value;
     }
 
     /* ==================================

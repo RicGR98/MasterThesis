@@ -96,6 +96,7 @@ def main():
     agentsWealthDistribution()
     vatInfluence()
     connectedStatesInfluence()
+    # paramsTweaking()
 
 
 def paramsTweaking():
@@ -106,4 +107,3 @@ def paramsTweaking():
 
 if __name__ == '__main__':
     main()
-    # paramsTweaking()
