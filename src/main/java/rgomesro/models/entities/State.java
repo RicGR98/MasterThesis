@@ -2,6 +2,7 @@ package rgomesro.models.entities;
 
 import rgomesro.Params;
 import rgomesro.models.allowances.UniversalBasicIncome;
+import rgomesro.models.taxes.Levy;
 import rgomesro.models.taxes.Tariff;
 import rgomesro.models.taxes.VAT;
 import rgomesro.models.taxes.WealthTax;
@@ -17,6 +18,7 @@ public class State extends Entity {
     private final Market market;
     private final ArrayList<State> connectedStates;
     private final VAT vat;
+    private final Levy levy;
     private final Tariff tariff;
     private final WealthTax wealthTax;
     private final UniversalBasicIncome ubi;
@@ -36,6 +38,7 @@ public class State extends Entity {
         this.connectedStates = new ArrayList<>();
         this.agents = new ArrayList<>();
         this.vat = new VAT();
+        this.levy = new Levy();
         this.tariff = new Tariff();
         this.wealthTax = new WealthTax(this);
         this.ubi = new UniversalBasicIncome(this);
@@ -115,7 +118,7 @@ public class State extends Entity {
      * ==== Methods: csv
      * ================================== */
     public static String csvHeader(){
-        return "Id,VAT,Tariff,Ubi,Money,PopSize,PopTotalMoney,PopTotalSoldProducts,ConnectedStates";
+        return "Id,VAT,Levy,Tariff,Ubi,Money,PopSize,PopTotalMoney,PopTotalSoldProducts,ConnectedStates";
     }
 
     @Override
@@ -123,6 +126,7 @@ public class State extends Entity {
         return Stream.of(
                 id,
                 vat.getValue().toString(),
+                levy.getValue().toString(),
                 tariff.getValue().toString(),
                 ubi.getAllowance().toString(),
                 money.toString(),
@@ -158,6 +162,11 @@ public class State extends Entity {
      */
     public void collectTaxes(){
         wealthTax.collect();
+        agents.forEach(agent -> {
+            float tax = levy.compute(agent);
+            agent.subtractMoney(tax);
+            agent.getState().addMoney(tax);
+        });
     }
 
     /**

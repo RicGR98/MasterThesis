@@ -42,13 +42,14 @@ def vatInfluence():
     """
     Analyse the influence of the State's VAT on two metrics:
     1. The money of the State itself
-    2. The average number of product sold by an agent of this State
+    2. The average money of an agent of this State
     """
     df = DF_STATES.sort_values('VAT')
+    print(df)
     chart = Chart("Influence of a State's VAT", 2)
-    chart.set_axis_labels("State's VAT", "State's money", "Average number of product sold by an agent")
+    chart.set_axis_labels("State's VAT", "State's money", "Average money of an Agent")
     chart.plot(df["VAT"], df["Money"], color="red")
-    chart.plot(df["VAT"], df["PopTotalSoldProducts"], color="blue", y2=True)
+    chart.plot(df["VAT"], df["PopTotalMoney"], color="blue", y2=True)
     chart.show()
 
 

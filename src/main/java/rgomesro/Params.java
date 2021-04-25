@@ -90,6 +90,8 @@ public final class Params {
         public final class Tax {
             public final float MIN_VAT;
             public final float MAX_VAT;
+            public final float MIN_LEVY;
+            public final float MAX_LEVY;
             public final float MIN_TARIFF;
             public final float MAX_TARIFF;
             public final float VAL_WEALTH_TAX_TOP;
@@ -101,6 +103,10 @@ public final class Params {
                 //TODO: Analyze
                 MIN_VAT = JsonUtils.getFloat(jsonTax, "MIN_VAT");
                 MAX_VAT = JsonUtils.getFloat(jsonTax, "MAX_VAT");
+
+                //TODO: Analyze
+                MIN_LEVY = JsonUtils.getFloat(jsonTax, "MIN_LEVY");
+                MAX_LEVY = JsonUtils.getFloat(jsonTax, "MAX_LEVY");
 
                 //TODO: Analyze
                 MIN_TARIFF = JsonUtils.getFloat(jsonTax, "MIN_TARIFF");

@@ -63,14 +63,6 @@ public class WealthTax extends Tax {
     }
 
     /**
-     * @param agent Wealthy Agent taxed
-     * @return Amount of the value the Agent should pay as Wealth tax
-     */
-    public Float computeTax(Agent agent){
-        return agent.getMoney() * getValue();
-    }
-
-    /**
      * Collect the tax from all the wealthy Agents of the State
      */
     public void collect(){
@@ -78,7 +70,7 @@ public class WealthTax extends Tax {
             return;
         List<Agent> wealthiest = getWealthiest();
         wealthiest.forEach(agent -> {
-            Float tax = computeTax(agent);
+            Float tax = compute(agent);
             agent.subtractMoney(tax);
             state.addMoney(tax);
         });

@@ -5,6 +5,10 @@ import rgomesro.models.entities.Agent;
 import rgomesro.models.entities.Product;
 import rgomesro.utils.RandomUtils;
 
+/**
+ * Represents Tariff paid on a Product when a seller
+ * and a buyer are from different States
+ */
 public class Tariff extends Tax {
     /* ==================================
      * ==== Constructors
