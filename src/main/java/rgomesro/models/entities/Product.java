@@ -1,15 +1,15 @@
 package rgomesro.models.entities;
 
+import rgomesro.Params;
 import rgomesro.utils.RandomUtils;
 
 import java.util.stream.Stream;
-
-import static rgomesro.Params.Product.*;
 
 /**
  * Represent a Product that can be produced, sold and bought by an Agent on the Market
  */
 public class Product extends Entity {
+    private final Params.Product params;
     private final Agent producer;
     private final int type;
     private final float productionPrice;
@@ -28,6 +28,7 @@ public class Product extends Entity {
      */
     public Product(Agent agent, int type, float sellingPrice, float productionPrice) {
         super(agent.getId());
+        this.params = Params.getInstance().product;
         this.producer = agent;
         this.type = type;
         this.productionPrice = productionPrice; // TODO: 17/04/2021
@@ -41,7 +42,13 @@ public class Product extends Entity {
     }
 
     public Product(Agent agent){
-        this(agent, getRandomType(), RandomUtils.getFloat(MIN_PRICE, MAX_PRICE));
+        this(
+                agent,
+                getRandomType(),
+                RandomUtils.getFloat(
+                        Params.getInstance().product.MIN_PRICE,
+                        Params.getInstance().product.MAX_PRICE)
+        );
     }
 
     /* ==================================
@@ -72,11 +79,11 @@ public class Product extends Entity {
     }
 
     public Boolean canBeProduced(){
-        return this.stock < MAX_STOCK;
+        return this.stock < params.MAX_STOCK;
     }
 
     public static Integer getRandomType(){
-        return RandomUtils.getInt(0, NB_DIFF_PRODUCTS);
+        return RandomUtils.getInt(0, Params.getInstance().product.NB_DIFF_PRODUCTS);
     }
 
     /* ==================================

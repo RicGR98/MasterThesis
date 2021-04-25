@@ -1,0 +1,39 @@
+{
+    "World": {
+        "NB_STATES": 50,
+        "NB_AGENTS": 1000,
+        "NB_TICKS": 3000,
+        "NB_TICKS_SAVE_CSV": 500
+    },
+    "Connections": {
+        "CLUSTER_SIZE": 8,
+        "PROB_CONNECTION": 0.2
+    },
+    "State": {
+        "Tax": {
+            "MIN_VAT": 21.0,
+            "MAX_VAT": 21.0,
+            "MIN_TARIFF": 100.0,
+            "MAX_TARIFF": 100.0,
+            "VAL_WEALTH_TAX_TOP": 0.1,
+            "VAL_WEALTH_TAX_VALUE": 0.1
+        },
+        "Allowance": {
+            "MIN_UBI": 0.0,
+            "MAX_UBI": 0.0
+        }
+    },
+    "Agent": {
+        "MIN_INIT_MONEY": 1000.0,
+        "MAX_INIT_MONEY": 1000.0,
+        "NB_PRODUCED_PRODUCTS": 3,
+        "RATIO_BUY": 0.2,
+        "RATIO_PRODUCE": 0.2
+    },
+    "Product": {
+        "NB_DIFF_PRODUCTS": 50,
+        "MIN_PRICE": 0.0,
+        "MAX_PRICE": 100.0,
+        "MAX_STOCK": 50
+    }
+}

@@ -1,5 +1,6 @@
 package rgomesro.models;
 
+import rgomesro.Params;
 import rgomesro.models.entities.Agent;
 import rgomesro.models.entities.Product;
 import rgomesro.models.entities.State;
@@ -9,12 +10,12 @@ import rgomesro.utils.RandomUtils;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import static rgomesro.Params.World.*;
 
 /**
  * Represents the World holding the Market, States, Agents, ...
  */
-public class World implements Runnable {
+public class World implements Runnable{
+    private final Params.World params;
     private final Integer id;
     private final WorldMarket worldMarket;
     private final ArrayList<State> states;
@@ -24,11 +25,14 @@ public class World implements Runnable {
     /* ==================================
      * ==== Constructors
      * ================================== */
-    public World(int id){
+    public World(int id, String paramsFile){
+        super();
+        Params.getInstance().load(paramsFile);
+        this.params = Params.getInstance().world;
         this.id = id;
         this.worldMarket = new WorldMarket(this);
-        this.states = new ArrayList<>(NB_STATES);
-        this.agents = new ArrayList<>(NB_AGENTS);
+        this.states = new ArrayList<>(params.NB_STATES);
+        this.agents = new ArrayList<>(params.NB_AGENTS);
         this.init();
     }
 
@@ -48,13 +52,13 @@ public class World implements Runnable {
      */
     private void init(){
         //Initialize States
-        for (int i = 0; i < NB_STATES; i++) {
+        for (int i = 0; i < params.NB_STATES; i++) {
             State state = new State(i);
             this.states.add(state);
         }
 
         //Initialize Agents
-        for (int i = 0; i < NB_AGENTS; i++) {
+        for (int i = 0; i < params.NB_AGENTS; i++) {
             Agent agent = new Agent(i, worldMarket, RandomUtils.choose(states));
             this.agents.add(agent);
         }
@@ -71,7 +75,7 @@ public class World implements Runnable {
      * Represent a step in the World's lifetime where its Entities can performd actions
      */
     private void tick(){
-        if (currentTick % NB_TICKS_SAVE_CSV == 0){
+        if (currentTick % params.NB_TICKS_SAVE_CSV == 0){
             System.out.println(id + ": " + currentTick + " " + worldMarket.getProductCount());
             saveAllToCsv(); //Temporary save
         }
@@ -84,7 +88,7 @@ public class World implements Runnable {
      * Start the World simulation
      */
     public void run(){
-        for (int i = 0; i < NB_TICKS; i++) {
+        for (int i = 0; i < params.NB_TICKS; i++) {
             this.tick();
         }
         this.saveAllToCsv();
@@ -122,7 +126,7 @@ public class World implements Runnable {
      */
     private void saveAgentsToCsv(){
         saveToCsv(
-                CSV_AGENTS,
+                params.CSV_AGENTS,
                 Agent.csvHeader(),
                 agents.stream()
                         .map(Agent::toCsv)
@@ -135,7 +139,7 @@ public class World implements Runnable {
      */
     private void saveStatesToCsv(){
         saveToCsv(
-                CSV_STATES,
+                params.CSV_STATES,
                 State.csvHeader(),
                 states.stream()
                         .map(State::toCsv)
@@ -148,7 +152,7 @@ public class World implements Runnable {
      */
     private void saveProductsToCsv(){
         saveToCsv(
-                CSV_PRODUCTS,
+                params.CSV_PRODUCTS,
                 Product.csvHeader(),
                 agents.stream()
                         .map(Agent::getProduct)

@@ -1,11 +1,9 @@
 package rgomesro.models.taxes;
 
+import rgomesro.Params;
 import rgomesro.models.entities.Agent;
 import rgomesro.models.entities.Product;
 import rgomesro.utils.RandomUtils;
-
-import static rgomesro.Params.State.Tax.MAX_TARIFF;
-import static rgomesro.Params.State.Tax.MIN_TARIFF;
 
 public class Tariff extends Tax {
     /* ==================================
@@ -16,7 +14,11 @@ public class Tariff extends Tax {
     }
 
     public Tariff(){
-        this(RandomUtils.getFloat(MIN_TARIFF, MAX_TARIFF));
+        this(
+                RandomUtils.getFloat(
+                        Params.getInstance().tax.MIN_TARIFF,
+                        Params.getInstance().tax.MAX_TARIFF)
+        );
     }
 
     /* ==================================

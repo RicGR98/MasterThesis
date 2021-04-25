@@ -1,14 +1,16 @@
 package rgomesro.models.entities;
 
+import rgomesro.Params;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static rgomesro.Params.Product.NB_DIFF_PRODUCTS;
 
 public class Market extends Entity {
+    private final Params params;
     private final State state;
     private final HashMap<Integer, ArrayList<Product>> products;
 
@@ -17,6 +19,7 @@ public class Market extends Entity {
      * ================================== */
     public Market(State state) {
         super(state.getId());
+        this.params = Params.getInstance();
         this.state = state;
         products = new HashMap<>();
     }
@@ -59,7 +62,7 @@ public class Market extends Entity {
      */
     public void initMarket(){
         //Create keys (types of Product)
-        for (int type = 0; type < NB_DIFF_PRODUCTS; type++){
+        for (int type = 0; type < params.product.NB_DIFF_PRODUCTS; type++){
             products.put(type, new ArrayList<>());
         }
         //Add Products according to their type

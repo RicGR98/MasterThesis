@@ -4,117 +4,171 @@ import org.json.simple.JSONObject;
 import rgomesro.utils.JsonUtils;
 
 public final class Params {
-    private static final JSONObject json = JsonUtils.read("params/medium.json");
+    private JSONObject json;
+    public World world;
+    public Connections connections;
+    public State state;
+    public State.Tax tax;
+    public State.Allowance allowance;
+    public Agent agent;
+    public Product product;
 
     private Params() { }
+
+    private static class ParamsHolder {
+        private final static Params instance = new Params();
+    }
+
+    public static Params getInstance() {
+        return ParamsHolder.instance;
+    }
+
+    public void load(String filename) {
+        json = JsonUtils.read("params/" + filename);
+        world = new World();
+        connections = new Connections();
+        state = new State();
+        tax = state.new Tax();
+        allowance = state.new Allowance();
+        agent = new Agent();
+        product = new Product();
+    }
 
     /**
      * World's constants
      */
-    public static final class World {
-        private static final JSONObject jsonWorld = JsonUtils.getJsonObject(json, "World");
+    public final class World {
+        public final int NB_STATES;
+        public final int NB_AGENTS;
+        public final int NB_TICKS;
+        public final int NB_TICKS_SAVE_CSV;
 
-        private World() {}
+        public final String DIRECTORY_RES_CSV = "res/csv/";
+        public final String CSV_STATES = DIRECTORY_RES_CSV + "states";
+        public final String CSV_AGENTS = DIRECTORY_RES_CSV + "agents";
+        public final String CSV_PRODUCTS = DIRECTORY_RES_CSV + "products";
 
-        public static final int NB_STATES = JsonUtils.getInt(jsonWorld, "NB_STATES");
-        public static final int NB_AGENTS = JsonUtils.getInt(jsonWorld, "NB_AGENTS");
-        public static final int NB_TICKS = JsonUtils.getInt(jsonWorld, "NB_TICKS");
-        public static final int NB_TICKS_SAVE_CSV = JsonUtils.getInt(jsonWorld, "NB_TICKS_SAVE_CSV");
-
-        public static final String DIRECTORY_RES_CSV = "res/csv/";
-        public static final String CSV_STATES = DIRECTORY_RES_CSV + "states";
-        public static final String CSV_AGENTS = DIRECTORY_RES_CSV + "agents";
-        public static final String CSV_PRODUCTS = DIRECTORY_RES_CSV + "products";
+        private World() {
+            JSONObject jsonWorld = JsonUtils.getJsonObject(json, "World");
+            NB_STATES = JsonUtils.getInt(jsonWorld, "NB_STATES");
+            NB_AGENTS = JsonUtils.getInt(jsonWorld, "NB_AGENTS");
+            NB_TICKS = JsonUtils.getInt(jsonWorld, "NB_TICKS");
+            NB_TICKS_SAVE_CSV = JsonUtils.getInt(jsonWorld, "NB_TICKS_SAVE_CSV");
+        }
     }
 
     /**
      * Connections' constants
      */
-    public static final class Connections {
-        private static final JSONObject jsonConnections = JsonUtils.getJsonObject(json, "Connections");
+    public final class Connections {
+        public final int CLUSTER_SIZE;
+        public final float PROB_CONNECTION;
 
-        private Connections() {}
-
-        public static final int CLUSTER_SIZE = JsonUtils.getInt(jsonConnections, "CLUSTER_SIZE");
-        public static final float PROB_CONNECTION = JsonUtils.getFloat(jsonConnections, "PROB_CONNECTION");
-
+        private Connections() {
+            JSONObject jsonConnections = JsonUtils.getJsonObject(json, "Connections");
+            CLUSTER_SIZE = JsonUtils.getInt(jsonConnections, "CLUSTER_SIZE");
+            PROB_CONNECTION = JsonUtils.getFloat(jsonConnections, "PROB_CONNECTION");
+        }
     }
 
         /**
      * State's constants
      */
-    public static final class State {
-        private static final JSONObject jsonState = JsonUtils.getJsonObject(json, "State");
+    public final class State {
+        public final JSONObject jsonState = JsonUtils.getJsonObject(json, "State");
+        public final int NB_TICKS_COLLECT_TAXES;
+        public final int NB_TICKS_DISTRIBUTE_UBI;
 
-        private State() {}
-
-        public static final int NB_TICKS_COLLECT_TAXES = World.NB_TICKS/100;
-        public static final int NB_TICKS_DISTRIBUTE_UBI = NB_TICKS_COLLECT_TAXES;
+        private State() {
+            NB_TICKS_COLLECT_TAXES = world.NB_TICKS/100;
+            NB_TICKS_DISTRIBUTE_UBI = NB_TICKS_COLLECT_TAXES;
+        }
 
         /**
          * Taxes' constants
          */
-        public static final class Tax {
-            private static final JSONObject jsonTax = JsonUtils.getJsonObject(jsonState, "Tax");
+        public final class Tax {
+            public final float MIN_VAT;
+            public final float MAX_VAT;
+            public final float MIN_TARIFF;
+            public final float MAX_TARIFF;
+            public final float VAL_WEALTH_TAX_TOP;
+            public final float VAL_WEALTH_TAX_VALUE;
 
-            private Tax() {}
+            private Tax() {
+                JSONObject jsonTax = JsonUtils.getJsonObject(jsonState, "Tax");
 
-            //TODO: Analyze
-            public static final float MIN_VAT = JsonUtils.getFloat(jsonTax, "MIN_VAT");
-            public static final float MAX_VAT = JsonUtils.getFloat(jsonTax, "MAX_VAT");
+                //TODO: Analyze
+                MIN_VAT = JsonUtils.getFloat(jsonTax, "MIN_VAT");
+                MAX_VAT = JsonUtils.getFloat(jsonTax, "MAX_VAT");
 
-            //TODO: Analyze
-            public static final float MIN_TARIFF = JsonUtils.getFloat(jsonTax, "MIN_TARIFF");
-            public static final float MAX_TARIFF = JsonUtils.getFloat(jsonTax, "MAX_TARIFF");
+                //TODO: Analyze
+                MIN_TARIFF = JsonUtils.getFloat(jsonTax, "MIN_TARIFF");
+                MAX_TARIFF = JsonUtils.getFloat(jsonTax, "MAX_TARIFF");
 
-            // TODO: Analyze
-            public static final float VAL_WEALTH_TAX_TOP = JsonUtils.getFloat(jsonTax, "VAL_WEALTH_TAX_TOP"); //E.g.: Top 10% (top = 0.1) wealthiest Agents are taxed
-            public static final float VAL_WEALTH_TAX_VALUE = JsonUtils.getFloat(jsonTax, "VAL_WEALTH_TAX_VALUE");  //E.g.: 10% (value = 0.1) Wealth tax
-        }
+                // TODO: Analyze
+                VAL_WEALTH_TAX_TOP = JsonUtils.getFloat(jsonTax, "VAL_WEALTH_TAX_TOP"); //E.g.: Top 10% (top = 0.1) wealthiest Agents are taxed
+                VAL_WEALTH_TAX_VALUE = JsonUtils.getFloat(jsonTax, "VAL_WEALTH_TAX_VALUE");  //E.g.: 10% (value = 0.1) Wealth tax
+            }
+}
 
         /**
          * Allowances' constants
          */
-        public static final class Allowance {
-            private static final JSONObject jsonAllowance = JsonUtils.getJsonObject(jsonState, "Allowance");
+        public final class Allowance {
+            public final float MIN_UBI;
+            public final float MAX_UBI;
 
-            private Allowance() {}
+            private Allowance() {
+                JSONObject jsonAllowance = JsonUtils.getJsonObject(jsonState, "Allowance");
 
-            // TODO: Analyze
-            public static final float MIN_UBI = JsonUtils.getFloat(jsonAllowance, "MIN_UBI");
-            public static final float MAX_UBI = JsonUtils.getFloat(jsonAllowance, "MAX_UBI");
+                // TODO: Analyze
+                MIN_UBI = JsonUtils.getFloat(jsonAllowance, "MIN_UBI");
+                MAX_UBI = JsonUtils.getFloat(jsonAllowance, "MAX_UBI");
+            }
         }
     }
 
     /**
      * Agent's constants
      */
-    public static final class Agent {
-        private static final JSONObject jsonAgent = JsonUtils.getJsonObject(json, "Agent");
+    public final class Agent {
+        public final float MIN_INIT_MONEY;
+        public final float MAX_INIT_MONEY;
+        public final int NB_PRODUCED_PRODUCTS;
+        public final float RATIO_BUY;
+        public final float RATIO_PRODUCE;
 
-        private Agent() {}
+        private Agent() {
+            JSONObject jsonAgent = JsonUtils.getJsonObject(json, "Agent");
 
-        // TODO: Analyze
-        public static final float MIN_INIT_MONEY = JsonUtils.getFloat(jsonAgent, "MIN_INIT_MONEY");
-        public static final float MAX_INIT_MONEY = JsonUtils.getFloat(jsonAgent, "MAX_INIT_MONEY");
+            // TODO: Analyze
+            MIN_INIT_MONEY = JsonUtils.getFloat(jsonAgent, "MIN_INIT_MONEY");
+            MAX_INIT_MONEY = JsonUtils.getFloat(jsonAgent, "MAX_INIT_MONEY");
 
-        // TODO: Analyze
-        public static final int NB_PRODUCED_PRODUCTS = JsonUtils.getInt(jsonAgent, "NB_PRODUCED_PRODUCTS");
-        public static final float RATIO_BUY = JsonUtils.getFloat(jsonAgent, "RATIO_BUY");
-        public static final float RATIO_PRODUCE = JsonUtils.getFloat(jsonAgent, "RATIO_PRODUCE");
+            // TODO: Analyze
+            NB_PRODUCED_PRODUCTS = JsonUtils.getInt(jsonAgent, "NB_PRODUCED_PRODUCTS");
+            RATIO_BUY = JsonUtils.getFloat(jsonAgent, "RATIO_BUY");
+            RATIO_PRODUCE = JsonUtils.getFloat(jsonAgent, "RATIO_PRODUCE");
+        }
+
     }
 
     /**
      * Product's constants
      */
-    public static final class Product {
-        private static final JSONObject jsonProduct = JsonUtils.getJsonObject(json, "Product");
+    public final class Product {
+        public final int NB_DIFF_PRODUCTS;
+        public final float MIN_PRICE;
+        public final float MAX_PRICE;
+        public final int MAX_STOCK;
 
-        private Product() {}
-
-        public static final int NB_DIFF_PRODUCTS = JsonUtils.getInt(jsonProduct, "NB_DIFF_PRODUCTS");
-        public static final float MIN_PRICE = JsonUtils.getFloat(jsonProduct, "MIN_PRICE");
-        public static final float MAX_PRICE = JsonUtils.getFloat(jsonProduct, "MAX_PRICE");
-        public static final int MAX_STOCK = JsonUtils.getInt(jsonProduct, "MAX_STOCK");
+        private Product() {
+            JSONObject jsonProduct = JsonUtils.getJsonObject(json, "Product");
+            NB_DIFF_PRODUCTS = JsonUtils.getInt(jsonProduct, "NB_DIFF_PRODUCTS");
+            MIN_PRICE = JsonUtils.getFloat(jsonProduct, "MIN_PRICE");
+            MAX_PRICE = JsonUtils.getFloat(jsonProduct, "MAX_PRICE");
+            MAX_STOCK = JsonUtils.getInt(jsonProduct, "MAX_STOCK");
+        }
     }
 }

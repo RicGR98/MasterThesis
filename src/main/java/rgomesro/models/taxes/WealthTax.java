@@ -1,13 +1,12 @@
 package rgomesro.models.taxes;
 
+import rgomesro.Params;
 import rgomesro.models.entities.Agent;
 import rgomesro.models.entities.State;
 
 import java.util.Comparator;
 import java.util.List;
 
-import static rgomesro.Params.State.Tax.VAL_WEALTH_TAX_TOP;
-import static rgomesro.Params.State.Tax.VAL_WEALTH_TAX_VALUE;
 
 /**
  * Represents the Wealth Tax a State might implement:
@@ -27,7 +26,11 @@ public class WealthTax extends Tax {
     }
 
     public WealthTax(State state){
-        this(state, VAL_WEALTH_TAX_TOP, VAL_WEALTH_TAX_VALUE); // TODO: Analyze
+        this(
+                state,
+                Params.getInstance().tax.VAL_WEALTH_TAX_TOP,
+                Params.getInstance().tax.VAL_WEALTH_TAX_VALUE
+        ); // TODO: Analyze
     }
 
     /* ==================================

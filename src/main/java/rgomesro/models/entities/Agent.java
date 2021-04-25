@@ -1,16 +1,16 @@
 package rgomesro.models.entities;
 
+import rgomesro.Params;
 import rgomesro.models.WorldMarket;
 import rgomesro.utils.RandomUtils;
 
 import java.util.stream.Stream;
 
-import static rgomesro.Params.Agent.*;
-
 /**
  * Represents an Agent in the World who produces, sells, and buys Products on the Market
  */
 public class Agent extends Entity {
+    private final Params.Agent params;
     private final WorldMarket worldMarket;
     private final State state;
     private Float money;
@@ -27,6 +27,7 @@ public class Agent extends Entity {
      */
     public Agent(int id, WorldMarket worldMarket, State state, float money) {
         super(id);
+        this.params = Params.getInstance().agent;
         this.worldMarket = worldMarket;
         this.state = state;
         this.state.addAgent(this);
@@ -35,7 +36,14 @@ public class Agent extends Entity {
     }
 
     public Agent(int id, WorldMarket worldMarket, State state){
-        this(id, worldMarket, state, RandomUtils.getFloat(MIN_INIT_MONEY, MAX_INIT_MONEY)); // TODO: Analyze
+        this(
+                id,
+                worldMarket,
+                state,
+                RandomUtils.getFloat(
+                        Params.getInstance().agent.MIN_INIT_MONEY,
+                        Params.getInstance().agent.MAX_INIT_MONEY)
+        ); // TODO: Analyze
     }
 
     /* ==================================
@@ -120,9 +128,9 @@ public class Agent extends Entity {
      * Represent a step in the Agent's lifetime where it can perform actions
      */
     public void tick(){
-        if (RandomUtils.getRandom() < RATIO_BUY)
+        if (RandomUtils.getRandom() < params.RATIO_BUY)
             buy();
-        if (RandomUtils.getRandom() < RATIO_PRODUCE)
+        if (RandomUtils.getRandom() < params.RATIO_PRODUCE)
             produce();
     }
 }

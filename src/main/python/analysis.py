@@ -11,9 +11,9 @@ pd.set_option('display.width', 1000)
 DIR_RES = "res/"
 DIR_RES_IMG = DIR_RES + "img/"
 DIR_RES_CSV = DIR_RES + "csv/"
-CSV_AGENTS = DIR_RES_CSV + "agents.csv"
-CSV_STATES = DIR_RES_CSV + "states.csv"
-CSV_PRODUCTS = DIR_RES_CSV + "products.csv"
+CSV_AGENTS = DIR_RES_CSV + "agents0.csv"
+CSV_STATES = DIR_RES_CSV + "states0.csv"
+CSV_PRODUCTS = DIR_RES_CSV + "products0.csv"
 
 
 def getStatesDF() -> pd.DataFrame:

@@ -1,5 +1,6 @@
 package rgomesro.models.entities;
 
+import rgomesro.Params;
 import rgomesro.models.allowances.UniversalBasicIncome;
 import rgomesro.models.taxes.Tariff;
 import rgomesro.models.taxes.VAT;
@@ -8,13 +9,11 @@ import rgomesro.models.taxes.WealthTax;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-import static rgomesro.Params.State.NB_TICKS_COLLECT_TAXES;
-import static rgomesro.Params.State.NB_TICKS_DISTRIBUTE_UBI;
-
 /**
  * Represents a State to which Agents belong
  */
 public class State extends Entity {
+    private final Params.State params;
     private final Market market;
     private final ArrayList<State> connectedStates;
     private final VAT vat;
@@ -32,6 +31,7 @@ public class State extends Entity {
      */
     public State(int id) {
         super(id);
+        this.params = Params.getInstance().state;
         this.market = new Market(this);
         this.connectedStates = new ArrayList<>();
         this.agents = new ArrayList<>();
@@ -171,9 +171,9 @@ public class State extends Entity {
      * Represent a step in the State's lifetime where it can perform actions
      */
     public void tick(int currentTick){
-        if (currentTick % NB_TICKS_COLLECT_TAXES == 0)
+        if (currentTick % params.NB_TICKS_COLLECT_TAXES == 0)
             collectTaxes();
-        if (currentTick % NB_TICKS_DISTRIBUTE_UBI == 0)
+        if (currentTick % params.NB_TICKS_DISTRIBUTE_UBI == 0)
             distributeAllowances();
     }
 }
