@@ -38,10 +38,11 @@ public class Connections {
      * Create a cluster where all States are connected to each other
      */
     private void createCluster(){
-        // ClusterSize/2 because undirected graph
-        assert (CLUSTER_SIZE/2 <= states.size());
-        while (clusterMembers.size() != CLUSTER_SIZE/2){
-            clusterMembers.add(RandomUtils.choose(states));
+        assert (CLUSTER_SIZE <= states.size());
+        while (clusterMembers.size() != CLUSTER_SIZE){
+            State member = RandomUtils.choose(states);
+            if (!clusterMembers.contains(member))
+                clusterMembers.add(member);
         }
         for (State state: clusterMembers){
             for (State state2: clusterMembers){
