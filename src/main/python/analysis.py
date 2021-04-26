@@ -22,9 +22,9 @@ def getStatesDF() -> pd.DataFrame:
     """
     df: pd.DataFrame = pd.read_csv(CSV_STATES)
     # Money/PopTotalMoney/PopTotalSoldProducts proportional to population size
-    df['Money'] = df['Money']/df['PopSize']
-    df['PopTotalMoney'] = df['PopTotalMoney']/df['PopSize']
-    df['PopTotalSoldProducts'] = df['PopTotalSoldProducts']/df['PopSize']
+    df['Money'] = df['Money'] / df['PopSize']
+    df['PopTotalMoney'] = df['PopTotalMoney'] / df['PopSize']
+    df['PopTotalSoldProducts'] = df['PopTotalSoldProducts'] / df['PopSize']
     # Map ConnectedStates = "4,37,21,10," to NbConnectedStates = 4:
     df["NbConnectedStates"] = df["ConnectedStates"].astype(str).map(lambda val: len(val.split(","))) - 1
     return df
@@ -32,9 +32,7 @@ def getStatesDF() -> pd.DataFrame:
 
 DF_AGENTS = pd.read_csv(CSV_AGENTS)
 DF_PRODUCTS = pd.read_csv(CSV_PRODUCTS)
-DF_AGENTS_PRODUCTS: pd.DataFrame = pd.merge(DF_AGENTS, DF_PRODUCTS, how='left', left_on='Id', right_on='Producer')
-del DF_AGENTS_PRODUCTS['Id_y']
-del DF_AGENTS_PRODUCTS['Producer']
+DF_AGENTS_PRODUCTS: pd.DataFrame = pd.merge(DF_AGENTS, DF_PRODUCTS, on='Id')
 DF_STATES = getStatesDF()
 
 
@@ -63,8 +61,8 @@ def gini(df: pd.DataFrame):
     n = X.size
     coeff = 2. / n
     const_ = (n + 1.) / n
-    weighted_sum = sum([(i+1)*yi for i, yi in enumerate(X)])
-    return round(coeff*weighted_sum/(X.sum()) - const_, 3)
+    weighted_sum = sum([(i + 1) * yi for i, yi in enumerate(X)])
+    return round(coeff * weighted_sum / (X.sum()) - const_, 3)
 
 
 def agentsWealthDistribution():

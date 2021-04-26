@@ -90,14 +90,13 @@ public class Product extends Entity {
      * === Methods: csv
      * ================================== */
     public static String csvHeader() {
-        return "Id,Producer,Type,ProductionPrice,SellingPrice,Stock,Sold";
+        return "Id,Type,ProductionPrice,SellingPrice,Stock,Sold";
     }
 
     @Override
     public Stream<String> properties(){
         return Stream.of(
                 id,
-                getProducer().toString(),
                 getType().toString(),
                 getProductionPrice().toString(),
                 getSellingPrice().toString(),

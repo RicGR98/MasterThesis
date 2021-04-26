@@ -38,7 +38,7 @@ public class State extends Entity {
         this.connectedStates = new ArrayList<>();
         this.agents = new ArrayList<>();
         this.vat = new VAT();
-        this.levy = new Levy();
+        this.levy = new Levy(this);
         this.tariff = new Tariff();
         this.wealthTax = new WealthTax(this);
         this.ubi = new UniversalBasicIncome(this);
@@ -162,11 +162,7 @@ public class State extends Entity {
      */
     public void collectTaxes(){
         wealthTax.collect();
-        agents.forEach(agent -> {
-            float tax = levy.compute(agent);
-            agent.subtractMoney(tax);
-            agent.getState().addMoney(tax);
-        });
+        levy.collect();
     }
 
     /**

@@ -69,10 +69,10 @@ public class WealthTax extends Tax {
         if (getTop() == 0 || getValue() == 0)
             return;
         List<Agent> wealthiest = getWealthiest();
-        wealthiest.forEach(agent -> {
+        for (Agent agent: wealthiest){
             Float tax = compute(agent);
             agent.subtractMoney(tax);
             state.addMoney(tax);
-        });
+        }
     }
 }
