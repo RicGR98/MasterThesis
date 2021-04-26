@@ -173,7 +173,7 @@ public class State extends Entity {
      * Distribute allowances to all Agents
      */
     public void distributeAllowances(){
-        allowance.distributeEqual();
+        allowance.distributeFair();
     }
 
     /**
