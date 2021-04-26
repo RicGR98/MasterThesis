@@ -21,8 +21,8 @@
             "VAL_WEALTH_TAX_VALUE": 0.1
         },
         "Allowance": {
-            "MIN_UBI": 0.0,
-            "MAX_UBI": 0.0
+            "MIN_ALLOWANCE": 0.0,
+            "MAX_ALLOWANCE": 0.0
         }
     },
     "Agent": {

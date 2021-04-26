@@ -1,7 +1,7 @@
 package rgomesro.models.entities;
 
 import rgomesro.Params;
-import rgomesro.models.allowances.UniversalBasicIncome;
+import rgomesro.models.allowances.Allowance;
 import rgomesro.models.taxes.Levy;
 import rgomesro.models.taxes.Tariff;
 import rgomesro.models.taxes.VAT;
@@ -21,7 +21,7 @@ public class State extends Entity {
     private final Levy levy;
     private final Tariff tariff;
     private final WealthTax wealthTax;
-    private final UniversalBasicIncome ubi;
+    private final Allowance allowance;
     private final ArrayList<Agent> agents;
     private Float money = 0f;
 
@@ -41,7 +41,7 @@ public class State extends Entity {
         this.levy = new Levy(this);
         this.tariff = new Tariff();
         this.wealthTax = new WealthTax(this);
-        this.ubi = new UniversalBasicIncome(this);
+        this.allowance = new Allowance(this);
     }
 
     /* ==================================
@@ -53,6 +53,10 @@ public class State extends Entity {
 
     public Tariff getTariff() {
         return tariff;
+    }
+
+    public Float getMoney() {
+        return money;
     }
 
     public ArrayList<Agent> getAgents(){
@@ -118,7 +122,7 @@ public class State extends Entity {
      * ==== Methods: csv
      * ================================== */
     public static String csvHeader(){
-        return "Id,VAT,Levy,Tariff,Ubi,Money,PopSize,PopTotalMoney,PopTotalSoldProducts,ConnectedStates";
+        return "Id,VAT,Levy,Tariff,Allowance,Money,PopSize,PopTotalMoney,PopTotalSoldProducts,ConnectedStates";
     }
 
     @Override
@@ -128,7 +132,7 @@ public class State extends Entity {
                 vat.getValue().toString(),
                 levy.getValue().toString(),
                 tariff.getValue().toString(),
-                ubi.getAllowance().toString(),
+                allowance.getPercentage().toString(),
                 money.toString(),
                 String.valueOf(getAgents().size()),
                 getAgentsTotalMoney().toString(),
@@ -169,7 +173,7 @@ public class State extends Entity {
      * Distribute allowances to all Agents
      */
     public void distributeAllowances(){
-        ubi.distribute();
+        allowance.distributeEqual();
     }
 
     /**
@@ -178,7 +182,7 @@ public class State extends Entity {
     public void tick(int currentTick){
         if (currentTick % params.NB_TICKS_COLLECT_TAXES == 0)
             collectTaxes();
-        if (currentTick % params.NB_TICKS_DISTRIBUTE_UBI == 0)
+        if (currentTick % params.NB_TICKS_DISTRIBUTE_ALLOWANCES == 0)
             distributeAllowances();
     }
 }

@@ -77,11 +77,11 @@ public final class Params {
     public final class State {
         public final JSONObject jsonState = JsonUtils.getJsonObject(json, "State");
         public final int NB_TICKS_COLLECT_TAXES;
-        public final int NB_TICKS_DISTRIBUTE_UBI;
+        public final int NB_TICKS_DISTRIBUTE_ALLOWANCES;
 
         private State() {
             NB_TICKS_COLLECT_TAXES = world.NB_TICKS/100;
-            NB_TICKS_DISTRIBUTE_UBI = NB_TICKS_COLLECT_TAXES;
+            NB_TICKS_DISTRIBUTE_ALLOWANCES = NB_TICKS_COLLECT_TAXES;
         }
 
         /**
@@ -122,15 +122,15 @@ public final class Params {
          * Allowances' constants
          */
         public final class Allowance {
-            public final float MIN_UBI;
-            public final float MAX_UBI;
+            public final float MIN_ALLOWANCE;
+            public final float MAX_ALLOWANCE;
 
             private Allowance() {
                 JSONObject jsonAllowance = JsonUtils.getJsonObject(jsonState, "Allowance");
 
                 // TODO: Analyze
-                MIN_UBI = JsonUtils.getFloat(jsonAllowance, "MIN_UBI");
-                MAX_UBI = JsonUtils.getFloat(jsonAllowance, "MAX_UBI");
+                MIN_ALLOWANCE = JsonUtils.getFloat(jsonAllowance, "MIN_ALLOWANCE");
+                MAX_ALLOWANCE = JsonUtils.getFloat(jsonAllowance, "MAX_ALLOWANCE");
             }
         }
     }
