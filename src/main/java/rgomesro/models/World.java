@@ -1,5 +1,7 @@
 package rgomesro.models;
 
+import me.tongfei.progressbar.ProgressBar;
+import me.tongfei.progressbar.ProgressBarBuilder;
 import rgomesro.Params;
 import rgomesro.models.entities.Agent;
 import rgomesro.models.entities.Product;
@@ -9,6 +11,7 @@ import rgomesro.utils.RandomUtils;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 /**
@@ -76,7 +79,6 @@ public class World implements Runnable{
      */
     private void tick(){
         if (currentTick % params.NB_TICKS_SAVE_CSV == 0){
-            System.out.println(id + ": " + currentTick + " " + worldMarket.getProductCount());
             saveAllToCsv(); //Temporary save
         }
         agents.forEach(Agent::tick);
@@ -88,9 +90,11 @@ public class World implements Runnable{
      * Start the World simulation
      */
     public void run(){
-        for (int i = 0; i < params.NB_TICKS; i++) {
-            this.tick();
-        }
+        ProgressBarBuilder pbb = new ProgressBarBuilder();
+        pbb.setTaskName("Simulation:");
+        pbb.setUnit(" ticks", 1);
+        ProgressBar.wrap(IntStream.range(0, params.NB_TICKS), pbb)
+                .forEach(i -> this.tick());
         this.saveAllToCsv();
     }
 
