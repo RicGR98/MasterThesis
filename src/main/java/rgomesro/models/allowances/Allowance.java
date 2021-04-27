@@ -11,6 +11,8 @@ import rgomesro.utils.RandomUtils;
 public class Allowance {
     private final State state;
     private final Float percentage;
+    public enum Type {Flat, Degressive}
+    private final Type type;
 
     /* ==================================
      * ==== Constructors
@@ -18,11 +20,13 @@ public class Allowance {
     /**
      * @param state State which implements the Allowance
      * @param percentage Value of the percentage of the State's money that
-     *                   will be divided among the State's Agents
+     *                   will be divided among its Agents
+     * @param type Type of Allowance: Flat (≈ UBI) or Degressive
      */
-    public Allowance(State state, float percentage){
+    public Allowance(State state, float percentage, Type type){
         this.state = state;
         this.percentage = percentage;
+        this.type = type;
     }
 
     public Allowance(State state){
@@ -30,7 +34,8 @@ public class Allowance {
                 state,
                 RandomUtils.getFloat(
                         Params.getInstance().allowance.MIN_ALLOWANCE,
-                        Params.getInstance().allowance.MAX_ALLOWANCE)
+                        Params.getInstance().allowance.MAX_ALLOWANCE),
+                RandomUtils.choose(Type.values())
         ); // TODO: Analyze
     }
 
@@ -41,6 +46,10 @@ public class Allowance {
         return percentage;
     }
 
+    public Type getType() {
+        return type;
+    }
+
     /* ==================================
      * ==== Methods: actions
      * ================================== */
@@ -48,7 +57,7 @@ public class Allowance {
      * Distribute money of the State among its Agents equally
      * I.e.: all Agents receive the same share of money
      */
-    public void distributeEqual(){
+    private void distributeFlat(){
         float moneyToDistribute = state.getMoney() * percentage;
         var apa = moneyToDistribute / state.getAgents().size(); //Apa = Allowance per Agent
         state.getAgents().forEach(agent -> {
@@ -76,7 +85,7 @@ public class Allowance {
      *      <=> X/div * moneyToDistribute
      *      <=> (1/fractionOfTotalMoney)/div * moneyToDistribute
      */
-    public void distributeFair(){
+    private void distributeDegressive(){
         float moneyToDistribute = state.getMoney() * percentage;
         float agentsTotalMoney = state.getAgentsTotalMoney();
         float div = 0f;
@@ -91,5 +100,15 @@ public class Allowance {
             state.subtractMoney(allowance);
             agent.addMoney(allowance);
         }
+    }
+
+    /**
+     * Distribute the Allowance according to the Type chosen by the State
+     */
+    public void distribute(){
+        if (getType() == Type.Flat)
+            distributeFlat();
+        else
+            distributeDegressive();
     }
 }

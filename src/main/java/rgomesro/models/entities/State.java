@@ -122,7 +122,7 @@ public class State extends Entity {
      * ==== Methods: csv
      * ================================== */
     public static String csvHeader(){
-        return "Id,VAT,Levy,Tariff,Allowance,Money,PopSize,PopTotalMoney,PopTotalSoldProducts,ConnectedStates";
+        return "Id,VAT,Levy,Tariff,AllowanceType,AllowanceValue,Money,PopSize,PopTotalMoney,PopTotalSoldProducts,ConnectedStates";
     }
 
     @Override
@@ -132,6 +132,7 @@ public class State extends Entity {
                 vat.getValue().toString(),
                 levy.getValue().toString(),
                 tariff.getValue().toString(),
+                allowance.getType().toString(),
                 allowance.getPercentage().toString(),
                 money.toString(),
                 String.valueOf(getAgents().size()),
@@ -173,7 +174,7 @@ public class State extends Entity {
      * Distribute allowances to all Agents
      */
     public void distributeAllowances(){
-        allowance.distributeFair();
+        allowance.distribute();
     }
 
     /**

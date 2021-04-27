@@ -41,4 +41,13 @@ public class RandomUtils {
     public static <T> T choose(List<T> possibilities){
         return possibilities.get(getInt(0, possibilities.size()));
     }
+
+    /**
+     * @param possibilities Array of possibilities
+     * @param <T> Type of the possibilities
+     * @return Random object in the list of possibilities
+     */
+    public static <T> T choose(T[] possibilities){
+        return possibilities[(getInt(0, possibilities.length))];
+    }
 }
