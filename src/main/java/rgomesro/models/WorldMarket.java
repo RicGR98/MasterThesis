@@ -93,10 +93,26 @@ public class WorldMarket {
      */
     public void transaction(Agent buyer, Product product){
         var seller = product.getProducer();
-        var state = seller.getState();
+        var sellerState = seller.getState();
+        var buyerState = buyer.getState();
         seller.addMoney(product.getSellingPrice());
-        state.addMoney(state.getVat().compute(product));
-        buyer.subtractMoney(product.getSellingPrice());
+        sellerState.addMoney(sellerState.getVat().compute(product));
+        buyerState.addMoney(buyerState.getTariff().compute(product));
+        buyer.subtractMoney(getTotalPrice(buyer, product));
         product.sell();
+    }
+
+    /**
+     * @param buyer Buyer of the Product
+     * @param product Product we want to buy
+     * @return Total price of the product including taxes
+     */
+    public static Float getTotalPrice(Agent buyer, Product product){
+        var stateVAT = product.getProducer().getState().getVat();
+        var stateTariff = buyer.getState().getTariff();
+        var totalPrice = product.getSellingPrice();
+        totalPrice +=  stateVAT.compute(product);
+        totalPrice += stateTariff.compute(buyer, product);
+        return totalPrice;
     }
 }

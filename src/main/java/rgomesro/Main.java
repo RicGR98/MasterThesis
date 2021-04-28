@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        long start = System.currentTimeMillis();
         String[] jsons = {"small.json"};
         ArrayList<Thread> worlds = new ArrayList<>();
         for (int i = 0; i < jsons.length; i++) {
@@ -19,7 +18,5 @@ public class Main {
         for (Thread world : worlds) {
             world.join();
         }
-        long end = System.currentTimeMillis();
-        System.out.println((end - start)/1000 + " seconds");
     }
 }

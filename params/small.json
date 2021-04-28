@@ -17,12 +17,12 @@
             "MAX_LEVY": 0.0,
             "MIN_TARIFF": 0.0,
             "MAX_TARIFF": 0.0,
-            "VAL_WEALTH_TAX_TOP": 0.1,
-            "VAL_WEALTH_TAX_VALUE": 0.1
+            "VAL_WEALTH_TAX_TOP": 0.0,
+            "VAL_WEALTH_TAX_VALUE": 0.0
         },
         "Allowance": {
             "MIN_ALLOWANCE": 0.0,
-            "MAX_ALLOWANCE": 0.5
+            "MAX_ALLOWANCE": 0.0
         }
     },
     "Agent": {
@@ -36,6 +36,6 @@
         "NB_DIFF_PRODUCTS": 50,
         "MIN_PRICE": 0.0,
         "MAX_PRICE": 500.0,
-        "MAX_STOCK": 50
+        "MAX_STOCK": 2000
     }
 }
