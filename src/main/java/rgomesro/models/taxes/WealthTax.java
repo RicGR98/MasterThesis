@@ -3,6 +3,7 @@ package rgomesro.models.taxes;
 import rgomesro.Params;
 import rgomesro.models.entities.Agent;
 import rgomesro.models.entities.State;
+import rgomesro.utils.TransactionUtils;
 
 import java.util.Comparator;
 import java.util.List;
@@ -71,8 +72,7 @@ public class WealthTax extends Tax {
         List<Agent> wealthiest = getWealthiest();
         for (Agent agent: wealthiest){
             Float tax = compute(agent);
-            agent.subtractMoney(tax);
-            state.addMoney(tax);
+            TransactionUtils.make(agent, state, tax);
         }
     }
 }

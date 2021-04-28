@@ -1,7 +1,6 @@
 package rgomesro.models.entities;
 
 import rgomesro.Params;
-import rgomesro.models.WorldMarket;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -77,6 +76,20 @@ public class Market extends Entity {
      * ==== Methods: actions
      * ================================== */
     /**
+     * @param buyer Buyer of the Product
+     * @param product Product we want to buy
+     * @return Total price of the product including taxes
+     */
+    public static Float getTotalPrice(Agent buyer, Product product){
+        var stateVAT = product.getProducer().getState().getVat();
+        var stateTariff = buyer.getState().getTariff();
+        var totalPrice = product.getSellingPrice();
+        totalPrice +=  stateVAT.compute(product);
+        totalPrice += stateTariff.compute(buyer, product);
+        return totalPrice;
+    }
+
+    /**
      * Checks if a buyer is allowed to buy a Product
      * @param buyer Buyer of the Product
      * @param product Product we want to buy
@@ -87,7 +100,7 @@ public class Market extends Entity {
             return false;
         if (buyer == product.getProducer()) //Agent cannot buy Product from itself
             return false;
-        float totalPrice = WorldMarket.getTotalPrice(buyer, product);
+        float totalPrice = getTotalPrice(buyer, product);
         return buyer.hasEnoughMoney(totalPrice);
     }
 

@@ -4,6 +4,7 @@ import rgomesro.Params;
 import rgomesro.models.entities.Agent;
 import rgomesro.models.entities.State;
 import rgomesro.utils.RandomUtils;
+import rgomesro.utils.TransactionUtils;
 
 /**
  * Represents a periodic Tax from a State on all its Agents
@@ -43,8 +44,7 @@ public class Levy extends Tax {
             return;
         for (Agent agent: state.getAgents()){
             float tax = this.compute(agent);
-            agent.subtractMoney(tax);
-            agent.getState().addMoney(tax);
+            TransactionUtils.make(agent, state, tax);
         }
     }
 }

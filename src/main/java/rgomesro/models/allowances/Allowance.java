@@ -4,6 +4,7 @@ import rgomesro.Params;
 import rgomesro.models.entities.Agent;
 import rgomesro.models.entities.State;
 import rgomesro.utils.RandomUtils;
+import rgomesro.utils.TransactionUtils;
 
 /**
  * Represents an Allowance given to Agents by their State
@@ -60,10 +61,7 @@ public class Allowance {
     private void distributeFlat(){
         float moneyToDistribute = state.getMoney() * percentage;
         var apa = moneyToDistribute / state.getAgents().size(); //Apa = Allowance per Agent
-        state.getAgents().forEach(agent -> {
-            agent.addMoney(apa);
-            state.subtractMoney(apa);
-        });
+        state.getAgents().forEach(agent -> TransactionUtils.make(state, agent, apa));
     }
 
     /**
@@ -97,8 +95,7 @@ public class Allowance {
             float fractionOfTotalMoney = agent.getMoney()/agentsTotalMoney;
             float percentageAllowance = (1/fractionOfTotalMoney)/div;
             float allowance = moneyToDistribute * percentageAllowance;
-            state.subtractMoney(allowance);
-            agent.addMoney(allowance);
+            TransactionUtils.make(state, agent, allowance);
         }
     }
 

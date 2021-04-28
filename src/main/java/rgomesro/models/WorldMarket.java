@@ -5,6 +5,7 @@ import rgomesro.models.entities.Market;
 import rgomesro.models.entities.Product;
 import rgomesro.models.entities.State;
 import rgomesro.utils.RandomUtils;
+import rgomesro.utils.TransactionUtils;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -95,24 +96,9 @@ public class WorldMarket {
         var seller = product.getProducer();
         var sellerState = seller.getState();
         var buyerState = buyer.getState();
-        seller.addMoney(product.getSellingPrice());
-        sellerState.addMoney(sellerState.getVat().compute(product));
-        buyerState.addMoney(buyerState.getTariff().compute(product));
-        buyer.subtractMoney(getTotalPrice(buyer, product));
+        TransactionUtils.make(buyer, seller, product.getSellingPrice());
+        TransactionUtils.make(buyer, buyerState, buyerState.getTariff().compute(product));
+        TransactionUtils.make(buyer, sellerState, sellerState.getVat().compute(product));
         product.sell();
-    }
-
-    /**
-     * @param buyer Buyer of the Product
-     * @param product Product we want to buy
-     * @return Total price of the product including taxes
-     */
-    public static Float getTotalPrice(Agent buyer, Product product){
-        var stateVAT = product.getProducer().getState().getVat();
-        var stateTariff = buyer.getState().getTariff();
-        var totalPrice = product.getSellingPrice();
-        totalPrice +=  stateVAT.compute(product);
-        totalPrice += stateTariff.compute(buyer, product);
-        return totalPrice;
     }
 }
