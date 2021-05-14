@@ -310,3 +310,4 @@ Thumbs.db
 
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij+all,java,maven,python,macos
+/src/main/resources/META-INF/MANIFEST.MF

@@ -5,8 +5,24 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileUtils {
+    /**
+     * @param filename Name of the to read
+     * @return Full text content
+     */
+    public static List<String> readFile(String filename){
+        try {
+            return Files.readAllLines(Path.of(filename));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+        return new ArrayList<>();
+    }
+
     /**
      * @param filename Name of the file in which to store the text
      * @param text Text to store in the file
