@@ -13,6 +13,8 @@ public class FileUtils {
      */
     public static void writeToFile(String filename, final String text){
         try {
+            File file = new File(Path.of(filename).toString());
+            file.getParentFile().mkdirs(); //Create directory if it does not exist
             Files.writeString(
                     Path.of(filename),
                     text + System.lineSeparator(),
