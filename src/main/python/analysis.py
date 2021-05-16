@@ -21,10 +21,10 @@ def getStatesDF() -> pd.DataFrame:
     Return dataframe with some new columns for easier analysis later
     """
     df: pd.DataFrame = pd.read_csv(CSV_STATES)
-    # Money/PopTotalMoney/PopTotalSoldProducts proportional to population size
+    # Money/PopTotalMoney/PopTotalSoldProducts/NbTransactions proportional to population size
     df['Money'] = df['Money'] / df['PopSize']
     df['PopTotalMoney'] = df['PopTotalMoney'] / df['PopSize']
-    df['PopTotalSoldProducts'] = df['PopTotalSoldProducts'] / df['PopSize']
+    df['NbTransactions'] = df['NbTransactions'] / df['PopSize']
     # Map ConnectedStates = "4,37,21,10," to NbConnectedStates = 4:
     df["NbConnectedStates"] = df["ConnectedStates"].astype(str).map(lambda val: len(val.split(","))) - 1
     return df
@@ -40,16 +40,16 @@ def vatInfluence():
     """
     Analyse the influence of the State's VAT on two metrics:
     1. The money of the State itself
-    2. The average money of an agent of this State
+    2. The number of transactions happening in the State
     """
     df = DF_STATES.sort_values('VAT')
     print(df)
     chart = Chart("Influence of a State's VAT", 2)
-    chart.set_axis_labels("State's VAT", "State's money", "Average money of an Agent")
+    chart.set_axis_labels("State's VAT", "State's money", "Number of transactions")
     chart.scatter(df["VAT"], df["Money"], color="red")
-    chart.scatter(df["VAT"], df["PopTotalMoney"], color="blue", y2=True)
+    chart.scatter(df["VAT"], df["NbTransactions"], color="blue", y2=True)
     chart.plot(df["VAT"], df["Money"], color="red", smooth=True)
-    chart.plot(df["VAT"], df["PopTotalMoney"], color="blue", y2=True, smooth=True)
+    chart.plot(df["VAT"], df["NbTransactions"], color="blue", y2=True, smooth=True)
     chart.show()
 
 
@@ -96,12 +96,12 @@ def connectedStatesInfluence():
 def main():
     agentsWealthDistribution()
     vatInfluence()
-    connectedStatesInfluence()
+    # connectedStatesInfluence()
     # paramsTweaking()
 
 
 def paramsTweaking():
-    p = Params("medium.json")
+    p = Params("small.json")
     p["World"]["NB_STATES"] = 200
     p.save()
 

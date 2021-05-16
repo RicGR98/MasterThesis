@@ -83,9 +83,9 @@ public class State extends Entity {
     }
 
     /**
-     * @return Total amount of sold products of the population
+     * @return Total number of transaction (=amount of sold products by the population)
      */
-    public Integer getTotalProductsSold(){
+    public Integer getNbTransactions(){
         Integer total = 0;
         for (Agent agent: getAgents()){
             total += agent.getProduct().getSold();
@@ -122,7 +122,7 @@ public class State extends Entity {
      * ==== Methods: csv
      * ================================== */
     public static String csvHeader(){
-        return "Id,VAT,Levy,Tariff,AllowanceType,AllowanceValue,Money,PopSize,PopTotalMoney,PopTotalSoldProducts,ConnectedStates";
+        return "Id,VAT,Levy,Tariff,AllowanceType,AllowanceValue,Money,PopSize,PopTotalMoney,NbTransactions,ConnectedStates";
     }
 
     @Override
@@ -137,7 +137,7 @@ public class State extends Entity {
                 money.toString(),
                 String.valueOf(getAgents().size()),
                 getAgentsTotalMoney().toString(),
-                getTotalProductsSold().toString(),
+                getNbTransactions().toString(),
                 getConnectedStatesCsv());
     }
 

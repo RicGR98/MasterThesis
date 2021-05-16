@@ -16,8 +16,8 @@ import java.util.List;
  * Represents a Market where Products are sold by Agent's
  */
 public class WorldMarket {
-    public final World world;
-    public final HashMap<State, Market> markets;
+    private final World world;
+    private final HashMap<State, Market> markets;
 
     /* ==================================
      * ==== Constructors

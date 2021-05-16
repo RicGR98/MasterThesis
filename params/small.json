@@ -2,7 +2,7 @@
     "World": {
         "NB_STATES": 50,
         "NB_AGENTS": 2000,
-        "NB_TICKS": 5000,
+        "NB_TICKS": 1000,
         "NB_TICKS_SAVE_CSV": 500
     },
     "Connections": {
@@ -29,8 +29,8 @@
         "MIN_INIT_MONEY": 1000.0,
         "MAX_INIT_MONEY": 1000.0,
         "NB_PRODUCED_PRODUCTS": 3,
-        "RATIO_BUY": 0.2,
-        "RATIO_PRODUCE": 0.2
+        "RATIO_BUY": 0.5,
+        "RATIO_PRODUCE": 0.5
     },
     "Product": {
         "NB_DIFF_PRODUCTS": 50,
