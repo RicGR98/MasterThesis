@@ -43,21 +43,24 @@ class Chart:
             self.ax1.plot(x, y, label=label, color=color)
         else:
             self.ax2.plot(x, y, label=label, color=color)
-        self.colors.append(color)
+        if color not in self.colors:
+            self.colors.append(color)
 
     def scatter(self, x, y, label=None, color=None, y2=False):
         if not y2:
             self.ax1.scatter(x, y, label=label, color=color)
         else:
             self.ax2.scatter(x, y, label=label, color=color)
-        self.colors.append(color)
+        if color not in self.colors:
+            self.colors.append(color)
 
     def bar(self, x, y, label=None, color=None, y2=False):
         if not y2:
             self.ax1.bar(x, y, label=label, color=color)
         else:
             self.ax2.bar(x, y, label=label, color=color)
-        self.colors.append(color)
+        if color not in self.colors:
+            self.colors.append(color)
 
     def show(self, filename=None):
         """
