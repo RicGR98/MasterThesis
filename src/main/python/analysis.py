@@ -74,12 +74,12 @@ class Analysis:
         chart.plot(df[param], df[result2], color="blue", y2=True, smooth=True)
         chart.show()
 
-    def agentsWealthDistribution(self):
+    def agentsWealthDistribution(self, df):
         """
         Analyze the wealth distribution among Agents with
         the Gini coefficient and the Lorenz curve
         """
-        X = self.DF_AGENTS_PRODUCTS["Money"]
+        X = df["Money"]
         X = X.sort_values()
         lorenz_x = np.linspace(0.0, 1.0, X.size)
         lorenz_y = X.cumsum() / X.sum()
@@ -103,7 +103,7 @@ class Analysis:
 
 def main():
     a = Analysis()
-    a.influenceOfParamOnResults("VAT", "Money", "NbTransactions")
+    a.influenceOfParamOnResults("AllowanceValue", "Money", "GiniCoeff")
 
 
 def paramsTweaking():

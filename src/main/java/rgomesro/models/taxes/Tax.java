@@ -28,7 +28,7 @@ public abstract class Tax {
      * @param product Product from which we collect the Tax
      * @return The value of the Tax for this Product
      */
-    public Float compute(Product product){
+    protected Float compute(Product product){
         return product.getSellingPrice() * getValue();
     }
 

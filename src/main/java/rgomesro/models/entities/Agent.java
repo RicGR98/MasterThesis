@@ -92,6 +92,7 @@ public class Agent extends Entity {
      * @param value Money to add to the Agent's money
      */
     public void addMoney(float value){
+        assert (value >= 0);
         this.money += value;
     }
 
@@ -99,7 +100,7 @@ public class Agent extends Entity {
      * @param value Money to subtract from the Agent's money
      */
     public void subtractMoney(float value){
-        assert (this.money > value);
+        assert (hasEnoughMoney(value));
         this.money -= value;
     }
 

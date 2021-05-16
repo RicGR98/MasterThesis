@@ -97,7 +97,7 @@ public class WorldMarket {
         var sellerState = seller.getState();
         var buyerState = buyer.getState();
         TransactionUtils.make(buyer, seller, product.getSellingPrice());
-        TransactionUtils.make(buyer, buyerState, buyerState.getTariff().compute(product));
+        TransactionUtils.make(buyer, buyerState, buyerState.getTariff().compute(buyer, product));
         TransactionUtils.make(buyer, sellerState, sellerState.getVat().compute(product));
         product.sell();
     }

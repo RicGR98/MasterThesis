@@ -1,6 +1,7 @@
 package rgomesro.models.taxes;
 
 import rgomesro.Params;
+import rgomesro.models.entities.Product;
 import rgomesro.utils.RandomUtils;
 
 
@@ -24,5 +25,17 @@ public class VAT extends Tax {
                         Params.getInstance().tax.MIN_VAT,
                         Params.getInstance().tax.MAX_VAT)
         ); // TODO: Analyze
+    }
+
+    /* ==================================
+     * ==== Methods: actions
+     * ================================== */
+    /**
+     * @param product Product from which we collect the VAT
+     * @return The value of the VAT for this Product
+     */
+    @Override
+    public Float compute(Product product) {
+        return super.compute(product);
     }
 }

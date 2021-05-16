@@ -15,6 +15,7 @@ public class TransactionUtils {
     }
 
     public static void make(State from, Agent to, float amount){
-        make(to, from, -amount);
+        from.subtractMoney(amount);
+        to.addMoney(amount);
     }
 }

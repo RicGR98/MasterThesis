@@ -148,6 +148,7 @@ public class State extends Entity {
      * @param value Money to add to the State's money
      */
     public void addMoney(float value){
+        assert (value >= 0);
         this.money += value;
     }
 
