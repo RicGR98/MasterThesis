@@ -4,7 +4,7 @@ import pandas as pd
 from src.main.python.chart import Chart
 from src.main.python.params import Params
 
-pd.set_option('display.max_columns', 500)
+pd.set_option('display.max_columns', 1000)
 # pd.set_option('display.max_rows', 500)
 pd.set_option('display.width', 1000)
 
@@ -16,10 +16,14 @@ CSV_STATES = DIR_RES_CSV + "states0.csv"
 CSV_PRODUCTS = DIR_RES_CSV + "products0.csv"
 
 resultToName = {
-    "VAT": "State's VAT",
     "Money": "State's money",
-    "NbTransactions": "Number of transactions",
+    "VAT": "State's VAT",
+    "Levy": "State's Levy",
+    "Tariff": "State's Tariff",
+    "WealthTax": "State's Wealth Tax Value",
     "AllowanceValue": "State's allowance",
+    "NbTransactions": "Number of transactions",
+    "NbConnectedStates": "Number of connected States",
     "GiniCoeff": "State's Gini coefficient",
 }
 
@@ -42,6 +46,7 @@ class Analysis:
         df['NbTransactions'] = df['NbTransactions'] / df['PopSize']
         # Map ConnectedStates = "4,37,21,10," to NbConnectedStates = 4:
         df["NbConnectedStates"] = df["ConnectedStates"].astype(str).map(lambda val: len(val.split(","))) - 1
+        del df["ConnectedStates"]
         # Add Gini coefficient to each State
         df['GiniCoeff'] = df['Id'].apply(lambda id_: self.gini(self.DF_AGENTS_PRODUCTS[self.DF_AGENTS["State"] == id_]))
         return df
@@ -103,7 +108,9 @@ class Analysis:
 
 def main():
     a = Analysis()
-    a.influenceOfParamOnResults("VAT", "Money", "NbTransactions")
+    # a.influenceOfParamOnResults("VAT", "Money", "NbTransactions")
+    # a.influenceOfParamOnResults("WealthTax", "Money", "GiniCoeff")
+    a.influenceOfParamOnResults("AllowanceValue", "Money", "GiniCoeff")
 
 
 def paramsTweaking():

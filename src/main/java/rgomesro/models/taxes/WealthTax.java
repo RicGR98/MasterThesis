@@ -3,6 +3,7 @@ package rgomesro.models.taxes;
 import rgomesro.Params;
 import rgomesro.models.entities.Agent;
 import rgomesro.models.entities.State;
+import rgomesro.utils.RandomUtils;
 import rgomesro.utils.TransactionUtils;
 
 import java.util.Comparator;
@@ -30,7 +31,9 @@ public class WealthTax extends Tax {
         this(
                 state,
                 Params.getInstance().tax.VAL_WEALTH_TAX_TOP,
-                Params.getInstance().tax.VAL_WEALTH_TAX_VALUE
+                RandomUtils.getFloat(
+                        Params.getInstance().tax.MIN_WEALTH_TAX_VALUE,
+                        Params.getInstance().tax.MAX_WEALTH_TAX_VALUE)
         ); // TODO: Analyze
     }
 

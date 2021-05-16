@@ -95,7 +95,8 @@ public final class Params {
             public final float MIN_TARIFF;
             public final float MAX_TARIFF;
             public final float VAL_WEALTH_TAX_TOP;
-            public final float VAL_WEALTH_TAX_VALUE;
+            public final float MIN_WEALTH_TAX_VALUE;
+            public final float MAX_WEALTH_TAX_VALUE;
 
             private Tax() {
                 JSONObject jsonTax = JsonUtils.getJsonObject(jsonState, "Tax");
@@ -114,7 +115,8 @@ public final class Params {
 
                 // TODO: Analyze
                 VAL_WEALTH_TAX_TOP = JsonUtils.getFloat(jsonTax, "VAL_WEALTH_TAX_TOP"); //E.g.: Top 10% (top = 0.1) wealthiest Agents are taxed
-                VAL_WEALTH_TAX_VALUE = JsonUtils.getFloat(jsonTax, "VAL_WEALTH_TAX_VALUE");  //E.g.: 10% (value = 0.1) Wealth tax
+                MIN_WEALTH_TAX_VALUE = JsonUtils.getFloat(jsonTax, "MIN_WEALTH_TAX_VALUE");  //E.g.: 10% (value = 0.1) Wealth tax
+                MAX_WEALTH_TAX_VALUE = JsonUtils.getFloat(jsonTax, "MAX_WEALTH_TAX_VALUE");  //E.g.: 10% (value = 0.1) Wealth tax
             }
 }
 
