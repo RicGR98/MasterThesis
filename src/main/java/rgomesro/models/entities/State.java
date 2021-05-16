@@ -156,7 +156,7 @@ public class State extends Entity {
      * @param value Money to subtract from the State's money
      */
     public void subtractMoney(float value){
-        assert (this.money > value);
+        assert (this.money >= value);
         this.money -= value;
     }
 

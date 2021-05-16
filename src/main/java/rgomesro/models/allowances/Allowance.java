@@ -60,8 +60,8 @@ public class Allowance {
      */
     private void distributeFlat(){
         float moneyToDistribute = state.getMoney() * percentage;
-        var apa = moneyToDistribute / state.getAgents().size(); //Apa = Allowance per Agent
-        state.getAgents().forEach(agent -> TransactionUtils.make(state, agent, apa));
+        var allowance = (float) (Math.floor(moneyToDistribute / state.getAgents().size() * 100) / 100); // Round down
+        state.getAgents().forEach(agent -> TransactionUtils.make(state, agent, allowance));
     }
 
     /**

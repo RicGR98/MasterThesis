@@ -103,7 +103,7 @@ class Analysis:
 
 def main():
     a = Analysis()
-    a.influenceOfParamOnResults("AllowanceValue", "Money", "GiniCoeff")
+    a.influenceOfParamOnResults("VAT", "Money", "NbTransactions")
 
 
 def paramsTweaking():

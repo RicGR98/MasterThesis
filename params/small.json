@@ -2,7 +2,7 @@
     "World": {
         "NB_STATES": 50,
         "NB_AGENTS": 2000,
-        "NB_TICKS": 100,
+        "NB_TICKS": 1000,
         "NB_TICKS_SAVE_CSV": 500
     },
     "Connections": {
@@ -15,14 +15,14 @@
             "MAX_VAT": 0.99,
             "MIN_LEVY": 0.0,
             "MAX_LEVY": 0.0,
-            "MIN_TARIFF": 0.3,
-            "MAX_TARIFF": 0.3,
+            "MIN_TARIFF": 0.0,
+            "MAX_TARIFF": 0.0,
             "VAL_WEALTH_TAX_TOP": 0.0,
             "VAL_WEALTH_TAX_VALUE": 0.0
         },
         "Allowance": {
             "MIN_ALLOWANCE": 0.0,
-            "MAX_ALLOWANCE": 0.99
+            "MAX_ALLOWANCE": 0.0
         }
     },
     "Agent": {
