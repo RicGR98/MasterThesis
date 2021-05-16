@@ -5,9 +5,9 @@
 #SBATCH -e error.txt # STDERR
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=ricardo.gomes.rodrigues@ulb.be     # Where to send mail
-#SBATCH --mem-per-cpu=1gb                     # Job memory request
+#SBATCH --mem-per-cpu=2gb                     # Job memory request
 #SBATCH --ntasks=1
-#SBATCH --time=1:00:00
+#SBATCH --time=24:00:00
 
 mvn="$HOME/.local/bin/apache-maven-3.8.1/bin/mvn"
 

@@ -4,7 +4,6 @@ import rgomesro.Params;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -12,7 +11,7 @@ import java.util.stream.Stream;
 public class Market extends Entity {
     private final Params params;
     private final State state;
-    private final HashMap<Integer, ArrayList<Product>> products;
+    private final ArrayList<ArrayList<Product>> products;
 
     /* ==================================
      * ==== Constructors
@@ -21,7 +20,7 @@ public class Market extends Entity {
         super(state.getId());
         this.params = Params.getInstance();
         this.state = state;
-        products = new HashMap<>();
+        this.products = new ArrayList<>();
     }
 
     /* ==================================
@@ -32,8 +31,8 @@ public class Market extends Entity {
      */
     public int getProductCount(){
         int total = 0;
-        for (int type: products.keySet()){
-            for (Product product: products.get(type)){
+        for (ArrayList<Product> typeProduct: products){
+            for (Product product: typeProduct){
                 total += product.getStock();
             }
         }
@@ -63,7 +62,7 @@ public class Market extends Entity {
     public void initMarket(){
         //Create keys (types of Product)
         for (int type = 0; type < params.product.NB_DIFF_PRODUCTS; type++){
-            products.put(type, new ArrayList<>());
+            products.add(new ArrayList<>());
         }
         //Add Products according to their type
         for (Agent agent: state.getAgents()){
@@ -111,10 +110,11 @@ public class Market extends Entity {
      */
     public List<Product> getFilteredProducts(Agent buyer, int type){
         var res = new ArrayList<Product>();
-        products.get(type).forEach(product -> {
+        var typeProducts = products.get(type);
+        for (Product product: typeProducts){
             if (isProductBuyable(buyer, product))
                 res.add(product);
-        });
+        }
         res.sort(Comparator.comparing(Product::getSellingPrice)); // From lowest to highest price
         return res;
     }
