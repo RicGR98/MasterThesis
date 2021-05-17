@@ -1,7 +1,9 @@
 package rgomesro.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 public class RandomUtils {
     private static final Random gen = new Random();
@@ -40,6 +42,15 @@ public class RandomUtils {
      */
     public static <T> T choose(List<T> possibilities){
         return possibilities.get(getInt(0, possibilities.size()));
+    }
+
+    /**
+     * @param possibilities Set of possibilities
+     * @param <T> Type of the possibilities
+     * @return Random object in the set of possibilities
+     */
+    public static <T> T choose(Set<T> possibilities){
+        return choose(new ArrayList<>(possibilities));
     }
 
     /**

@@ -4,6 +4,7 @@ import rgomesro.Params;
 import rgomesro.models.WorldMarket;
 import rgomesro.utils.RandomUtils;
 
+import java.util.Map;
 import java.util.stream.Stream;
 
 /**
@@ -14,6 +15,7 @@ public class Agent extends Entity {
     private final WorldMarket worldMarket;
     private final State state;
     private Float money;
+    private final Float talent;
     private final Product product;
     private Integer nbProductsBought = 0;
 
@@ -24,26 +26,46 @@ public class Agent extends Entity {
      * @param worldMarket Market of the World
      * @param state State to which the Agent belongs
      * @param money Initial money of the Agent
+     * @param chosenProduct Map entry where key = product type, value = product price
+     * @param talent Talent of production [0, 1]. The bigger => the cheaper the production price
      */
-    public Agent(int id, WorldMarket worldMarket, State state, float money) {
+    public Agent(
+            int id,
+            WorldMarket worldMarket,
+            State state,
+            float money,
+            Map.Entry<Integer, Float> chosenProduct,
+            float talent) {
         super(id);
         this.params = Params.getInstance().agent;
         this.worldMarket = worldMarket;
         this.state = state;
         this.state.addAgent(this);
         this.money = money;
-        this.product = new Product(this);
+        this.talent = talent;
+        this.product = new Product(
+                this,
+                chosenProduct.getKey(),
+                chosenProduct.getValue() * (1 - talent),
+                0f
+        );
     }
 
-    public Agent(int id, WorldMarket worldMarket, State state){
+    public Agent(
+            int id,
+            WorldMarket worldMarket,
+            State state,
+            Map.Entry<Integer, Float> chosenProduct){
         this(
                 id,
                 worldMarket,
                 state,
                 RandomUtils.getFloat(
                         Params.getInstance().agent.MIN_INIT_MONEY,
-                        Params.getInstance().agent.MAX_INIT_MONEY)
-        ); // TODO: Analyze
+                        Params.getInstance().agent.MAX_INIT_MONEY),
+                chosenProduct,
+                RandomUtils.getRandom()
+        );
     }
 
     /* ==================================
@@ -65,7 +87,7 @@ public class Agent extends Entity {
      * ==== Methods: csv
      * ================================== */
     public static String csvHeader() {
-        return "Id,State,Money,Bought";
+        return "Id,State,Money,Talent,Bought";
     }
 
     @Override
@@ -74,6 +96,7 @@ public class Agent extends Entity {
                 id,
                 state.toString(),
                 money.toString(),
+                talent.toString(),
                 nbProductsBought.toString());
     }
 

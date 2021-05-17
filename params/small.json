@@ -12,7 +12,7 @@
     "State": {
         "Tax": {
             "MIN_VAT": 0.0,
-            "MAX_VAT": 0.0,
+            "MAX_VAT": 0.99,
             "MIN_LEVY": 0.5,
             "MAX_LEVY": 0.5,
             "MIN_TARIFF": 0.0,
@@ -23,7 +23,7 @@
         },
         "Allowance": {
             "MIN_ALLOWANCE": 0.0,
-            "MAX_ALLOWANCE": 0.99
+            "MAX_ALLOWANCE": 0.0
         }
     },
     "Agent": {
@@ -36,7 +36,7 @@
     "Product": {
         "NB_DIFF_PRODUCTS": 50,
         "MIN_PRICE": 0.0,
-        "MAX_PRICE": 500.0,
+        "MAX_PRICE": 300.0,
         "MAX_STOCK": 2000
     }
 }

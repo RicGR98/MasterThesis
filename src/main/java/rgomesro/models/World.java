@@ -10,6 +10,7 @@ import rgomesro.utils.FileUtils;
 import rgomesro.utils.RandomUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -23,6 +24,7 @@ public class World implements Runnable{
     private final WorldMarket worldMarket;
     private final ArrayList<State> states;
     private final ArrayList<Agent> agents;
+    private final HashMap<Integer, Float> productPrices;
     private int currentTick = 0;
 
     /* ==================================
@@ -36,6 +38,7 @@ public class World implements Runnable{
         this.worldMarket = new WorldMarket(this);
         this.states = new ArrayList<>(params.NB_STATES);
         this.agents = new ArrayList<>(params.NB_AGENTS);
+        this.productPrices = new HashMap<>();
         this.init();
     }
 
@@ -60,9 +63,25 @@ public class World implements Runnable{
             this.states.add(state);
         }
 
+        //Initialize Products prices
+        var productParams = Params.getInstance().product;
+        for (int i = 0; i < productParams.NB_DIFF_PRODUCTS; i++) {
+            productPrices.put(
+                    i,
+                    RandomUtils.getFloat(
+                            productParams.MIN_PRICE,
+                            productParams.MAX_PRICE)
+            );
+        }
+
         //Initialize Agents
         for (int i = 0; i < params.NB_AGENTS; i++) {
-            Agent agent = new Agent(i, worldMarket, RandomUtils.choose(states));
+            Agent agent = new Agent(
+                    i,
+                    worldMarket,
+                    RandomUtils.choose(states),
+                    RandomUtils.choose(productPrices.entrySet())
+            );
             this.agents.add(agent);
         }
 

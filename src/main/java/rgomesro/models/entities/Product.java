@@ -37,20 +37,6 @@ public class Product extends Entity {
         this.sold = 0;
     }
 
-    public Product(Agent agent, int type, float sellingPrice){
-        this(agent, type, sellingPrice, 0f);
-    }
-
-    public Product(Agent agent){
-        this(
-                agent,
-                getRandomType(),
-                RandomUtils.getFloat(
-                        Params.getInstance().product.MIN_PRICE,
-                        Params.getInstance().product.MAX_PRICE)
-        );
-    }
-
     /* ==================================
      * ==== Getters
      * ================================== */
