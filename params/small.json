@@ -12,7 +12,7 @@
     "State": {
         "Tax": {
             "MIN_VAT": 0.0,
-            "MAX_VAT": 0.99,
+            "MAX_VAT": 0.0,
             "MIN_LEVY": 0.5,
             "MAX_LEVY": 0.5,
             "MIN_TARIFF": 0.0,
@@ -23,7 +23,7 @@
         },
         "Allowance": {
             "MIN_ALLOWANCE": 0.0,
-            "MAX_ALLOWANCE": 0.0
+            "MAX_ALLOWANCE": 0.99
         }
     },
     "Agent": {

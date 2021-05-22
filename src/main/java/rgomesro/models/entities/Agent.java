@@ -17,7 +17,7 @@ public class Agent extends Entity {
     private Float money;
     private final Float talent;
     private final Product product;
-    private Integer nbProductsBought = 0;
+    private Integer nbPurchase = 0;
 
     /* ==================================
      * ==== Constructors
@@ -87,7 +87,7 @@ public class Agent extends Entity {
      * ==== Methods: csv
      * ================================== */
     public static String csvHeader() {
-        return "Id,State,Money,Talent,Bought";
+        return "Id,State,Money,Talent,NbPurchase";
     }
 
     @Override
@@ -97,7 +97,7 @@ public class Agent extends Entity {
                 state.toString(),
                 money.toString(),
                 talent.toString(),
-                nbProductsBought.toString());
+                nbPurchase.toString());
     }
 
     /* ==================================
@@ -145,7 +145,7 @@ public class Agent extends Entity {
      */
     public void buy(){
         if (this.worldMarket.buy(this))
-            nbProductsBought++;
+            nbPurchase++;
     }
 
     /**

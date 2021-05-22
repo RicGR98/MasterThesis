@@ -15,7 +15,7 @@ public class Product extends Entity {
     private final float productionPrice;
     private final float sellingPrice;
     private int stock;
-    private int sold;
+    private int sales;
 
     /* ==================================
      * ==== Constructors
@@ -34,7 +34,7 @@ public class Product extends Entity {
         this.productionPrice = productionPrice; // TODO: 17/04/2021
         this.sellingPrice = sellingPrice;
         this.stock = 0;
-        this.sold = 0;
+        this.sales = 0;
     }
 
     /* ==================================
@@ -60,8 +60,8 @@ public class Product extends Entity {
         return stock;
     }
 
-    public Integer getSold(){
-        return sold;
+    public Integer getSales(){
+        return sales;
     }
 
     public Boolean canBeProduced(){
@@ -76,7 +76,7 @@ public class Product extends Entity {
      * === Methods: csv
      * ================================== */
     public static String csvHeader() {
-        return "Id,Type,ProductionPrice,SellingPrice,Stock,Sold";
+        return "Id,Type,ProductionPrice,SellingPrice,Stock,Sales";
     }
 
     @Override
@@ -87,7 +87,7 @@ public class Product extends Entity {
                 getProductionPrice().toString(),
                 getSellingPrice().toString(),
                 getStock().toString(),
-                getSold().toString()
+                getSales().toString()
         );
     }
 
@@ -100,7 +100,7 @@ public class Product extends Entity {
     public void sell(){
         assert (stock > 0);
         stock--;
-        sold++;
+        sales++;
     }
 
     /**

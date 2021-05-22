@@ -27,7 +27,7 @@ resultToName = {
     "NbConnectedStates": "Number of connected States",
     "GiniCoeff": "State's Gini coefficient",
     "Talent": "Agent's Talent",
-    "Sold": "Agent's number of sales",
+    "Sales": "Agent's number of sales",
     "Stock": "Agent's products stock",
 }
 
@@ -68,7 +68,7 @@ class Analysis:
         return round(coeff * weighted_sum / (X.sum()) - const_, 3)
 
     @staticmethod
-    def influenceOfParamOnResults(dataFrame, param, result1, result2=None):
+    def influenceOfParamOnResults(dataFrame: pd.DataFrame, param, result1, result2=None, plot=True, scatter=True):
         f"""
         Analyse the influence of the State's {param} on two metrics:
         1. {result1}
@@ -79,11 +79,15 @@ class Analysis:
         nbYaxis = 2 if result2 is not None else 1
         chart = Chart(f"Influence of the {resultToName[param]}", nbYaxis)
         chart.set_axis_labels(f"{resultToName[param]}", resultToName[result1], resultToName[result2])
-        chart.scatter(df[param], df[result1], color="red")
-        chart.plot(df[param], df[result1], color="red", smooth=True)
+        if scatter:
+            chart.scatter(df[param], df[result1], color="red")
+        if plot:
+            chart.plot(df[param], df[result1], color="red", smooth=True)
         if result2 is not None:
-            chart.scatter(df[param], df[result2], color="blue", y2=True)
-            chart.plot(df[param], df[result2], color="blue", y2=True, smooth=True)
+            if scatter:
+                chart.scatter(df[param], df[result2], color="blue", y2=True)
+            if plot:
+                chart.plot(df[param], df[result2], color="blue", y2=True, smooth=True)
         chart.show()
 
     def agentsWealthDistribution(self, df):
@@ -115,10 +119,10 @@ class Analysis:
 
 def main():
     a = Analysis()
-    a.influenceOfParamOnResults(a.DF_STATES, "VAT", "Money", "NbTransactions")
-    # a.influenceOfParamOnResults("WealthTax", "Money", "GiniCoeff")
-    # a.influenceOfParamOnResults("AllowanceValue", "Money", "GiniCoeff")
-    a.influenceOfParamOnResults(a.DF_AGENTS_PRODUCTS, "Talent", "Sold")
+    # a.influenceOfParamOnResults(a.DF_STATES, "VAT", "Money", "NbTransactions")
+    # a.influenceOfParamOnResults(a.DF_STATES, "WealthTax", "Money", "GiniCoeff")
+    a.influenceOfParamOnResults(a.DF_STATES, "AllowanceValue", "Money", "GiniCoeff")
+    a.influenceOfParamOnResults(a.DF_AGENTS_PRODUCTS, "Talent", "Sales", scatter=False)
     print(a.DF_AGENTS_PRODUCTS)
 
 

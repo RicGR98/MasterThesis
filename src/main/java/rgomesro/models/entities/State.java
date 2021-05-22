@@ -88,7 +88,7 @@ public class State extends Entity {
     public Integer getNbTransactions(){
         Integer total = 0;
         for (Agent agent: getAgents()){
-            total += agent.getProduct().getSold();
+            total += agent.getProduct().getSales();
         }
         return total;
     }
@@ -122,13 +122,14 @@ public class State extends Entity {
      * ==== Methods: csv
      * ================================== */
     public static String csvHeader(){
-        return "Id,VAT,Levy,Tariff,WealthTax,AllowanceType,AllowanceValue,Money,PopSize,PopTotalMoney,NbTransactions,ConnectedStates";
+        return "Id,PopSize,VAT,Levy,Tariff,WealthTax,AllowanceType,AllowanceValue,Money,PopTotalMoney,NbTransactions,ConnectedStates";
     }
 
     @Override
     public Stream<String> properties(){
         return Stream.of(
                 id,
+                String.valueOf(getAgents().size()),
                 vat.getValue().toString(),
                 levy.getValue().toString(),
                 tariff.getValue().toString(),
@@ -136,7 +137,6 @@ public class State extends Entity {
                 allowance.getType().toString(),
                 allowance.getPercentage().toString(),
                 money.toString(),
-                String.valueOf(getAgents().size()),
                 getAgentsTotalMoney().toString(),
                 getNbTransactions().toString(),
                 getConnectedStatesCsv());
