@@ -100,5 +100,6 @@ public class WorldMarket {
         TransactionUtils.make(buyer, buyerState, buyerState.getTariff().compute(buyer, product));
         TransactionUtils.make(buyer, sellerState, sellerState.getVat().compute(product));
         product.sell();
+        sellerState.addToGdp(product.getSellingPrice());
     }
 }

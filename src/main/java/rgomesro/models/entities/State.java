@@ -24,6 +24,7 @@ public class State extends Entity {
     private final Allowance allowance;
     private final ArrayList<Agent> agents;
     private Float money = 0f;
+    private Float gdp = 0f;
 
     /* ==================================
      * ==== Constructors
@@ -65,6 +66,10 @@ public class State extends Entity {
 
     public Market getMarket() {
         return market;
+    }
+
+    public Float getGdp() {
+        return gdp;
     }
 
     public ArrayList<State> getConnectedStates() {
@@ -122,7 +127,7 @@ public class State extends Entity {
      * ==== Methods: csv
      * ================================== */
     public static String csvHeader(){
-        return "Id,PopSize,VAT,Levy,Tariff,WealthTax,AllowanceType,AllowanceValue,Money,PopTotalMoney,NbTransactions,ConnectedStates";
+        return "Id,PopSize,VAT,Levy,Tariff,WealthTax,AllowanceType,AllowanceValue,Gdp,Money,PopTotalMoney,NbTransactions,ConnectedStates";
     }
 
     @Override
@@ -136,10 +141,12 @@ public class State extends Entity {
                 wealthTax.getValue().toString(),
                 allowance.getType().toString(),
                 allowance.getPercentage().toString(),
+                gdp.toString(),
                 money.toString(),
                 getAgentsTotalMoney().toString(),
                 getNbTransactions().toString(),
-                getConnectedStatesCsv());
+                getConnectedStatesCsv()
+        );
     }
 
     /* ==================================
@@ -159,6 +166,14 @@ public class State extends Entity {
     public void subtractMoney(float value){
         assert (this.money >= value);
         this.money -= value;
+    }
+
+    /**
+     * @param value Amount to be added to the Gross Domestic Product
+     */
+    public void addToGdp(float value){
+        assert (value >= 0f);
+        gdp += value;
     }
 
     /* ==================================

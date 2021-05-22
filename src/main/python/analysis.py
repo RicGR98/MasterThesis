@@ -26,6 +26,7 @@ resultToName = {
     "NbTransactions": "Number of transactions",
     "NbConnectedStates": "Number of connected States",
     "GiniCoeff": "State's Gini coefficient",
+    "Gdp": "State's GDP",
     "Talent": "Agent's Talent",
     "Sales": "Agent's number of sales",
     "Stock": "Agent's products stock",
@@ -44,10 +45,11 @@ class Analysis:
         Return dataframe with some new columns for easier analysis later
         """
         df: pd.DataFrame = pd.read_csv(CSV_STATES)
-        # Money/PopTotalMoney/PopTotalSoldProducts/NbTransactions proportional to population size
+        # Set some fields proportional to population size
         df['Money'] = df['Money'] / df['PopSize']
         df['PopTotalMoney'] = df['PopTotalMoney'] / df['PopSize']
         df['NbTransactions'] = df['NbTransactions'] / df['PopSize']
+        df['Gdp'] = df['Gdp'] / df['PopSize']
         # Map ConnectedStates = "4,37,21,10," to NbConnectedStates = 4:
         df["NbConnectedStates"] = df["ConnectedStates"].astype(str).map(lambda val: len(val.split(","))) - 1
         del df["ConnectedStates"]
@@ -119,11 +121,12 @@ class Analysis:
 
 def main():
     a = Analysis()
+    a.influenceOfParamOnResults(a.DF_AGENTS_PRODUCTS, "Talent", "Sales", scatter=False)
     # a.influenceOfParamOnResults(a.DF_STATES, "VAT", "Money", "NbTransactions")
     # a.influenceOfParamOnResults(a.DF_STATES, "WealthTax", "Money", "GiniCoeff")
-    a.influenceOfParamOnResults(a.DF_STATES, "AllowanceValue", "Money", "GiniCoeff")
-    a.influenceOfParamOnResults(a.DF_AGENTS_PRODUCTS, "Talent", "Sales", scatter=False)
-    print(a.DF_AGENTS_PRODUCTS)
+    # a.influenceOfParamOnResults(a.DF_STATES, "AllowanceValue", "Money", "GiniCoeff")
+    # a.influenceOfParamOnResults(a.DF_STATES, "VAT", "Gdp", "NbTransactions")
+    a.influenceOfParamOnResults(a.DF_STATES, "AllowanceValue", "Gdp")
 
 
 def paramsTweaking():
