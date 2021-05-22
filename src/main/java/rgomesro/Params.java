@@ -101,19 +101,15 @@ public final class Params {
             private Tax() {
                 JSONObject jsonTax = JsonUtils.getJsonObject(jsonState, "Tax");
 
-                //TODO: Analyze
                 MIN_VAT = JsonUtils.getFloat(jsonTax, "MIN_VAT");
                 MAX_VAT = JsonUtils.getFloat(jsonTax, "MAX_VAT");
 
-                //TODO: Analyze
                 MIN_LEVY = JsonUtils.getFloat(jsonTax, "MIN_LEVY");
                 MAX_LEVY = JsonUtils.getFloat(jsonTax, "MAX_LEVY");
 
-                //TODO: Analyze
                 MIN_TARIFF = JsonUtils.getFloat(jsonTax, "MIN_TARIFF");
                 MAX_TARIFF = JsonUtils.getFloat(jsonTax, "MAX_TARIFF");
 
-                // TODO: Analyze
                 VAL_WEALTH_TAX_TOP = JsonUtils.getFloat(jsonTax, "VAL_WEALTH_TAX_TOP"); //E.g.: Top 10% (top = 0.1) wealthiest Agents are taxed
                 MIN_WEALTH_TAX_VALUE = JsonUtils.getFloat(jsonTax, "MIN_WEALTH_TAX_VALUE");  //E.g.: 10% (value = 0.1) Wealth tax
                 MAX_WEALTH_TAX_VALUE = JsonUtils.getFloat(jsonTax, "MAX_WEALTH_TAX_VALUE");  //E.g.: 10% (value = 0.1) Wealth tax
@@ -130,7 +126,6 @@ public final class Params {
             private Allowance() {
                 JSONObject jsonAllowance = JsonUtils.getJsonObject(jsonState, "Allowance");
 
-                // TODO: Analyze
                 MIN_ALLOWANCE = JsonUtils.getFloat(jsonAllowance, "MIN_ALLOWANCE");
                 MAX_ALLOWANCE = JsonUtils.getFloat(jsonAllowance, "MAX_ALLOWANCE");
             }
@@ -150,11 +145,9 @@ public final class Params {
         private Agent() {
             JSONObject jsonAgent = JsonUtils.getJsonObject(json, "Agent");
 
-            // TODO: Analyze
             MIN_INIT_MONEY = JsonUtils.getFloat(jsonAgent, "MIN_INIT_MONEY");
             MAX_INIT_MONEY = JsonUtils.getFloat(jsonAgent, "MAX_INIT_MONEY");
 
-            // TODO: Analyze
             NB_PRODUCED_PRODUCTS = JsonUtils.getInt(jsonAgent, "NB_PRODUCED_PRODUCTS");
             RATIO_BUY = JsonUtils.getFloat(jsonAgent, "RATIO_BUY");
             RATIO_PRODUCE = JsonUtils.getFloat(jsonAgent, "RATIO_PRODUCE");

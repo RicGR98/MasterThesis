@@ -34,7 +34,7 @@ public class WealthTax extends Tax {
                 RandomUtils.getFloat(
                         Params.getInstance().tax.MIN_WEALTH_TAX_VALUE,
                         Params.getInstance().tax.MAX_WEALTH_TAX_VALUE)
-        ); // TODO: Analyze
+        );
     }
 
     /* ==================================

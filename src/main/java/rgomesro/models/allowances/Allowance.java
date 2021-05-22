@@ -37,7 +37,7 @@ public class Allowance {
                         Params.getInstance().allowance.MIN_ALLOWANCE,
                         Params.getInstance().allowance.MAX_ALLOWANCE),
                 RandomUtils.choose(Type.values())
-        ); // TODO: Analyze
+        );
     }
 
     /* ==================================

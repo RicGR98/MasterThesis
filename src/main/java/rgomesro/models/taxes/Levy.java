@@ -30,7 +30,7 @@ public class Levy extends Tax {
                 RandomUtils.getFloat(
                         Params.getInstance().tax.MIN_LEVY,
                         Params.getInstance().tax.MAX_LEVY)
-        ); // TODO: Analyze
+        );
     }
 
     /* ==================================

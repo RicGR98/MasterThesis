@@ -24,7 +24,7 @@ public class VAT extends Tax {
                 RandomUtils.getFloat(
                         Params.getInstance().tax.MIN_VAT,
                         Params.getInstance().tax.MAX_VAT)
-        ); // TODO: Analyze
+        );
     }
 
     /* ==================================
