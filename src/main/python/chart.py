@@ -9,11 +9,7 @@ class Chart:
     """
     Chart class to plot points, lines, ...
     """
-    def __init__(self, title: str, nb_y_axis=1):
-        """
-        :param title: Title of the chart
-        :param nb_y_axis: Number of y axis (1 or 2)
-        """
+    def __init__(self, title):
         self.title = title
         self.label_x = None
         self.label_y = None
@@ -21,20 +17,19 @@ class Chart:
         self.colors = []
         self.fig, self.ax1 = plt.subplots()
         self.ax2 = None
-        assert (nb_y_axis in {1, 2})
-        if nb_y_axis == 2:
-            self.ax2 = self.ax1.twinx()
 
     def set_axis_labels(self, x, y, y2=None):
         """
         Set the labels for the axis
         """
-        assert ((self.ax2 is not None) == (y2 is not None))
         self.label_x = x
         self.label_y = y
-        self.label_y2 = y2
+        if y2 is not None:
+            self.ax2 = self.ax1.twinx()
+            self.label_y2 = y2
 
     def plot(self, x, y, label=None, color=None, y2=False, smooth=False):
+        assert self.label_x is not None
         if smooth:
             f = np.poly1d(np.polyfit(x, y, deg=2))
             x = np.linspace(np.amin(x), np.amax(x), 100)
@@ -47,6 +42,7 @@ class Chart:
             self.colors.append(color)
 
     def scatter(self, x, y, label=None, color=None, y2=False):
+        assert self.label_x is not None
         if not y2:
             self.ax1.scatter(x, y, label=label, color=color)
         else:
@@ -55,6 +51,7 @@ class Chart:
             self.colors.append(color)
 
     def bar(self, x, y, label=None, color=None, y2=False):
+        assert self.label_x is not None
         if not y2:
             self.ax1.bar(x, y, label=label, color=color)
         else:
@@ -67,6 +64,7 @@ class Chart:
         Show (and save) the Chart
         :param filename: If not None, save the Chart as an image
         """
+        assert self.label_x is not None
         self.fig.suptitle(self.title)
         self.ax1.set_xlabel(self.label_x)
         self.ax1.set_ylabel(self.label_y)

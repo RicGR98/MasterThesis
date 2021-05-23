@@ -78,8 +78,7 @@ class Analysis:
         """
         df = dataFrame.sort_values(param)
         print(df)
-        nbYaxis = 2 if result2 is not None else 1
-        chart = Chart(f"Influence of the {resultToName[param]}", nbYaxis)
+        chart = Chart(f"Influence of the {resultToName[param]}")
         chart.set_axis_labels(f"{resultToName[param]}", resultToName[result1], resultToName[result2])
         if scatter:
             chart.scatter(df[param], df[result1], color="red")
@@ -126,7 +125,7 @@ def main():
     # a.influenceOfParamOnResults(a.DF_STATES, "WealthTax", "Money", "GiniCoeff")
     # a.influenceOfParamOnResults(a.DF_STATES, "AllowanceValue", "Money", "GiniCoeff")
     # a.influenceOfParamOnResults(a.DF_STATES, "VAT", "Gdp", "NbTransactions")
-    a.influenceOfParamOnResults(a.DF_STATES, "AllowanceValue", "Gdp")
+    a.influenceOfParamOnResults(a.DF_STATES, "AllowanceValue", "Gdp", "NbTransactions")
 
 
 def paramsTweaking():
