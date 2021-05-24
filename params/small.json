@@ -11,19 +11,21 @@
     },
     "State": {
         "Tax": {
-            "MIN_VAT": 0.0,
-            "MAX_VAT": 0.0,
+            "MIN_VAT": 0.2,
+            "MAX_VAT": 0.2,
             "MIN_LEVY": 0.5,
             "MAX_LEVY": 0.5,
             "MIN_TARIFF": 0.0,
             "MAX_TARIFF": 0.0,
             "VAL_WEALTH_TAX_TOP": 0.1,
             "MIN_WEALTH_TAX_VALUE": 0.1,
-            "MAX_WEALTH_TAX_VALUE": 0.1
+            "MAX_WEALTH_TAX_VALUE": 0.1,
+            "NB_TICKS_COLLECT_TAXES": 100
         },
         "Allowance": {
             "MIN_ALLOWANCE": 0.0,
-            "MAX_ALLOWANCE": 0.99
+            "MAX_ALLOWANCE": 0.99,
+            "NB_TICKS_DISTRIBUTE_ALLOWANCES": 100
         }
     },
     "Agent": {

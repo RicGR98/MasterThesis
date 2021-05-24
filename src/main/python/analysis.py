@@ -25,7 +25,7 @@ resultToName = {
     "AllowanceValue": "State's allowance",
     "NbTransactions": "Number of transactions",
     "NbConnectedStates": "Number of connected States",
-    "GiniCoeff": "State's Gini coefficient",
+    "Gini": "State's Gini coefficient",
     "Gdp": "State's GDP",
     "Talent": "Agent's Talent",
     "Sales": "Agent's number of sales",
@@ -54,7 +54,7 @@ class Analysis:
         df["NbConnectedStates"] = df["ConnectedStates"].astype(str).map(lambda val: len(val.split(","))) - 1
         del df["ConnectedStates"]
         # Add Gini coefficient to each State
-        df['GiniCoeff'] = df['Id'].apply(lambda id_: self.gini(self.DF_AGENTS_PRODUCTS[self.DF_AGENTS["State"] == id_]))
+        df['Gini'] = df['Id'].apply(lambda id_: self.gini(self.DF_AGENTS_PRODUCTS[self.DF_AGENTS["State"] == id_]))
         return df
 
     @staticmethod
@@ -122,11 +122,10 @@ def main():
     a = Analysis()
     a.influenceOfParamOnResults(a.DF_AGENTS_PRODUCTS, "Talent", "Sales", scatter=False)
     # a.influenceOfParamOnResults(a.DF_STATES, "VAT", "Money", "NbTransactions")
-    # a.influenceOfParamOnResults(a.DF_STATES, "WealthTax", "Money", "GiniCoeff")
-    # a.influenceOfParamOnResults(a.DF_STATES, "AllowanceValue", "Money", "GiniCoeff")
+    # a.influenceOfParamOnResults(a.DF_STATES, "WealthTax", "Money", "Gini")
+    # a.influenceOfParamOnResults(a.DF_STATES, "AllowanceValue", "Money", "Gini")
     # a.influenceOfParamOnResults(a.DF_STATES, "VAT", "Gdp", "NbTransactions")
-    a.influenceOfParamOnResults(a.DF_STATES, "AllowanceValue", "Gdp", "NbTransactions")
-
+    a.influenceOfParamOnResults(a.DF_STATES, "AllowanceValue", "Gdp", "Gini")
 
 def paramsTweaking():
     p = Params("small.json")

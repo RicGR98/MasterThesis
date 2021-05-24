@@ -76,12 +76,10 @@ public final class Params {
      */
     public final class State {
         public final JSONObject jsonState = JsonUtils.getJsonObject(json, "State");
-        public final int NB_TICKS_COLLECT_TAXES;
-        public final int NB_TICKS_DISTRIBUTE_ALLOWANCES;
+        public int NB_TICKS_COLLECT_TAXES;
+        public int NB_TICKS_DISTRIBUTE_ALLOWANCES;
 
         private State() {
-            NB_TICKS_COLLECT_TAXES = world.NB_TICKS/100;
-            NB_TICKS_DISTRIBUTE_ALLOWANCES = NB_TICKS_COLLECT_TAXES;
         }
 
         /**
@@ -113,6 +111,8 @@ public final class Params {
                 VAL_WEALTH_TAX_TOP = JsonUtils.getFloat(jsonTax, "VAL_WEALTH_TAX_TOP"); //E.g.: Top 10% (top = 0.1) wealthiest Agents are taxed
                 MIN_WEALTH_TAX_VALUE = JsonUtils.getFloat(jsonTax, "MIN_WEALTH_TAX_VALUE");  //E.g.: 10% (value = 0.1) Wealth tax
                 MAX_WEALTH_TAX_VALUE = JsonUtils.getFloat(jsonTax, "MAX_WEALTH_TAX_VALUE");  //E.g.: 10% (value = 0.1) Wealth tax
+
+                NB_TICKS_COLLECT_TAXES = JsonUtils.getInt(jsonTax, "NB_TICKS_COLLECT_TAXES");
             }
 }
 
@@ -128,6 +128,8 @@ public final class Params {
 
                 MIN_ALLOWANCE = JsonUtils.getFloat(jsonAllowance, "MIN_ALLOWANCE");
                 MAX_ALLOWANCE = JsonUtils.getFloat(jsonAllowance, "MAX_ALLOWANCE");
+
+                NB_TICKS_DISTRIBUTE_ALLOWANCES = JsonUtils.getInt(jsonAllowance, "NB_TICKS_DISTRIBUTE_ALLOWANCES");
             }
         }
     }
