@@ -25,7 +25,6 @@ public class World implements Runnable{
     private final ArrayList<State> states;
     private final ArrayList<Agent> agents;
     private final HashMap<Integer, Float> productPrices;
-    private int currentTick = 0;
 
     /* ==================================
      * ==== Constructors
@@ -96,13 +95,12 @@ public class World implements Runnable{
     /**
      * Represent a step in the World's lifetime where its Entities can performd actions
      */
-    private void tick(){
+    private void tick(int currentTick){
         if (currentTick % params.NB_TICKS_SAVE_CSV == 0){
             saveAllToCsv(); //Temporary save
         }
         agents.forEach(Agent::tick);
-        states.forEach(state -> state.tick(this.currentTick));
-        this.currentTick++;
+        states.forEach(state -> state.tick(currentTick));
     }
 
     /**
@@ -112,8 +110,9 @@ public class World implements Runnable{
         ProgressBarBuilder pbb = new ProgressBarBuilder();
         pbb.setTaskName("Simulation:");
         pbb.setUnit(" ticks", 1);
-        ProgressBar.wrap(IntStream.range(0, params.NB_TICKS), pbb)
-                .forEach(i -> this.tick());
+        ProgressBar
+                .wrap(IntStream.range(1, params.NB_TICKS), pbb)
+                .forEach(this::tick);
         this.saveAllToCsv();
     }
 
