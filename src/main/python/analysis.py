@@ -22,7 +22,7 @@ resultToName = {
     "Levy": "State's Levy",
     "Tariff": "State's Tariff",
     "WealthTax": "State's Wealth Tax Value",
-    "AllowanceValue": "State's allowance",
+    "Allowance": "State's Allowance type",
     "NbTransactions": "Number of transactions",
     "NbConnectedStates": "Number of connected States",
     "Gini": "State's Gini coefficient",
@@ -72,7 +72,7 @@ class Analysis:
     @staticmethod
     def influenceOfParamOnResults(dataFrame: pd.DataFrame, param, result1, result2=None, plot=True, scatter=True):
         f"""
-        Analyse the influence of the State's {param} on two metrics:
+        Analyse the influence of {dataFrame}'s {param} on two metrics:
         1. {result1}
         2. {result2}
         """
@@ -91,6 +91,17 @@ class Analysis:
                 chart.plot(df[param], df[result2], color="blue", y2=True, smooth=True)
         chart.show()
 
+    @staticmethod
+    def influenceOfParamBar(dataFrame: pd.DataFrame, param: str, result: str):
+        f"""
+        Analyse the influence of {dataFrame}'s {param} on {result} 
+        """
+        df = dataFrame.groupby(param)[result].mean()
+        chart = Chart(f"Influence of the {resultToName[param]}")
+        chart.set_axis_labels(f"{resultToName[param]}", resultToName[result])
+        chart.bar(df.index, df, color='blue')
+        chart.show()
+
     def agentsWealthDistribution(self, df):
         """
         Analyze the wealth distribution among Agents with
@@ -107,15 +118,6 @@ class Analysis:
         chart.plot(lorenz_x, lorenz_y, color='blue', label="Lorenz curve")
         chart.show()
 
-    def connectedStatesInfluence(self):
-        """
-        Influence of the number of connected States to one State
-        """
-        df = self.DF_STATES.groupby("NbConnectedStates")["Money"].mean()
-        chart = Chart("Influence of a State's number of connections")
-        chart.set_axis_labels("Number of connected States", "State's money")
-        chart.bar(df.index, df, color='blue')
-        chart.show()
 
 
 def main():
@@ -123,9 +125,10 @@ def main():
     a.influenceOfParamOnResults(a.DF_AGENTS_PRODUCTS, "Talent", "Sales", scatter=False)
     # a.influenceOfParamOnResults(a.DF_STATES, "VAT", "Money", "NbTransactions")
     # a.influenceOfParamOnResults(a.DF_STATES, "WealthTax", "Money", "Gini")
-    # a.influenceOfParamOnResults(a.DF_STATES, "AllowanceValue", "Money", "Gini")
     # a.influenceOfParamOnResults(a.DF_STATES, "VAT", "Gdp", "NbTransactions")
-    a.influenceOfParamOnResults(a.DF_STATES, "AllowanceValue", "Gdp", "Gini")
+    a.influenceOfParamBar(a.DF_STATES, "NbConnectedStates", "Gini")
+    a.influenceOfParamBar(a.DF_STATES, "Allowance", "Gini")
+
 
 def paramsTweaking():
     p = Params("small.json")

@@ -1,18 +1,22 @@
 package rgomesro.models.allowances;
 
-import rgomesro.Params;
 import rgomesro.models.entities.Agent;
 import rgomesro.models.entities.State;
+import rgomesro.utils.MathUtils;
 import rgomesro.utils.RandomUtils;
 import rgomesro.utils.TransactionUtils;
+
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Represents an Allowance given to Agents by their State
  */
 public class Allowance {
     private final State state;
-    private final Float percentage;
-    public enum Type {Flat, Degressive}
+    public enum Type {Flat, Fair}
     private final Type type;
 
     /* ==================================
@@ -20,22 +24,16 @@ public class Allowance {
      * ================================== */
     /**
      * @param state State which implements the Allowance
-     * @param percentage Value of the percentage of the State's money that
-     *                   will be divided among its Agents
-     * @param type Type of Allowance: Flat (≈ UBI) or Degressive
+     * @param type Type of Allowance: Flat (≈ UBI) or Fair
      */
-    public Allowance(State state, float percentage, Type type){
+    public Allowance(State state, Type type){
         this.state = state;
-        this.percentage = percentage;
         this.type = type;
     }
 
     public Allowance(State state){
         this(
                 state,
-                RandomUtils.getFloat(
-                        Params.getInstance().allowance.MIN_ALLOWANCE,
-                        Params.getInstance().allowance.MAX_ALLOWANCE),
                 RandomUtils.choose(Type.values())
         );
     }
@@ -43,10 +41,6 @@ public class Allowance {
     /* ==================================
      * ==== Getters
      * ================================== */
-    public Float getPercentage() {
-        return percentage;
-    }
-
     public Type getType() {
         return type;
     }
@@ -59,43 +53,39 @@ public class Allowance {
      * I.e.: all Agents receive the same share of money
      */
     private void distributeFlat(){
-        float moneyToDistribute = state.getMoney() * percentage;
+        float moneyToDistribute = state.getMoney() * 0.99f;
         var allowance = (float) (Math.floor(moneyToDistribute / state.getAgents().size() * 100) / 100); // Round down
         state.getAgents().forEach(agent -> TransactionUtils.make(state, agent, allowance));
     }
 
     /**
-     * Distribute money of the State among its Agents in a fair way
-     * I.e.: poorer Agents will receive more money than richer ones.
-     * Computed as follows:
-     * - The State has {moneyToDistribute} money to distribute.
-     * - Compute how much money an Agent has compared to the total
-     *      amount of money held by all Agents together (in %)
-     *      Notation: fractionOfTotalMoney (FOTM).
-     * - Converted to 1/FOTM because we want Agents with a high
-     *      FOTM (i.e. richer than others Agents) to get a smaller
-     *      allowance. Notation: X (Agent poor => X high)
-     * - We add all x's to obtain div which is the denominator of
-     *      the next formula. Notation: div.
-     * - Each Agent receives X/div (in %, notation: percentageAllowance)
-     *      of the moneyToDistribute of the State. Thus, it receives:
-     *      percentageAllowance * moneyToDistribute
-     *      <=> X/div * moneyToDistribute
-     *      <=> (1/fractionOfTotalMoney)/div * moneyToDistribute
+     * Distribute money of the State among its Agents in a fairer way
      */
-    private void distributeDegressive(){
-        float moneyToDistribute = state.getMoney() * percentage;
-        float agentsTotalMoney = state.getAgentsTotalMoney();
-        float div = 0f;
+    private void distributeFair(){
+        List<Float> agentsMoney = state.getAgents()
+                                        .stream()
+                                        .sorted(Comparator.comparingDouble(Agent::getMoney))
+                                        .map(Agent::getMoney)
+                                        .collect(Collectors.toList());
+        float average = MathUtils.getAverage(agentsMoney);
+        float totalToDistribute = 0f;
+        HashMap<Agent, Float> diffWithMedian = new HashMap<>();
         for (Agent agent: state.getAgents()){
-            float fractionOfTotalMoney = agent.getMoney()/agentsTotalMoney;
-            div += 1f/fractionOfTotalMoney;
+            float money = average - agent.getMoney();
+            if (money < 0)
+                money = 0;
+            diffWithMedian.put(agent, money);
+            totalToDistribute += money;
         }
+        float stateMoney = state.getMoney() * 0.99f;
         for (Agent agent: state.getAgents()){
-            float fractionOfTotalMoney = agent.getMoney()/agentsTotalMoney;
-            float percentageAllowance = (1/fractionOfTotalMoney)/div;
-            float allowance = moneyToDistribute * percentageAllowance;
-            TransactionUtils.make(state, agent, allowance);
+            float agentPercentage = diffWithMedian.get(agent)/totalToDistribute;
+            float idealValue = diffWithMedian.get(agent);
+            float stateValue = stateMoney * agentPercentage;
+            float toDistribute = idealValue;
+            if (stateValue < toDistribute)
+                toDistribute = stateValue;
+            TransactionUtils.make(state, agent, toDistribute);
         }
     }
 
@@ -106,6 +96,6 @@ public class Allowance {
         if (getType() == Type.Flat)
             distributeFlat();
         else
-            distributeDegressive();
+            distributeFair();
     }
 }

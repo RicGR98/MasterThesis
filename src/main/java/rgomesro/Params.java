@@ -120,14 +120,9 @@ public final class Params {
          * Allowances' constants
          */
         public final class Allowance {
-            public final float MIN_ALLOWANCE;
-            public final float MAX_ALLOWANCE;
 
             private Allowance() {
                 JSONObject jsonAllowance = JsonUtils.getJsonObject(jsonState, "Allowance");
-
-                MIN_ALLOWANCE = JsonUtils.getFloat(jsonAllowance, "MIN_ALLOWANCE");
-                MAX_ALLOWANCE = JsonUtils.getFloat(jsonAllowance, "MAX_ALLOWANCE");
 
                 NB_TICKS_DISTRIBUTE_ALLOWANCES = JsonUtils.getInt(jsonAllowance, "NB_TICKS_DISTRIBUTE_ALLOWANCES");
             }

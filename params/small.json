@@ -23,8 +23,6 @@
             "NB_TICKS_COLLECT_TAXES": 100
         },
         "Allowance": {
-            "MIN_ALLOWANCE": 0.0,
-            "MAX_ALLOWANCE": 0.99,
             "NB_TICKS_DISTRIBUTE_ALLOWANCES": 100
         }
     },
