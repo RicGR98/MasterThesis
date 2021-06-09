@@ -10,10 +10,11 @@ public class MathUtils {
      */
     public static <T extends Number> float getMedian(List<T> list){
         float median;
-        if (list.size() % 2 == 0)
-            median = (list.get(list.size()/2).floatValue() + list.get(list.size()/2 - 1).floatValue())/2;
+        int size = list.size();
+        if (size % 2 == 0)
+            median = (list.get(size/2).floatValue() + list.get(size/2 - 1).floatValue())/2;
         else
-            median = list.get(list.size()/2).floatValue();
+            median = list.get(size/2).floatValue();
         return median;
     }
 

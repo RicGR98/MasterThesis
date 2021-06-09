@@ -31,8 +31,8 @@ public class Product extends Entity {
         this.params = Params.getInstance().product;
         this.producer = agent;
         this.type = type;
-        this.productionPrice = productionPrice;
         this.sellingPrice = sellingPrice;
+        this.productionPrice = sellingPrice/10f;
         this.stock = 0;
         this.sales = 0;
     }
