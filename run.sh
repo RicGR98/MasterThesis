@@ -20,19 +20,16 @@ if [ ! -f "$mvn" ]; then
     rm apache-maven-3.8.1-bin.tar.gz
 fi
 
-if [ "$1" != "local" ]; then
-  # Load Java11 on the Cluster
-  module load Java/11
-fi
+module load Java/11
 
 # Compile java
 $mvn package
 
 # Run java simulation
-$mvn exec:java -Dexec.mainClass="rgomesro.Main" -Dexec.cleanupDaemonThreads=false
+#$mvn exec:java -Dexec.mainClass="rgomesro.Main" -Dexec.cleanupDaemonThreads=false
 
-# Run python analysis
-#python3 src/main/python/analysis.py
+# Run Python's main
+python3 src/main/python/main.py
 
 # Commands to copy file to cluster and launch the job:
 # Ricardo ==>  rsync -avz run.sh pom.xml src params rgomesro@lemaitre3:
