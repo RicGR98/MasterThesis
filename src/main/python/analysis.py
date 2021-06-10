@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 
 from chart import Chart
-from params import Params
 
 pd.set_option('display.max_columns', 1000)
 # pd.set_option('display.max_rows', 500)
@@ -119,8 +118,7 @@ class Analysis:
         chart.show()
 
 
-
-def main():
+def analysis():
     a = Analysis()
     a.influenceOfParamOnResults(a.DF_AGENTS_PRODUCTS, "Talent", "Sales", scatter=False)
     # a.influenceOfParamOnResults(a.DF_STATES, "VAT", "Money", "NbTransactions")
@@ -130,11 +128,5 @@ def main():
     a.influenceOfParamBar(a.DF_STATES, "Allowance", "Gini")
 
 
-def paramsTweaking():
-    p = Params("small.json")
-    p["World"]["NB_STATES"] = 200
-    p.save()
-
-
 if __name__ == '__main__':
-    main()
+    analysis()
