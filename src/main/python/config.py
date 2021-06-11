@@ -20,6 +20,16 @@ class Config:
     def __getitem__(self, item):
         return self.data[item]
 
+    def set(self, values: dict):
+        self.data["State"]["Tax"]["MIN_VAT"] = values["VAT"]
+        self.data["State"]["Tax"]["MAX_VAT"] = values["VAT"]
+        self.data["State"]["Tax"]["MIN_LEVY"] = values["LEVY"]
+        self.data["State"]["Tax"]["MAX_LEVY"] = values["LEVY"]
+        self.data["State"]["Tax"]["MIN_TARIFF"] = values["TARIFF"]
+        self.data["State"]["Tax"]["MAX_TARIFF"] = values["TARIFF"]
+        self.data["State"]["Tax"]["MIN_WEALTH_TAX_VALUE"] = values["WEALTH"]
+        self.data["State"]["Tax"]["MAX_WEALTH_TAX_VALUE"] = values["WEALTH"]
+
     def save(self):
         """
         Save modifications to json file

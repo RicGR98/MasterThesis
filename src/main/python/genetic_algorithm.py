@@ -1,3 +1,4 @@
+import random
 from typing import List
 
 from config import Config
@@ -9,9 +10,12 @@ class GeneticAlgorithm:
 
     def initialize(self, popSize):
         for i in range(popSize):
-            c = Config(f"small.json", f"{i}.json")
-            # c["World"]["MIN_VAT"] = random.randint(10, 100)
-            # c["World"]["MAX_VAT"] = random.randint(10, 100)
+            c = Config("small.json", f"{i}.json")
+            c.set({"VAT": random.random(),
+                   "LEVY": random.random(),
+                   "TARIFF": random.random(),
+                   "WEALTH": random.random()
+                   })
             c.save()
             self.population.append(c)
         Config.run()
@@ -23,4 +27,3 @@ class GeneticAlgorithm:
 def geneticAlgorithm():
     ga = GeneticAlgorithm()
     ga.run(3)
-
