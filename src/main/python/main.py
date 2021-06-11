@@ -1,8 +1,6 @@
-from analysis import analysis
-from config import Config
+from genetic_algorithm import geneticAlgorithm
 
 if __name__ == '__main__':
-    c = Config("small.json")
-    c["World"]["NB_TICKS"] = 1000
-    c.run()
-    analysis()
+    open("params/all.txt", 'w').close()  # Empty file with all configs
+    geneticAlgorithm()
+    # analyse()

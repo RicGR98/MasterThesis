@@ -134,7 +134,7 @@ public class World implements Runnable{
      * @param rows Rows of the csv file (each one representing one Entity)
      */
     private void saveToCsv(String filename, String header, String rows){
-        filename = filename + id + ".csv";
+        filename = filename + "/" + id + ".csv";
         FileUtils.fileDelete(filename);
         String csv = "";
         if (!FileUtils.fileExists(filename))

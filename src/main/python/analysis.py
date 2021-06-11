@@ -10,9 +10,9 @@ pd.set_option('display.width', 1000)
 DIR_RES = "res/"
 DIR_RES_IMG = DIR_RES + "img/"
 DIR_RES_CSV = DIR_RES + "csv/"
-CSV_AGENTS = DIR_RES_CSV + "agents0.csv"
-CSV_STATES = DIR_RES_CSV + "states0.csv"
-CSV_PRODUCTS = DIR_RES_CSV + "products0.csv"
+CSV_AGENTS = DIR_RES_CSV + "agents/0.csv"
+CSV_STATES = DIR_RES_CSV + "states/0.csv"
+CSV_PRODUCTS = DIR_RES_CSV + "products/0.csv"
 
 resultToName = {
     None: None,
@@ -118,7 +118,7 @@ class Analysis:
         chart.show()
 
 
-def analysis():
+def analyse():
     a = Analysis()
     a.influenceOfParamOnResults(a.DF_AGENTS_PRODUCTS, "Talent", "Sales", scatter=False)
     # a.influenceOfParamOnResults(a.DF_STATES, "VAT", "Money", "NbTransactions")
@@ -129,4 +129,4 @@ def analysis():
 
 
 if __name__ == '__main__':
-    analysis()
+    analyse()

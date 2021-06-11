@@ -11,9 +11,9 @@ class Config:
     """
     Handle Json config file (update, save, run)
     """
-    def __init__(self, filename: str):
-        self.filename = filename
-        self.file = DIR_PARAMS + self.filename
+    def __init__(self, inputFilename, outputFilename):
+        self.outputFilename = outputFilename
+        self.file = DIR_PARAMS + inputFilename
         with open(self.file, "r") as jsonFile:
             self.data = json.load(jsonFile)
 
@@ -24,23 +24,23 @@ class Config:
         """
         Save modifications to json file
         """
-        with open(self.file, "w") as jsonFile:
+        with open(DIR_PARAMS + self.outputFilename, "w") as jsonFile:
             json.dump(self.data, jsonFile, indent=4)
+        self.addToAll()
 
     def addToAll(self):
         """
         Add current file to the all.txt file specifying the json files to be run
         """
-        f = open(DIR_PARAMS + "all.txt", "w")
-        f.write(self.filename)
+        f = open(DIR_PARAMS + "all.txt", "a")
+        f.write(self.outputFilename + "\n")
         f.close()
 
-    def run(self):
+    @staticmethod
+    def run():
         """
         Run configuration
         """
-        self.save()
-        self.addToAll()
         home = str(Path.home())
         cmd = f"{home}/.local/bin/apache-maven-3.8.1/bin/mvn exec:java -Dexec.mainClass='rgomesro.Main' -Dexec.cleanupDaemonThreads=false "
         args = shlex.split(cmd)
