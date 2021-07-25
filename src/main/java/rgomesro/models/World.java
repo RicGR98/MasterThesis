@@ -33,6 +33,17 @@ public class World implements Runnable{
         super();
         Params.getInstance().load(paramsFile);
         this.params = Params.getInstance().world;
+        System.out.println(
+                "NB_STATES: " + params.NB_STATES + ", " +
+                "NB_AGENTS: " + params.NB_AGENTS + ", " +
+                "NB_TICKS: " + params.NB_TICKS + ", " +
+                "CLUSTER_SIZE: " + Params.getInstance().connections.CLUSTER_SIZE + ", " +
+                "PROB_CONNECTION: " + Params.getInstance().connections.PROB_CONNECTION + ", " +
+                "VAT: " + Params.getInstance().tax.MIN_VAT + ", " +
+                "LEVY: " + Params.getInstance().tax.MIN_LEVY + ", " +
+                "TARIFF: " + Params.getInstance().tax.MIN_TARIFF + ", " +
+                "WEALTH: " + Params.getInstance().tax.MIN_WEALTH_TAX_VALUE
+        );
         this.id = id;
         this.worldMarket = new WorldMarket(this);
         this.states = new ArrayList<>(params.NB_STATES);

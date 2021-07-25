@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 
 from chart import Chart
+from config import Config
 
 pd.set_option('display.max_columns', 1000)
 # pd.set_option('display.max_rows', 500)
@@ -14,7 +15,7 @@ CSV_AGENTS = DIR_RES_CSV + "agents/0.csv"
 CSV_STATES = DIR_RES_CSV + "states/0.csv"
 CSV_PRODUCTS = DIR_RES_CSV + "products/0.csv"
 
-resultToName = {
+RESULT_TO_NAME = {
     None: None,
     "Money": "State's money",
     "VAT": "State's VAT",
@@ -77,8 +78,8 @@ class Analysis:
         """
         df = dataFrame.sort_values(param)
         print(df)
-        chart = Chart(f"Influence of the {resultToName[param]}")
-        chart.set_axis_labels(f"{resultToName[param]}", resultToName[result1], resultToName[result2])
+        chart = Chart(f"Influence of the {RESULT_TO_NAME[param]}")
+        chart.set_axis_labels(f"{RESULT_TO_NAME[param]}", RESULT_TO_NAME[result1], RESULT_TO_NAME[result2])
         if scatter:
             chart.scatter(df[param], df[result1], color="red")
         if plot:
@@ -96,8 +97,8 @@ class Analysis:
         Analyse the influence of {dataFrame}'s {param} on {result} 
         """
         df = dataFrame.groupby(param)[result].mean()
-        chart = Chart(f"Influence of the {resultToName[param]}")
-        chart.set_axis_labels(f"{resultToName[param]}", resultToName[result])
+        chart = Chart(f"Influence of the {RESULT_TO_NAME[param]}")
+        chart.set_axis_labels(f"{RESULT_TO_NAME[param]}", RESULT_TO_NAME[result])
         chart.bar(df.index, df, color='blue')
         chart.show()
 
@@ -118,14 +119,27 @@ class Analysis:
         chart.show()
 
 
+def experiment1():
+    """"""
+    c = Config("small.json", f"exp1.json")
+    c.set({
+        "CLUSTER_SIZE": 7,
+        "PROB_CONNECTION": 0.1
+    })
+    c.save()
+    c.run()
+
+
+
 def analyse():
-    a = Analysis()
-    a.influenceOfParamOnResults(a.DF_AGENTS_PRODUCTS, "Talent", "Sales", scatter=False)
-    # a.influenceOfParamOnResults(a.DF_STATES, "VAT", "Money", "NbTransactions")
-    # a.influenceOfParamOnResults(a.DF_STATES, "WealthTax", "Money", "Gini")
-    # a.influenceOfParamOnResults(a.DF_STATES, "VAT", "Gdp", "NbTransactions")
-    a.influenceOfParamBar(a.DF_STATES, "NbConnectedStates", "Gini")
-    a.influenceOfParamBar(a.DF_STATES, "Allowance", "Gini")
+    # a = Analysis()
+    # a.influenceOfParamOnResults(a.DF_AGENTS_PRODUCTS, "Talent", "Sales", scatter=False)
+    # # a.influenceOfParamOnResults(a.DF_STATES, "VAT", "Money", "NbTransactions")
+    # # a.influenceOfParamOnResults(a.DF_STATES, "WealthTax", "Money", "Gini")
+    # # a.influenceOfParamOnResults(a.DF_STATES, "VAT", "Gdp", "NbTransactions")
+    # a.influenceOfParamBar(a.DF_STATES, "NbConnectedStates", "Gini")
+    # a.influenceOfParamBar(a.DF_STATES, "Allowance", "Gini")
+    experiment1()
 
 
 if __name__ == '__main__':
