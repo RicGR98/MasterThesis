@@ -31,23 +31,23 @@ class Config:
         if "CLUSTER_SIZE" in values:
             self.data["Connections"]["CLUSTER_SIZE"] = values["CLUSTER_SIZE"]
         if "PROB_CONNECTION" in values:
-            self.data["Connections"]["PROB_CONNECTION"] = values["PROB_CONNECTION"]
+            self.data["Connections"]["PROB_CONNECTION"] = float(values["PROB_CONNECTION"])
         if "MIN_VAT" in values:
-            self.data["State"]["Tax"]["MIN_VAT"] = values["MIN_VAT"]
+            self.data["State"]["Tax"]["MIN_VAT"] = float(values["MIN_VAT"])
         if "MAX_VAT" in values:
-            self.data["State"]["Tax"]["MAX_VAT"] = values["MAX_VAT"]
+            self.data["State"]["Tax"]["MAX_VAT"] = float(values["MAX_VAT"])
         if "MIN_LEVY" in values:
-            self.data["State"]["Tax"]["MIN_LEVY"] = values["MIN_LEVY"]
+            self.data["State"]["Tax"]["MIN_LEVY"] = float(values["MIN_LEVY"])
         if "MAX_LEVY" in values:
-            self.data["State"]["Tax"]["MAX_LEVY"] = values["MAX_LEVY"]
+            self.data["State"]["Tax"]["MAX_LEVY"] = float(values["MAX_LEVY"])
         if "MIN_TARIFF" in values:
-            self.data["State"]["Tax"]["MIN_TARIFF"] = values["MIN_TARIFF"]
+            self.data["State"]["Tax"]["MIN_TARIFF"] = float(values["MIN_TARIFF"])
         if "MAX_TARIFF" in values:
-            self.data["State"]["Tax"]["MAX_TARIFF"] = values["MAX_TARIFF"]
+            self.data["State"]["Tax"]["MAX_TARIFF"] = float(values["MAX_TARIFF"])
         if "MIN_WEALTH" in values:
-            self.data["State"]["Tax"]["MIN_WEALTH_TAX_VALUE"] = values["MIN_WEALTH"]
+            self.data["State"]["Tax"]["MIN_WEALTH_TAX_VALUE"] = float(values["MIN_WEALTH"])
         if "MAX_WEALTH" in values:
-            self.data["State"]["Tax"]["MAX_WEALTH_TAX_VALUE"] = values["MAX_WEALTH"]
+            self.data["State"]["Tax"]["MAX_WEALTH_TAX_VALUE"] = float(values["MAX_WEALTH"])
 
     def setNbStates(self, value: int):
         """Number of States in a World"""
@@ -82,6 +82,11 @@ class Config:
         assert 0 <= value <= 1
         self.set({"MAX_VAT": value})
 
+    def setMinMaxVat(self, value1: float, value2: float):
+        """Set min and max values for the VAT"""
+        self.setMinVat(value1)
+        self.setMaxVat(value2)
+
     def setVat(self, value: float):
         """Set value for the VAT"""
         self.setMinVat(value)
@@ -96,6 +101,11 @@ class Config:
         """Maximum value for the Levy"""
         assert 0 <= value <= 1
         self.set({"MAX_LEVY": value})
+
+    def setMinMaxLevy(self, value1: float, value2: float):
+        """Set min and max values for the Levy"""
+        self.setMinLevy(value1)
+        self.setMaxLevy(value2)
 
     def setLevy(self, value: float):
         """Set value for the Levy"""
@@ -112,6 +122,11 @@ class Config:
         assert 0 <= value <= 1
         self.set({"MAX_TARIFF": value})
 
+    def setMinMaxTariff(self, value1: float, value2: float):
+        """Set min and max values for the Tariff"""
+        self.setMinTariff(value1)
+        self.setMaxTariff(value2)
+
     def setTariff(self, value: float):
         """Set value for the Tariff"""
         self.setMinTariff(value)
@@ -126,6 +141,11 @@ class Config:
         """Maximum value for the Wealth tax"""
         assert 0 <= value <= 1
         self.set({"MAX_WEALTH": value})
+
+    def setMinMaxWealth(self, value1: float, value2: float):
+        """Set min and max values for the Wealth tax"""
+        self.setMinWealth(value1)
+        self.setMaxWealth(value2)
 
     def setWealth(self, value: float):
         """Set value for the Wealth tax"""
