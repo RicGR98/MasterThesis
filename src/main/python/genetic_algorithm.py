@@ -16,6 +16,7 @@ class GeneticAlgorithm:
                    "TARIFF": random.random(),
                    "WEALTH": random.random()
                    })
+            #To redo
             c.save()
             self.population.append(c)
         Config.run()

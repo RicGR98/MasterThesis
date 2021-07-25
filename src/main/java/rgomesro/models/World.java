@@ -19,8 +19,8 @@ import java.util.stream.IntStream;
  * Represents the World holding the Market, States, Agents, ...
  */
 public class World implements Runnable{
+    private final String paramsFile;
     private final Params.World params;
-    private final Integer id;
     private final WorldMarket worldMarket;
     private final ArrayList<State> states;
     private final ArrayList<Agent> agents;
@@ -29,9 +29,10 @@ public class World implements Runnable{
     /* ==================================
      * ==== Constructors
      * ================================== */
-    public World(int id, String paramsFile){
+    public World(String paramsFile){
         super();
         Params.getInstance().load(paramsFile);
+        this.paramsFile = paramsFile.replace(".json", "");
         this.params = Params.getInstance().world;
         System.out.println(
                 "NB_STATES: " + params.NB_STATES + ", " +
@@ -44,7 +45,6 @@ public class World implements Runnable{
                 "TARIFF: " + Params.getInstance().tax.MIN_TARIFF + ", " +
                 "WEALTH: " + Params.getInstance().tax.MIN_WEALTH_TAX_VALUE
         );
-        this.id = id;
         this.worldMarket = new WorldMarket(this);
         this.states = new ArrayList<>(params.NB_STATES);
         this.agents = new ArrayList<>(params.NB_AGENTS);
@@ -145,7 +145,7 @@ public class World implements Runnable{
      * @param rows Rows of the csv file (each one representing one Entity)
      */
     private void saveToCsv(String filename, String header, String rows){
-        filename = filename + "/" + id + ".csv";
+        filename = filename + "/" + paramsFile + ".csv";
         FileUtils.fileDelete(filename);
         String csv = "";
         if (!FileUtils.fileExists(filename))

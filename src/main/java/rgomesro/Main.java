@@ -11,8 +11,8 @@ public class Main {
         List<String> jsons = FileUtils.readFile("params/all.txt");
         var start = System.currentTimeMillis();
         ArrayList<Thread> worlds = new ArrayList<>();
-        for (int i = 0; i < jsons.size(); i++) {
-            Thread thread = new Thread(new World(i, jsons.get(i)));
+        for (String json : jsons) {
+            Thread thread = new Thread(new World(json));
             worlds.add(thread);
         }
         for (Thread world : worlds) {

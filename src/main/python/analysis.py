@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 
 from chart import Chart
-from config import Config
 
 pd.set_option('display.max_columns', 1000)
 # pd.set_option('display.max_rows', 500)
@@ -11,9 +10,6 @@ pd.set_option('display.width', 1000)
 DIR_RES = "res/"
 DIR_RES_IMG = DIR_RES + "img/"
 DIR_RES_CSV = DIR_RES + "csv/"
-CSV_AGENTS = DIR_RES_CSV + "agents/0.csv"
-CSV_STATES = DIR_RES_CSV + "states/0.csv"
-CSV_PRODUCTS = DIR_RES_CSV + "products/0.csv"
 
 RESULT_TO_NAME = {
     None: None,
@@ -34,9 +30,10 @@ RESULT_TO_NAME = {
 
 
 class Analysis:
-    def __init__(self):
-        self.DF_AGENTS = pd.read_csv(CSV_AGENTS)
-        self.DF_PRODUCTS = pd.read_csv(CSV_PRODUCTS)
+    def __init__(self, filename):
+        self.filename = filename
+        self.DF_AGENTS = pd.read_csv(f"{DIR_RES_CSV}/agents/{filename}.csv")
+        self.DF_PRODUCTS = pd.read_csv(f"{DIR_RES_CSV}/products/{filename}.csv")
         self.DF_AGENTS_PRODUCTS: pd.DataFrame = pd.merge(self.DF_AGENTS, self.DF_PRODUCTS, on='Id')
         self.DF_STATES = self.getStatesDF()
 
@@ -44,7 +41,7 @@ class Analysis:
         """
         Return dataframe with some new columns for easier analysis later
         """
-        df: pd.DataFrame = pd.read_csv(CSV_STATES)
+        df: pd.DataFrame = pd.read_csv(f"{DIR_RES_CSV}/states/{self.filename}.csv")
         # Set some fields proportional to population size
         df['Money'] = df['Money'] / df['PopSize']
         df['PopTotalMoney'] = df['PopTotalMoney'] / df['PopSize']
@@ -117,30 +114,3 @@ class Analysis:
         chart.plot([0, 1], [0, 1], color='red', label="Perfect equality")
         chart.plot(lorenz_x, lorenz_y, color='blue', label="Lorenz curve")
         chart.show()
-
-
-def experiment1():
-    """"""
-    c = Config("small.json", f"exp1.json")
-    c.set({
-        "CLUSTER_SIZE": 7,
-        "PROB_CONNECTION": 0.1
-    })
-    c.save()
-    c.run()
-
-
-
-def analyse():
-    # a = Analysis()
-    # a.influenceOfParamOnResults(a.DF_AGENTS_PRODUCTS, "Talent", "Sales", scatter=False)
-    # # a.influenceOfParamOnResults(a.DF_STATES, "VAT", "Money", "NbTransactions")
-    # # a.influenceOfParamOnResults(a.DF_STATES, "WealthTax", "Money", "Gini")
-    # # a.influenceOfParamOnResults(a.DF_STATES, "VAT", "Gdp", "NbTransactions")
-    # a.influenceOfParamBar(a.DF_STATES, "NbConnectedStates", "Gini")
-    # a.influenceOfParamBar(a.DF_STATES, "Allowance", "Gini")
-    experiment1()
-
-
-if __name__ == '__main__':
-    analyse()
