@@ -4,20 +4,32 @@ from config import Config
 DEFAULT_CONFIG_FILE = "small.json"
 
 
-def experiment1():
-    """"""
-    filename = "exp1"
-    c = Config(DEFAULT_CONFIG_FILE, f"{filename}.json")
-    c.setNbTicks(1000)
-    c.setMinMaxVat(0, 1)
+def exp1():
+    """
+    Experiment 1:
+    Influence of the number of connected States on multiple metrics:
+    - Population's total money
+    - Number of transactions
+    - GDP
+    - Gini coefficient
+    In a Cluster, all States are connected to one another. It may not
+    be the case for States connected randomly according to probConnection.
+    """
+    name = "exp1"
+    c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
+    c.setProbConnection(0.3)
+    c.setClusterSize(5)  # 5 connected states, thus number of connected States = 4
     c.save()
     c.run()
-    a = Analysis(filename)
-    a.influenceOfParamOnResults(a.DF_STATES, "VAT", "Money", "NbTransactions")
+    a = Analysis(name)
+    a.barChart(a.DF_STATES, "NbConnectedStates", "PopTotalMoney")
+    a.barChart(a.DF_STATES, "NbConnectedStates", "NbTransactions")
+    a.barChart(a.DF_STATES, "NbConnectedStates", "Gdp")
+    a.barChart(a.DF_STATES, "NbConnectedStates", "Gini")
 
 
 def runExperiments():
-    experiment1()
+    exp1()
 
 # a = Analysis()
 # a.influenceOfParamOnResults(a.DF_AGENTS_PRODUCTS, "Talent", "Sales", scatter=False)

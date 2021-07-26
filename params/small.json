@@ -1,7 +1,7 @@
 {
     "World": {
-        "NB_STATES": 50,
-        "NB_AGENTS": 2000,
+        "NB_STATES": 100,
+        "NB_AGENTS": 5000,
         "NB_TICKS": 1000,
         "NB_TICKS_SAVE_CSV": 500
     },
@@ -13,13 +13,13 @@
         "Tax": {
             "MIN_VAT": 0.2,
             "MAX_VAT": 0.2,
-            "MIN_LEVY": 0.5,
-            "MAX_LEVY": 0.5,
-            "MIN_TARIFF": 0.0,
-            "MAX_TARIFF": 0.0,
+            "MIN_LEVY": 0.1,
+            "MAX_LEVY": 0.1,
+            "MIN_TARIFF": 0.3,
+            "MAX_TARIFF": 0.3,
             "VAL_WEALTH_TAX_TOP": 0.1,
-            "MIN_WEALTH_TAX_VALUE": 0.1,
-            "MAX_WEALTH_TAX_VALUE": 0.1,
+            "MIN_WEALTH_TAX_VALUE": 0.2,
+            "MAX_WEALTH_TAX_VALUE": 0.2,
             "NB_TICKS_COLLECT_TAXES": 100
         },
         "Allowance": {

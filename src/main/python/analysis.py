@@ -21,6 +21,8 @@ RESULT_TO_NAME = {
     "Allowance": "State's Allowance type",
     "NbTransactions": "Number of transactions",
     "NbConnectedStates": "Number of connected States",
+    "PopTotalMoney": "Population's total money",
+    "NbPurchase": "Number of purchases",
     "Gini": "State's Gini coefficient",
     "Gdp": "State's GDP",
     "Talent": "Agent's Talent",
@@ -67,35 +69,36 @@ class Analysis:
         return round(coeff * weighted_sum / (X.sum()) - const_, 3)
 
     @staticmethod
-    def influenceOfParamOnResults(dataFrame: pd.DataFrame, param, result1, result2=None, plot=True, scatter=True):
-        f"""
-        Analyse the influence of {dataFrame}'s {param} on two metrics:
-        1. {result1}
-        2. {result2}
-        """
-        df = dataFrame.sort_values(param)
-        print(df)
+    def __createChart__(param, result1, result2=None):
         chart = Chart(f"Influence of the {RESULT_TO_NAME[param]}")
         chart.set_axis_labels(f"{RESULT_TO_NAME[param]}", RESULT_TO_NAME[result1], RESULT_TO_NAME[result2])
-        if scatter:
-            chart.scatter(df[param], df[result1], color="red")
-        if plot:
-            chart.plot(df[param], df[result1], color="red", smooth=True)
+        return chart
+
+    @staticmethod
+    def scatterChart(dataFrame: pd.DataFrame, param, result1, result2=None):
+        df = dataFrame.sort_values(param)
+        chart = Analysis.__createChart__(param, result1, result2)
+        chart.scatter(df[param], df[result1], color="red")
         if result2 is not None:
-            if scatter:
-                chart.scatter(df[param], df[result2], color="blue", y2=True)
-            if plot:
-                chart.plot(df[param], df[result2], color="blue", y2=True, smooth=True)
+            chart.scatter(df[param], df[result2], color="blue", y2=True)
         chart.show()
 
     @staticmethod
-    def influenceOfParamBar(dataFrame: pd.DataFrame, param: str, result: str):
+    def lineChart(dataFrame: pd.DataFrame, param, result1, result2=None):
+        df = dataFrame.sort_values(param)
+        chart = Analysis.__createChart__(param, result1, result2)
+        chart.plot(df[param], df[result1], color="red", smooth=True)
+        if result2 is not None:
+            chart.plot(df[param], df[result2], color="blue", y2=True, smooth=True)
+        chart.show()
+
+    @staticmethod
+    def barChart(dataFrame: pd.DataFrame, param: str, result: str):
         f"""
         Analyse the influence of {dataFrame}'s {param} on {result} 
         """
         df = dataFrame.groupby(param)[result].mean()
-        chart = Chart(f"Influence of the {RESULT_TO_NAME[param]}")
-        chart.set_axis_labels(f"{RESULT_TO_NAME[param]}", RESULT_TO_NAME[result])
+        chart = Analysis.__createChart__(param, result)
         chart.bar(df.index, df, color='blue')
         chart.show()
 
