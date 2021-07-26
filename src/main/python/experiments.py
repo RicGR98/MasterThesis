@@ -22,10 +22,8 @@ def exp1():
     c.save()
     c.run()
     a = Analysis(name)
-    a.barChart(a.DF_STATES, "NbConnectedStates", "PopTotalMoney")
-    a.barChart(a.DF_STATES, "NbConnectedStates", "NbTransactions")
-    a.barChart(a.DF_STATES, "NbConnectedStates", "Gdp")
-    a.barChart(a.DF_STATES, "NbConnectedStates", "Gini")
+    a.barChart(a.DF_STATES, "NbConnectedStates", "PopTotalMoney", "NbTransactions")
+    a.barChart(a.DF_STATES, "NbConnectedStates", "Gdp", "Gini")
 
 
 def runExperiments():

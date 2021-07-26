@@ -93,13 +93,13 @@ class Analysis:
         chart.show()
 
     @staticmethod
-    def barChart(dataFrame: pd.DataFrame, param: str, result: str):
-        f"""
-        Analyse the influence of {dataFrame}'s {param} on {result} 
-        """
-        df = dataFrame.groupby(param)[result].mean()
-        chart = Analysis.__createChart__(param, result)
-        chart.bar(df.index, df, color='blue')
+    def barChart(dataFrame: pd.DataFrame, param: str, result1: str, result2=None):
+        df1 = dataFrame.groupby(param)[result1].mean()
+        chart = Analysis.__createChart__(param, result1, result2)
+        chart.bar(df1.index, df1, color='red')
+        if result2 is not None:
+            df2 = dataFrame.groupby(param)[result2].mean()
+            chart.bar(df2.index, df2, color='blue', y2=True)
         chart.show()
 
     def agentsWealthDistribution(self, df):

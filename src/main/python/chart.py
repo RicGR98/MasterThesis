@@ -53,9 +53,9 @@ class Chart:
     def bar(self, x, y, label=None, color=None, y2=False):
         assert self.label_x is not None
         if not y2:
-            self.ax1.bar(x, y, label=label, color=color)
+            self.ax1.bar(x, y, label=label, color=color, width=-0.4, align='edge')
         else:
-            self.ax2.bar(x, y, label=label, color=color)
+            self.ax2.bar(x, y, label=label, color=color, width=0.4, align='edge')
         if color not in self.colors:
             self.colors.append(color)
 
