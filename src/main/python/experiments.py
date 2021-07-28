@@ -14,6 +14,9 @@ def exp1():
     - Gini coefficient
     In a Cluster, all States are connected to one another. It may not
     be the case for States connected randomly according to probConnection.
+    E.g.:
+        Cluster: A, B, C are all connected
+        Non-Cluster: A connected to B, B connected to C, but C not connected to A
     """
     name = "exp1"
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
@@ -22,15 +25,32 @@ def exp1():
     c.save()
     c.run()
     a = Analysis(name)
+    print(a.DF_STATES)
     a.barChart(a.DF_STATES, "NbConnectedStates", "PopTotalMoney", "NbTransactions")
     a.barChart(a.DF_STATES, "NbConnectedStates", "Gdp", "Gini")
 
 
+def exp2():
+    """
+    Experiment 2:
+    Influence of the Agent's talent on two metrics:
+    - Sales (number of products it sells)
+    - Purchases (number of products it purchases)
+    """
+    name = "exp2"
+    c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
+    c.save()
+    c.run()
+    a = Analysis(name)
+    print(a.DF_AGENTS_PRODUCTS)
+    a.linePointsChart(a.DF_AGENTS_PRODUCTS, "Talent", "Sales", "Purchases")
+
+
 def runExperiments():
     exp1()
+    exp2()
 
 # a = Analysis()
-# a.influenceOfParamOnResults(a.DF_AGENTS_PRODUCTS, "Talent", "Sales", scatter=False)
 # # a.influenceOfParamOnResults(a.DF_STATES, "VAT", "Money", "NbTransactions")
 # # a.influenceOfParamOnResults(a.DF_STATES, "WealthTax", "Money", "Gini")
 # # a.influenceOfParamOnResults(a.DF_STATES, "VAT", "Gdp", "NbTransactions")

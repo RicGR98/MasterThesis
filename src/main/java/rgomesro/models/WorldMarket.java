@@ -80,6 +80,7 @@ public class WorldMarket {
         var matchingProducts = getFilteredProducts(buyer, type);
         if (matchingProducts.size() == 0) return false;
         var product = RandomUtils.choose(matchingProducts);
+        product = matchingProducts.get(0);
         transaction(buyer, product);
         return true;
     }

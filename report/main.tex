@@ -1,5 +1,5 @@
-\documentclass[20pt]{article}
-\usepackage[paper=a4paper,margin=1.5in]{geometry}
+\documentclass[12pt]{article}
+\usepackage[paper=a4paper,margin=2.7cm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{csquotes}
 \usepackage{nameref}
@@ -10,6 +10,8 @@
 \usepackage{float}
 \usepackage{titlesec}
 \usepackage{brufaceStyle}
+\usepackage{setspace}
+\onehalfspacing
 
 \PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
 
@@ -125,7 +127,7 @@ We should now distinguish the preferences between two types of preferences: the 
 
 \paragraph{Product preferences} An agent will consume different type of products among the ones available in the simulation. Therefore, we will have, similarly to the skills, a mapping of preferences regarding each product. The higher a preference regarding a product, the higher the \emph{chances} are of picking this product when we buy one. One should be aware that these will be probabilities. The agent will not always pick the product with the highest preference value, however, this product will have more chances of getting picked.
 We do this in order to let the consumer buy every product available in the simulation, and also because we see products as necessities. All of them are necessary, but some will be preferred to others as it happens in real life: we buy some necessary products that barely bring any happiness, and buy some other products which bring more joy to us.
-As for the skills, the sum of all the preferences of each product have to be equal to one in order to force necessary products to have a chanc at getting picked and each product preference is $\in [0,1]$.
+As for the skills, the sum of all the preferences of each product have to be equal to one in order to force necessary products to have a chance at getting picked and each product preference is $\in [0,1]$.
 
 $$\sum_{\text{product}} \text{product}_{\text{preference}} = 1$$
 

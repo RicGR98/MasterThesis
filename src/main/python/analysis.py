@@ -12,22 +12,23 @@ DIR_RES_IMG = DIR_RES + "img/"
 DIR_RES_CSV = DIR_RES + "csv/"
 
 RESULT_TO_NAME = {
-    None: None,
-    "Money": "State's money",
-    "VAT": "State's VAT",
-    "Levy": "State's Levy",
-    "Tariff": "State's Tariff",
-    "WealthTax": "State's Wealth Tax Value",
-    "Allowance": "State's Allowance type",
-    "NbTransactions": "Number of transactions",
-    "NbConnectedStates": "Number of connected States",
-    "PopTotalMoney": "Population's total money",
-    "NbPurchase": "Number of purchases",
-    "Gini": "State's Gini coefficient",
-    "Gdp": "State's GDP",
-    "Talent": "Agent's Talent",
-    "Sales": "Agent's number of sales",
-    "Stock": "Agent's products stock",
+    "VAT": "State's VAT",  # Param
+    "Levy": "State's Levy",  # Param
+    "Tariff": "State's Tariff",  # Param
+    "WealthTax": "State's Wealth Tax Value",  # Param
+    "Allowance": "State's Allowance type",  # Param
+    "NbConnectedStates": "State's number of connections",  # Param
+    "StateMoney": "State's money",  # Metric
+    "NbTransactions": "State's total number of transactions",  # Metric
+    "PopTotalMoney": "State's population money",  # Metric
+    "Gini": "State's Gini coefficient",  # Metric
+    "Gdp": "State's GDP",  # Metric
+
+    "Talent": "Agent's Talent",  # Param
+    "AgentMoney": "Agent's money",  # Metric
+    "Sales": "Agent's number of sales",  # Metric
+    "Purchases": "Agent's number of purchases",  # Metric
+    "Stock": "Agent's products stock",  # Metric
 }
 
 
@@ -45,7 +46,7 @@ class Analysis:
         """
         df: pd.DataFrame = pd.read_csv(f"{DIR_RES_CSV}/states/{self.filename}.csv")
         # Set some fields proportional to population size
-        df['Money'] = df['Money'] / df['PopSize']
+        df['StateMoney'] = df['StateMoney'] / df['PopSize']
         df['PopTotalMoney'] = df['PopTotalMoney'] / df['PopSize']
         df['NbTransactions'] = df['NbTransactions'] / df['PopSize']
         df['Gdp'] = df['Gdp'] / df['PopSize']
@@ -61,7 +62,7 @@ class Analysis:
         """
         :return Gini coefficient of Agents
         """
-        X = df.sort_values('Money')["Money"]
+        X = df.sort_values('AgentMoney')["AgentMoney"]
         n = X.size
         coeff = 2. / n
         const_ = (n + 1.) / n
@@ -93,6 +94,17 @@ class Analysis:
         chart.show()
 
     @staticmethod
+    def linePointsChart(dataFrame: pd.DataFrame, param, result1, result2=None):
+        df = dataFrame.sort_values(param)
+        chart = Analysis.__createChart__(param, result1, result2)
+        chart.plot(df[param], df[result1], color="red", smooth=True)
+        chart.scatter(df[param], df[result1], color="red")
+        if result2 is not None:
+            chart.plot(df[param], df[result2], color="blue", y2=True, smooth=True)
+            chart.scatter(df[param], df[result2], color="blue", y2=True)
+        chart.show()
+
+    @staticmethod
     def barChart(dataFrame: pd.DataFrame, param: str, result1: str, result2=None):
         df1 = dataFrame.groupby(param)[result1].mean()
         chart = Analysis.__createChart__(param, result1, result2)
@@ -107,7 +119,7 @@ class Analysis:
         Analyze the wealth distribution among Agents with
         the Gini coefficient and the Lorenz curve
         """
-        X = df["Money"]
+        X = df["AgentMoney"]
         X = X.sort_values()
         lorenz_x = np.linspace(0.0, 1.0, X.size)
         lorenz_y = X.cumsum() / X.sum()

@@ -127,7 +127,7 @@ public class State extends Entity {
      * ==== Methods: csv
      * ================================== */
     public static String csvHeader(){
-        return "Id,PopSize,VAT,Levy,Tariff,WealthTax,Allowance,Gdp,Money,PopTotalMoney,NbTransactions,ConnectedStates";
+        return "Id,PopSize,VAT,Levy,Tariff,WealthTax,Allowance,Gdp,StateMoney,PopTotalMoney,NbTransactions,ConnectedStates";
     }
 
     @Override
