@@ -12,12 +12,15 @@ DIR_RES_IMG = DIR_RES + "img/"
 DIR_RES_CSV = DIR_RES + "csv/"
 
 RESULT_TO_NAME = {
+    None: None,
+    
     "VAT": "State's VAT",  # Param
     "Levy": "State's Levy",  # Param
     "Tariff": "State's Tariff",  # Param
     "WealthTax": "State's Wealth Tax Value",  # Param
     "Allowance": "State's Allowance type",  # Param
     "NbConnectedStates": "State's number of connections",  # Param
+    "Unemployment": "State's unemployment rate",  # Param
     "StateMoney": "State's money",  # Metric
     "NbTransactions": "State's total number of transactions",  # Metric
     "PopTotalMoney": "State's population money",  # Metric
@@ -25,6 +28,8 @@ RESULT_TO_NAME = {
     "Gdp": "State's GDP",  # Metric
 
     "Talent": "Agent's Talent",  # Param
+    "ProbNotProducer": "Agent's probability of never producing",  # Param
+    "IsProducer": "Is the Agent a producer?",  # Param
     "AgentMoney": "Agent's money",  # Metric
     "Sales": "Agent's number of sales",  # Metric
     "Purchases": "Agent's number of purchases",  # Metric
@@ -71,7 +76,7 @@ class Analysis:
 
     @staticmethod
     def __createChart__(param, result1, result2=None):
-        chart = Chart(f"Influence of the {RESULT_TO_NAME[param]}")
+        chart = Chart(f"Influence of '{RESULT_TO_NAME[param]}'")
         chart.set_axis_labels(f"{RESULT_TO_NAME[param]}", RESULT_TO_NAME[result1], RESULT_TO_NAME[result2])
         return chart
 

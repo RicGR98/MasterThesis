@@ -10,6 +10,7 @@ public final class Params {
     public State state;
     public State.Tax tax;
     public State.Allowance allowance;
+    public State.Others others;
     public Agent agent;
     public Product product;
 
@@ -30,6 +31,7 @@ public final class Params {
         state = new State();
         tax = state.new Tax();
         allowance = state.new Allowance();
+        others = state.new Others();
         agent = new Agent();
         product = new Product();
     }
@@ -78,6 +80,8 @@ public final class Params {
         public final JSONObject jsonState = JsonUtils.getJsonObject(json, "State");
         public int NB_TICKS_COLLECT_TAXES;
         public int NB_TICKS_DISTRIBUTE_ALLOWANCES;
+        public float MIN_UNEMPLOYMENT;
+        public float MAX_UNEMPLOYMENT;
 
         private State() {
         }
@@ -125,6 +129,19 @@ public final class Params {
                 JSONObject jsonAllowance = JsonUtils.getJsonObject(jsonState, "Allowance");
 
                 NB_TICKS_DISTRIBUTE_ALLOWANCES = JsonUtils.getInt(jsonAllowance, "NB_TICKS_DISTRIBUTE_ALLOWANCES");
+            }
+        }
+
+        /**
+         * Other constants
+         */
+        public final class Others {
+
+            private Others() {
+                JSONObject jsonOthers = JsonUtils.getJsonObject(jsonState, "Others");
+
+                MIN_UNEMPLOYMENT = JsonUtils.getFloat(jsonOthers, "MIN_UNEMPLOYMENT");
+                MAX_UNEMPLOYMENT = JsonUtils.getFloat(jsonOthers, "MAX_UNEMPLOYMENT");
             }
         }
     }

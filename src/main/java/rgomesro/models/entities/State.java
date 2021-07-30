@@ -6,6 +6,7 @@ import rgomesro.models.taxes.Levy;
 import rgomesro.models.taxes.Tariff;
 import rgomesro.models.taxes.VAT;
 import rgomesro.models.taxes.WealthTax;
+import rgomesro.utils.RandomUtils;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;
@@ -22,6 +23,7 @@ public class State extends Entity {
     private final Tariff tariff;
     private final WealthTax wealthTax;
     private final Allowance allowance;
+    private final Float unemployment;
     private final ArrayList<Agent> agents;
     private Float money = 0f;
     private Float gdp = 0f;
@@ -43,6 +45,7 @@ public class State extends Entity {
         this.tariff = new Tariff();
         this.wealthTax = new WealthTax(this);
         this.allowance = new Allowance(this);
+        this.unemployment = RandomUtils.getFloat(params.MIN_UNEMPLOYMENT, params.MAX_UNEMPLOYMENT);
     }
 
     /* ==================================
@@ -70,6 +73,10 @@ public class State extends Entity {
 
     public Float getGdp() {
         return gdp;
+    }
+
+    public Float getUnemployment(){
+        return unemployment;
     }
 
     public ArrayList<State> getConnectedStates() {
@@ -127,7 +134,7 @@ public class State extends Entity {
      * ==== Methods: csv
      * ================================== */
     public static String csvHeader(){
-        return "Id,PopSize,VAT,Levy,Tariff,WealthTax,Allowance,Gdp,StateMoney,PopTotalMoney,NbTransactions,ConnectedStates";
+        return "Id,PopSize,VAT,Levy,Tariff,WealthTax,Allowance,Unemployment,Gdp,StateMoney,PopTotalMoney,NbTransactions,ConnectedStates";
     }
 
     @Override
@@ -140,6 +147,7 @@ public class State extends Entity {
                 tariff.getValue().toString(),
                 wealthTax.getValue().toString(),
                 allowance.getType().toString(),
+                unemployment.toString(),
                 gdp.toString(),
                 money.toString(),
                 getAgentsTotalMoney().toString(),

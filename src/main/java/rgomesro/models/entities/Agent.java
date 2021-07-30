@@ -17,6 +17,7 @@ public class Agent extends Entity {
     private Float money;
     private final Float talent;
     private final Product product;
+    private final Boolean isProducer;
     private Integer nbPurchases = 0;
 
     /* ==================================
@@ -35,7 +36,8 @@ public class Agent extends Entity {
             State state,
             float money,
             Map.Entry<Integer, Float> chosenProduct,
-            float talent) {
+            float talent,
+            boolean isProducer) {
         super(id);
         this.params = Params.getInstance().agent;
         this.worldMarket = worldMarket;
@@ -43,10 +45,11 @@ public class Agent extends Entity {
         this.state.addAgent(this);
         this.money = money;
         this.talent = talent;
+        this.isProducer = isProducer;
         this.product = new Product(
                 this,
                 chosenProduct.getKey(),
-                chosenProduct.getValue() * (1 - talent),
+                chosenProduct.getValue() * (1 - this.talent),
                 0f
         );
     }
@@ -64,7 +67,8 @@ public class Agent extends Entity {
                         Params.getInstance().agent.MIN_INIT_MONEY,
                         Params.getInstance().agent.MAX_INIT_MONEY),
                 chosenProduct,
-                RandomUtils.getRandom()
+                RandomUtils.getRandom(),
+                RandomUtils.getBoolean(state.getUnemployment())
         );
     }
 
@@ -87,7 +91,7 @@ public class Agent extends Entity {
      * ==== Methods: csv
      * ================================== */
     public static String csvHeader() {
-        return "Id,State,AgentMoney,Talent,Purchases";
+        return "Id,State,AgentMoney,Talent,IsProducer,Purchases";
     }
 
     @Override
@@ -97,6 +101,7 @@ public class Agent extends Entity {
                 state.toString(),
                 money.toString(),
                 talent.toString(),
+                isProducer.toString(),
                 nbPurchases.toString());
     }
 
@@ -134,7 +139,7 @@ public class Agent extends Entity {
      * Produce a unit of its product
      */
     public void produce(){
-        if (hasEnoughMoney(product.getProductionPrice()) && product.canBeProduced()){
+        if (this.isProducer && hasEnoughMoney(product.getProductionPrice()) && product.canBeProduced()){
             product.produce();
             this.subtractMoney(product.getProductionPrice());
         }

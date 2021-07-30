@@ -40,10 +40,11 @@ public class World implements Runnable{
                 "NB_TICKS: " + params.NB_TICKS + ", " +
                 "CLUSTER_SIZE: " + Params.getInstance().connections.CLUSTER_SIZE + ", " +
                 "PROB_CONNECTION: " + Params.getInstance().connections.PROB_CONNECTION + ", " +
-                "VAT: " + Params.getInstance().tax.MIN_VAT + ", " +
-                "LEVY: " + Params.getInstance().tax.MIN_LEVY + ", " +
-                "TARIFF: " + Params.getInstance().tax.MIN_TARIFF + ", " +
-                "WEALTH: " + Params.getInstance().tax.MIN_WEALTH_TAX_VALUE
+                "VAT: [" + Params.getInstance().tax.MIN_VAT + ", " + Params.getInstance().tax.MAX_VAT + "], " +
+                "LEVY: [" + Params.getInstance().tax.MIN_LEVY + ", " + Params.getInstance().tax.MAX_LEVY + "], " +
+                "TARIFF: [" + Params.getInstance().tax.MIN_TARIFF + ", " + Params.getInstance().tax.MAX_TARIFF + "], " +
+                "WEALTH: [" + Params.getInstance().tax.MIN_WEALTH_TAX_VALUE + ", " + Params.getInstance().tax.MAX_WEALTH_TAX_VALUE + "], " +
+                "UNEMPLOYMENT: [" + Params.getInstance().state.MIN_UNEMPLOYMENT + ", " + Params.getInstance().state.MAX_UNEMPLOYMENT + "]"
         );
         this.worldMarket = new WorldMarket(this);
         this.states = new ArrayList<>(params.NB_STATES);

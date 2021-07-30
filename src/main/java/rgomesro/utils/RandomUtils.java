@@ -29,6 +29,14 @@ public class RandomUtils {
     }
 
     /**
+     * @param prob Probability of being False
+     * @return True/False according to certain probability prob
+     */
+    public static Boolean getBoolean(float prob){
+        return getRandom() > prob;
+    }
+
+    /**
      * @return Random float in [0, 1[
      */
     public static float getRandom(){

@@ -7,11 +7,7 @@ DEFAULT_CONFIG_FILE = "small.json"
 def exp1():
     """
     Experiment 1:
-    Influence of the number of connected States on multiple metrics:
-    - Population's total money
-    - Number of transactions
-    - GDP
-    - Gini coefficient
+    Influence of the number of connected States on multiple metrics.
     In a Cluster, all States are connected to one another. It may not
     be the case for States connected randomly according to probConnection.
     E.g.:
@@ -28,6 +24,7 @@ def exp1():
     print(a.DF_STATES)
     a.barChart(a.DF_STATES, "NbConnectedStates", "PopTotalMoney", "NbTransactions")
     a.barChart(a.DF_STATES, "NbConnectedStates", "Gdp", "Gini")
+    a.barChart(a.DF_STATES, "NbConnectedStates", "StateMoney")
 
 
 def exp2():
@@ -46,15 +43,33 @@ def exp2():
     a.linePointsChart(a.DF_AGENTS_PRODUCTS, "Talent", "Sales", "Purchases")
 
 
+def exp3():
+    """
+    Experiment 3:
+    Influence of the Unemployment rate on multiple metrics.
+    """
+    name = "exp3"
+    c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
+    c.setMinMaxUnemployment(0, 1)
+    c.save()
+    c.run()
+    a = Analysis(name)
+    print(a.DF_AGENTS_PRODUCTS)
+    a.linePointsChart(a.DF_STATES, "Unemployment", "PopTotalMoney", "NbTransactions")
+    a.linePointsChart(a.DF_STATES, "Unemployment", "Gdp", "Gini")
+    a.linePointsChart(a.DF_STATES, "Unemployment", "StateMoney")
+    a.barChart(a.DF_AGENTS_PRODUCTS, "IsProducer", "Sales", "Purchases")
+
+
 def runExperiments():
-    exp1()
-    exp2()
+    # exp1()
+    # exp2()
+    exp3()
 
 # a = Analysis()
 # # a.influenceOfParamOnResults(a.DF_STATES, "VAT", "Money", "NbTransactions")
 # # a.influenceOfParamOnResults(a.DF_STATES, "WealthTax", "Money", "Gini")
 # # a.influenceOfParamOnResults(a.DF_STATES, "VAT", "Gdp", "NbTransactions")
-# a.influenceOfParamBar(a.DF_STATES, "NbConnectedStates", "Gini")
 # a.influenceOfParamBar(a.DF_STATES, "Allowance", "Gini")
 
 

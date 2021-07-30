@@ -48,6 +48,10 @@ class Config:
             self.data["State"]["Tax"]["MIN_WEALTH_TAX_VALUE"] = float(values["MIN_WEALTH"])
         if "MAX_WEALTH" in values:
             self.data["State"]["Tax"]["MAX_WEALTH_TAX_VALUE"] = float(values["MAX_WEALTH"])
+        if "MIN_UNEMPLOYMENT" in values:
+            self.data["State"]["Others"]["MIN_UNEMPLOYMENT"] = float(values["MIN_UNEMPLOYMENT"])
+        if "MAX_UNEMPLOYMENT" in values:
+            self.data["State"]["Others"]["MAX_UNEMPLOYMENT"] = float(values["MAX_UNEMPLOYMENT"])
 
     def setNbStates(self, value: int):
         """Number of States in a World"""
@@ -151,6 +155,26 @@ class Config:
         """Set value for the Wealth tax"""
         self.setMinWealth(value)
         self.setMaxWealth(value)
+
+    def setMinUnemployment(self, value: float):
+        """Minimum value for the Unemployment rate"""
+        assert 0 <= value <= 1
+        self.set({"MIN_UNEMPLOYMENT": value})
+
+    def setMaxUnemployment(self, value: float):
+        """Maximum value for the Unemployment rate"""
+        assert 0 <= value <= 1
+        self.set({"MAX_UNEMPLOYMENT": value})
+
+    def setMinMaxUnemployment(self, value1: float, value2: float):
+        """Set min and max values for the Unemployment rate"""
+        self.setMinUnemployment(value1)
+        self.setMaxUnemployment(value2)
+
+    def setUnemployment(self, value: float):
+        """Set value for the Unemployment rate"""
+        self.setMinUnemployment(value)
+        self.setMaxUnemployment(value)
 
     def save(self):
         """

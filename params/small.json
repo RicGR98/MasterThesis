@@ -24,6 +24,10 @@
         },
         "Allowance": {
             "NB_TICKS_DISTRIBUTE_ALLOWANCES": 100
+        },
+        "Others": {
+            "MIN_UNEMPLOYMENT": 0.0,
+            "MAX_UNEMPLOYMENT": 0.0
         }
     },
     "Agent": {
