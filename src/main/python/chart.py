@@ -54,8 +54,10 @@ class Chart:
         assert self.label_x is not None
         if not y2:
             self.ax1.bar(x, y, label=label, color=color, width=-0.4, align='edge')
+            self.ax1.bar_label(self.ax1.containers[0])
         else:
             self.ax2.bar(x, y, label=label, color=color, width=0.4, align='edge')
+            self.ax2.bar_label(self.ax2.containers[0])
         if color not in self.colors:
             self.colors.append(color)
 

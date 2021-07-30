@@ -61,10 +61,43 @@ def exp3():
     a.barChart(a.DF_AGENTS_PRODUCTS, "IsProducer", "Sales", "Purchases")
 
 
+def exp4():
+    """
+    Experiment 4:
+    Study of how a non-producer Agent can make purchases
+    """
+    name1 = "exp4_1"
+    name2 = "exp4_2"
+    c1 = Config(DEFAULT_CONFIG_FILE, f"{name1}.json")
+    c1.setNbStates(1)
+    c1.setNbAgents(1000)
+    c1.setNbTicks(1000)
+    c1.setUnemployment(0.3)
+    c1.save()
+
+    c2 = Config(f"{name1}.json", f"{name2}.json")
+    c2.setNbTicks(c1.getNbTicks() * 10)
+    c2.save()
+
+    Config.run()  # Run both configs in parallel
+
+    a1 = Analysis(name1)
+    a1.barChart(a1.DF_AGENTS_PRODUCTS, "IsProducer", "Sales", "Purchases")
+
+    a2 = Analysis(name2)
+    a2.barChart(a2.DF_AGENTS_PRODUCTS, "IsProducer", "Sales", "Purchases")
+
+
 def runExperiments():
-    # exp1()
-    # exp2()
-    exp3()
+    experiments = [
+        # exp1,
+        # exp2,
+        # exp3,
+        exp4,
+    ]
+    for exp in experiments:
+        Config.resetAll()
+        exp()
 
 # a = Analysis()
 # # a.influenceOfParamOnResults(a.DF_STATES, "VAT", "Money", "NbTransactions")

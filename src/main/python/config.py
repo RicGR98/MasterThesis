@@ -12,7 +12,6 @@ class Config:
     """
 
     def __init__(self, inputFilename, outputFilename):
-        self.resetAll()
         self.outputFilename = outputFilename
         self.file = DIR_PARAMS + inputFilename
         with open(self.file, "r") as jsonFile:
@@ -20,6 +19,33 @@ class Config:
 
     def __getitem__(self, item):
         return self.data[item]
+
+    def get(self, value):
+        if value == "NB_STATES":
+            return int(self.data["World"]["NB_STATES"])
+        elif value == "NB_AGENTS":
+            return int(self.data["World"]["NB_AGENTS"])
+        elif value == "NB_TICKS":
+            return int(self.data["World"]["NB_TICKS"])
+        elif value == "CLUSTER_SIZE":
+            return int(self.data["Connections"]["CLUSTER_SIZE"])
+        elif value == "PROB_CONNECTION":
+            return int(self.data["Connections"]["PROB_CONNECTION"])
+
+    def getNbStates(self):
+        return self.get("NB_STATES")
+
+    def getNbAgents(self):
+        return self.get("NB_AGENTS")
+
+    def getNbTicks(self):
+        return self.get("NB_TICKS")
+
+    def getClusterSize(self):
+        return self.get("CLUSTER_SIZE")
+
+    def getProbConnection(self):
+        return self.get("PROB_CONNECTION")
 
     def set(self, values: dict):
         if "NB_STATES" in values:
