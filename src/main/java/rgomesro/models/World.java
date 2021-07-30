@@ -44,7 +44,8 @@ public class World implements Runnable{
                 "LEVY: [" + Params.getInstance().tax.MIN_LEVY + ", " + Params.getInstance().tax.MAX_LEVY + "], " +
                 "TARIFF: [" + Params.getInstance().tax.MIN_TARIFF + ", " + Params.getInstance().tax.MAX_TARIFF + "], " +
                 "WEALTH: [" + Params.getInstance().tax.MIN_WEALTH_TAX_VALUE + ", " + Params.getInstance().tax.MAX_WEALTH_TAX_VALUE + "], " +
-                "UNEMPLOYMENT: [" + Params.getInstance().state.MIN_UNEMPLOYMENT + ", " + Params.getInstance().state.MAX_UNEMPLOYMENT + "]"
+                "UNEMPLOYMENT: [" + Params.getInstance().state.MIN_UNEMPLOYMENT + ", " + Params.getInstance().state.MAX_UNEMPLOYMENT + "], " +
+                "INIT_MONEY: [" + Params.getInstance().agent.MIN_INIT_MONEY + ", " + Params.getInstance().agent.MAX_INIT_MONEY + "]"
         );
         this.worldMarket = new WorldMarket(this);
         this.states = new ArrayList<>(params.NB_STATES);

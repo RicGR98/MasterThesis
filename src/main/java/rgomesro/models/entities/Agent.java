@@ -14,6 +14,7 @@ public class Agent extends Entity {
     private final Params.Agent params;
     private final WorldMarket worldMarket;
     private final State state;
+    private final Float initMoney;
     private Float money;
     private final Float talent;
     private final Product product;
@@ -43,6 +44,7 @@ public class Agent extends Entity {
         this.worldMarket = worldMarket;
         this.state = state;
         this.state.addAgent(this);
+        this.initMoney = money;
         this.money = money;
         this.talent = talent;
         this.isProducer = isProducer;
@@ -91,7 +93,7 @@ public class Agent extends Entity {
      * ==== Methods: csv
      * ================================== */
     public static String csvHeader() {
-        return "Id,State,AgentMoney,Talent,IsProducer,Purchases";
+        return "Id,State,AgentInitMoney,AgentMoney,Talent,IsProducer,Purchases";
     }
 
     @Override
@@ -99,6 +101,7 @@ public class Agent extends Entity {
         return Stream.of(
                 id,
                 state.toString(),
+                initMoney.toString(),
                 money.toString(),
                 talent.toString(),
                 isProducer.toString(),

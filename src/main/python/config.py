@@ -78,6 +78,10 @@ class Config:
             self.data["State"]["Others"]["MIN_UNEMPLOYMENT"] = float(values["MIN_UNEMPLOYMENT"])
         if "MAX_UNEMPLOYMENT" in values:
             self.data["State"]["Others"]["MAX_UNEMPLOYMENT"] = float(values["MAX_UNEMPLOYMENT"])
+        if "MIN_INIT_MONEY" in values:
+            self.data["Agent"]["MIN_INIT_MONEY"] = float(values["MIN_INIT_MONEY"])
+        if "MAX_INIT_MONEY" in values:
+            self.data["Agent"]["MAX_INIT_MONEY"] = float(values["MAX_INIT_MONEY"])
 
     def setNbStates(self, value: int):
         """Number of States in a World"""
@@ -201,6 +205,26 @@ class Config:
         """Set value for the Unemployment rate"""
         self.setMinUnemployment(value)
         self.setMaxUnemployment(value)
+
+    def setMinInitMoney(self, value: float):
+        """Minimum value for the Initial money of an Agent"""
+        assert 0 <= value
+        self.set({"MIN_INIT_MONEY": value})
+
+    def setMaxInitMoney(self, value: float):
+        """Maximum value for the Initial money of an Agent"""
+        assert 0 <= value
+        self.set({"MAX_INIT_MONEY": value})
+
+    def setMinMaxInitMoney(self, value1: float, value2: float):
+        """Set min and max values for the  Initial money of an Agent"""
+        self.setMinInitMoney(value1)
+        self.setMaxInitMoney(value2)
+
+    def setInitMoney(self, value: float):
+        """Set value for the  Initial money of an Agent"""
+        self.setMinInitMoney(value)
+        self.setMaxInitMoney(value)
 
     def save(self):
         """

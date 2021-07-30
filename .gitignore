@@ -611,3 +611,6 @@ TSWLatexianTemp*
 # Local History for Visual Studio Code
 .history/
 /report/main.pdf
+/.settings/
+/.classpath
+/.project

@@ -102,13 +102,30 @@ def exp5():
     a.linePointsChart(a.DF_AGENTS_PRODUCTS, "SellingPrice", "Stock", "Sales")
 
 
+def exp6():
+    """
+    Experiment 6:
+    Influence of the Initial money of an Agent.
+    """
+    name = "exp6"
+    c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
+    c.setMinMaxInitMoney(0, 10000)
+    c.save()
+    # c.run()
+    a = Analysis(name)
+    print(a.DF_AGENTS_PRODUCTS)
+    a.lineChart(a.DF_AGENTS_PRODUCTS, "AgentInitMoney", "Sales", "Purchases")
+    a.lineChart(a.DF_AGENTS_PRODUCTS, "AgentInitMoney", "Stock")
+
+
 def runExperiments():
     experiments = [
         # exp1,
         # exp2,
         # exp3,
         # exp4,
-        exp5,
+        # exp5,
+        exp6,
     ]
     for exp in experiments:
         Config.resetAll()

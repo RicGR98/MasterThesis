@@ -30,7 +30,8 @@ RESULT_TO_NAME = {
     "Talent": "Agent's Talent",  # Param
     "ProbNotProducer": "Agent's probability of never producing",  # Param
     "IsProducer": "Is the Agent a producer?",  # Param
-    "SellingPrice": "Selling price of a Product (without taxes)",
+    "SellingPrice": "Selling price of a Product (without taxes)",  # Param
+    "AgentInitMoney": "Agent's initial money",  # Param
     "AgentMoney": "Agent's money",  # Metric
     "Sales": "Agent's number of sales",  # Metric
     "Purchases": "Agent's number of purchases",  # Metric
