@@ -82,10 +82,24 @@ def exp4():
     Config.run()  # Run both configs in parallel
 
     a1 = Analysis(name1)
-    a1.barChart(a1.DF_AGENTS_PRODUCTS, "IsProducer", "Sales", "Purchases")
+    a1.barChart(a1.DF_AGENTS_PRODUCTS, "IsProducer", "Purchases")
 
     a2 = Analysis(name2)
     a2.barChart(a2.DF_AGENTS_PRODUCTS, "IsProducer", "Purchases")
+
+
+def exp5():
+    """
+    Experiment 5:
+    Influence of the Unemployment rate on two metrics.
+    """
+    name = "exp5"
+    c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
+    c.save()
+    c.run()
+    a = Analysis(name)
+    print(a.DF_AGENTS_PRODUCTS)
+    a.linePointsChart(a.DF_AGENTS_PRODUCTS, "SellingPrice", "Stock", "Sales")
 
 
 def runExperiments():
@@ -93,7 +107,8 @@ def runExperiments():
         # exp1,
         # exp2,
         # exp3,
-        exp4,
+        # exp4,
+        exp5,
     ]
     for exp in experiments:
         Config.resetAll()
