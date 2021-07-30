@@ -113,10 +113,11 @@ class Analysis:
     def barChart(dataFrame: pd.DataFrame, param: str, result1: str, result2=None):
         df1 = dataFrame.groupby(param)[result1].mean()
         chart = Analysis.__createChart__(param, result1, result2)
-        chart.bar(df1.index, df1, color='red')
-        if result2 is not None:
+        if result2 is None:
+            chart.bar(x1=df1.index, y1=df1)
+        else:
             df2 = dataFrame.groupby(param)[result2].mean()
-            chart.bar(df2.index, df2, color='blue', y2=True)
+            chart.bar(x1=df1.index, y1=df1, x2=df2.index, y2=df2)
         chart.show()
 
     def agentsWealthDistribution(self, df):

@@ -50,16 +50,18 @@ class Chart:
         if color not in self.colors:
             self.colors.append(color)
 
-    def bar(self, x, y, label=None, color=None, y2=False):
+    def bar(self, x1, y1, x2=None, y2=None, label1=None, label2=None):
         assert self.label_x is not None
-        if not y2:
-            self.ax1.bar(x, y, label=label, color=color, width=-0.4, align='edge')
-            self.ax1.bar_label(self.ax1.containers[0])
-        else:
-            self.ax2.bar(x, y, label=label, color=color, width=0.4, align='edge')
-            self.ax2.bar_label(self.ax2.containers[0])
-        if color not in self.colors:
-            self.colors.append(color)
+        if x2 is None and y2 is None:  # 1 axis
+            self.ax1.bar(x1, y1, label=label1, color="red")
+            self.ax1.bar_label(self.ax1.containers[0], fmt='%.2f')
+            self.colors.extend(["red"])
+        else:  # 2 axis
+            self.ax1.bar(x1, y1, label=label1, color="red", width=-0.4, align='edge')
+            self.ax1.bar_label(self.ax1.containers[0], fmt='%.2f')
+            self.ax2.bar(x2, y2, label=label2, color="blue", width=0.4, align='edge')
+            self.ax2.bar_label(self.ax2.containers[0], fmt='%.2f')
+            self.colors.extend(["red", "blue"])
 
     def show(self, filename=None):
         """

@@ -85,7 +85,7 @@ def exp4():
     a1.barChart(a1.DF_AGENTS_PRODUCTS, "IsProducer", "Sales", "Purchases")
 
     a2 = Analysis(name2)
-    a2.barChart(a2.DF_AGENTS_PRODUCTS, "IsProducer", "Sales", "Purchases")
+    a2.barChart(a2.DF_AGENTS_PRODUCTS, "IsProducer", "Purchases")
 
 
 def runExperiments():
