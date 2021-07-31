@@ -87,6 +87,8 @@ public class Allowance {
                 toDistribute = stateValue;
             TransactionUtils.make(state, agent, toDistribute);
         }
+        //Distribute the rest flatly
+        distributeFlat();
     }
 
     /**

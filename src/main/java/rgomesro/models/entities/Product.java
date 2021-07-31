@@ -32,7 +32,7 @@ public class Product extends Entity {
         this.producer = agent;
         this.type = type;
         this.sellingPrice = sellingPrice;
-        this.productionPrice = sellingPrice/10f;
+        this.productionPrice = 0f; //sellingPrice/10f;
         this.stock = 0;
         this.sales = 0;
     }

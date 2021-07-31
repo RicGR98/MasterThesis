@@ -91,7 +91,7 @@ class Analysis:
         return chart
 
     @staticmethod
-    def scatterChart(dataFrame: pd.DataFrame, param, result1, result2=None):
+    def pointsChart(dataFrame: pd.DataFrame, param, result1, result2=None):
         df = dataFrame.sort_values(param)
         chart = Analysis.__createChart__(param, result1, result2)
         chart.scatter(df[param], df[result1], color="red")

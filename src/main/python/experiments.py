@@ -139,16 +139,20 @@ def exp7():
 def exp8():
     """
     Experiment 8:
-    Evolution of the number of transactions with time
+    Evolution of multiple metrics with time (ticks)
+    Re-run this experiment but now, in Product, change the production price to
+    something positive and notice the huge difference
     """
     name = "exp8"
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
-    c.setNbTicks(5000)
+    c.setNbTicks(3000)
     c.save()
     c.run()
     a = Analysis(name)
-    a.scatterChart(a.DF_TICKS, "Tick", "WorldNbTransactions", "WorldGdp")
-    a.scatterChart(a.DF_TICKS, "Tick", "WorldStatesMoney", "WorldAgentsMoney")
+    print(a.DF_TICKS)
+    print(a.DF_STATES)
+    a.linePointsChart(a.DF_TICKS, "Tick", "WorldNbTransactions", "WorldGdp")
+    a.pointsChart(a.DF_TICKS, "Tick", "WorldStatesMoney", "WorldAgentsMoney")
 
 
 def runExperiments():

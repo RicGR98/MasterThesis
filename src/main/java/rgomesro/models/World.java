@@ -118,11 +118,11 @@ public class World implements Runnable{
      */
     private void tick(int currentTick){
         this.currentTick = currentTick;
+        agents.forEach(Agent::tick);
+        states.forEach(state -> state.tick(currentTick));
         if (currentTick % params.NB_TICKS_SAVE_CSV == 0){
             saveAllToCsv(); //Temporary save
         }
-        agents.forEach(Agent::tick);
-        states.forEach(state -> state.tick(currentTick));
     }
 
     /**
@@ -133,9 +133,9 @@ public class World implements Runnable{
         pbb.setTaskName("Simulation:");
         pbb.setUnit(" ticks", 1);
         ProgressBar
-                .wrap(IntStream.range(1, params.NB_TICKS), pbb)
+                .wrap(IntStream.range(1, params.NB_TICKS+1), pbb)
                 .forEach(this::tick);
-        this.saveAllToCsv();
+//        this.saveAllToCsv();
     }
 
     /* ==================================
