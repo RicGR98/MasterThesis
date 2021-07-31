@@ -86,7 +86,7 @@ class Analysis:
 
     @staticmethod
     def __createChart__(param, result1, result2=None):
-        chart = Chart(f"Influence of '{RESULT_TO_NAME[param]}'")
+        chart = Chart(f"Influence of \"{RESULT_TO_NAME[param]}\"")
         chart.set_axis_labels(f"{RESULT_TO_NAME[param]}", RESULT_TO_NAME[result1], RESULT_TO_NAME[result2])
         return chart
 

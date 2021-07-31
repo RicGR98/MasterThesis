@@ -92,7 +92,7 @@ def exp4():
 def exp5():
     """
     Experiment 5:
-    Influence of the Unemployment rate on two metrics.
+    Influence of the SellingPrice on two metrics.
     """
     name = "exp5"
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
@@ -145,7 +145,7 @@ def exp8():
     """
     name = "exp8"
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
-    c.setNbTicks(3000)
+    c.setNbTicks(5000)
     c.save()
     c.run()
     a = Analysis(name)
@@ -153,6 +153,21 @@ def exp8():
     print(a.DF_STATES)
     a.linePointsChart(a.DF_TICKS, "Tick", "WorldNbTransactions", "WorldGdp")
     a.pointsChart(a.DF_TICKS, "Tick", "WorldStatesMoney", "WorldAgentsMoney")
+
+
+def exp9():
+    """
+    Experiment 9:
+    Influence of the Allowance type on multiple metrics.
+    """
+    name = "exp9"
+    c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
+    c.save()
+    c.run()
+    a = Analysis(name)
+    print(a.DF_STATES)
+    a.barChart(a.DF_STATES, "Allowance", "Gdp", "NbTransactions")
+    a.barChart(a.DF_STATES, "Allowance", "PopTotalMoney", "Gini")
 
 
 def runExperiments():
@@ -164,7 +179,8 @@ def runExperiments():
         # exp5,
         # exp6,
         # exp7,
-        exp8,
+        # exp8,
+        exp9,
     ]
     for exp in experiments:
         Config.resetAll()
