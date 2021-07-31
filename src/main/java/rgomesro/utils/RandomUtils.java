@@ -1,9 +1,13 @@
 package rgomesro.utils;
 
+import org.apache.commons.math3.distribution.EnumeratedDistribution;
+import org.apache.commons.math3.util.Pair;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+
 
 public class RandomUtils {
     private static final Random gen = new Random();
@@ -68,5 +72,20 @@ public class RandomUtils {
      */
     public static <T> T choose(T[] possibilities){
         return possibilities[(getInt(0, possibilities.length))];
+    }
+
+    /**
+     * @param possibilities Array of possibilities
+     * @param probabilities Array of probabilities (weight for each element)
+     * @param <T> Type of the possibilities
+     * @return Random object in the list of possibilities according to probabilities
+     */
+    public static <T> T weightedChoose(List<T> possibilities, List<Double> probabilities){
+        assert possibilities.size() == probabilities.size();
+        final List<Pair<T, Double>> itemWeights = new ArrayList<>();
+        for (int i = 0; i < possibilities.size(); i++) {
+            itemWeights.add(new Pair(possibilities.get(i), probabilities.get(i)));
+        }
+        return new EnumeratedDistribution<>(itemWeights).sample();
     }
 }

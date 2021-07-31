@@ -76,12 +76,12 @@ public class WorldMarket {
      * @return List of filtered product according to State, Type, Stocks, Price, ...
      */
     public List<Product> getFilteredProducts(Agent buyer, int type){
-        var res = new ArrayList<Product>();
+        var products = new ArrayList<Product>();
         for (State state: world.getStates()){
-            res.addAll(state.getMarket().getFilteredProducts(buyer, type));
+            products.addAll(state.getMarket().getFilteredProducts(buyer, type));
         }
-        res.sort(Comparator.comparing(Product::getSellingPrice)); // From lowest to highest price
-        return res;
+        products.sort(Comparator.comparing(Product::getSellingPrice)); // From lowest to highest price
+        return products;
     }
 
     /* ==================================
@@ -95,8 +95,22 @@ public class WorldMarket {
     public boolean buy(Agent buyer, int type){
         var matchingProducts = getFilteredProducts(buyer, type);
         if (matchingProducts.size() == 0) return false;
-        var product = RandomUtils.choose(matchingProducts);
-        product = matchingProducts.get(0);
+        var weights = new ArrayList<Double>();
+        for (Product product: matchingProducts){
+            weights.add(1.0/product.getSellingPrice());
+        }
+        Product product;
+        switch (world.getProductChoice()){
+            case RANDOM:
+                product = RandomUtils.choose(matchingProducts);
+                break;
+            case WEIGHTED_RANDOM:
+                product = RandomUtils.weightedChoose(matchingProducts, weights);
+                break;
+            default: //CHEAPEST
+                product = matchingProducts.get(0);
+                break;
+        }
         transaction(buyer, product);
         return true;
     }

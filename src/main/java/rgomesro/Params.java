@@ -36,10 +36,17 @@ public final class Params {
         product = new Product();
     }
 
+    public enum ProductChoice {
+        CHEAPEST,
+        RANDOM,
+        WEIGHTED_RANDOM
+    }
+
     /**
      * World's constants
      */
     public final class World {
+        public final ProductChoice PRODUCT_CHOICE;
         public final int NB_STATES;
         public final int NB_AGENTS;
         public final int NB_TICKS;
@@ -57,6 +64,17 @@ public final class Params {
             NB_AGENTS = JsonUtils.getInt(jsonWorld, "NB_AGENTS");
             NB_TICKS = JsonUtils.getInt(jsonWorld, "NB_TICKS");
             NB_TICKS_SAVE_CSV = JsonUtils.getInt(jsonWorld, "NB_TICKS_SAVE_CSV");
+            switch (JsonUtils.getString(jsonWorld, "PRODUCT_CHOICE")){
+                case "RANDOM":
+                    PRODUCT_CHOICE = ProductChoice.RANDOM;
+                    break;
+                case "WEIGHTED_RANDOM":
+                    PRODUCT_CHOICE = ProductChoice.WEIGHTED_RANDOM;
+                    break;
+                default: //CHEAPEST
+                    PRODUCT_CHOICE = ProductChoice.CHEAPEST;
+                    break;
+            }
         }
     }
 

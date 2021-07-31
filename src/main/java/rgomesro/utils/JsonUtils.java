@@ -48,4 +48,13 @@ public class JsonUtils {
     public static float getFloat(JSONObject jsonObject, String key){
         return ((Double) jsonObject.get(key)).floatValue();
     }
+
+    /**
+     * @param jsonObject Json Object from which to retrieve a float
+     * @param key Key of the value to retrieve
+     * @return String value of the key
+     */
+    public static String getString(JSONObject jsonObject, String key){
+        return jsonObject.get(key).toString();
+    }
 }

@@ -1,5 +1,6 @@
 {
     "World": {
+        "PRODUCT_CHOICE": "WEIGHTED_RANDOM",
         "NB_STATES": 100,
         "NB_AGENTS": 5000,
         "NB_TICKS": 1000,

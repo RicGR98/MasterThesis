@@ -39,6 +39,7 @@ public class World implements Runnable{
                 "NB_STATES: " + params.NB_STATES + ", " +
                 "NB_AGENTS: " + params.NB_AGENTS + ", " +
                 "NB_TICKS: " + params.NB_TICKS + ", " +
+                "PRODUCT_CHOICE: " + params.PRODUCT_CHOICE + ", " +
                 "CLUSTER_SIZE: " + Params.getInstance().connections.CLUSTER_SIZE + ", " +
                 "PROB_CONNECTION: " + Params.getInstance().connections.PROB_CONNECTION + ", " +
                 "VAT: [" + Params.getInstance().tax.MIN_VAT + ", " + Params.getInstance().tax.MAX_VAT + "], " +
@@ -141,6 +142,13 @@ public class World implements Runnable{
     /* ==================================
      * ==== Methods: Getters
      * ================================== */
+
+    /**
+     * @return How a Product should be chosen from a list of possibilities
+     */
+    public Params.ProductChoice getProductChoice() {
+        return params.PRODUCT_CHOICE;
+    }
 
     /**
      * @return Total amount of money States have
