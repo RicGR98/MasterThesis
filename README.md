@@ -11,35 +11,13 @@ my Master Thesis.
 - wget command
 - Java 11 or higher
 - Python 3.4 or higher
-- Pandas
-- Numpy
-- Matplotlib
+- Pandas 1.0.3
+- Numpy 1.18.2
+- Matplotlib 3.4.2
 - (IntelliJ IDEA by JetBrains)
 
 # Running
-
-## Running the simulation
-
-### From terminal
-
-#### Local machine:
-
-    bash run.sh local
-
-#### On the CECI cluster:
+Comment/uncomment the actions to be performed in the `main.py` file then run the following command
 
     bash run.sh
 
-### From IntelliJ
-
-Simply open the project and run the Main class
-
-## Running the analysis
-Make sure the simulation has been run and that
-the `res/csv/` directory exists.
-
-### From terminal
-    python3 analysis.py
-
-### From IntelliJ
-Simply open the project and run `analysis.py` file. 
