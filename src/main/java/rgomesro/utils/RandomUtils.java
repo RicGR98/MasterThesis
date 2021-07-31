@@ -75,17 +75,11 @@ public class RandomUtils {
     }
 
     /**
-     * @param possibilities Array of possibilities
-     * @param probabilities Array of probabilities (weight for each element)
+     * @param possibilities List of possibilities with a weight for each of them
      * @param <T> Type of the possibilities
-     * @return Random object in the list of possibilities according to probabilities
+     * @return Random object in the list of possibilities according to the weights of the elements
      */
-    public static <T> T weightedChoose(List<T> possibilities, List<Double> probabilities){
-        assert possibilities.size() == probabilities.size();
-        final List<Pair<T, Double>> itemWeights = new ArrayList<>();
-        for (int i = 0; i < possibilities.size(); i++) {
-            itemWeights.add(new Pair(possibilities.get(i), probabilities.get(i)));
-        }
-        return new EnumeratedDistribution<>(itemWeights).sample();
+    public static <T> T weightedChoose(List<Pair<T, Double>> possibilities){
+        return new EnumeratedDistribution<>(possibilities).sample();
     }
 }

@@ -1,9 +1,9 @@
 package rgomesro.models.entities;
 
+import org.apache.commons.math3.util.Pair;
 import rgomesro.Params;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -119,15 +119,15 @@ public class Market extends Entity {
      * @param buyer Agent who wants to buy a product on the market
      * @param type Type of product the agent wants to buy
      * @return List of filtered product according to Type, Stocks, Price, ...
+     * with their inverse prices (for weighted random)
      */
-    public List<Product> getFilteredProducts(Agent buyer, int type){
-        var res = new ArrayList<Product>();
+    public List<Pair<Product, Double>> getFilteredProducts(Agent buyer, int type){
+        List<Pair<Product, Double>> res = new ArrayList<>();
         var typeProducts = products.get(type);
         for (Product product: typeProducts){
             if (isProductBuyable(buyer, product))
-                res.add(product);
+                res.add(new Pair<>(product, 1.0/product.getSellingPrice()));
         }
-        res.sort(Comparator.comparing(Product::getSellingPrice)); // From lowest to highest price
         return res;
     }
 

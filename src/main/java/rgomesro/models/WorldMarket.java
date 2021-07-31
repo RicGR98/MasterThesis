@@ -1,5 +1,6 @@
 package rgomesro.models;
 
+import org.apache.commons.math3.util.Pair;
 import rgomesro.models.entities.Agent;
 import rgomesro.models.entities.Market;
 import rgomesro.models.entities.Product;
@@ -8,7 +9,6 @@ import rgomesro.utils.RandomUtils;
 import rgomesro.utils.TransactionUtils;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -74,13 +74,13 @@ public class WorldMarket {
      * @param buyer Agent who wants to buy a product on the market
      * @param type Type of product the agent wants to buy
      * @return List of filtered product according to State, Type, Stocks, Price, ...
+     * with their inverse prices (for weighted random)
      */
-    public List<Product> getFilteredProducts(Agent buyer, int type){
-        var products = new ArrayList<Product>();
+    public List<Pair<Product, Double>> getFilteredProducts(Agent buyer, int type){
+        List<Pair<Product, Double>> products = new ArrayList<>();
         for (State state: world.getStates()){
             products.addAll(state.getMarket().getFilteredProducts(buyer, type));
         }
-        products.sort(Comparator.comparing(Product::getSellingPrice)); // From lowest to highest price
         return products;
     }
 
@@ -93,24 +93,35 @@ public class WorldMarket {
      * @return True if a product was bought, else false
      */
     public boolean buy(Agent buyer, int type){
+        //Filter Products with a List<Pair<Product, Double>>
         var matchingProducts = getFilteredProducts(buyer, type);
         if (matchingProducts.size() == 0) return false;
-        var weights = new ArrayList<Double>();
-        for (Product product: matchingProducts){
-            weights.add(1.0/product.getSellingPrice());
+
+        //Get list of Products and cheapest one among them
+        var products = new ArrayList<Product>();
+        Product cheapest = matchingProducts.get(0).getFirst();
+        for (Pair<Product, Double> productDoublePair: matchingProducts){
+            Product product = productDoublePair.getFirst();
+            products.add(product);
+            if (product.getSellingPrice() < cheapest.getSellingPrice()){
+                cheapest = product;
+            }
         }
+
+        //Choose Product according to Product choice method
         Product product;
         switch (world.getProductChoice()){
             case RANDOM:
-                product = RandomUtils.choose(matchingProducts);
+                product = RandomUtils.choose(products);
                 break;
             case WEIGHTED_RANDOM:
-                product = RandomUtils.weightedChoose(matchingProducts, weights);
+                product = RandomUtils.weightedChoose(matchingProducts);
                 break;
             default: //CHEAPEST
-                product = matchingProducts.get(0);
+                product = cheapest;
                 break;
         }
+
         transaction(buyer, product);
         return true;
     }
