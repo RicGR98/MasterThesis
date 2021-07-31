@@ -25,6 +25,7 @@ public class World implements Runnable{
     private final ArrayList<State> states;
     private final ArrayList<Agent> agents;
     private final HashMap<Integer, Float> productPrices;
+    private Integer currentTick;
 
     /* ==================================
      * ==== Constructors
@@ -52,6 +53,7 @@ public class World implements Runnable{
         this.states = new ArrayList<>(params.NB_STATES);
         this.agents = new ArrayList<>(params.NB_AGENTS);
         this.productPrices = new HashMap<>();
+        this.currentTick = 0;
         this.init();
     }
 
@@ -104,12 +106,18 @@ public class World implements Runnable{
         //Update Connections
         Connections connections = new Connections(states);
         connections.updateConnectedStates();
+
+        //Delete previous ticks file
+        String ticksFilename = params.CSV_TICKS + "/" + paramsFile + ".csv";
+        FileUtils.fileDelete(ticksFilename);
+        FileUtils.writeToFile(ticksFilename, getTicksCsvHeader());
     }
 
     /**
      * Represent a step in the World's lifetime where its Entities can performd actions
      */
     private void tick(int currentTick){
+        this.currentTick = currentTick;
         if (currentTick % params.NB_TICKS_SAVE_CSV == 0){
             saveAllToCsv(); //Temporary save
         }
@@ -137,9 +145,27 @@ public class World implements Runnable{
      * Save all Entities to csv files for analysis later
      */
     public void saveAllToCsv(){
+        saveTicksToCsv();
         saveAgentsToCsv();
         saveStatesToCsv();
         saveProductsToCsv();
+    }
+
+
+    /**
+     * @return Csv header for the ticks file
+     */
+    private static String getTicksCsvHeader(){
+        return "Tick,NbTransactions";
+    }
+
+    /**
+     * Save evolution (ticks) of key metrics to csv
+     */
+    private void saveTicksToCsv(){
+        String ticksFilename = params.CSV_TICKS + "/" + paramsFile + ".csv";
+        String line = currentTick + "," + worldMarket.getNbSales();
+        FileUtils.writeToFile(ticksFilename, line);
     }
 
     /**
@@ -147,7 +173,7 @@ public class World implements Runnable{
      * @param header Header of the csv, i.e. column names
      * @param rows Rows of the csv file (each one representing one Entity)
      */
-    private void saveToCsv(String filename, String header, String rows){
+    private void saveEntitiesToCsv(String filename, String header, String rows){
         filename = filename + "/" + paramsFile + ".csv";
         FileUtils.fileDelete(filename);
         String csv = "";
@@ -161,7 +187,7 @@ public class World implements Runnable{
      * Save all Agents to csv
      */
     private void saveAgentsToCsv(){
-        saveToCsv(
+        saveEntitiesToCsv(
                 params.CSV_AGENTS,
                 Agent.csvHeader(),
                 agents.stream()
@@ -174,7 +200,7 @@ public class World implements Runnable{
      * Save all States to csv
      */
     private void saveStatesToCsv(){
-        saveToCsv(
+        saveEntitiesToCsv(
                 params.CSV_STATES,
                 State.csvHeader(),
                 states.stream()
@@ -187,7 +213,7 @@ public class World implements Runnable{
      * Save all Products to csv
      */
     private void saveProductsToCsv(){
-        saveToCsv(
+        saveEntitiesToCsv(
                 params.CSV_PRODUCTS,
                 Product.csvHeader(),
                 agents.stream()

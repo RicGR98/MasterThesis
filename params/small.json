@@ -3,7 +3,7 @@
         "NB_STATES": 100,
         "NB_AGENTS": 5000,
         "NB_TICKS": 1000,
-        "NB_TICKS_SAVE_CSV": 500
+        "NB_TICKS_SAVE_CSV": 100
     },
     "Connections": {
         "CLUSTER_SIZE": 0,

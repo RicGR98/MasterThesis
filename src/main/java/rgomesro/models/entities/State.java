@@ -100,15 +100,12 @@ public class State extends Entity {
         return total;
     }
 
-    /**
-     * @return Total number of transaction (=amount of sold products by the population)
-     */
-    public Integer getNbTransactions(){
-        Integer total = 0;
-        for (Agent agent: getAgents()){
-            total += agent.getProduct().getSales();
-        }
-        return total;
+    public Integer getNbSales(){
+        return market.getNbSales();
+    }
+
+    public Integer getNbPurchases(){
+        return market.getNbPurchases();
     }
 
     public String getConnectedStatesCsv(){
@@ -158,7 +155,7 @@ public class State extends Entity {
                 gdp.toString(),
                 money.toString(),
                 getAgentsTotalMoney().toString(),
-                getNbTransactions().toString(),
+                getNbSales().toString(),
                 getConnectedStatesCsv()
         );
     }

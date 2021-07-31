@@ -12,6 +12,8 @@ public class Market extends Entity {
     private final Params params;
     private final State state;
     private final ArrayList<ArrayList<Product>> products;
+    private Integer nbSales;
+    private Integer nbPurchases;
 
     /* ==================================
      * ==== Constructors
@@ -21,6 +23,8 @@ public class Market extends Entity {
         this.params = Params.getInstance();
         this.state = state;
         this.products = new ArrayList<>();
+        this.nbSales = 0;
+        this.nbPurchases = 0;
     }
 
     /* ==================================
@@ -37,6 +41,14 @@ public class Market extends Entity {
             }
         }
         return total;
+    }
+
+    public Integer getNbSales() {
+        return nbSales;
+    }
+
+    public Integer getNbPurchases() {
+        return nbPurchases;
     }
 
     /* ==================================
@@ -117,5 +129,19 @@ public class Market extends Entity {
         }
         res.sort(Comparator.comparing(Product::getSellingPrice)); // From lowest to highest price
         return res;
+    }
+
+    /**
+     * Increment number of sales after a sell
+     */
+    public void incrementNbSales(){
+        nbSales++;
+    }
+
+    /**
+     * Increment number of purchases after a purchase
+     */
+    public void incrementNbPurchases(){
+        nbPurchases++;
     }
 }

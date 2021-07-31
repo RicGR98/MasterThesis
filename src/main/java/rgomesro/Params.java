@@ -46,6 +46,7 @@ public final class Params {
         public final int NB_TICKS_SAVE_CSV;
 
         public final String DIRECTORY_RES_CSV = "res/csv/";
+        public final String CSV_TICKS = DIRECTORY_RES_CSV + "ticks";
         public final String CSV_STATES = DIRECTORY_RES_CSV + "states";
         public final String CSV_AGENTS = DIRECTORY_RES_CSV + "agents";
         public final String CSV_PRODUCTS = DIRECTORY_RES_CSV + "products";

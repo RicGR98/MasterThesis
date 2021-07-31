@@ -24,7 +24,7 @@ public class WorldMarket {
      * ================================== */
     public WorldMarket(World world){
         this.world = world;
-        markets = new HashMap<>();
+        this.markets = new HashMap<>();
     }
 
     /* ==================================
@@ -39,6 +39,22 @@ public class WorldMarket {
             res += state.getMarket().getProductCount();
         }
         return res;
+    }
+
+    public int getNbSales(){
+        int total = 0;
+        for (State state: world.getStates()){
+            total += state.getNbSales();
+        }
+        return total;
+    }
+
+    public int getNbPurchases(){
+        int total = 0;
+        for (State state: world.getStates()){
+            total += state.getNbPurchases();
+        }
+        return total;
     }
 
     /* ==================================
@@ -100,6 +116,8 @@ public class WorldMarket {
         var seller = product.getProducer();
         var sellerState = seller.getState();
         var buyerState = buyer.getState();
+        sellerState.getMarket().incrementNbSales();
+        buyerState.getMarket().incrementNbPurchases();
         TransactionUtils.make(buyer, seller, product.getSellingPrice());
         //Probability of black transaction (no VAT, no Tariff, no GDP)
         if (buyerState.getBlack() > RandomUtils.getRandom()){
