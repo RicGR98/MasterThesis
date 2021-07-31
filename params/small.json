@@ -27,7 +27,9 @@
         },
         "Others": {
             "MIN_UNEMPLOYMENT": 0.0,
-            "MAX_UNEMPLOYMENT": 0.0
+            "MAX_UNEMPLOYMENT": 0.0,
+            "MIN_BLACK": 0.0,
+            "MAX_BLACK": 0.0
         }
     },
     "Agent": {

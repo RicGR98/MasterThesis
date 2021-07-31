@@ -21,6 +21,7 @@ RESULT_TO_NAME = {
     "Allowance": "State's Allowance type",  # Param
     "NbConnectedStates": "State's number of connections",  # Param
     "Unemployment": "State's unemployment rate",  # Param
+    "Black": "State's black economy share",  # Param
     "StateMoney": "State's money",  # Metric
     "NbTransactions": "State's total number of transactions",  # Metric
     "PopTotalMoney": "State's population money",  # Metric

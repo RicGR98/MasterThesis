@@ -24,6 +24,7 @@ public class State extends Entity {
     private final WealthTax wealthTax;
     private final Allowance allowance;
     private final Float unemployment;
+    private final Float black;
     private final ArrayList<Agent> agents;
     private Float money = 0f;
     private Float gdp = 0f;
@@ -46,6 +47,7 @@ public class State extends Entity {
         this.wealthTax = new WealthTax(this);
         this.allowance = new Allowance(this);
         this.unemployment = RandomUtils.getFloat(params.MIN_UNEMPLOYMENT, params.MAX_UNEMPLOYMENT);
+        this.black = RandomUtils.getFloat(params.MIN_BLACK, params.MAX_BLACK);
     }
 
     /* ==================================
@@ -81,6 +83,10 @@ public class State extends Entity {
 
     public ArrayList<State> getConnectedStates() {
         return connectedStates;
+    }
+
+    public Float getBlack() {
+        return black;
     }
 
     /**
@@ -134,7 +140,7 @@ public class State extends Entity {
      * ==== Methods: csv
      * ================================== */
     public static String csvHeader(){
-        return "Id,PopSize,VAT,Levy,Tariff,WealthTax,Allowance,Unemployment,Gdp,StateMoney,PopTotalMoney,NbTransactions,ConnectedStates";
+        return "Id,PopSize,VAT,Levy,Tariff,WealthTax,Allowance,Unemployment,Black,Gdp,StateMoney,PopTotalMoney,NbTransactions,ConnectedStates";
     }
 
     @Override
@@ -148,6 +154,7 @@ public class State extends Entity {
                 wealthTax.getValue().toString(),
                 allowance.getType().toString(),
                 unemployment.toString(),
+                black.toString(),
                 gdp.toString(),
                 money.toString(),
                 getAgentsTotalMoney().toString(),

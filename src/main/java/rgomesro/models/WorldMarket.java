@@ -90,17 +90,23 @@ public class WorldMarket {
     }
 
     /**
+     * Perform a transaction of a Product between a buyer and a seller
+     * taking into accounts taxes (VAT and Tariff), GDP, black economy (no taxes paid)
      * @param buyer Consumer who wishes to buy a product on the Market
      * @param product Product the consumer chose to buy
      */
     public void transaction(Agent buyer, Product product){
+        product.sell();
         var seller = product.getProducer();
         var sellerState = seller.getState();
         var buyerState = buyer.getState();
         TransactionUtils.make(buyer, seller, product.getSellingPrice());
+        //Probability of black transaction (no VAT, no Tariff, no GDP)
+        if (buyerState.getBlack() > RandomUtils.getRandom()){
+            return; //Perform black transaction by skipping following instructions
+        }
         TransactionUtils.make(buyer, buyerState, buyerState.getTariff().compute(buyer, product));
         TransactionUtils.make(buyer, sellerState, sellerState.getVat().compute(product));
-        product.sell();
         sellerState.addToGdp(product.getSellingPrice());
     }
 }

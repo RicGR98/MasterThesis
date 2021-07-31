@@ -54,6 +54,7 @@ def exp3():
     c.save()
     c.run()
     a = Analysis(name)
+    print(a.DF_STATES)
     print(a.DF_AGENTS_PRODUCTS)
     a.linePointsChart(a.DF_STATES, "Unemployment", "PopTotalMoney", "NbTransactions")
     a.linePointsChart(a.DF_STATES, "Unemployment", "Gdp", "Gini")
@@ -118,6 +119,23 @@ def exp6():
     a.lineChart(a.DF_AGENTS_PRODUCTS, "AgentInitMoney", "Stock")
 
 
+def exp7():
+    """
+    Experiment 7:
+    Influence of the Black economy share on multiple metrics.
+    """
+    name = "exp7"
+    c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
+    c.setMinMaxBlack(0, 1)
+    c.save()
+    c.run()
+    a = Analysis(name)
+    print(a.DF_STATES)
+    a.linePointsChart(a.DF_STATES, "Black", "PopTotalMoney", "NbTransactions")
+    a.linePointsChart(a.DF_STATES, "Black", "Gdp", "Gini")
+    a.linePointsChart(a.DF_STATES, "Black", "StateMoney")
+
+
 def runExperiments():
     experiments = [
         # exp1,
@@ -125,7 +143,8 @@ def runExperiments():
         # exp3,
         # exp4,
         # exp5,
-        exp6,
+        # exp6,
+        exp7,
     ]
     for exp in experiments:
         Config.resetAll()

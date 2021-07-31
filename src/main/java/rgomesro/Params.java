@@ -82,6 +82,8 @@ public final class Params {
         public int NB_TICKS_DISTRIBUTE_ALLOWANCES;
         public float MIN_UNEMPLOYMENT;
         public float MAX_UNEMPLOYMENT;
+        public float MIN_BLACK;
+        public float MAX_BLACK;
 
         private State() {
         }
@@ -142,6 +144,9 @@ public final class Params {
 
                 MIN_UNEMPLOYMENT = JsonUtils.getFloat(jsonOthers, "MIN_UNEMPLOYMENT");
                 MAX_UNEMPLOYMENT = JsonUtils.getFloat(jsonOthers, "MAX_UNEMPLOYMENT");
+
+                MIN_BLACK = JsonUtils.getFloat(jsonOthers, "MIN_BLACK");
+                MAX_BLACK = JsonUtils.getFloat(jsonOthers, "MAX_BLACK");
             }
         }
     }

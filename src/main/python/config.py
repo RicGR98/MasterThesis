@@ -78,6 +78,10 @@ class Config:
             self.data["State"]["Others"]["MIN_UNEMPLOYMENT"] = float(values["MIN_UNEMPLOYMENT"])
         if "MAX_UNEMPLOYMENT" in values:
             self.data["State"]["Others"]["MAX_UNEMPLOYMENT"] = float(values["MAX_UNEMPLOYMENT"])
+        if "MIN_BLACK" in values:
+            self.data["State"]["Others"]["MIN_BLACK"] = float(values["MIN_BLACK"])
+        if "MAX_BLACK" in values:
+            self.data["State"]["Others"]["MAX_BLACK"] = float(values["MAX_BLACK"])
         if "MIN_INIT_MONEY" in values:
             self.data["Agent"]["MIN_INIT_MONEY"] = float(values["MIN_INIT_MONEY"])
         if "MAX_INIT_MONEY" in values:
@@ -205,6 +209,26 @@ class Config:
         """Set value for the Unemployment rate"""
         self.setMinUnemployment(value)
         self.setMaxUnemployment(value)
+
+    def setMinBlack(self, value: float):
+        """Minimum value for the Black economy share"""
+        assert 0 <= value <= 1
+        self.set({"MIN_BLACK": value})
+
+    def setMaxBlack(self, value: float):
+        """Maximum value for the Black economy share"""
+        assert 0 <= value <= 1
+        self.set({"MAX_BLACK": value})
+
+    def setMinMaxBlack(self, value1: float, value2: float):
+        """Set min and max values for the Black economy share"""
+        self.setMinBlack(value1)
+        self.setMaxBlack(value2)
+
+    def setBlack(self, value: float):
+        """Set value for the Black economy share"""
+        self.setMinBlack(value)
+        self.setMaxBlack(value)
 
     def setMinInitMoney(self, value: float):
         """Minimum value for the Initial money of an Agent"""
