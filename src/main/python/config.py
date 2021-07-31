@@ -48,6 +48,8 @@ class Config:
         return self.get("PROB_CONNECTION")
 
     def set(self, values: dict):
+        if "PRODUCT_CHOICE" in values:
+            self.data["World"]["PRODUCT_CHOICE"] = values["PRODUCT_CHOICE"]
         if "NB_STATES" in values:
             self.data["World"]["NB_STATES"] = values["NB_STATES"]
         if "NB_AGENTS" in values:
@@ -86,6 +88,20 @@ class Config:
             self.data["Agent"]["MIN_INIT_MONEY"] = float(values["MIN_INIT_MONEY"])
         if "MAX_INIT_MONEY" in values:
             self.data["Agent"]["MAX_INIT_MONEY"] = float(values["MAX_INIT_MONEY"])
+
+    def setProductChoice(self, value: str):
+        assert value in {"CHEAPEST", "RANDOM", "WEIGHTED_RANDOM"}
+        """Method for choosing a Product in a list of matching Products"""
+        self.set({"PRODUCT_CHOICE": value})
+
+    def setProductChoiceCheapest(self):
+        self.setProductChoice("CHEAPEST")
+
+    def setProductChoiceRandom(self):
+        self.setProductChoice("RANDOM")
+
+    def setProductChoiceWeightedRandom(self):
+        self.setProductChoice("WEIGHTED_RANDOM")
 
     def setNbStates(self, value: int):
         """Number of States in a World"""

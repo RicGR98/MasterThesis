@@ -170,6 +170,39 @@ def exp9():
     a.barChart(a.DF_STATES, "Allowance", "PopTotalMoney", "Gini")
 
 
+def exp10():
+    """
+    Experiment 10:
+    Influence of the choosing method (cheapest, random, weighted random)
+    of a Product from the list of matching Products
+    """
+    name1 = "exp10_1"
+    c1 = Config(DEFAULT_CONFIG_FILE, f"{name1}.json")
+    c1.setProductChoiceCheapest()
+    c1.save()
+
+    name2 = "exp10_2"
+    c2 = Config(DEFAULT_CONFIG_FILE, f"{name2}.json")
+    c2.setProductChoiceRandom()
+    c2.save()
+
+    name3 = "exp10_3"
+    c3 = Config(DEFAULT_CONFIG_FILE, f"{name3}.json")
+    c3.setProductChoiceWeightedRandom()
+    c3.save()
+
+    Config.run()  # Run all configs in parallel
+
+    a1 = Analysis(name1)
+    a1.linePointsChart(a1.DF_AGENTS_PRODUCTS, "SellingPrice", "Stock", "Sales")
+
+    a2 = Analysis(name2)
+    a2.linePointsChart(a2.DF_AGENTS_PRODUCTS, "SellingPrice", "Stock", "Sales")
+
+    a3 = Analysis(name3)
+    a3.linePointsChart(a3.DF_AGENTS_PRODUCTS, "SellingPrice", "Stock", "Sales")
+
+
 def runExperiments():
     experiments = [
         # exp1,
@@ -180,7 +213,8 @@ def runExperiments():
         # exp6,
         # exp7,
         # exp8,
-        exp9,
+        # exp9,
+        exp10,
     ]
     for exp in experiments:
         Config.resetAll()
