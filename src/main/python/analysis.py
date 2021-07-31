@@ -37,6 +37,12 @@ RESULT_TO_NAME = {
     "Sales": "Agent's number of sales",  # Metric
     "Purchases": "Agent's number of purchases",  # Metric
     "Stock": "Agent's products stock",  # Metric
+
+    "Tick": "Tick",  # Param
+    "WorldNbTransactions": "World's number of transactions",  # Metric
+    "WorldStatesMoney": "Total money of all States",  # Metric
+    "WorldAgentsMoney": "Total money of all Agents",  # Metric
+    "WorldGdp": "World's GDP",  # Metric
 }
 
 
@@ -47,6 +53,7 @@ class Analysis:
         self.DF_PRODUCTS = pd.read_csv(f"{DIR_RES_CSV}/products/{filename}.csv")
         self.DF_AGENTS_PRODUCTS: pd.DataFrame = pd.merge(self.DF_AGENTS, self.DF_PRODUCTS, on='Id')
         self.DF_STATES = self.getStatesDF()
+        self.DF_TICKS = pd.read_csv(f"{DIR_RES_CSV}/ticks/{filename}.csv")
 
     def getStatesDF(self) -> pd.DataFrame:
         """

@@ -139,6 +139,43 @@ public class World implements Runnable{
     }
 
     /* ==================================
+     * ==== Methods: Getters
+     * ================================== */
+
+    /**
+     * @return Total amount of money States have
+     */
+    private float getTotalStatesMoney(){
+        float total = 0f;
+        for (State state: states){
+            total += state.getMoney();
+        }
+        return total;
+    }
+
+    /**
+     * @return Total amount of money Agents have
+     */
+    private float getTotalAgentsMoney(){
+        float total = 0f;
+        for (Agent agent: agents){
+            total += agent.getMoney();
+        }
+        return total;
+    }
+
+    /**
+     * @return Total GDP of all States
+     */
+    private float getTotalGdp(){
+        float total = 0f;
+        for (State state: states){
+            total += state.getGdp();
+        }
+        return total;
+    }
+
+    /* ==================================
      * ==== Methods: csv
      * ================================== */
     /**
@@ -156,7 +193,7 @@ public class World implements Runnable{
      * @return Csv header for the ticks file
      */
     private static String getTicksCsvHeader(){
-        return "Tick,NbTransactions";
+        return "Tick,WorldNbTransactions,WorldStatesMoney,WorldAgentsMoney,WorldGdp";
     }
 
     /**
@@ -164,7 +201,11 @@ public class World implements Runnable{
      */
     private void saveTicksToCsv(){
         String ticksFilename = params.CSV_TICKS + "/" + paramsFile + ".csv";
-        String line = currentTick + "," + worldMarket.getNbSales();
+        String line = currentTick + "," +
+                worldMarket.getNbSales() + "," +
+                getTotalStatesMoney() + "," +
+                getTotalAgentsMoney() + "," +
+                getTotalGdp();
         FileUtils.writeToFile(ticksFilename, line);
     }
 

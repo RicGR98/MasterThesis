@@ -136,6 +136,21 @@ def exp7():
     a.linePointsChart(a.DF_STATES, "Black", "StateMoney")
 
 
+def exp8():
+    """
+    Experiment 8:
+    Evolution of the number of transactions with time
+    """
+    name = "exp8"
+    c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
+    c.setNbTicks(5000)
+    c.save()
+    c.run()
+    a = Analysis(name)
+    a.scatterChart(a.DF_TICKS, "Tick", "WorldNbTransactions", "WorldGdp")
+    a.scatterChart(a.DF_TICKS, "Tick", "WorldStatesMoney", "WorldAgentsMoney")
+
+
 def runExperiments():
     experiments = [
         # exp1,
@@ -144,7 +159,8 @@ def runExperiments():
         # exp4,
         # exp5,
         # exp6,
-        exp7,
+        # exp7,
+        exp8,
     ]
     for exp in experiments:
         Config.resetAll()
