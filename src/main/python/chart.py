@@ -35,18 +35,18 @@ class Chart:
             x = np.linspace(np.amin(x), np.amax(x), 100)
             y = f(x)
         if not y2:
-            self.ax1.plot(x, y, label=label, color=color)
+            self.ax1.plot(x, y, label=label, color=color, linewidth=5)
         else:
-            self.ax2.plot(x, y, label=label, color=color)
+            self.ax2.plot(x, y, label=label, color=color, linewidth=5)
         if color not in self.colors:
             self.colors.append(color)
 
     def scatter(self, x, y, label=None, color=None, y2=False):
         assert self.label_x is not None
         if not y2:
-            self.ax1.scatter(x, y, label=label, color=color)
+            self.ax1.scatter(x, y, label=label, color=color, s=3)
         else:
-            self.ax2.scatter(x, y, label=label, color=color)
+            self.ax2.scatter(x, y, label=label, color=color, s=3)
         if color not in self.colors:
             self.colors.append(color)
 

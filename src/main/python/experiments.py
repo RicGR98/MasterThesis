@@ -112,11 +112,11 @@ def exp6():
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
     c.setMinMaxInitMoney(0, 10000)
     c.save()
-    # c.run()
+    c.run()
     a = Analysis(name)
     print(a.DF_AGENTS_PRODUCTS)
-    a.lineChart(a.DF_AGENTS_PRODUCTS, "AgentInitMoney", "Sales", "Purchases")
-    a.lineChart(a.DF_AGENTS_PRODUCTS, "AgentInitMoney", "Stock")
+    a.linePointsChart(a.DF_AGENTS_PRODUCTS, "AgentInitMoney", "Sales", "Purchases")
+    a.linePointsChart(a.DF_AGENTS_PRODUCTS, "AgentInitMoney", "Stock")
 
 
 def exp7():
@@ -203,6 +203,23 @@ def exp10():
     a3.linePointsChart(a3.DF_AGENTS_PRODUCTS, "SellingPrice", "Stock", "Sales")
 
 
+def exp11():
+    """
+    Experiment 11:
+    Influence of the VAT on multiple metrics
+    """
+    name = "exp11"
+    c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
+    c.setMinMaxVat(0, 1)
+    c.save()
+    c.run()
+    a = Analysis(name)
+    print(a.DF_STATES)
+    a.linePointsChart(a.DF_STATES, "VAT", "PopTotalMoney", "NbTransactions")
+    a.linePointsChart(a.DF_STATES, "VAT", "Gdp", "Gini")
+    a.linePointsChart(a.DF_STATES, "VAT", "StateMoney")
+
+
 def runExperiments():
     experiments = [
         # exp1,
@@ -214,16 +231,13 @@ def runExperiments():
         # exp7,
         # exp8,
         # exp9,
-        exp10,
+        # exp10,
+        exp11,
     ]
     for exp in experiments:
         Config.resetAll()
         exp()
 
-# a = Analysis()
-# # a.influenceOfParamOnResults(a.DF_STATES, "VAT", "Money", "NbTransactions")
-# # a.influenceOfParamOnResults(a.DF_STATES, "WealthTax", "Money", "Gini")
-# # a.influenceOfParamOnResults(a.DF_STATES, "VAT", "Gdp", "NbTransactions")
 # a.influenceOfParamBar(a.DF_STATES, "Allowance", "Gini")
 
 
