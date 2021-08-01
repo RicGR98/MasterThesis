@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-plt.style.use('dark_background')
+# plt.style.use('dark_background')
 
 
 class Chart:
