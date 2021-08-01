@@ -220,6 +220,23 @@ def exp11():
     a.linePointsChart(a.DF_STATES, "VAT", "StateMoney")
 
 
+def exp12():
+    """
+    Experiment 12:
+    Influence of the Levy tax on multiple metrics
+    """
+    name = "exp12"
+    c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
+    c.setMinMaxLevy(0, 1)
+    c.save()
+    c.run()
+    a = Analysis(name)
+    print(a.DF_STATES)
+    a.linePointsChart(a.DF_STATES, "Levy", "PopTotalMoney", "NbTransactions")
+    a.linePointsChart(a.DF_STATES, "Levy", "Gdp", "Gini")
+    a.linePointsChart(a.DF_STATES, "Levy", "StateMoney")
+
+
 def runExperiments():
     experiments = [
         # exp1,
@@ -232,13 +249,12 @@ def runExperiments():
         # exp8,
         # exp9,
         # exp10,
-        exp11,
+        # exp11,
+        exp12,
     ]
     for exp in experiments:
         Config.resetAll()
         exp()
-
-# a.influenceOfParamBar(a.DF_STATES, "Allowance", "Gini")
 
 
 if __name__ == '__main__':
