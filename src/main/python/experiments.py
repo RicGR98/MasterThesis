@@ -237,6 +237,24 @@ def exp12():
     a.linePointsChart(a.DF_STATES, "Levy", "StateMoney")
 
 
+def exp13():
+    """
+    Experiment 13:
+    Influence of the Wealth tax on multiple metrics
+    Compare all taxes and see which is better for which metric
+    """
+    name = "exp13"
+    c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
+    c.setMinMaxWealth(0, 1)
+    c.save()
+    c.run()
+    a = Analysis(name)
+    print(a.DF_STATES)
+    a.linePointsChart(a.DF_STATES, "WealthTax", "PopTotalMoney", "NbTransactions")
+    a.linePointsChart(a.DF_STATES, "WealthTax", "Gdp", "Gini")
+    a.linePointsChart(a.DF_STATES, "WealthTax", "StateMoney")
+
+
 def runExperiments():
     experiments = [
         # exp1,
@@ -250,7 +268,8 @@ def runExperiments():
         # exp9,
         # exp10,
         # exp11,
-        exp12,
+        # exp12,
+        exp13,
     ]
     for exp in experiments:
         Config.resetAll()
