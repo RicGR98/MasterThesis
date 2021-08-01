@@ -91,25 +91,25 @@ class Analysis:
         return chart
 
     @staticmethod
-    def pointsChart(dataFrame: pd.DataFrame, param, result1, result2=None):
+    def pointsChart(filename, dataFrame: pd.DataFrame, param, result1, result2=None):
         df = dataFrame.sort_values(param)
         chart = Analysis.__createChart__(param, result1, result2)
         chart.scatter(df[param], df[result1], color="red")
         if result2 is not None:
             chart.scatter(df[param], df[result2], color="blue", y2=True)
-        chart.show()
+        chart.show(DIR_RES_IMG + filename)
 
     @staticmethod
-    def lineChart(dataFrame: pd.DataFrame, param, result1, result2=None):
+    def lineChart(filename, dataFrame: pd.DataFrame, param, result1, result2=None):
         df = dataFrame.sort_values(param)
         chart = Analysis.__createChart__(param, result1, result2)
         chart.plot(df[param], df[result1], color="red", smooth=True)
         if result2 is not None:
             chart.plot(df[param], df[result2], color="blue", y2=True, smooth=True)
-        chart.show()
+        chart.show(DIR_RES_IMG + filename)
 
     @staticmethod
-    def linePointsChart(dataFrame: pd.DataFrame, param, result1, result2=None):
+    def linePointsChart(filename, dataFrame: pd.DataFrame, param, result1, result2=None):
         df = dataFrame.sort_values(param)
         chart = Analysis.__createChart__(param, result1, result2)
         chart.plot(df[param], df[result1], color="red", smooth=True)
@@ -117,10 +117,10 @@ class Analysis:
         if result2 is not None:
             chart.plot(df[param], df[result2], color="blue", y2=True, smooth=True)
             chart.scatter(df[param], df[result2], color="blue", y2=True)
-        chart.show()
+        chart.show(DIR_RES_IMG + filename)
 
     @staticmethod
-    def barChart(dataFrame: pd.DataFrame, param: str, result1: str, result2=None):
+    def barChart(filename, dataFrame: pd.DataFrame, param: str, result1: str, result2=None):
         df1 = dataFrame.groupby(param)[result1].mean()
         chart = Analysis.__createChart__(param, result1, result2)
         if result2 is None:
@@ -128,9 +128,10 @@ class Analysis:
         else:
             df2 = dataFrame.groupby(param)[result2].mean()
             chart.bar(x1=df1.index, y1=df1, x2=df2.index, y2=df2)
-        chart.show()
+        chart.show(DIR_RES_IMG + filename)
 
-    def agentsWealthDistribution(self, df):
+    @staticmethod
+    def agentsWealthDistribution(filename, df):
         """
         Analyze the wealth distribution among Agents with
         the Gini coefficient and the Lorenz curve
@@ -139,9 +140,9 @@ class Analysis:
         X = X.sort_values()
         lorenz_x = np.linspace(0.0, 1.0, X.size)
         lorenz_y = X.cumsum() / X.sum()
-
-        chart = Chart('Wealth distribution (Gini coeff: ' + str(self.gini(self.DF_AGENTS_PRODUCTS)) + ")")
+        print(df)
+        chart = Chart('Wealth distribution (Gini coeff: ' + str(Analysis.gini(df)) + ")")
         chart.set_axis_labels("Fraction of population", "Fraction of wealth")
         chart.plot([0, 1], [0, 1], color='red', label="Perfect equality")
         chart.plot(lorenz_x, lorenz_y, color='blue', label="Lorenz curve")
-        chart.show()
+        chart.show(DIR_RES_IMG + filename)

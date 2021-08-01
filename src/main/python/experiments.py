@@ -17,14 +17,14 @@ def exp1():
     name = "exp1"
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
     c.setProbConnection(0.3)
-    c.setClusterSize(5)  # 5 connected states, thus number of connected States = 4
+    c.setClusterSize(c.getNbStates()//20)  # 5 connected states, thus number of connected States = 4
     c.save()
     c.run()
     a = Analysis(name)
     print(a.DF_STATES)
-    a.barChart(a.DF_STATES, "NbConnectedStates", "PopTotalMoney", "NbTransactions")
-    a.barChart(a.DF_STATES, "NbConnectedStates", "Gdp", "Gini")
-    a.barChart(a.DF_STATES, "NbConnectedStates", "StateMoney")
+    a.barChart("exp1_1", a.DF_STATES, "NbConnectedStates", "Gdp", "NbTransactions")
+    a.barChart("exp1_2", a.DF_STATES, "NbConnectedStates", "PopTotalMoney", "StateMoney")
+    a.barChart("exp1_3", a.DF_STATES, "NbConnectedStates", "Gini")
 
 
 def exp2():
@@ -40,7 +40,7 @@ def exp2():
     c.run()
     a = Analysis(name)
     print(a.DF_AGENTS_PRODUCTS)
-    a.linePointsChart(a.DF_AGENTS_PRODUCTS, "Talent", "Sales", "Purchases")
+    a.linePointsChart(name, a.DF_AGENTS_PRODUCTS, "Talent", "Sales", "Purchases")
 
 
 def exp3():
@@ -56,10 +56,10 @@ def exp3():
     a = Analysis(name)
     print(a.DF_STATES)
     print(a.DF_AGENTS_PRODUCTS)
-    a.linePointsChart(a.DF_STATES, "Unemployment", "PopTotalMoney", "NbTransactions")
-    a.linePointsChart(a.DF_STATES, "Unemployment", "Gdp", "Gini")
-    a.linePointsChart(a.DF_STATES, "Unemployment", "StateMoney")
-    a.barChart(a.DF_AGENTS_PRODUCTS, "IsProducer", "Sales", "Purchases")
+    a.linePointsChart("exp3_1", a.DF_STATES, "Unemployment", "Gdp", "NbTransactions")
+    a.linePointsChart("exp3_2", a.DF_STATES, "Unemployment", "PopTotalMoney", "StateMoney")
+    a.linePointsChart("exp3_3", a.DF_STATES, "Unemployment", "Gini")
+    a.barChart("exp3_4", a.DF_AGENTS_PRODUCTS, "IsProducer", "Sales", "Purchases")
 
 
 def exp4():
@@ -83,10 +83,10 @@ def exp4():
     Config.run()  # Run both configs in parallel
 
     a1 = Analysis(name1)
-    a1.barChart(a1.DF_AGENTS_PRODUCTS, "IsProducer", "Purchases")
+    a1.barChart(name1, a1.DF_AGENTS_PRODUCTS, "IsProducer", "Purchases")
 
     a2 = Analysis(name2)
-    a2.barChart(a2.DF_AGENTS_PRODUCTS, "IsProducer", "Purchases")
+    a2.barChart(name2, a2.DF_AGENTS_PRODUCTS, "IsProducer", "Purchases")
 
 
 def exp5():
@@ -100,7 +100,7 @@ def exp5():
     c.run()
     a = Analysis(name)
     print(a.DF_AGENTS_PRODUCTS)
-    a.linePointsChart(a.DF_AGENTS_PRODUCTS, "SellingPrice", "Stock", "Sales")
+    a.linePointsChart(name, a.DF_AGENTS_PRODUCTS, "SellingPrice", "Stock", "Sales")
 
 
 def exp6():
@@ -115,8 +115,8 @@ def exp6():
     c.run()
     a = Analysis(name)
     print(a.DF_AGENTS_PRODUCTS)
-    a.linePointsChart(a.DF_AGENTS_PRODUCTS, "AgentInitMoney", "Sales", "Purchases")
-    a.linePointsChart(a.DF_AGENTS_PRODUCTS, "AgentInitMoney", "Stock")
+    a.linePointsChart("exp6_1", a.DF_AGENTS_PRODUCTS, "AgentInitMoney", "Sales", "Purchases")
+    a.linePointsChart("exp6_2", a.DF_AGENTS_PRODUCTS, "AgentInitMoney", "Stock")
 
 
 def exp7():
@@ -131,9 +131,9 @@ def exp7():
     c.run()
     a = Analysis(name)
     print(a.DF_STATES)
-    a.linePointsChart(a.DF_STATES, "Black", "PopTotalMoney", "NbTransactions")
-    a.linePointsChart(a.DF_STATES, "Black", "Gdp", "Gini")
-    a.linePointsChart(a.DF_STATES, "Black", "StateMoney")
+    a.linePointsChart("exp7_1", a.DF_STATES, "Black", "Gdp", "NbTransactions")
+    a.linePointsChart("exp7_2", a.DF_STATES, "Black", "PopTotalMoney", "StateMoney")
+    a.linePointsChart("exp7_3", a.DF_STATES, "Black", "Gini")
 
 
 def exp8():
@@ -151,8 +151,8 @@ def exp8():
     a = Analysis(name)
     print(a.DF_TICKS)
     print(a.DF_STATES)
-    a.linePointsChart(a.DF_TICKS, "Tick", "WorldNbTransactions", "WorldGdp")
-    a.pointsChart(a.DF_TICKS, "Tick", "WorldStatesMoney", "WorldAgentsMoney")
+    a.linePointsChart("exp8_1", a.DF_TICKS, "Tick", "WorldNbTransactions", "WorldGdp")
+    a.pointsChart("exp8_2", a.DF_TICKS, "Tick", "WorldStatesMoney", "WorldAgentsMoney")
 
 
 def exp9():
@@ -166,8 +166,9 @@ def exp9():
     c.run()
     a = Analysis(name)
     print(a.DF_STATES)
-    a.barChart(a.DF_STATES, "Allowance", "Gdp", "NbTransactions")
-    a.barChart(a.DF_STATES, "Allowance", "PopTotalMoney", "Gini")
+    a.barChart("exp9_1", a.DF_STATES, "Allowance", "Gdp", "NbTransactions")
+    a.barChart("exp9_2", a.DF_STATES, "Allowance", "PopTotalMoney", "StateMoney")
+    a.barChart("exp9_3", a.DF_STATES, "Allowance", "Gini")
 
 
 def exp10():
@@ -191,16 +192,16 @@ def exp10():
     c3.setProductChoiceWeightedRandom()
     c3.save()
 
-    Config.run()  # Run all configs in parallel
+    Config.run()  # Run all 3 configs in parallel
 
     a1 = Analysis(name1)
-    a1.linePointsChart(a1.DF_AGENTS_PRODUCTS, "SellingPrice", "Stock", "Sales")
+    a1.linePointsChart(name1, a1.DF_AGENTS_PRODUCTS, "SellingPrice", "Stock", "Sales")
 
     a2 = Analysis(name2)
-    a2.linePointsChart(a2.DF_AGENTS_PRODUCTS, "SellingPrice", "Stock", "Sales")
+    a2.linePointsChart(name2, a2.DF_AGENTS_PRODUCTS, "SellingPrice", "Stock", "Sales")
 
     a3 = Analysis(name3)
-    a3.linePointsChart(a3.DF_AGENTS_PRODUCTS, "SellingPrice", "Stock", "Sales")
+    a3.linePointsChart(name3, a3.DF_AGENTS_PRODUCTS, "SellingPrice", "Stock", "Sales")
 
 
 def exp11():
@@ -215,9 +216,9 @@ def exp11():
     c.run()
     a = Analysis(name)
     print(a.DF_STATES)
-    a.linePointsChart(a.DF_STATES, "VAT", "PopTotalMoney", "NbTransactions")
-    a.linePointsChart(a.DF_STATES, "VAT", "Gdp", "Gini")
-    a.linePointsChart(a.DF_STATES, "VAT", "StateMoney")
+    a.linePointsChart("exp11_1", a.DF_STATES, "VAT", "Gdp", "NbTransactions")
+    a.linePointsChart("exp11_2", a.DF_STATES, "VAT", "PopTotalMoney", "StateMoney")
+    a.linePointsChart("exp11_3", a.DF_STATES, "VAT", "Gini")
 
 
 def exp12():
@@ -232,9 +233,9 @@ def exp12():
     c.run()
     a = Analysis(name)
     print(a.DF_STATES)
-    a.linePointsChart(a.DF_STATES, "Levy", "PopTotalMoney", "NbTransactions")
-    a.linePointsChart(a.DF_STATES, "Levy", "Gdp", "Gini")
-    a.linePointsChart(a.DF_STATES, "Levy", "StateMoney")
+    a.linePointsChart("exp12_1", a.DF_STATES, "Levy", "Gdp", "NbTransactions")
+    a.linePointsChart("exp12_2", a.DF_STATES, "Levy", "PopTotalMoney", "StateMoney")
+    a.linePointsChart("exp12_3", a.DF_STATES, "Levy", "Gini")
 
 
 def exp13():
@@ -250,9 +251,27 @@ def exp13():
     c.run()
     a = Analysis(name)
     print(a.DF_STATES)
-    a.linePointsChart(a.DF_STATES, "WealthTax", "PopTotalMoney", "NbTransactions")
-    a.linePointsChart(a.DF_STATES, "WealthTax", "Gdp", "Gini")
-    a.linePointsChart(a.DF_STATES, "WealthTax", "StateMoney")
+    a.linePointsChart("exp13_1", a.DF_STATES, "WealthTax", "Gdp", "NbTransactions")
+    a.linePointsChart("exp13_2", a.DF_STATES, "WealthTax", "PopTotalMoney", "StateMoney")
+    a.linePointsChart("exp13_3", a.DF_STATES, "WealthTax", "Gini")
+
+
+def exp14():
+    """
+    Experiment 14:
+    Visualization of the distribution of Wealth among Agents
+    """
+    name = "exp14"
+    c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
+    c.save()
+    c.run()
+    a = Analysis(name)
+    flatState = a.DF_STATES[a.DF_STATES["Allowance"] == "Flat"].iloc[0]["Id"]
+    fairState = a.DF_STATES[a.DF_STATES["Allowance"] == "Fair"].iloc[0]["Id"]
+    flatStateAgents = a.DF_AGENTS_PRODUCTS[a.DF_AGENTS_PRODUCTS["State"] == flatState]
+    fairStateAgents = a.DF_AGENTS_PRODUCTS[a.DF_AGENTS_PRODUCTS["State"] == fairState]
+    a.agentsWealthDistribution("exp14_1", flatStateAgents)
+    a.agentsWealthDistribution("exp14_2", fairStateAgents)
 
 
 def runExperiments():
@@ -269,12 +288,10 @@ def runExperiments():
         # exp10,
         # exp11,
         # exp12,
-        exp13,
+        # exp13,
+        exp14,
     ]
     for exp in experiments:
         Config.resetAll()
         exp()
 
-
-if __name__ == '__main__':
-    runExperiments()
