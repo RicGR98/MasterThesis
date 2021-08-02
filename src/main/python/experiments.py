@@ -370,6 +370,7 @@ def runExperimentsParallel():
 
 
 def plotGraphs():
+    Config.resetAll()
     Path("res/img").mkdir(parents=True, exist_ok=True)
     global ANALYZE
     ANALYZE = True
