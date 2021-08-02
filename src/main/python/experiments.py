@@ -1,7 +1,12 @@
+from pathlib import Path
+
 from analysis import Analysis
 from config import Config
 
 DEFAULT_CONFIG_FILE = "small.json"
+
+ANALYZE = False
+RUN = False
 
 
 ################################
@@ -17,7 +22,11 @@ def exp1():
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
     c.setMinMaxVat(0, 1)
     c.save()
-    c.run()
+    if RUN:
+        c.run()
+
+    if not ANALYZE:
+        return
     a = Analysis(name)
     print(a.DF_STATES)
     a.linePointsChart("exp1_1", a.DF_STATES, "VAT", "Gdp", "NbTransactions")
@@ -34,7 +43,11 @@ def exp2():
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
     c.setMinMaxLevy(0, 1)
     c.save()
-    c.run()
+    if RUN:
+        c.run()
+
+    if not ANALYZE:
+        return
     a = Analysis(name)
     print(a.DF_STATES)
     a.linePointsChart("exp2_1", a.DF_STATES, "Levy", "Gdp", "NbTransactions")
@@ -52,7 +65,11 @@ def exp3():
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
     c.setMinMaxWealth(0, 1)
     c.save()
-    c.run()
+    if RUN:
+        c.run()
+
+    if not ANALYZE:
+        return
     a = Analysis(name)
     print(a.DF_STATES)
     a.linePointsChart("exp3_1", a.DF_STATES, "WealthTax", "Gdp", "NbTransactions")
@@ -69,7 +86,11 @@ def exp4():
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
     c.setMinMaxUnemployment(0, 1)
     c.save()
-    c.run()
+    if RUN:
+        c.run()
+
+    if not ANALYZE:
+        return
     a = Analysis(name)
     print(a.DF_STATES)
     print(a.DF_AGENTS_PRODUCTS)
@@ -88,7 +109,11 @@ def exp5():
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
     c.setMinMaxBlack(0, 1)
     c.save()
-    c.run()
+    if RUN:
+        c.run()
+
+    if not ANALYZE:
+        return
     a = Analysis(name)
     print(a.DF_STATES)
     a.linePointsChart("exp5_1", a.DF_STATES, "Black", "Gdp", "NbTransactions")
@@ -104,7 +129,11 @@ def exp6():
     name = "exp6"
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
     c.save()
-    c.run()
+    if RUN:
+        c.run()
+
+    if not ANALYZE:
+        return
     a = Analysis(name)
     print(a.DF_STATES)
     a.barChart("exp6_1", a.DF_STATES, "Allowance", "Gdp", "NbTransactions")
@@ -122,7 +151,11 @@ def exp7():
     c.setProbConnection(0.3)
     c.setClusterSize(c.getNbStates()//20)  # 5 connected states, thus number of connected States = 4
     c.save()
-    c.run()
+    if RUN:
+        c.run()
+
+    if not ANALYZE:
+        return
     a = Analysis(name)
     print(a.DF_STATES)
     a.barChart("exp7_1", a.DF_STATES, "NbConnectedStates", "Gdp", "NbTransactions")
@@ -139,14 +172,18 @@ def exp8():
     """
     name = "exp8"
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
-    c.setNbTicks(5000)
+    c.setNbTicks(c.getNbTicks()*2)
     c.save()
-    c.run()
+    if RUN:
+        c.run()
+
+    if not ANALYZE:
+        return
     a = Analysis(name)
     print(a.DF_TICKS)
     print(a.DF_STATES)
     a.linePointsChart("exp8_1", a.DF_TICKS, "Tick", "WorldNbTransactions", "WorldGdp")
-    a.pointsChart("exp8_2", a.DF_TICKS, "Tick", "WorldStatesMoney", "WorldAgentsMoney")
+    a.linePointsChart("exp8_2", a.DF_TICKS, "Tick", "WorldStatesMoney", "WorldAgentsMoney")
 
 
 ################################
@@ -163,7 +200,11 @@ def exp9():
     name = "exp9"
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
     c.save()
-    c.run()
+    if RUN:
+        c.run()
+
+    if not ANALYZE:
+        return
     a = Analysis(name)
     print(a.DF_AGENTS_PRODUCTS)
     a.linePointsChart(name, a.DF_AGENTS_PRODUCTS, "Talent", "Sales", "Purchases")
@@ -178,7 +219,11 @@ def exp10():
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
     c.setMinMaxInitMoney(0, 10000)
     c.save()
-    c.run()
+    if RUN:
+        c.run()
+
+    if not ANALYZE:
+        return
     a = Analysis(name)
     print(a.DF_AGENTS_PRODUCTS)
     a.linePointsChart("exp10_1", a.DF_AGENTS_PRODUCTS, "AgentInitMoney", "Sales", "Purchases")
@@ -203,8 +248,11 @@ def exp11():
     c2.setNbTicks(c1.getNbTicks() * 10)
     c2.save()
 
-    Config.run()  # Run both configs in parallel
+    if RUN:
+        Config.run()  # Run both configs in parallel
 
+    if not ANALYZE:
+        return
     a1 = Analysis(name1)
     a1.barChart(name1, a1.DF_AGENTS_PRODUCTS, "IsProducer", "Purchases")
 
@@ -220,7 +268,11 @@ def exp12():
     name = "exp12"
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
     c.save()
-    c.run()
+    if RUN:
+        c.run()
+
+    if not ANALYZE:
+        return
     a = Analysis(name)
     flatState = a.DF_STATES[a.DF_STATES["Allowance"] == "Flat"].iloc[0]["Id"]
     fairState = a.DF_STATES[a.DF_STATES["Allowance"] == "Fair"].iloc[0]["Id"]
@@ -242,7 +294,11 @@ def exp13():
     name = "exp13"
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
     c.save()
-    c.run()
+    if RUN:
+        c.run()
+
+    if not ANALYZE:
+        return
     a = Analysis(name)
     print(a.DF_AGENTS_PRODUCTS)
     a.linePointsChart(name, a.DF_AGENTS_PRODUCTS, "SellingPrice", "Stock", "Sales")
@@ -269,8 +325,11 @@ def exp14():
     c3.setProductChoiceWeightedRandom()
     c3.save()
 
-    Config.run()  # Run all 3 configs in parallel
+    if RUN:
+        Config.run()  # Run all 3 configs in parallel
 
+    if not ANALYZE:
+        return
     a1 = Analysis(name1)
     a1.linePointsChart(name1, a1.DF_AGENTS_PRODUCTS, "SellingPrice", "Stock", "Sales")
 
@@ -285,24 +344,34 @@ def exp14():
 # Run all experiments #
 #########################
 
-def runExperiments():
-    experiments = [
-        exp1,
-        exp2,
-        exp3,
-        exp4,
-        exp5,
-        exp6,
-        exp7,
-        exp8,
-        exp9,
-        exp10,
-        exp11,
-        exp12,
-        exp13,
-        exp14,
-    ]
-    for exp in experiments:
-        Config.resetAll()
-        exp()
+EXPERIMENTS = [
+    exp1,
+    exp2,
+    exp3,
+    exp4,
+    exp5,
+    exp6,
+    exp7,
+    exp8,
+    exp9,
+    exp10,
+    exp11,
+    exp12,
+    exp13,
+    exp14,
+]
 
+
+def runExperimentsParallel():
+    Config.resetAll()
+    for exp in EXPERIMENTS:
+        exp()
+    Config.run()
+
+
+def plotGraphs():
+    Path("res/img").mkdir(parents=True, exist_ok=True)
+    global ANALYZE
+    ANALYZE = True
+    for exp in EXPERIMENTS:
+        exp()

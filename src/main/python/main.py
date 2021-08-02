@@ -1,5 +1,5 @@
-from experiments import runExperiments
+from experiments import runExperimentsParallel
 
 if __name__ == '__main__':
-    # geneticAlgorithm()
-    runExperiments()
+    runExperimentsParallel()
+    # plotGraphs()
