@@ -27,10 +27,10 @@
             "NB_TICKS_DISTRIBUTE_ALLOWANCES": 100
         },
         "Others": {
-            "MIN_UNEMPLOYMENT": 0.0,
-            "MAX_UNEMPLOYMENT": 0.0,
-            "MIN_BLACK": 0.0,
-            "MAX_BLACK": 0.0
+            "MIN_UNEMPLOYMENT": 0.05,
+            "MAX_UNEMPLOYMENT": 0.05,
+            "MIN_BLACK": 0.15,
+            "MAX_BLACK": 0.15
         }
     },
     "Agent": {
