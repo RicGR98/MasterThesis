@@ -292,7 +292,7 @@ class Config:
         Run configuration
         """
         home = str(Path.home())
-        cmd = f"{home}/.local/bin/apache-maven-3.8.1/bin/mvn exec:java -Dexec.mainClass='rgomesro.Main' -Dexec.cleanupDaemonThreads=false "
+        cmd = f"{home}/.local/bin/apache-maven-3.8.1/bin/mvn exec:java -Dexec.mainClass='rgomesro.Main' -Dexec.cleanupDaemonThreads=false -q"
         args = shlex.split(cmd)
         result = subprocess.check_call(args)
         if result != 0:

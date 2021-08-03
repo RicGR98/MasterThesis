@@ -8,6 +8,7 @@ class GeneticAlgorithm:
     def __init__(self):
         self.NB_PARAMS: int = 6
         self.population: List[Config] = []
+        self.popSize: int = 0
 
     def updateConfig(self, config: Config, params: List[float]) -> Config:
         """
@@ -27,17 +28,19 @@ class GeneticAlgorithm:
         config.save()
         return config
 
-    def initialize(self, popSize):
+    def initialize(self):
         """
         Initialize the population of Configs randomly
         """
         Config.resetAll()
-        for i in range(popSize):
-            c = Config("templateOptimization.json", f"{i}.json")
+        for i in range(self.popSize):
+            config = Config("templateOptimization.json", f"opti{i}.json")
             params = [random.random() for _ in range(self.NB_PARAMS)]
-            c = self.updateConfig(c, params)
-            self.population.append(c)
-        Config.run()
+            config = self.updateConfig(config, params)
+            self.population.append(config)
+
+    def selection(self):
+        pass
 
     def crossover(self):
         pass
@@ -47,6 +50,10 @@ class GeneticAlgorithm:
 
     def step(self):
         Config.resetAll()
+        self.selection()
+        self.crossover()
+        self.mutation()
+        Config.run()
 
     def run(self, popSize, nbSteps):
         """
@@ -54,11 +61,13 @@ class GeneticAlgorithm:
         :param popSize: Size of the population (number of individuals/Configs)
         :param nbSteps: Number of steps the algorithm will perform
         """
-        self.initialize(popSize)
+        self.popSize = popSize
+        self.initialize()
+        Config.run()
         for _ in range(nbSteps):
             self.step()
 
 
 def geneticAlgorithm():
     ga = GeneticAlgorithm()
-    ga.run(3, 10)
+    ga.run(10, 1)
