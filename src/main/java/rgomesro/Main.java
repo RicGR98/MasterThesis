@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        List<String> jsons = FileUtils.readFile("params/all.txt");
+        List<String> jsons = FileUtils.readFile("params/configs.txt");
         var start = System.currentTimeMillis();
         ArrayList<Thread> worlds = new ArrayList<>();
         for (String json : jsons) {

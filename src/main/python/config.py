@@ -276,15 +276,15 @@ class Config:
 
     def addToAll(self):
         """
-        Add current file to the all.txt file specifying the json files to be run
+        Add current file to the configs.txt file specifying the json files to be run
         """
-        f = open(DIR_PARAMS + "all.txt", "a")
+        f = open(DIR_PARAMS + "configs.txt", "a")
         f.write(self.outputFilename + "\n")
         f.close()
 
     @staticmethod
     def resetAll():
-        open("params/all.txt", 'w').close()  # Empty file with all configs
+        open("params/configs.txt", 'w').close()  # Empty file with all configs
 
     @staticmethod
     def run():

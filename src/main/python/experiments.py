@@ -3,7 +3,7 @@ from pathlib import Path
 from analysis import Analysis
 from config import Config
 
-DEFAULT_CONFIG_FILE = "small.json"
+DEFAULT_CONFIG_FILE = "default.json"
 
 ANALYZE = False
 RUN = False
