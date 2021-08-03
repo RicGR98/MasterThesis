@@ -43,8 +43,6 @@ class Solution:
         :param params: Format: [VAT, Levy, Tariff, WealthTax, Unemployment, Black]
         """
         assert len(params) == Solution.NB_PARAMS
-        for elem in params:
-            assert 0 <= elem <= 1
         self.config.setVat(params[0])
         self.config.setLevy(params[1])
         self.config.setTariff(params[2])
@@ -55,7 +53,7 @@ class Solution:
 
     def updateFitness(self):
         a = Analysis(f"opti/{self.id}")
-        self.fitness = a.DF_STATES["Gini"][0]
+        self.fitness = a.DF_STATES["Gdp"][0]
 
 
 class GeneticAlgorithm:
@@ -103,13 +101,13 @@ class GeneticAlgorithm:
         :return: List of Solutions (parents) that will go under crossover
         """
         print("Selection")
-        sortedPopulation = sorted(self.population)
+        sortedPopulation: List[Solution] = sorted(self.population)  # From smallest fitness to biggest
         parents = [sortedPopulation[0], sortedPopulation[1]]  # Always keep the best two (elitism)
 
-        while len(parents) <= len(self.population)//5:
+        while len(parents) <= len(self.population)//3:
             potentialParent = self.population[random.randint(0, len(self.population)-1)]
-            prob = random.uniform(0, 1)  # Limits of fitness score to accept or not
-            if prob >= potentialParent.fitness:  # Smaller fitness = better chances at getting picked
+            prob = random.uniform(0, sortedPopulation[-1].fitness)  # Limits of fitness score to accept or not
+            if prob >= potentialParent.fitness:
                 parents.append(potentialParent)  # Accepted
 
         return parents
@@ -142,7 +140,11 @@ class GeneticAlgorithm:
         Mutate, with a certain probability, the new offsprings.
         """
         print("Mutation")
-
+        mutationProbability = 0.2
+        for solution in self.population:
+            if random.random() < mutationProbability:
+                component = random.randint(0, len(solution.params)-1)
+                solution.params[component] = random.random()
 
     def step(self):
         """
@@ -165,6 +167,7 @@ class GeneticAlgorithm:
         for i in range(nbSteps):
             self.step()
             print(f"Step {i} finished")
+        self.run()
         print(sorted(self.population))
         print(f"Optimization finished")
 
@@ -176,4 +179,4 @@ def geneticAlgorithm():
     Path("res/csv/products/opti").mkdir(parents=True, exist_ok=True)
     Path("res/csv/ticks/opti").mkdir(parents=True, exist_ok=True)
     ga = GeneticAlgorithm()
-    ga.launch(popSize=20, nbSteps=3)
+    ga.launch(popSize=10, nbSteps=3)
