@@ -1,7 +1,5 @@
 package rgomesro.models;
 
-import me.tongfei.progressbar.ProgressBar;
-import me.tongfei.progressbar.ProgressBarBuilder;
 import rgomesro.Params;
 import rgomesro.models.entities.Agent;
 import rgomesro.models.entities.Product;
@@ -12,7 +10,6 @@ import rgomesro.utils.RandomUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 
 /**
@@ -132,12 +129,9 @@ public class World implements Runnable{
      * Start the World simulation
      */
     public void run(){
-        ProgressBarBuilder pbb = new ProgressBarBuilder();
-        pbb.setTaskName("Simulation:");
-        pbb.setUnit(" ticks", 1);
-        ProgressBar
-                .wrap(IntStream.range(1, params.NB_TICKS+1), pbb)
-                .forEach(this::tick);
+        for (int i = 1; i < params.NB_TICKS + 1; i++) {
+            this.tick(i);
+        }
 //        this.saveAllToCsv();
     }
 

@@ -63,11 +63,11 @@
             <version>1.5.1</version>
         </dependency>
 
-        <dependency> <!-- Progress bar library -->
-            <groupId>me.tongfei</groupId>
-            <artifactId>progressbar</artifactId>
-            <version>0.9.1</version>
-        </dependency>
+<!--        <dependency> &lt;!&ndash; Progress bar library &ndash;&gt;-->
+<!--            <groupId>me.tongfei</groupId>-->
+<!--            <artifactId>progressbar</artifactId>-->
+<!--            <version>0.9.1</version>-->
+<!--        </dependency>-->
 
         <dependency> <!-- Apache Commons Math3 (Weighted random choice) -->
             <groupId>org.apache.commons</groupId>

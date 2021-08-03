@@ -26,7 +26,7 @@ class Solution:
         return self.fitness < other.fitness
 
     def __str__(self):
-        return f"{self.id} -> {self.fitness}"
+        return f"{self.id} -> {round(self.fitness, 3)}"
 
     def __repr__(self):
         return self.__str__()
@@ -65,9 +65,25 @@ class GeneticAlgorithm:
         for i in range(popSize):
             self.population.append(Solution(i))
 
+    def run(self):
+        """
+        Do multiple runs with the same configs and compute an average
+        fitness for each Configuration
+        """
+        NB_RUNS = 5
+        avgFitnesses = [0 for _ in range(len(self.population))]
+        for _ in range(NB_RUNS):
+            Config.run()
+            fitnesses = self.fitness()
+            for i in range(len(self.population)):
+                avgFitnesses[i] += fitnesses[i]
+        for i in range(len(self.population)):
+            self.population[i].fitness = avgFitnesses[i]/NB_RUNS
+
     def fitness(self):
         for solution in self.population:
             solution.updateFitness()
+        return [solution.fitness for solution in self.population]
 
     def selection(self):
         pass
@@ -82,13 +98,12 @@ class GeneticAlgorithm:
         """
         Single step in the Genetic Algorithm
         """
-        Config.run()
-        self.fitness()
+        self.run()
         self.selection()
         self.crossover()
         self.mutation()
 
-    def run(self, popSize, nbSteps):
+    def launch(self, popSize, nbSteps):
         """
         Run the Genetic Algorithm Optimization
         :param popSize: Size of the population (number of individuals/Configs)
@@ -100,8 +115,6 @@ class GeneticAlgorithm:
             self.step()
             print(sorted(self.population))
             print(f"Step {i} finished")
-        Config.run()
-        self.fitness()
         print(sorted(self.population))
         print(f"Optimization finished")
 
@@ -113,4 +126,4 @@ def geneticAlgorithm():
     Path("res/csv/products/opti").mkdir(parents=True, exist_ok=True)
     Path("res/csv/ticks/opti").mkdir(parents=True, exist_ok=True)
     ga = GeneticAlgorithm()
-    ga.run(3, 3)
+    ga.launch(3, 3)
