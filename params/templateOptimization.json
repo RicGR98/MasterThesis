@@ -1,0 +1,49 @@
+{
+    "World": {
+        "PRODUCT_CHOICE": "CHEAPEST",
+        "NB_STATES": 1,
+        "NB_AGENTS": 1000,
+        "NB_TICKS": 2000,
+        "NB_TICKS_SAVE_CSV": 100
+    },
+    "Connections": {
+        "CLUSTER_SIZE": 0,
+        "PROB_CONNECTION": 0.0
+    },
+    "State": {
+        "Tax": {
+            "MIN_VAT": 0.2,
+            "MAX_VAT": 0.2,
+            "MIN_LEVY": 0.1,
+            "MAX_LEVY": 0.1,
+            "MIN_TARIFF": 0.3,
+            "MAX_TARIFF": 0.3,
+            "VAL_WEALTH_TAX_TOP": 0.1,
+            "MIN_WEALTH_TAX_VALUE": 0.2,
+            "MAX_WEALTH_TAX_VALUE": 0.2,
+            "NB_TICKS_COLLECT_TAXES": 100
+        },
+        "Allowance": {
+            "NB_TICKS_DISTRIBUTE_ALLOWANCES": 100
+        },
+        "Others": {
+            "MIN_UNEMPLOYMENT": 0.05,
+            "MAX_UNEMPLOYMENT": 0.05,
+            "MIN_BLACK": 0.15,
+            "MAX_BLACK": 0.15
+        }
+    },
+    "Agent": {
+        "MIN_INIT_MONEY": 1000.0,
+        "MAX_INIT_MONEY": 1000.0,
+        "NB_PRODUCED_PRODUCTS": 3,
+        "RATIO_BUY": 0.5,
+        "RATIO_PRODUCE": 0.5
+    },
+    "Product": {
+        "NB_DIFF_PRODUCTS": 50,
+        "MIN_PRICE": 0.0,
+        "MAX_PRICE": 300.0,
+        "MAX_STOCK": 2000
+    }
+}
