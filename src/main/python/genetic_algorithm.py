@@ -7,14 +7,15 @@ from analysis import Analysis
 
 
 class Solution:
+    NB_PARAMS = 6
+
     def __init__(self, _id):
         """
         Initialize random parameters
         :param _id: Id of the solution
         """
-        self.NB_PARAMS = 6
         self.id = _id
-        self.params: List[float] = [random.random() for _ in range(self.NB_PARAMS)]
+        self.params: List[float] = [random.random() for _ in range(Solution.NB_PARAMS)]
         self.config: Config = Config("templateOptimization.json", f"opti/{self.id}.json")
         self.updateConfig(self.params)
         self.fitness: float = 0
@@ -26,7 +27,12 @@ class Solution:
         return self.fitness < other.fitness
 
     def __str__(self):
-        return f"{self.id} -> {round(self.fitness, 3)}"
+        params = ""
+        for i in range(len(self.params)):
+            params += str(round(self.params[i], 2))
+            if i != len(self.params)-1:
+                params += ", "
+        return f"{self.id} -> {round(self.fitness, 5)} [{params}]"
 
     def __repr__(self):
         return self.__str__()
@@ -36,7 +42,7 @@ class Solution:
         Take a list of parameters that will be set to the config file
         :param params: Format: [VAT, Levy, Tariff, WealthTax, Unemployment, Black]
         """
-        assert len(params) == self.NB_PARAMS
+        assert len(params) == Solution.NB_PARAMS
         for elem in params:
             assert 0 <= elem <= 1
         self.config.setVat(params[0])
@@ -70,6 +76,7 @@ class GeneticAlgorithm:
         Do multiple runs with the same configs and compute an average
         fitness for each Configuration
         """
+        print("Run")
         NB_RUNS = 5
         avgFitnesses = [0 for _ in range(len(self.population))]
         for _ in range(NB_RUNS):
@@ -80,7 +87,7 @@ class GeneticAlgorithm:
         for i in range(len(self.population)):
             self.population[i].fitness = avgFitnesses[i]/NB_RUNS
 
-    def fitness(self):
+    def fitness(self) -> List[float]:
         """
         Update the fitness value of all Solutions in the population
         :return: List containing the fitness of each Solution
@@ -89,16 +96,17 @@ class GeneticAlgorithm:
             solution.updateFitness()
         return [solution.fitness for solution in self.population]
 
-    def selection(self):
+    def selection(self) -> List[Solution]:
         """
         Select the solutions that will become the parents for the
         next generation according to their fitness (smaller = better)
         :return: List of Solutions (parents) that will go under crossover
         """
+        print("Selection")
         sortedPopulation = sorted(self.population)
         parents = [sortedPopulation[0], sortedPopulation[1]]  # Always keep the best two (elitism)
 
-        while len(parents) != self.population//5:
+        while len(parents) <= len(self.population)//5:
             potentialParent = self.population[random.randint(0, len(self.population)-1)]
             prob = random.uniform(0, 1)  # Limits of fitness score to accept or not
             if prob >= potentialParent.fitness:  # Smaller fitness = better chances at getting picked
@@ -106,19 +114,44 @@ class GeneticAlgorithm:
 
         return parents
 
-    def crossover(self):
-        pass
+    def crossover(self, parents: List[Solution]):
+        """
+        Uniform crossover. We take, at random, two parents from the list
+        of parents (p1 and p2) and for each Solution component, the
+        offspring will either copy p1 or p2.
+        :param parents: List of Solutions with the best fitnesses
+        """
+        print("Crossover")
+        popSize = len(self.population)
+        self.population.clear()
+        for _id in range(popSize):  # Make sure we have the same population size as before
+            parent1: Solution = random.choice(parents)
+            parent2: Solution = random.choice(parents)
+            params = []
+            for paramIndex in range(Solution.NB_PARAMS):  # For each solution component
+                if random.random() > 0.5:
+                    params.append(parent1.params[paramIndex])
+                else:
+                    params.append(parent2.params[paramIndex])
+            offspring = Solution(_id)
+            offspring.updateConfig(params)
+            self.population.append(offspring)
 
     def mutation(self):
-        pass
+        """
+        Mutate, with a certain probability, the new offsprings.
+        """
+        print("Mutation")
+
 
     def step(self):
         """
         Single step in the Genetic Algorithm
         """
         self.run()
-        self.selection()
-        self.crossover()
+        print(sorted(self.population))
+        parents = self.selection()
+        self.crossover(parents)
         self.mutation()
 
     def launch(self, popSize, nbSteps):
@@ -131,7 +164,6 @@ class GeneticAlgorithm:
         self.initialize(popSize)
         for i in range(nbSteps):
             self.step()
-            print(sorted(self.population))
             print(f"Step {i} finished")
         print(sorted(self.population))
         print(f"Optimization finished")
@@ -144,4 +176,4 @@ def geneticAlgorithm():
     Path("res/csv/products/opti").mkdir(parents=True, exist_ok=True)
     Path("res/csv/ticks/opti").mkdir(parents=True, exist_ok=True)
     ga = GeneticAlgorithm()
-    ga.launch(popSize=3, nbSteps=3)
+    ga.launch(popSize=20, nbSteps=3)
