@@ -176,7 +176,6 @@ public final class Params {
     public final class Agent {
         public final float MIN_INIT_MONEY;
         public final float MAX_INIT_MONEY;
-        public final int NB_PRODUCED_PRODUCTS;
         public final float RATIO_BUY;
         public final float RATIO_PRODUCE;
 
@@ -186,7 +185,6 @@ public final class Params {
             MIN_INIT_MONEY = JsonUtils.getFloat(jsonAgent, "MIN_INIT_MONEY");
             MAX_INIT_MONEY = JsonUtils.getFloat(jsonAgent, "MAX_INIT_MONEY");
 
-            NB_PRODUCED_PRODUCTS = JsonUtils.getInt(jsonAgent, "NB_PRODUCED_PRODUCTS");
             RATIO_BUY = JsonUtils.getFloat(jsonAgent, "RATIO_BUY");
             RATIO_PRODUCE = JsonUtils.getFloat(jsonAgent, "RATIO_PRODUCE");
         }

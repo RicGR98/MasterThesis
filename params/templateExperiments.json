@@ -36,7 +36,6 @@
     "Agent": {
         "MIN_INIT_MONEY": 1000.0,
         "MAX_INIT_MONEY": 1000.0,
-        "NB_PRODUCED_PRODUCTS": 3,
         "RATIO_BUY": 0.5,
         "RATIO_PRODUCE": 0.5
     },
