@@ -81,12 +81,30 @@ class GeneticAlgorithm:
             self.population[i].fitness = avgFitnesses[i]/NB_RUNS
 
     def fitness(self):
+        """
+        Update the fitness value of all Solutions in the population
+        :return: List containing the fitness of each Solution
+        """
         for solution in self.population:
             solution.updateFitness()
         return [solution.fitness for solution in self.population]
 
     def selection(self):
-        pass
+        """
+        Select the solutions that will become the parents for the
+        next generation according to their fitness (smaller = better)
+        :return: List of Solutions (parents) that will go under crossover
+        """
+        sortedPopulation = sorted(self.population)
+        parents = [sortedPopulation[0], sortedPopulation[1]]  # Always keep the best two (elitism)
+
+        while len(parents) != self.population//5:
+            potentialParent = self.population[random.randint(0, len(self.population)-1)]
+            prob = random.uniform(0, 1)  # Limits of fitness score to accept or not
+            if prob >= potentialParent.fitness:  # Smaller fitness = better chances at getting picked
+                parents.append(potentialParent)  # Accepted
+
+        return parents
 
     def crossover(self):
         pass
@@ -126,4 +144,4 @@ def geneticAlgorithm():
     Path("res/csv/products/opti").mkdir(parents=True, exist_ok=True)
     Path("res/csv/ticks/opti").mkdir(parents=True, exist_ok=True)
     ga = GeneticAlgorithm()
-    ga.launch(3, 3)
+    ga.launch(popSize=3, nbSteps=3)
