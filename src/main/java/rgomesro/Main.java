@@ -21,6 +21,6 @@ public class Main {
         for (Thread world : worlds) {
             world.join();
         }
-        System.out.println((System.currentTimeMillis()-start)/1000f);
+//        System.out.println((System.currentTimeMillis()-start)/1000f);
     }
 }

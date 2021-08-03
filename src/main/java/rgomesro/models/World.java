@@ -35,21 +35,23 @@ public class World implements Runnable{
         Params.getInstance().load(paramsFile);
         this.paramsFile = paramsFile.replace(".json", "");
         this.params = Params.getInstance().world;
-        System.out.println(
-                "NB_STATES: " + params.NB_STATES + ", " +
-                "NB_AGENTS: " + params.NB_AGENTS + ", " +
-                "NB_TICKS: " + params.NB_TICKS + ", " +
-                "PRODUCT_CHOICE: " + params.PRODUCT_CHOICE + ", " +
-                "CLUSTER_SIZE: " + Params.getInstance().connections.CLUSTER_SIZE + ", " +
-                "PROB_CONNECTION: " + Params.getInstance().connections.PROB_CONNECTION + ", " +
-                "VAT: [" + Params.getInstance().tax.MIN_VAT + ", " + Params.getInstance().tax.MAX_VAT + "], " +
-                "LEVY: [" + Params.getInstance().tax.MIN_LEVY + ", " + Params.getInstance().tax.MAX_LEVY + "], " +
-                "TARIFF: [" + Params.getInstance().tax.MIN_TARIFF + ", " + Params.getInstance().tax.MAX_TARIFF + "], " +
-                "WEALTH: [" + Params.getInstance().tax.MIN_WEALTH_TAX_VALUE + ", " + Params.getInstance().tax.MAX_WEALTH_TAX_VALUE + "], " +
-                "UNEMPLOYMENT: [" + Params.getInstance().state.MIN_UNEMPLOYMENT + ", " + Params.getInstance().state.MAX_UNEMPLOYMENT + "], " +
-                "BLACK: [" + Params.getInstance().state.MIN_BLACK + ", " + Params.getInstance().state.MAX_BLACK + "], " +
-                "INIT_MONEY: [" + Params.getInstance().agent.MIN_INIT_MONEY + ", " + Params.getInstance().agent.MAX_INIT_MONEY + "]"
-        );
+        if (this.paramsFile.contains("exp")){ //Only show params when doing Experiments
+            System.out.println(
+                    "NB_STATES: " + params.NB_STATES + ", " +
+                    "NB_AGENTS: " + params.NB_AGENTS + ", " +
+                    "NB_TICKS: " + params.NB_TICKS + ", " +
+                    "PRODUCT_CHOICE: " + params.PRODUCT_CHOICE + ", " +
+                    "CLUSTER_SIZE: " + Params.getInstance().connections.CLUSTER_SIZE + ", " +
+                    "PROB_CONNECTION: " + Params.getInstance().connections.PROB_CONNECTION + ", " +
+                    "VAT: [" + Params.getInstance().tax.MIN_VAT + ", " + Params.getInstance().tax.MAX_VAT + "], " +
+                    "LEVY: [" + Params.getInstance().tax.MIN_LEVY + ", " + Params.getInstance().tax.MAX_LEVY + "], " +
+                    "TARIFF: [" + Params.getInstance().tax.MIN_TARIFF + ", " + Params.getInstance().tax.MAX_TARIFF + "], " +
+                    "WEALTH: [" + Params.getInstance().tax.MIN_WEALTH_TAX_VALUE + ", " + Params.getInstance().tax.MAX_WEALTH_TAX_VALUE + "], " +
+                    "UNEMPLOYMENT: [" + Params.getInstance().state.MIN_UNEMPLOYMENT + ", " + Params.getInstance().state.MAX_UNEMPLOYMENT + "], " +
+                    "BLACK: [" + Params.getInstance().state.MIN_BLACK + ", " + Params.getInstance().state.MAX_BLACK + "], " +
+                    "INIT_MONEY: [" + Params.getInstance().agent.MIN_INIT_MONEY + ", " + Params.getInstance().agent.MAX_INIT_MONEY + "]"
+            );
+        }
         this.worldMarket = new WorldMarket(this);
         this.states = new ArrayList<>(params.NB_STATES);
         this.agents = new ArrayList<>(params.NB_AGENTS);
