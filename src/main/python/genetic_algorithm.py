@@ -1,5 +1,6 @@
 import random
 from typing import List
+from pathlib import Path
 
 from config import Config
 
@@ -34,10 +35,13 @@ class GeneticAlgorithm:
         """
         Config.resetAll()
         for i in range(self.popSize):
-            config = Config("templateOptimization.json", f"opti{i}.json")
+            config = Config("templateOptimization.json", f"opti/{i}.json")
             params = [random.random() for _ in range(self.NB_PARAMS)]
             config = self.updateConfig(config, params)
             self.population.append(config)
+
+    def fitness(self, config: Config):
+        print(config.outputFilename)
 
     def selection(self):
         pass
@@ -49,7 +53,11 @@ class GeneticAlgorithm:
         pass
 
     def step(self):
+        """
+        Single step in the Genetic Algorithm
+        """
         Config.resetAll()
+        self.fitness(self.population[0])
         self.selection()
         self.crossover()
         self.mutation()
@@ -69,5 +77,10 @@ class GeneticAlgorithm:
 
 
 def geneticAlgorithm():
+    Path("params/opti").mkdir(parents=True, exist_ok=True)
+    Path("res/csv/agents/opti").mkdir(parents=True, exist_ok=True)
+    Path("res/csv/states/opti").mkdir(parents=True, exist_ok=True)
+    Path("res/csv/products/opti").mkdir(parents=True, exist_ok=True)
+    Path("res/csv/ticks/opti").mkdir(parents=True, exist_ok=True)
     ga = GeneticAlgorithm()
-    ga.run(10, 1)
+    ga.run(5, 1)

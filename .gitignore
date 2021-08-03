@@ -614,3 +614,5 @@ TSWLatexianTemp*
 /.settings/
 /.classpath
 /.project
+/params/exp/
+/params/opti/
