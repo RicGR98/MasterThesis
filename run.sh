@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#SBATCH --job-name=heuristic
+#SBATCH --job-name=MasterThesis
 #SBATCH -o output.txt # STDOUT
 #SBATCH -e error.txt # STDERR
 #SBATCH --mail-type=ALL
