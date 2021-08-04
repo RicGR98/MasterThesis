@@ -1,0 +1,2 @@
+Id,PopSize,VAT,Levy,Tariff,WealthTax,Allowance,Unemployment,Black,Gdp,StateMoney,PopTotalMoney,NbTransactions,ConnectedStates
+0,1000,0.2,0.1,0.3,0.2,Flat,0.3,0.0,1.1164302E7,3891.955,996122.06,236081,
