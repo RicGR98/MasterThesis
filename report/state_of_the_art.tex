@@ -1,7 +1,7 @@
 \chapter{State of the Art}\label{section:state_of_the_art}
 
 We will now depict the current state-of-the-art of what research is happening on the same topic in both economics and computer science.
-Our goal will be to see if the state-of-the-art research presented hereunder does match the results that our simulation will yield.
+Our goal will be to see if the state-of-the-art research presented hereunder does match the results that our simulation will yield. The state-of-the-art will not detail every metric thoroughly as the goal is to have an overview of these metrics and their roles, and not to do a thesis for each of them. Hence, we will briefly define the notion, see its application in the real world and analyze the importance of the parameter on other metrics according to the literature.
 
 \section{In economics}
 
@@ -13,7 +13,7 @@ Prof. Bayenet, Professor of ``Politique économique" (taught at ULB), presents e
     \item \textbf{Redistribution}: the State should correct the inequalities in the distribution of wealth among its agents. This is the part we are the interested the most in. We have some leverage on this part thanks to the taxes that a State collects in order to distribute wealth later on. We will also check the influence of other parameters hereunder.
 \end{itemize} 
 
-This is exactly what we will study as the choices of the State regarding its taxation and its distribution system will influence the agents of the State. For this we will analyze two sets of parameters: the ones that a State can directly choose (VAT rate, wealth tax, ...), and those that the State cannot \emph{directly} operate on (unemployment, black economy). We will now explain these parameters and analyze the current state-of-the-art regarding them.
+To make these possible, the State should make expenses, create some rules and levy taxes. We will study the choices of the State regarding its taxation and its distribution system which will influence the agents of the State. For this we will analyze two sets of parameters: the ones that a State can directly choose (VAT rate, wealth tax, clusters, ...), and those that the State cannot \emph{directly} operate on (unemployment, black economy). We will now explain these parameters and analyze the current state-of-the-art regarding them.
 
 \subsection{Taxes}
 
@@ -99,8 +99,8 @@ This is exactly what we will study as the choices of the State regarding its tax
     \subsubsection{Black economy}
     Black economy, also known as shadow economy or non-observed economy \cite{oecdBlack}, is a part of the economy which goes ``unseen'' by the State, usually in order to avoid paying due taxes. One can also note that the formal standardized definition does not include illegal activities (such as drug selling or prostitution) in the black economy share. \cite{pyle1989tax} 
     
-    Avoiding paying such taxes allows, on the one hand, the agents to pay less money for their products, therefore being able to buy more products. However, on the other hand, the State will see its taxes revenue decrease hence less money to redistribute later on. 
-    If black economy is limited, then its impacts may be negligible. However, if the black economy takes a large part of the total economy, the State will not be able to play its redistribution role resulting eventually in more inequalities among the agents.
+    Avoiding paying such taxes allows, on the one hand, the agents to pay less money for their products, therefore being able to buy more products. However, on the other hand, the State will see its taxes revenue decrease. 
+    If black economy is limited, then its impacts may be negligible. However, if the black economy takes a large part of the total economy, the State will not be able to play its redistribution role resulting eventually in more inequalities among the agents. As noted by Anna Krajewska, one big disadvantage of this underground economy is the ``deepening [of] income differentiation''. Contrariwise ``high  taxes  and  transfers  lead  to  more  equal  distribution  of incomes.'' \cite{blackEcoImpact} We will see in our experiments what role this rate plays regarding different metrics including the income difference between agents (Gini coefficient).
 
     Unfortunately, the black economy is hard to measure precisely. Economists have come up with different kind of methods to evaluate this share such as sampling a portion of the population tax returns and analyze them thoroughly. From this, one can extrapolate the results to a larger scale. \cite{pyle1989tax}. This non-observed economy share has been estimated for several countries, among which some countries of the OECD (Organization for Economic Co-operation and Development) as presented in the figure~\ref{fig:black_economy_oecd} below. It is computed as a share of the total GDP of the country. For instance, Belgium sits at around 22\%. This is a rather significant estimate.
     
@@ -112,7 +112,20 @@ This is exactly what we will study as the choices of the State regarding its tax
     \end{figure}
 
     \subsubsection{Unemployment}
-    %TODO
+    The second rate which the State cannot \emph{directly} control is the unemployment rate. This rate is defined as the share of active people (usually adults in age of working) who have no money-making activity and therefore no direct revenue. 
+
+    Naturally, the higher the unemployment rate is, the less money the State will collect from taxes. In such a case, the State will have less money to redistribute through allowances hence inequalities will more prevalent among agents. This has been studied by H. Naci Mocan where he draws the conclusion that ``decomposition  of  unemployment  into  cyclical  and  structural  components  reveals  that  an  increase  in  structural unemployment  increases  the  income  share  of  the  highest quintile, and decreases the shares of the bottom sixty percent of the population.'' \cite{Unemployment1}, in other words the inequalities are much more prominent and the Gini coefficient is therefore higher. These results have been confirmed by another researcher Rubens Penha Cysne who analyzed, empirically, standard job-search models, and found a ``positive correlation between inequality and unemployment'' \cite{Unemployment2}. Therefore, these two will be important parameter and metric to analyze later on in our experiments.
+
+    In June 2021, in the OECD, the average unemployment rate was around 6.6\%, which is a bit (1.3\%) higher than before the COVID-19 pandemic. In Belgium, the rate is around 5.3\% (and 5.0\% in February 2020 before the pandemic).
+    \footnote{\url{https://www.oecd.org/newsroom/unemployment-rates-oecd-update-june-2021.htm}} We can see the evolution of this metric on the following figure~\ref{fig:unemployment_oecd}.
+    
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{img/unemployment_OECD.png}
+        \caption{Source: OECD website}
+        \label{fig:unemployment_oecd}
+    \end{figure}
+
 
 
 \subsection{Allowance and Universal Basic Income}
@@ -125,30 +138,30 @@ Because the State has collected money from different taxes, it will now have to 
     
     However, social security is not always a right in every country. Not all countries have implemented this safety net. According to the United Nations, the majority of the people across the world are not protected by a social security \footnote{\url{https://news.un.org/en/story/2010/11/359142-un-study-finds-most-people-worldwide-have-no-social-security}}. This social security is mostly available in developed countries whereas the percentage of people covered by such a system falls to around 5\% in sub-Saharan Africa.
     
-    In our simulation, the social security will be a way of redistributing wealth in order to allow every agent to produce, consume and increase its happiness.
+    In our simulation, the social security will be a way of redistributing wealth in order to allow every agent to produce and consume products.
     
     \subsubsection{Universal Basic Income}
     
-    Contrariwise to the allowances, in the universal basic income, we give the same amount of money regardless of the situation of each citizen. Everybody receives this amount of money periodically, no strings attached. The idea of a guaranteed income has been proposed throughout history (as early as the 16th century) and some countries have tried it but only for a limited period of time and only for a small sample of the population. Examples of countries that have tried UBI include Kenya, Finland and Macao but at relatively limited scale. 
+    Contrariwise to the allowances, in the universal basic income, we give the same amount of money regardless of the situation of each citizen. Therefore, UBI is actually a particular case of the general allowance. Everybody receives this amount of money periodically, no strings attached. The idea of a guaranteed income has been proposed throughout history (as early as the 16th century) and some countries have tried it but only for a limited period of time and only for a small sample of the population. Examples of countries that have tried UBI include Kenya, Finland and Macao but at a relatively limited scale. 
     
     According to its advocates, the main reason why UBI will be necessary sooner or later is because of the rise of technologies which will replace humans and therefore making them jobless. Its ultimate goal would be to eradicate poverty by assuring everyone a decent amount of money for the most basic needs. And although it might seem Utopian and perhaps not perfect, Thomas Straubhaar, argues that it is worthwhile.\cite{straubhaar2017economics}
     
-    However, its detractors critic the cost of such a system and its viability. Another argument is that, although some jobs will be lost, new ones will probably be created; the same way it was done during the industrial revolution. Finally, according to the critics, it is unfair because even the richest people would get this income. Robert Stephens rather suggests \textquote{to simplify and amend the current system, to make it fit  better  with the realities of the 21st century} \cite{stephens2019universal}.
+    However, its detractors critic the cost of such a system and its viability. Another argument is that, although some jobs will be lost, new ones will probably be created; the same way it was done during the industrial revolution. Finally, according to the critics, it is unfair because even the richest people would get this income. Robert Stephens rather suggests \textquote{to simplify and amend the current system, to make it fit  better  with the realities of the 21st century} \cite{stephens2019universal}. One might also critic its purpose since the goal of the redistribution is to diminish inequalities, which will hardly be the case if every agent receives the same amount of money. We will analyze and compare these two ways of distributing wealth and see which one performs better on which metrics.
 
     
 \subsection{Economic clusters}
-    As we have seen before, countries can impose tariffs on customs in order to discourage imports. However, what if countries had agreements between them in order to allow free trade (thus a null customs tariff) in-between a cluster? The most simple cluster would be made of two States freely importing and exporting from and to one another. This is known as a bilateral agreement. However, we can extrapolate this idea to more countries: a cluster made of a single market where no import tariffs would be levied by its member states.
+    As we have seen before, countries can impose tariffs on customs in order to discourage imports and encourage local consumption. However, what if countries had agreements between them in order to allow free trade (thus a null customs tariff) in-between a cluster? The most simple cluster would be made of two States freely importing and exporting from and to one another. This is known as a bilateral agreement. However, we can extrapolate this idea to more countries: a cluster made of a single market where no import tariffs would be levied by its member states.
     
     A very famous real-world example is the European Union (EU). The EU currently counts 27 member states exchanging in one single market with no tariffs on customs. The EU holds lots of advantages among these we can cite a few such as the freedom of movement or worker's protection across all member states, and the most important one being the large common market where goods and services can be exchanged at a cheaper price because of the lack of tariffs which also encourages investment.
     
     It also has some drawbacks such as the membership cost, the non-unique currency, and more bureaucracy. However, these will not be present in our simulation which does not model these aspects.
     
-    We should also note that being in a cluster does not exclude a member state from having other bilateral agreements with other states.
+    We should also note that being in a cluster does not exclude a member state from having other bilateral agreements with other states. Indeed, the difference between the two is that a bilateral agreement is only between two countries, whereas in a cluster, all States are connected to one another. We will see how these two will influence important metrics such as the number of transactions or the Gini coefficient.
 
 \subsection{Efficiency/Equality trade-off}
     Finally, we will briefly discuss the broad question of the efficiency/equality trade-off and why it is a trade-off. Indeed, a trade-off means that improving one side will, generally, deteriorate the other side.
     
-    This trade-off has actually been studied in previous works related to this one with the original work being the one of Bersini and van Zeebroeck: \textquote{Why should an economy be competitive ?}. This publication concludes that \textquote{a competitive market distributes welfare much less equally and is responsible for inequality amplifying effect} \cite{bersini}.
+    This trade-off has actually been studied in previous works related to this one with the original work being the one of Bersini and van Zeebroeck: \textquote{Why should an economy be competitive ?}. This publication concludes that \textquote{a competitive market distributes welfare much less equally and is responsible for inequality amplifying effect} \cite{bersini}. We will also do an empirical analysis of this trade-off and analyze the results computed by our simulation.
     
 
 \section{In computer science}
