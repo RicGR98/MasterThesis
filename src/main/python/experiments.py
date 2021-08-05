@@ -15,28 +15,43 @@ RUN = False
 def exp0():
     """
     Experiment 0:
-    What if the State collects no taxes ? Compare to exp14_1
+    What if the State collects no taxes ?
     """
-    name = "exp/0"
-    c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
-    c.setNbAgents(1000)
-    c.setNbStates(1)
-    c.setVat(0)
-    c.setLevy(0)
-    c.setTariff(0)
-    c.setWealth(0)
-    c.save()
+    name1 = "exp/0_1"
+    c1 = Config(DEFAULT_CONFIG_FILE, f"{name1}.json")
+    c1.setNbAgents(2000)
+    c1.setNbStates(10)
+    c1.save()
+
+    name2 = "exp/0_2"
+    c2 = Config(DEFAULT_CONFIG_FILE, f"{name2}.json")
+    c2.setNbAgents(2000)
+    c2.setNbStates(10)
+    c2.setVat(0)
+    c2.setLevy(0)
+    c2.setTariff(0)
+    c2.setWealth(0)
+    c2.save()
+
     if RUN:
-        c.run()
+        Config.run()  # Run both configs in parallel
 
     if not ANALYZE:
         return
-    a = Analysis(name)
-    print(a.DF_STATES)
-    a.DF_STATES = a.DF_STATES[a.DF_STATES["Allowance"] == "Fair"]
-    a.barChart("exp/0_1", a.DF_STATES, "VAT", "Gdp", "NbTransactions")
-    a.barChart("exp/0_2", a.DF_STATES, "VAT", "PopTotalMoney", "StateMoney")
-    a.barChart("exp/0_3", a.DF_STATES, "VAT", "Gini")
+
+    a1 = Analysis(name1)
+    print(a1.DF_STATES)
+    a1.DF_STATES = a1.DF_STATES[a1.DF_STATES["Allowance"] == "Fair"]
+    a1.barChart("exp/0_1_1", a1.DF_STATES, "VAT", "Gdp", "NbTransactions")
+    a1.barChart("exp/0_1_2", a1.DF_STATES, "VAT", "PopTotalMoney", "StateMoney")
+    a1.barChart("exp/0_1_3", a1.DF_STATES, "VAT", "Gini")
+
+    a2 = Analysis(name2)
+    print(a2.DF_STATES)
+    a2.DF_STATES = a2.DF_STATES[a2.DF_STATES["Allowance"] == "Fair"]
+    a2.barChart("exp/0_2_1", a2.DF_STATES, "VAT", "Gdp", "NbTransactions")
+    a2.barChart("exp/0_2_2", a2.DF_STATES, "VAT", "PopTotalMoney", "StateMoney")
+    a2.barChart("exp/0_2_3", a2.DF_STATES, "VAT", "Gini")
 
 
 def exp1():
@@ -377,20 +392,20 @@ def exp14():
 
 EXPERIMENTS = [
     exp0,
-    exp1,
-    exp2,
-    exp3,
-    exp4,
-    exp5,
-    exp6,
-    exp7,
-    exp8,
-    exp9,
-    exp10,
-    exp11,
-    exp12,
-    exp13,
-    exp14,
+    # exp1,
+    # exp2,
+    # exp3,
+    # exp4,
+    # exp5,
+    # exp6,
+    # exp7,
+    # exp8,
+    # exp9,
+    # exp10,
+    # exp11,
+    # exp12,
+    # exp13,
+    # exp14,
 ]
 
 
