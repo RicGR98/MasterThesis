@@ -33,6 +33,7 @@ def exp0():
         return
     a = Analysis(name)
     print(a.DF_STATES)
+    a.DF_STATES = a.DF_STATES[a.DF_STATES["Allowance"] == "Fair"]
     a.barChart("exp/0_1", a.DF_STATES, "VAT", "Gdp", "NbTransactions")
     a.barChart("exp/0_2", a.DF_STATES, "VAT", "PopTotalMoney", "StateMoney")
     a.barChart("exp/0_3", a.DF_STATES, "VAT", "Gini")
@@ -54,6 +55,7 @@ def exp1():
         return
     a = Analysis(name)
     print(a.DF_STATES)
+    a.DF_STATES = a.DF_STATES[a.DF_STATES["Allowance"] == "Fair"]
     a.linePointsChart("exp/1_1", a.DF_STATES, "VAT", "Gdp", "NbTransactions")
     a.linePointsChart("exp/1_2", a.DF_STATES, "VAT", "PopTotalMoney", "StateMoney")
     a.linePointsChart("exp/1_3", a.DF_STATES, "VAT", "Gini")
@@ -75,6 +77,7 @@ def exp2():
         return
     a = Analysis(name)
     print(a.DF_STATES)
+    a.DF_STATES = a.DF_STATES[a.DF_STATES["Allowance"] == "Fair"]
     a.linePointsChart("exp/2_1", a.DF_STATES, "Levy", "Gdp", "NbTransactions")
     a.linePointsChart("exp/2_2", a.DF_STATES, "Levy", "PopTotalMoney", "StateMoney")
     a.linePointsChart("exp/2_3", a.DF_STATES, "Levy", "Gini")
@@ -97,6 +100,7 @@ def exp3():
         return
     a = Analysis(name)
     print(a.DF_STATES)
+    a.DF_STATES = a.DF_STATES[a.DF_STATES["Allowance"] == "Fair"]
     a.linePointsChart("exp/3_1", a.DF_STATES, "WealthTax", "Gdp", "NbTransactions")
     a.linePointsChart("exp/3_2", a.DF_STATES, "WealthTax", "PopTotalMoney", "StateMoney")
     a.linePointsChart("exp/3_3", a.DF_STATES, "WealthTax", "Gini")
@@ -119,6 +123,7 @@ def exp4():
     a = Analysis(name)
     print(a.DF_STATES)
     print(a.DF_AGENTS_PRODUCTS)
+    a.DF_STATES = a.DF_STATES[a.DF_STATES["Allowance"] == "Fair"]
     a.linePointsChart("exp/4_1", a.DF_STATES, "Unemployment", "Gdp", "NbTransactions")
     a.linePointsChart("exp/4_2", a.DF_STATES, "Unemployment", "PopTotalMoney", "StateMoney")
     a.linePointsChart("exp/4_3", a.DF_STATES, "Unemployment", "Gini")
@@ -141,6 +146,7 @@ def exp5():
         return
     a = Analysis(name)
     print(a.DF_STATES)
+    a.DF_STATES = a.DF_STATES[a.DF_STATES["Allowance"] == "Fair"]
     a.linePointsChart("exp/5_1", a.DF_STATES, "Black", "Gdp", "NbTransactions")
     a.linePointsChart("exp/5_2", a.DF_STATES, "Black", "PopTotalMoney", "StateMoney")
     a.linePointsChart("exp/5_3", a.DF_STATES, "Black", "Gini")
