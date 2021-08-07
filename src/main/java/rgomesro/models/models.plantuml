@@ -1,0 +1,73 @@
+@startuml
+
+
+  namespace rgomesro {
+    namespace models {
+      class rgomesro.models.Connections {
+          - clusterMembers : ArrayList<State>
+          - graph : Graph<State, DefaultEdge>
+          - states : ArrayList<State>
+          + Connections()
+          + updateConnectedStates()
+          - createCluster()
+          - createEdges()
+      }
+    }
+  }
+  
+
+  namespace rgomesro {
+    namespace models {
+      class rgomesro.models.World {
+          - agents : ArrayList<Agent>
+          - currentTick : Integer
+          - paramsFile : String
+          - productPrices : HashMap<Integer, Float>
+          - states : ArrayList<State>
+          + World()
+          + getProductChoice()
+          + getStates()
+          + run()
+          + saveAllToCsv()
+          {static} - getTicksCsvHeader()
+          - getTotalAgentsMoney()
+          - getTotalGdp()
+          - getTotalStatesMoney()
+          - init()
+          - saveAgentsToCsv()
+          - saveEntitiesToCsv()
+          - saveProductsToCsv()
+          - saveStatesToCsv()
+          - saveTicksToCsv()
+          - tick()
+      }
+    }
+  }
+  
+
+  namespace rgomesro {
+    namespace models {
+      class rgomesro.models.WorldMarket {
+          - markets : HashMap<State, Market>
+          + WorldMarket()
+          + buy()
+          + buy()
+          + getFilteredProducts()
+          + getNbPurchases()
+          + getNbSales()
+          + getProductCount()
+          + init()
+          + transaction()
+      }
+    }
+  }
+  
+
+  rgomesro.models.Connections o-- rgomesro.Params.Connections
+  rgomesro.models.World o-- rgomesro.Params.World
+  rgomesro.models.World o-- rgomesro.models.WorldMarket
+  rgomesro.models.WorldMarket o-- rgomesro.models.World
+
+
+
+@enduml

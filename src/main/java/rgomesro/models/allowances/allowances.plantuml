@@ -1,0 +1,37 @@
+@startuml
+
+
+  namespace rgomesro {
+    namespace models {
+      namespace allowances {
+        class rgomesro.models.allowances.Allowance {
+            + Allowance()
+            + Allowance()
+            + distribute()
+            + getType()
+            - distributeFair()
+            - distributeFlat()
+        }
+      }
+    }
+  }
+  
+
+  namespace rgomesro {
+    namespace models {
+      namespace allowances {
+        enum Type {
+          Fair
+          Flat
+        }
+      }
+    }
+  }
+  
+
+  rgomesro.models.allowances.Allowance o-- rgomesro.models.entities.State
+  rgomesro.models.allowances.Allowance o-- rgomesro.models.allowances.Allowance.Type
+  rgomesro.models.allowances.Allowance +-down- rgomesro.models.allowances.Allowance.Type
+
+
+@enduml

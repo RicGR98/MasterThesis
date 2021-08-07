@@ -1,0 +1,86 @@
+@startuml
+
+
+  namespace rgomesro {
+    namespace models {
+      namespace taxes {
+        class rgomesro.models.taxes.Levy {
+            + Levy()
+            + Levy()
+            + collect()
+        }
+      }
+    }
+  }
+  
+
+  namespace rgomesro {
+    namespace models {
+      namespace taxes {
+        class rgomesro.models.taxes.Tariff {
+            + Tariff()
+            + Tariff()
+            + compute()
+            + getValue()
+        }
+      }
+    }
+  }
+  
+
+  namespace rgomesro {
+    namespace models {
+      namespace taxes {
+        abstract class rgomesro.models.taxes.Tax {
+            # value
+            + compute()
+            + getValue()
+            # Tax()
+            # compute()
+        }
+      }
+    }
+  }
+  
+
+  namespace rgomesro {
+    namespace models {
+      namespace taxes {
+        class rgomesro.models.taxes.VAT {
+            + VAT()
+            + VAT()
+            + compute()
+        }
+      }
+    }
+  }
+  
+
+  namespace rgomesro {
+    namespace models {
+      namespace taxes {
+        class rgomesro.models.taxes.WealthTax {
+            - top : Float
+            + WealthTax()
+            + WealthTax()
+            + collect()
+            + getTop()
+            - getWealthiest()
+            - percentageToNumber()
+        }
+      }
+    }
+  }
+  
+
+  rgomesro.models.taxes.Levy -up-|> rgomesro.models.taxes.Tax
+  rgomesro.models.taxes.Levy o-- rgomesro.models.entities.State
+  rgomesro.models.taxes.VAT o-- rgomesro.models.entities.State
+  rgomesro.models.taxes.Tariff o-- rgomesro.models.entities.State
+  rgomesro.models.taxes.Tariff -up-|> rgomesro.models.taxes.Tax
+  rgomesro.models.taxes.VAT -up-|> rgomesro.models.taxes.Tax
+  rgomesro.models.taxes.WealthTax -up-|> rgomesro.models.taxes.Tax
+  rgomesro.models.taxes.WealthTax o-- rgomesro.models.entities.State
+
+
+@enduml

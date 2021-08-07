@@ -1,0 +1,164 @@
+@startuml
+
+
+  namespace rgomesro {
+    namespace models {
+      namespace entities {
+        class rgomesro.models.entities.Agent {
+            - initMoney : Float
+            - isProducer : Boolean
+            - money : Float
+            - nbPurchases : Integer
+            - talent : Float
+            + Agent()
+            + Agent()
+            + addMoney()
+            + buy()
+            {static} + csvHeader()
+            + getMoney()
+            + getProduct()
+            + getState()
+            + hasEnoughMoney()
+            + produce()
+            + properties()
+            + subtractMoney()
+            + tick()
+        }
+      }
+    }
+  }
+  
+
+  namespace rgomesro {
+    namespace models {
+      namespace entities {
+        abstract class rgomesro.models.entities.Entity {
+            # id : String
+            + Entity()
+            + Entity()
+            + getId()
+            {abstract} + properties()
+            + toCsv()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  namespace rgomesro {
+    namespace models {
+      namespace entities {
+        class rgomesro.models.entities.Market {
+            - nbPurchases : Integer
+            - nbSales : Integer
+            - products : ArrayList<ArrayList<Product>>
+            + Market()
+            {static} + csvHeader()
+            + getFilteredProducts()
+            + getNbPurchases()
+            + getNbSales()
+            + getProductCount()
+            {static} + getTotalPrice()
+            + incrementNbPurchases()
+            + incrementNbSales()
+            + initMarket()
+            {static} + isProductBuyable()
+            + properties()
+        }
+      }
+    }
+  }
+  
+
+  namespace rgomesro {
+    namespace models {
+      namespace entities {
+        class rgomesro.models.entities.Product {
+            - productionPrice : float
+            - sales : int
+            - sellingPrice : float
+            - stock : int
+            - type : int
+            + Product()
+            + canBeProduced()
+            {static} + csvHeader()
+            + getProducer()
+            + getProductionPrice()
+            {static} + getRandomType()
+            + getSales()
+            + getSellingPrice()
+            + getStock()
+            + getType()
+            + produce()
+            + properties()
+            + sell()
+        }
+      }
+    }
+  }
+  
+
+  namespace rgomesro {
+    namespace models {
+      namespace entities {
+        class rgomesro.models.entities.State {
+            - agents : ArrayList<Agent>
+            - black : Float
+            - connectedStates : ArrayList<State>
+            - gdp : Float
+            - money : Float
+            - unemployment : Float
+            + State()
+            + addAgent()
+            + addConnectedState()
+            + addMoney()
+            + addToGdp()
+            + collectTaxes()
+            {static} + csvHeader()
+            + distributeAllowances()
+            + getAgents()
+            + getAgentsTotalMoney()
+            + getBlack()
+            + getConnectedStates()
+            + getConnectedStatesCsv()
+            + getGdp()
+            + getMarket()
+            + getMoney()
+            + getNbPurchases()
+            + getNbSales()
+            + getTariff()
+            + getUnemployment()
+            + getVat()
+            + properties()
+            + subtractMoney()
+            + tick()
+        }
+      }
+    }
+  }
+  
+
+  rgomesro.models.entities.Agent -up-|> rgomesro.models.entities.Entity
+  rgomesro.models.entities.Agent o-- rgomesro.Params.Agent
+  rgomesro.models.entities.Agent o-- rgomesro.models.entities.Product
+  rgomesro.models.entities.Agent o-- rgomesro.models.entities.State
+  rgomesro.models.entities.Agent o-- rgomesro.models.WorldMarket
+  rgomesro.models.entities.Market -up-|> rgomesro.models.entities.Entity
+  rgomesro.models.entities.Market o-- rgomesro.Params
+  rgomesro.models.entities.Market o-- rgomesro.models.entities.State
+  rgomesro.models.entities.Product -up-|> rgomesro.models.entities.Entity
+  rgomesro.models.entities.Product o-- rgomesro.Params.Product
+  rgomesro.models.entities.Product o-- rgomesro.models.entities.Agent
+  rgomesro.models.entities.State -up-|> rgomesro.models.entities.Entity
+  rgomesro.models.entities.State o-- rgomesro.models.allowances.Allowance
+  rgomesro.models.entities.State o-- rgomesro.models.taxes.Levy
+  rgomesro.models.entities.State o-- rgomesro.models.entities.Market
+  rgomesro.models.entities.State o-- rgomesro.Params.State
+  rgomesro.models.entities.State o-- rgomesro.models.taxes.Tariff
+  rgomesro.models.entities.State o-- rgomesro.models.taxes.VAT
+  rgomesro.models.entities.State o-- rgomesro.models.taxes.WealthTax
+
+
+
+@enduml
