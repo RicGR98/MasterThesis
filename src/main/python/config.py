@@ -1,5 +1,6 @@
 import json
 import shlex
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -285,6 +286,20 @@ class Config:
     @staticmethod
     def resetAll():
         open("params/configs.txt", 'w').close()  # Empty file with all configs
+
+    @staticmethod
+    def createCsvFolder(folder):
+        Path("res/csv/agents/" + folder).mkdir(parents=True, exist_ok=True)
+        Path("res/csv/states/" + folder).mkdir(parents=True, exist_ok=True)
+        Path("res/csv/products/" + folder).mkdir(parents=True, exist_ok=True)
+        Path("res/csv/ticks/" + folder).mkdir(parents=True, exist_ok=True)
+
+    @staticmethod
+    def deleteCsvFolder(folder):
+        shutil.rmtree('res/csv/agents/' + folder, ignore_errors=True)
+        shutil.rmtree('res/csv/states/' + folder, ignore_errors=True)
+        shutil.rmtree('res/csv/products/' + folder, ignore_errors=True)
+        shutil.rmtree('res/csv/ticks/' + folder, ignore_errors=True)
 
     @staticmethod
     def run():

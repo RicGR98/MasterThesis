@@ -78,6 +78,8 @@ class GeneticAlgorithm:
         NB_RUNS = 5
         avgFitnesses = [0 for _ in range(len(self.population))]
         for _ in range(NB_RUNS):
+            Config.deleteCsvFolder("opti")
+            Config.createCsvFolder("opti")
             Config.run()
             fitnesses = self.fitness()
             for i in range(len(self.population)):
@@ -174,9 +176,5 @@ class GeneticAlgorithm:
 
 def geneticAlgorithm():
     Path("params/opti").mkdir(parents=True, exist_ok=True)
-    Path("res/csv/agents/opti").mkdir(parents=True, exist_ok=True)
-    Path("res/csv/states/opti").mkdir(parents=True, exist_ok=True)
-    Path("res/csv/products/opti").mkdir(parents=True, exist_ok=True)
-    Path("res/csv/ticks/opti").mkdir(parents=True, exist_ok=True)
     ga = GeneticAlgorithm()
-    ga.launch(popSize=10, nbSteps=3)
+    ga.launch(popSize=10, nbSteps=5)

@@ -20,6 +20,7 @@ if [ ! -f "$mvn" ]; then
     rm apache-maven-3.8.1-bin.tar.gz
 fi
 
+module load Python/3.7.4-GCCcore-8.3.0
 module load Java/11
 
 # Compile java
