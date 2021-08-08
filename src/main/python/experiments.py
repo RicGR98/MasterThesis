@@ -89,7 +89,7 @@ def exp3():
     a.DF_STATES = a.DF_STATES[a.DF_STATES["Allowance"] == "Fair"]
     a.linePointsChart(name + "_1", a.DF_STATES, "Tariff", "Gdp", "NbTransactions")
     a.linePointsChart(name + "_2", a.DF_STATES, "Tariff", "PopTotalMoney", "StateMoney")
-    a.linePointsChart(name + "_3", a.DF_STATES, "Tariff", "Gini")
+    a.linePointsChart(name + "_3", a.DF_STATES, "Tariff", "Gini", "Purchases")
 
 
 def exp4():
