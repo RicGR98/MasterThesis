@@ -195,7 +195,7 @@ def exp7():
     name = "exp/7"
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
     c.setProbConnection(0.3)
-    c.setClusterSize(c.getNbStates()//20)  # 5 connected states, thus number of connected States = 4
+    c.setClusterSize(c.getNbStates()//20)  # If 100 States => 5 connected states, thus number of connected States = 4
     c.save()
     if RUN:
         c.run()

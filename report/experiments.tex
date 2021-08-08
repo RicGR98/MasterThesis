@@ -1,1 +1,84 @@
 \chapter{Experiments}
+
+As we have seen in the previous section, all results of a simulation are stored into several \texttt{.csv} files.
+
+\begin{itemize}
+    \item \texttt{states.csv} contains, for each State, its id, population size, VAT rate, levy rate, tariff rate, wealth tax rate, allowance type, unemployment rate, black economy share, GDP, the money it has, the total money of its population (agents), the number of transactions performed by its agents, and the id's of the other States to which it is connected.
+
+    \item \texttt{agents.csv} contains, for each Agent, its id, the id of its State, its initial money (the money with each it started the simulation), its current money, its talent, whether it is a producer or not (thus whether it is employed or unemployed) and the number of purchases it has made.
+    
+    \item \texttt{products.csv} contains, for each Agent, the id of the Agent producing it, its type, the production price (always set to 0), the selling price, the stock of this product, and the number of sales. Therefore, each agent has one Product and we can merge this file with the agents file.
+    
+    \item \texttt{ticks.csv} keeps track of different values during the simulation. The following metrics are saved every 100 ticks: the number of ticks that have passed so far, the number of transactions that have happened in the World so far, the total money of all the States, the total money of all the Agents, and the total GDP of all States.
+\end{itemize}
+
+Based on these files, we can do various experiments by adjusting the parameters and see the effects on some key metrics. For this, the language Python3 has been chosen as it contains many libraries to analyze and plot such data: pandas, numpy or matplotlib. Rapidness is not the key factor here as the simulation has already stored its results in the \texttt{.csv} files.
+
+The default configuration file that we use is the following. Experiment after experiment, we will modify one or several parameter and see its/their influence. 
+
+\begin{lstlisting}[language=json,firstnumber=1]
+{
+    "World": {
+        "PRODUCT_CHOICE": "CHEAPEST",
+        "NB_STATES": 200,
+        "NB_AGENTS": 30000,
+        "NB_TICKS": 4000,
+        "NB_TICKS_SAVE_CSV": 100
+    },
+    "Connections": {
+        "CLUSTER_SIZE": 0,
+        "PROB_CONNECTION": 0.0
+    },
+    "State": {
+        "Tax": {
+            "MIN_VAT": 0.2,
+            "MAX_VAT": 0.2,
+            "MIN_LEVY": 0.1,
+            "MAX_LEVY": 0.1,
+            "MIN_TARIFF": 0.3,
+            "MAX_TARIFF": 0.3,
+            "VAL_WEALTH_TAX_TOP": 0.1,
+            "MIN_WEALTH_TAX_VALUE": 0.2,
+            "MAX_WEALTH_TAX_VALUE": 0.2,
+            "NB_TICKS_COLLECT_TAXES": 100
+        },
+        "Allowance": {
+            "NB_TICKS_DISTRIBUTE_ALLOWANCES": 100
+        },
+        "Others": {
+            "MIN_UNEMPLOYMENT": 0.05,
+            "MAX_UNEMPLOYMENT": 0.05,
+            "MIN_BLACK": 0.15,
+            "MAX_BLACK": 0.15
+        }
+    },
+    "Agent": {
+        "MIN_INIT_MONEY": 1000.0,
+        "MAX_INIT_MONEY": 1000.0,
+        "RATIO_BUY": 0.5,
+        "RATIO_PRODUCE": 0.5
+    },
+    "Product": {
+        "NB_DIFF_PRODUCTS": 50,
+        "MIN_PRICE": 0.0,
+        "MAX_PRICE": 300.0,
+        "MAX_STOCK": 2000
+    }
+}
+\end{lstlisting}
+
+Whenever points are scattered on a plot, we will also plot a line which interpolates, with a degree 2, these points to better highlight the trend.
+
+
+\section{State experiments}
+
+We will start our experiments with all the parameters related to the State. We should note that to be able to compare fairly different States, the metrics of the State (for instance the total money of its Agents or the GDP) is divided by its population size. For each experiment, we will compare it with the state-of-the-art presented earlier, and try to answers the many research questions introduced in the section~\ref{section:motivation_objectives}.
+
+    \subsection{Experiment 0}
+
+    
+
+    
+%\section{Agent experiments}
+    
+%\section{Product experiments}
