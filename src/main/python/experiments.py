@@ -158,7 +158,6 @@ def exp6():
     a.linePointsChart(name + "_1", a.DF_STATES, "Unemployment", "Gdp", "NbTransactions")
     a.linePointsChart(name + "_2", a.DF_STATES, "Unemployment", "PopTotalMoney", "StateMoney")
     a.linePointsChart(name + "_3", a.DF_STATES, "Unemployment", "Gini")
-    a.barChart("exp/4_4", a.DF_AGENTS_PRODUCTS, "IsProducer", "Sales", "Purchases")
 
 
 def exp7():
