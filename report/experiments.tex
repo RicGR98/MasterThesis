@@ -79,7 +79,7 @@ For each experiment, we will compare it with the state-of-the-art presented earl
 
 We will start our experiments with all the parameters related to the State. We should note that to be able to compare fairly different States, the metrics of the State (for instance the total money of its Agents or the GDP) is divided by its population size. 
 
-    \subsection{Experiment 0}
+    \subsection{Experiment 1: No taxes}
     In this first experiment, we will try to see the effects on having no taxes (thus all tax values are set to 0). In the following plots, we will plot the State with regular taxes (as defined earlier) on the left hand-side, and the State with no taxes on the right hand-size. 
 
         \subsubsection{State GDP and number of transactions}
@@ -90,11 +90,11 @@ We will start our experiments with all the parameters related to the State. We s
 
         \begin{figure}[H]
             \minipage{0.5\textwidth}
-                \includegraphics[width=\linewidth]{img/exp/0_1_1.png}
+                \includegraphics[width=\linewidth]{img/exp/1_1_1.png}
                 \caption{Normal taxes (e.g. VAT of 0.2)}
             \endminipage\hfill
             \minipage{0.5\textwidth}
-                \includegraphics[width=\linewidth]{img/exp/0_2_1.png}
+                \includegraphics[width=\linewidth]{img/exp/1_2_1.png}
                 \caption{No taxes (e.g. VAT of 0)}
             \endminipage\hfill
         \end{figure}
@@ -105,24 +105,24 @@ We will start our experiments with all the parameters related to the State. We s
 
         \begin{figure}[H]
             \minipage{0.5\textwidth}
-                \includegraphics[width=\linewidth]{img/exp/0_1_3.png}
+                \includegraphics[width=\linewidth]{img/exp/1_1_3.png}
                 \caption{Normal taxes (e.g. VAT of 0.2)}
             \endminipage\hfill
             \minipage{0.5\textwidth}
-                \includegraphics[width=\linewidth]{img/exp/0_2_3.png}
+                \includegraphics[width=\linewidth]{img/exp/1_2_3.png}
                 \caption{No taxes (e.g. VAT of 0)}
             \endminipage\hfill
         \end{figure}
 
         This experiment shows the importance of having taxes (in the broadest sense of the term) on several metrics in order for our society to advance and be more fair.
 
-    \subsection{Experiment 1}
+    \subsection{Experiment 2: VAT}
     We will now, for each of the four taxes that were presented, analyze their influence. First: the VAT. For this, we will generate many States with random values for the VAT (ranging from 0 to 1) and see if we can see any pattern emerging regarding some metrics.
 
         \subsubsection{State GDP and number of transactions}
 
-        \begin{wrapfigure}{r}{0.5\linewidth}
-            \includegraphics[width=\linewidth]{img/exp/1_1.png}
+        \begin{wrapfigure}{l}{0.5\linewidth}
+            \includegraphics[width=\linewidth]{img/exp/2_1.png}
         \end{wrapfigure} 
         {Although the trend is not totally linear, we can still see a rather interesting correlation between the VAT of a State and its GDP and the number of transactions happening. As we can see on the plot, being in either of the two extremes (VAT close to 0 or to 1) is rather detrimental. Indeed, as we have seen in the previous experiment, having a very low VAT is bad for our these two metrics. However, having it too high is also problematic (close to 1 would mean that a product costing 100 will now cost 200) because products are now much more expensive, therefore agents will make fewer purchases and the GDP will be lowered too. 
         \par
@@ -130,10 +130,77 @@ We will start our experiments with all the parameters related to the State. We s
         \subsubsection{Gini coefficient}
 
         \begin{wrapfigure}{r}{0.5\linewidth}
-            \includegraphics[width=\linewidth]{img/exp/1_3.png}
+            \includegraphics[width=\linewidth]{img/exp/2_3.png}
         \end{wrapfigure} 
-        {Naturally, as we had seen before, the lower the VAT is, the more inequalities we will have since the State has less money to redistribute fairly. However, we can see that here, with a VAT of 0, the Gini coefficient is around 0.45 whereas it was at 0.91 before. This is because in this case, the other taxes are still present as shown in the default configuration allowing the State to distribute allowances and diminishing inequalities.
+        {Naturally, as we had seen before, the lower the VAT is, the more inequalities we will have since the State has less money to redistribute fairly. However, we can see that here, with a VAT of 0, the Gini coefficient is around 0.45 whereas it was at 0.91 before. This is because in this case, the other taxes are still present as shown in the default configuration allowing the State to distribute allowances and diminishing inequalities. Hence why the higher the VAT is, the less inequalities we have since the Gini coefficient tends to go to zero.
         \par
+
+    \subsection{Experiment 3: Tariff}
+    As for the VAT, we will now analyze the influence of the tariff tax by generating many States with random values (ranging from 0 to 1) and see if we can see any pattern emerging regarding some metrics. 
+
+        %TODO
+
+
+    \subsection{Experiment 4: Levy}
+    We will now analyze the influence of the levy tax by generating many States with random values (ranging from 0 to 1) and see if we can see any pattern emerging regarding some metrics. 
+
+        %TODO
+
+
+    \subsection{Experiment 5: Wealth tax}
+    We will now analyze the influence of the last tax: the wealth tax with the same methodologies as the previous taxes and see if we can see any pattern emerging regarding some metrics. 
+
+        %TODO
+
+
+    \subsection{Experiment 6: Unemployment}
+    After analyzing the different taxes, we will now focus on another parameter which cannot directly be controlled by the State. As usual, we will create many States with different unemployment rates and see how our metrics change.
+
+            
+        \subsubsection{State GDP and number of transactions}
+
+        \begin{wrapfigure}{l}{0.5\linewidth}
+            \includegraphics[width=\linewidth]{img/exp/6_1.png}
+        \end{wrapfigure} 
+        {As one could have expected, we have a rather clear linear correlation. Indeed, the higher the unemployment rate is, the less number of transactions we have and the lower the GDP is. Actually, it is a vicious cycle because the less producers we have, the less products are available on the market, thus less transactions. By having less transactions, we collect less taxes, and therefore do not distribute as much, this means that some agents will never be able to buy another product. 
+        \par
+
+        \subsubsection{Gini coefficient}
+
+        \begin{wrapfigure}{r}{0.5\linewidth}
+            \includegraphics[width=\linewidth]{img/exp/6_3.png}
+        \end{wrapfigure} 
+        {The plot on the side is a bit tricky but more interesting to analyze. If we only look at the scattered points, we see that there is a linear correlation from the rate 0.0 until 0.8: the more non-producing agents we have, the bigger the Gini coefficient is. This is logical because producing agents will still be able to sell their products and make some money thus accumulating more wealth compared to others, increasing the inequalities.
+
+        However, after the 0.8 rate on the $x$ axis, we can see a significant drop, and the previous statement does not hold true anymore: the Gini coefficient gets very close to zero, i.e. perfect equality. Actually, it also makes sense because if almost everybody is unemployed, then no one can afford to buy any product, thus we have almost no transactions happening and no money flowing between agents, and no agent can therefore become richer than others.
+        \par
+
+
+    \subsection{Experiment 7: Black economy}
+    The second parameter which cannot directly be controlled by the State is the black economy. As usual, we will create many States with different share of black economy happening and see how our metrics change.
+
+            
+        \subsubsection{State GDP and number of transactions}
+
+        \begin{wrapfigure}{l}{0.5\linewidth}
+            \includegraphics[width=\linewidth]{img/exp/7_1.png}
+        \end{wrapfigure} 
+        {We see almost no correlation. This is due to the fact that black transactions are still counted as transactions. As for the GDP, however \\ \\ \\ \\ \\%TODO 
+        \par
+
+        \subsubsection{Gini coefficient}
+
+        \begin{wrapfigure}{r}{0.5\linewidth}
+            \includegraphics[width=\linewidth]{img/exp/7_3.png}
+        \end{wrapfigure} 
+        {As the black economy share increases, the inequalities augment as well. This is simply due to the fact that the State will have less money to redistribute when giving allowances, therefore inequalities will subsist even after the small amount of money collected as been redistributed. \\ \\
+        \par
+    
+
+
+    \subsection{Experiment 8: Allowances}
+    
+    
 
     
 %\section{Agent experiments}
