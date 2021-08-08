@@ -67,16 +67,47 @@ The default configuration file that we use is the following. Experiment after ex
 }
 \end{lstlisting}
 
-Whenever points are scattered on a plot, we will also plot a line which interpolates, with a degree 2, these points to better highlight the trend.
+Whenever points are scattered on a plot, we will also plot a line which interpolates, with a degree 2, these points to better highlight the trend. Also, in the bar charts, an average is computed in order to give a global overview. We also have to pay attention that most plots have two $y$ axis (red is for the left hand-side, blue for the right hand-side). There are over 40 plots in the folder \texttt{./report/img/exp/}, we will only focus on the most interesting ones.
+
+For each experiment, we will compare it with the state-of-the-art presented earlier, and try to answers the many research questions introduced in the section~\ref{section:motivation_objectives}.
 
 
 \section{State experiments}
 
-We will start our experiments with all the parameters related to the State. We should note that to be able to compare fairly different States, the metrics of the State (for instance the total money of its Agents or the GDP) is divided by its population size. For each experiment, we will compare it with the state-of-the-art presented earlier, and try to answers the many research questions introduced in the section~\ref{section:motivation_objectives}.
+We will start our experiments with all the parameters related to the State. We should note that to be able to compare fairly different States, the metrics of the State (for instance the total money of its Agents or the GDP) is divided by its population size. 
 
     \subsection{Experiment 0}
+    In this first experiment, we will try to see the effects on having no taxes (thus all tax values are set to 0). In the following plots, we will plot the State with regular taxes (as defined earlier) on the left hand-side, and the State with no taxes on the right hand-size. 
 
-    
+    \paragraph{State GDP and number of transactions}
+
+    We can see on the following plots that a State with no taxes (thus VAT of 0, but the other taxes are also set to 0) will generally have a smaller GDP and the number of transactions is also decreased compared to a State with taxes (left plot where the VAT is 0.2 for instance). This seems rather logical because a State with no tax will not be able to distribute allowances, and therefore some agents will concentrate all the money at the expense of other agents who will not be able to buy products anymore, therefore diminishing both the GDP and the number of transactions.
+    \begin{figure}[H]
+        \minipage{0.5\textwidth}
+            \includegraphics[width=\linewidth]{img/exp/0_1_1.png}
+            \caption{Normal taxes (e.g. VAT of 0.2)}
+        \endminipage\hfill
+        \minipage{0.5\textwidth}
+            \includegraphics[width=\linewidth]{img/exp/0_2_1.png}
+            \caption{No taxes (e.g. VAT of 0)}
+        \endminipage\hfill
+    \end{figure}
+
+    \paragraph{Gini coefficient} Another interesting metric is the measure of inequalities, i.e. the Gini coefficient, the smaller it is, the more equal a society is. We can, naturally, see a tremendous difference between the two plots. Indeed, if the State has no taxes, it cannot collect nor distribute money. Therefore, the Gini coefficient skyrockets from $0.36$ to $0.91$.
+
+    \begin{figure}[H]
+        \minipage{0.5\textwidth}
+            \includegraphics[width=\linewidth]{img/exp/0_1_3.png}
+            \caption{Normal taxes (e.g. VAT of 0.2)}
+        \endminipage\hfill
+        \minipage{0.5\textwidth}
+            \includegraphics[width=\linewidth]{img/exp/0_2_3.png}
+            \caption{No taxes (e.g. VAT of 0)}
+        \endminipage\hfill
+    \end{figure}
+
+    This experiment shows the importance of having taxes (in the broadest sense of the term) on several metrics in order for our society to advance and be more fair.
+
 
     
 %\section{Agent experiments}
