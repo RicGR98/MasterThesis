@@ -1,9 +1,9 @@
 {
     "World": {
         "PRODUCT_CHOICE": "CHEAPEST",
-        "NB_STATES": 100,
-        "NB_AGENTS": 5000,
-        "NB_TICKS": 1000,
+        "NB_STATES": 500,
+        "NB_AGENTS": 30000,
+        "NB_TICKS": 4000,
         "NB_TICKS_SAVE_CSV": 100
     },
     "Connections": {

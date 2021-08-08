@@ -12,18 +12,18 @@ RUN = False
 ################################
 # State parameters experiences #
 ################################
-def exp0():
+def exp1():
     """
-    Experiment 0:
+    Experiment 1:
     What if the State collects no taxes ?
     """
-    name1 = "exp/0_1"
+    name1 = "exp/1_1"
     c1 = Config(DEFAULT_CONFIG_FILE, f"{name1}.json")
     c1.setNbAgents(2000)
     c1.setNbStates(10)
     c1.save()
 
-    name2 = "exp/0_2"
+    name2 = "exp/1_2"
     c2 = Config(DEFAULT_CONFIG_FILE, f"{name2}.json")
     c2.setNbAgents(2000)
     c2.setNbStates(10)
@@ -39,27 +39,21 @@ def exp0():
     if not ANALYZE:
         return
 
-    a1 = Analysis(name1)
-    print(a1.DF_STATES)
-    a1.DF_STATES = a1.DF_STATES[a1.DF_STATES["Allowance"] == "Fair"]
-    a1.barChart("exp/0_1_1", a1.DF_STATES, "VAT", "Gdp", "NbTransactions")
-    a1.barChart("exp/0_1_2", a1.DF_STATES, "VAT", "PopTotalMoney", "StateMoney")
-    a1.barChart("exp/0_1_3", a1.DF_STATES, "VAT", "Gini")
-
-    a2 = Analysis(name2)
-    print(a2.DF_STATES)
-    a2.DF_STATES = a2.DF_STATES[a2.DF_STATES["Allowance"] == "Fair"]
-    a2.barChart("exp/0_2_1", a2.DF_STATES, "VAT", "Gdp", "NbTransactions")
-    a2.barChart("exp/0_2_2", a2.DF_STATES, "VAT", "PopTotalMoney", "StateMoney")
-    a2.barChart("exp/0_2_3", a2.DF_STATES, "VAT", "Gini")
+    for name in [name1, name2]:
+        a = Analysis(name)
+        print(a.DF_STATES)
+        a.DF_STATES = a.DF_STATES[a.DF_STATES["Allowance"] == "Fair"]
+        a.barChart(name + "_1", a.DF_STATES, "VAT", "Gdp", "NbTransactions")
+        a.barChart(name + "_2", a.DF_STATES, "VAT", "PopTotalMoney", "StateMoney")
+        a.barChart(name + "_3", a.DF_STATES, "VAT", "Gini")
 
 
-def exp1():
+def exp2():
     """
-    Experiment 1:
+    Experiment 2:
     Influence of the VAT on multiple metrics
     """
-    name = "exp/1"
+    name = "exp/2"
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
     c.setMinMaxVat(0, 1)
     c.save()
@@ -71,17 +65,39 @@ def exp1():
     a = Analysis(name)
     print(a.DF_STATES)
     a.DF_STATES = a.DF_STATES[a.DF_STATES["Allowance"] == "Fair"]
-    a.linePointsChart("exp/1_1", a.DF_STATES, "VAT", "Gdp", "NbTransactions")
-    a.linePointsChart("exp/1_2", a.DF_STATES, "VAT", "PopTotalMoney", "StateMoney")
-    a.linePointsChart("exp/1_3", a.DF_STATES, "VAT", "Gini")
+    a.linePointsChart(name + "_1", a.DF_STATES, "VAT", "Gdp", "NbTransactions")
+    a.linePointsChart(name + "_2", a.DF_STATES, "VAT", "PopTotalMoney", "StateMoney")
+    a.linePointsChart(name + "_3", a.DF_STATES, "VAT", "Gini")
 
 
-def exp2():
+def exp3():
     """
-    Experiment 2:
+    Experiment 3:
+    Influence of the Tariff on multiple metrics
+    """
+    name = "exp/3"
+    c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
+    c.setMinMaxTariff(0, 1)
+    c.save()
+    if RUN:
+        c.run()
+
+    if not ANALYZE:
+        return
+    a = Analysis(name)
+    print(a.DF_STATES)
+    a.DF_STATES = a.DF_STATES[a.DF_STATES["Allowance"] == "Fair"]
+    a.linePointsChart(name + "_1", a.DF_STATES, "Tariff", "Gdp", "NbTransactions")
+    a.linePointsChart(name + "_2", a.DF_STATES, "Tariff", "PopTotalMoney", "StateMoney")
+    a.linePointsChart(name + "_3", a.DF_STATES, "Tariff", "Gini")
+
+
+def exp4():
+    """
+    Experiment 4:
     Influence of the Levy tax on multiple metrics
     """
-    name = "exp/2"
+    name = "exp/4"
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
     c.setMinMaxLevy(0, 1)
     c.save()
@@ -93,18 +109,18 @@ def exp2():
     a = Analysis(name)
     print(a.DF_STATES)
     a.DF_STATES = a.DF_STATES[a.DF_STATES["Allowance"] == "Fair"]
-    a.linePointsChart("exp/2_1", a.DF_STATES, "Levy", "Gdp", "NbTransactions")
-    a.linePointsChart("exp/2_2", a.DF_STATES, "Levy", "PopTotalMoney", "StateMoney")
-    a.linePointsChart("exp/2_3", a.DF_STATES, "Levy", "Gini")
+    a.linePointsChart(name + "_1", a.DF_STATES, "Levy", "Gdp", "NbTransactions")
+    a.linePointsChart(name + "_2", a.DF_STATES, "Levy", "PopTotalMoney", "StateMoney")
+    a.linePointsChart(name + "_3", a.DF_STATES, "Levy", "Gini")
 
 
-def exp3():
+def exp5():
     """
-    Experiment 3:
+    Experiment 5:
     Influence of the Wealth tax on multiple metrics
     Compare all taxes and see which is better for which metric
     """
-    name = "exp/3"
+    name = "exp/5"
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
     c.setMinMaxWealth(0, 1)
     c.save()
@@ -116,17 +132,17 @@ def exp3():
     a = Analysis(name)
     print(a.DF_STATES)
     a.DF_STATES = a.DF_STATES[a.DF_STATES["Allowance"] == "Fair"]
-    a.linePointsChart("exp/3_1", a.DF_STATES, "WealthTax", "Gdp", "NbTransactions")
-    a.linePointsChart("exp/3_2", a.DF_STATES, "WealthTax", "PopTotalMoney", "StateMoney")
-    a.linePointsChart("exp/3_3", a.DF_STATES, "WealthTax", "Gini")
+    a.linePointsChart(name + "_1", a.DF_STATES, "WealthTax", "Gdp", "NbTransactions")
+    a.linePointsChart(name + "_2", a.DF_STATES, "WealthTax", "PopTotalMoney", "StateMoney")
+    a.linePointsChart(name + "_3", a.DF_STATES, "WealthTax", "Gini")
 
 
-def exp4():
+def exp6():
     """
-    Experiment 4:
+    Experiment 6:
     Influence of the Unemployment rate on multiple metrics.
     """
-    name = "exp/4"
+    name = "exp/6"
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
     c.setMinMaxUnemployment(0, 1)
     c.save()
@@ -139,18 +155,18 @@ def exp4():
     print(a.DF_STATES)
     print(a.DF_AGENTS_PRODUCTS)
     a.DF_STATES = a.DF_STATES[a.DF_STATES["Allowance"] == "Fair"]
-    a.linePointsChart("exp/4_1", a.DF_STATES, "Unemployment", "Gdp", "NbTransactions")
-    a.linePointsChart("exp/4_2", a.DF_STATES, "Unemployment", "PopTotalMoney", "StateMoney")
-    a.linePointsChart("exp/4_3", a.DF_STATES, "Unemployment", "Gini")
+    a.linePointsChart(name + "_1", a.DF_STATES, "Unemployment", "Gdp", "NbTransactions")
+    a.linePointsChart(name + "_2", a.DF_STATES, "Unemployment", "PopTotalMoney", "StateMoney")
+    a.linePointsChart(name + "_3", a.DF_STATES, "Unemployment", "Gini")
     a.barChart("exp/4_4", a.DF_AGENTS_PRODUCTS, "IsProducer", "Sales", "Purchases")
 
 
-def exp5():
+def exp7():
     """
-    Experiment 5:
+    Experiment 7:
     Influence of the Black economy share on multiple metrics.
     """
-    name = "exp/5"
+    name = "exp/7"
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
     c.setMinMaxBlack(0, 1)
     c.save()
@@ -162,17 +178,17 @@ def exp5():
     a = Analysis(name)
     print(a.DF_STATES)
     a.DF_STATES = a.DF_STATES[a.DF_STATES["Allowance"] == "Fair"]
-    a.linePointsChart("exp/5_1", a.DF_STATES, "Black", "Gdp", "NbTransactions")
-    a.linePointsChart("exp/5_2", a.DF_STATES, "Black", "PopTotalMoney", "StateMoney")
-    a.linePointsChart("exp/5_3", a.DF_STATES, "Black", "Gini")
+    a.linePointsChart(name + "_1", a.DF_STATES, "Black", "Gdp", "NbTransactions")
+    a.linePointsChart(name + "_2", a.DF_STATES, "Black", "PopTotalMoney", "StateMoney")
+    a.linePointsChart(name + "_3", a.DF_STATES, "Black", "Gini")
 
 
-def exp6():
+def exp8():
     """
-    Experiment 6:
+    Experiment 8:
     Influence of the Allowance type on multiple metrics.
     """
-    name = "exp/6"
+    name = "exp/8"
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
     c.save()
     if RUN:
@@ -182,17 +198,17 @@ def exp6():
         return
     a = Analysis(name)
     print(a.DF_STATES)
-    a.barChart("exp/6_1", a.DF_STATES, "Allowance", "Gdp", "NbTransactions")
-    a.barChart("exp/6_2", a.DF_STATES, "Allowance", "PopTotalMoney", "StateMoney")
-    a.barChart("exp/6_3", a.DF_STATES, "Allowance", "Gini")
+    a.barChart(name + "_1", a.DF_STATES, "Allowance", "Gdp", "NbTransactions")
+    a.barChart(name + "_2", a.DF_STATES, "Allowance", "PopTotalMoney", "StateMoney")
+    a.barChart(name + "_3", a.DF_STATES, "Allowance", "Gini")
 
 
-def exp7():
+def exp9():
     """
-    Experiment 7:
+    Experiment 9:
     Influence of the number of connected States on multiple metrics.
     """
-    name = "exp/7"
+    name = "exp/9"
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
     c.setProbConnection(0.3)
     c.setClusterSize(c.getNbStates()//20)  # If 100 States => 5 connected states, thus number of connected States = 4
@@ -204,19 +220,19 @@ def exp7():
         return
     a = Analysis(name)
     print(a.DF_STATES)
-    a.barChart("exp/7_1", a.DF_STATES, "NbConnectedStates", "Gdp", "NbTransactions")
-    a.barChart("exp/7_2", a.DF_STATES, "NbConnectedStates", "PopTotalMoney", "StateMoney")
-    a.barChart("exp/7_3", a.DF_STATES, "NbConnectedStates", "Gini")
+    a.barChart(name + "_1", a.DF_STATES, "NbConnectedStates", "Gdp", "NbTransactions")
+    a.barChart(name + "_2", a.DF_STATES, "NbConnectedStates", "PopTotalMoney", "StateMoney")
+    a.barChart(name + "_3", a.DF_STATES, "NbConnectedStates", "Gini")
 
 
-def exp8():
+def exp10():
     """
-    Experiment 8:
+    Experiment 10:
     Evolution of multiple metrics with time (ticks)
     Re-run this experiment but now, in Product, change the production price to
     something positive and notice the huge difference
     """
-    name = "exp/8"
+    name = "exp/10"
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
     c.setNbTicks(c.getNbTicks()*2)
     c.save()
@@ -228,22 +244,22 @@ def exp8():
     a = Analysis(name)
     print(a.DF_TICKS)
     print(a.DF_STATES)
-    a.linePointsChart("exp/8_1", a.DF_TICKS, "Tick", "WorldNbTransactions", "WorldGdp")
-    a.linePointsChart("exp/8_2", a.DF_TICKS, "Tick", "WorldStatesMoney", "WorldAgentsMoney")
+    a.linePointsChart(name + "_1", a.DF_TICKS, "Tick", "WorldNbTransactions", "WorldGdp")
+    a.linePointsChart(name + "_2", a.DF_TICKS, "Tick", "WorldStatesMoney", "WorldAgentsMoney")
 
 
 ################################
 # Agent parameters experiences #
 ################################
 
-def exp9():
+def exp11():
     """
-    Experiment 9:
+    Experiment 11:
     Influence of the Agent's talent on two metrics:
     - Sales (number of products it sells)
     - Purchases (number of products it purchases)
     """
-    name = "exp/9"
+    name = "exp/11"
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
     c.save()
     if RUN:
@@ -256,12 +272,12 @@ def exp9():
     a.linePointsChart(name, a.DF_AGENTS_PRODUCTS, "Talent", "Sales", "Purchases")
 
 
-def exp10():
+def exp12():
     """
-    Experiment 10:
+    Experiment 12:
     Influence of the Initial money of an Agent.
     """
-    name = "exp/10"
+    name = "exp/12"
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
     c.setMinMaxInitMoney(0, 10000)
     c.save()
@@ -272,16 +288,16 @@ def exp10():
         return
     a = Analysis(name)
     print(a.DF_AGENTS_PRODUCTS)
-    a.linePointsChart("exp/10_1", a.DF_AGENTS_PRODUCTS, "AgentInitMoney", "Sales", "Purchases")
-    a.linePointsChart("exp/10_2", a.DF_AGENTS_PRODUCTS, "AgentInitMoney", "Stock")
+    a.linePointsChart(name + "_1", a.DF_AGENTS_PRODUCTS, "AgentInitMoney", "Sales", "Purchases")
+    a.linePointsChart(name + "_2", a.DF_AGENTS_PRODUCTS, "AgentInitMoney", "Stock")
 
 
-def exp11():
+def exp13():
     """
-    Experiment 11:
+    Experiment 13:
     Study of how a non-producer Agent can make purchases
     """
-    name1 = "exp/11_1"
+    name1 = "exp/13_1"
     c1 = Config(DEFAULT_CONFIG_FILE, f"{name1}.json")
     c1.setNbStates(1)
     c1.setNbAgents(1000)
@@ -289,7 +305,7 @@ def exp11():
     c1.setUnemployment(0.3)
     c1.save()
 
-    name2 = "exp/11_2"
+    name2 = "exp/13_2"
     c2 = Config(f"{name1}.json", f"{name2}.json")
     c2.setNbTicks(c1.getNbTicks() * 10)
     c2.save()
@@ -299,19 +315,18 @@ def exp11():
 
     if not ANALYZE:
         return
-    a1 = Analysis(name1)
-    a1.barChart(name1, a1.DF_AGENTS_PRODUCTS, "IsProducer", "Purchases")
 
-    a2 = Analysis(name2)
-    a2.barChart(name2, a2.DF_AGENTS_PRODUCTS, "IsProducer", "Purchases")
+    for name in [name1, name2]:
+        a = Analysis(name)
+        a.barChart(name, a.DF_AGENTS_PRODUCTS, "IsProducer", "Purchases")
 
 
-def exp12():
+def exp14():
     """
-    Experiment 12:
+    Experiment 14:
     Visualization of the distribution of Wealth among Agents
     """
-    name = "exp/12"
+    name = "exp/14"
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
     c.save()
     if RUN:
@@ -324,20 +339,20 @@ def exp12():
     fairState = a.DF_STATES[a.DF_STATES["Allowance"] == "Fair"].iloc[0]["Id"]
     flatStateAgents = a.DF_AGENTS_PRODUCTS[a.DF_AGENTS_PRODUCTS["State"] == flatState]
     fairStateAgents = a.DF_AGENTS_PRODUCTS[a.DF_AGENTS_PRODUCTS["State"] == fairState]
-    a.agentsWealthDistribution("exp/12_1", flatStateAgents)
-    a.agentsWealthDistribution("exp/12_2", fairStateAgents)
+    a.agentsWealthDistribution(name + "_1", flatStateAgents)
+    a.agentsWealthDistribution(name + "_2", fairStateAgents)
 
 
 ##################################
 # Product parameters experiences #
 ##################################
 
-def exp13():
+def exp15():
     """
-    Experiment 13:
+    Experiment 15:
     Influence of the SellingPrice on two metrics.
     """
-    name = "exp/13"
+    name = "exp/15"
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
     c.save()
     if RUN:
@@ -350,23 +365,23 @@ def exp13():
     a.linePointsChart(name, a.DF_AGENTS_PRODUCTS, "SellingPrice", "Stock", "Sales")
 
 
-def exp14():
+def exp16():
     """
-    Experiment 14:
+    Experiment 16:
     Influence of the choosing method (cheapest, random, weighted random)
     of a Product from the list of matching Products
     """
-    name1 = "exp/14_1"
+    name1 = "exp/16_1"
     c1 = Config(DEFAULT_CONFIG_FILE, f"{name1}.json")
     c1.setProductChoiceCheapest()
     c1.save()
 
-    name2 = "exp/14_2"
+    name2 = "exp/16_2"
     c2 = Config(DEFAULT_CONFIG_FILE, f"{name2}.json")
     c2.setProductChoiceRandom()
     c2.save()
 
-    name3 = "exp/14_3"
+    name3 = "exp/16_3"
     c3 = Config(DEFAULT_CONFIG_FILE, f"{name3}.json")
     c3.setProductChoiceWeightedRandom()
     c3.save()
@@ -376,14 +391,10 @@ def exp14():
 
     if not ANALYZE:
         return
-    a1 = Analysis(name1)
-    a1.linePointsChart(name1, a1.DF_AGENTS_PRODUCTS, "SellingPrice", "Stock", "Sales")
 
-    a2 = Analysis(name2)
-    a2.linePointsChart(name2, a2.DF_AGENTS_PRODUCTS, "SellingPrice", "Stock", "Sales")
-
-    a3 = Analysis(name3)
-    a3.linePointsChart(name3, a3.DF_AGENTS_PRODUCTS, "SellingPrice", "Stock", "Sales")
+    for name in [name1, name2, name3]:
+        a = Analysis(name)
+        a.linePointsChart(name, a.DF_AGENTS_PRODUCTS, "SellingPrice", "Stock", "Sales")
 
 
 #######################
@@ -391,7 +402,6 @@ def exp14():
 #########################
 
 EXPERIMENTS = [
-    exp0,
     exp1,
     exp2,
     exp3,
@@ -406,6 +416,8 @@ EXPERIMENTS = [
     exp12,
     exp13,
     exp14,
+    exp15,
+    exp16,
 ]
 
 

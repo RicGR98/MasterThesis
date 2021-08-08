@@ -9,8 +9,7 @@ class Chart:
     """
     Chart class to plot points, lines, ...
     """
-    def __init__(self, title):
-        self.title = title
+    def __init__(self):
         self.label_x = None
         self.label_y = None
         self.label_y2 = None
@@ -69,7 +68,6 @@ class Chart:
         :param filename: If not None, save the Chart as an image
         """
         assert self.label_x is not None
-        self.fig.suptitle(self.title)
         self.ax1.set_xlabel(self.label_x)
         self.ax1.set_ylabel(self.label_y)
 

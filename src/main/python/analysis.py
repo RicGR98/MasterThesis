@@ -86,7 +86,7 @@ class Analysis:
 
     @staticmethod
     def __createChart__(param, result1, result2=None):
-        chart = Chart(f"Influence of \"{RESULT_TO_NAME[param]}\"")
+        chart = Chart()
         chart.set_axis_labels(f"{RESULT_TO_NAME[param]}", RESULT_TO_NAME[result1], RESULT_TO_NAME[result2])
         return chart
 
@@ -141,8 +141,9 @@ class Analysis:
         lorenz_x = np.linspace(0.0, 1.0, X.size)
         lorenz_y = X.cumsum() / X.sum()
         print(df)
-        chart = Chart('Wealth distribution (Gini coeff: ' + str(Analysis.gini(df)) + ")")
+        chart = Chart()
         chart.set_axis_labels("Fraction of population", "Fraction of wealth")
         chart.plot([0, 1], [0, 1], color='red', label="Perfect equality")
         chart.plot(lorenz_x, lorenz_y, color='blue', label="Lorenz curve")
         chart.show(DIR_RES_IMG + filename)
+        print('Wealth distribution (Gini coeff: ' + str(Analysis.gini(df)) + ")")
