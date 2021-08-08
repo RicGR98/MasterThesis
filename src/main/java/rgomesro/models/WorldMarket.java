@@ -145,7 +145,7 @@ public class WorldMarket {
         buyerState.getMarket().incrementNbPurchases();
         TransactionUtils.make(buyer, seller, product.getSellingPrice());
         //Probability of black transaction (no VAT, no Tariff, no GDP)
-        if (buyerState.getBlack() > RandomUtils.getRandom()){
+        if (sellerState.getBlack() > RandomUtils.getRandom()){
             return; //Perform black transaction by skipping following instructions
         }
         TransactionUtils.make(buyer, buyerState, buyerState.getTariff().compute(buyer, product));
