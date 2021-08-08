@@ -1,5 +1,8 @@
 \chapter{Experiments}
 
+
+\section{Introduction}
+
 As we have seen in the previous section, all results of a simulation are stored into several \texttt{.csv} files.
 
 \begin{itemize}
@@ -79,35 +82,58 @@ We will start our experiments with all the parameters related to the State. We s
     \subsection{Experiment 0}
     In this first experiment, we will try to see the effects on having no taxes (thus all tax values are set to 0). In the following plots, we will plot the State with regular taxes (as defined earlier) on the left hand-side, and the State with no taxes on the right hand-size. 
 
-    \paragraph{State GDP and number of transactions}
+        \subsubsection{State GDP and number of transactions}
 
-    We can see on the following plots that a State with no taxes (thus VAT of 0, but the other taxes are also set to 0) will generally have a smaller GDP and the number of transactions is also decreased compared to a State with taxes (left plot where the VAT is 0.2 for instance). This seems rather logical because a State with no tax will not be able to distribute allowances, and therefore some agents will concentrate all the money at the expense of other agents who will not be able to buy products anymore, therefore diminishing both the GDP and the number of transactions.
-    \begin{figure}[H]
-        \minipage{0.5\textwidth}
-            \includegraphics[width=\linewidth]{img/exp/0_1_1.png}
-            \caption{Normal taxes (e.g. VAT of 0.2)}
-        \endminipage\hfill
-        \minipage{0.5\textwidth}
-            \includegraphics[width=\linewidth]{img/exp/0_2_1.png}
-            \caption{No taxes (e.g. VAT of 0)}
-        \endminipage\hfill
-    \end{figure}
+        We can see on the following plots that a State with no taxes (thus VAT of 0, but the other taxes are also set to 0) will generally have a smaller GDP and the number of transactions is also decreased compared to a State with taxes (left plot where the VAT is 0.2 for instance). 
+        
+        At first this might seem rather odd since we expect products to be cheaper, therefore more transactions should be happening (hence the GDP would be boosted too). However, if we think more about it, this seems rather logical because a State with no tax will not be able to distribute allowances, and thus some agents will concentrate all the money at the expense of other agents who will not be able to buy products anymore after some time, eventually diminishing both the GDP and the number of transactions.
 
-    \paragraph{Gini coefficient} Another interesting metric is the measure of inequalities, i.e. the Gini coefficient, the smaller it is, the more equal a society is. We can, naturally, see a tremendous difference between the two plots. Indeed, if the State has no taxes, it cannot collect nor distribute money. Therefore, the Gini coefficient skyrockets from $0.36$ to $0.91$.
+        \begin{figure}[H]
+            \minipage{0.5\textwidth}
+                \includegraphics[width=\linewidth]{img/exp/0_1_1.png}
+                \caption{Normal taxes (e.g. VAT of 0.2)}
+            \endminipage\hfill
+            \minipage{0.5\textwidth}
+                \includegraphics[width=\linewidth]{img/exp/0_2_1.png}
+                \caption{No taxes (e.g. VAT of 0)}
+            \endminipage\hfill
+        \end{figure}
 
-    \begin{figure}[H]
-        \minipage{0.5\textwidth}
-            \includegraphics[width=\linewidth]{img/exp/0_1_3.png}
-            \caption{Normal taxes (e.g. VAT of 0.2)}
-        \endminipage\hfill
-        \minipage{0.5\textwidth}
-            \includegraphics[width=\linewidth]{img/exp/0_2_3.png}
-            \caption{No taxes (e.g. VAT of 0)}
-        \endminipage\hfill
-    \end{figure}
+        \subsubsection{Gini coefficient} 
+        
+        Another interesting metric is the measure of inequalities, i.e. the Gini coefficient, the smaller it is, the more equal a society is. We can, naturally, see a tremendous difference between the two plots. Indeed, if the State has no taxes, it cannot collect nor distribute money. Therefore, the Gini coefficient skyrockets from $0.36$ to $0.91$.
 
-    This experiment shows the importance of having taxes (in the broadest sense of the term) on several metrics in order for our society to advance and be more fair.
+        \begin{figure}[H]
+            \minipage{0.5\textwidth}
+                \includegraphics[width=\linewidth]{img/exp/0_1_3.png}
+                \caption{Normal taxes (e.g. VAT of 0.2)}
+            \endminipage\hfill
+            \minipage{0.5\textwidth}
+                \includegraphics[width=\linewidth]{img/exp/0_2_3.png}
+                \caption{No taxes (e.g. VAT of 0)}
+            \endminipage\hfill
+        \end{figure}
 
+        This experiment shows the importance of having taxes (in the broadest sense of the term) on several metrics in order for our society to advance and be more fair.
+
+    \subsection{Experiment 1}
+    We will now, for each of the four taxes that were presented, analyze their influence. First: the VAT. For this, we will generate many States with random values for the VAT (ranging from 0 to 1) and see if we can see any pattern emerging regarding some metrics.
+
+        \subsubsection{State GDP and number of transactions}
+
+        \begin{wrapfigure}{r}{0.5\linewidth}
+            \includegraphics[width=\linewidth]{img/exp/1_1.png}
+        \end{wrapfigure} 
+        {Although the trend is not totally linear, we can still see a rather interesting correlation between the VAT of a State and its GDP and the number of transactions happening. As we can see on the plot, being in either of the two extremes (VAT close to 0 or to 1) is rather detrimental. Indeed, as we have seen in the previous experiment, having a very low VAT is bad for our these two metrics. However, having it too high is also problematic (close to 1 would mean that a product costing 100 will now cost 200) because products are now much more expensive, therefore agents will make fewer purchases and the GDP will be lowered too. 
+        \par
+
+        \subsubsection{Gini coefficient}
+
+        \begin{wrapfigure}{r}{0.5\linewidth}
+            \includegraphics[width=\linewidth]{img/exp/1_3.png}
+        \end{wrapfigure} 
+        {Naturally, as we had seen before, the lower the VAT is, the more inequalities we will have since the State has less money to redistribute fairly. However, we can see that here, with a VAT of 0, the Gini coefficient is around 0.45 whereas it was at 0.91 before. This is because in this case, the other taxes are still present as shown in the default configuration allowing the State to distribute allowances and diminishing inequalities.
+        \par
 
     
 %\section{Agent experiments}
