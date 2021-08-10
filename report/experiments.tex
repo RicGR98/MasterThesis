@@ -363,4 +363,42 @@ We will start our experiments with all the parameters related to the State. We s
     The Gini coefficient on the left plot (where a flat allowance redistribution system is used) is equal to 0.618 whereas on the right hand-side the Gini index is equal to 0.546. Naturally, we can see that the right case is fairer as wealth is distributed a bit more fairly.
 
 
-%\section{Product experiments}
+\section{Product experiments}
+    Finally, our last two experiments will be about the products. 
+
+
+    \subsection{Experiment 15: Selling price}
+    
+
+        \begin{wrapfigure}{l}{0.5\linewidth}
+            \includegraphics[width=\linewidth]{img/exp/15.png}
+        \end{wrapfigure} 
+        { The first basic parameter of a product is the selling price. We can analyze its impact on two metrics: the number of stocks remaining, and, of course, the number of sales of that product. Naturally, these two curves metrics are the opposite of each other: more sales means less stocks remaining. We see that the trends are not totally linear. This is because we are analyzing the selling price without any taxes. By adding the VAT and the custom tariffs (if applicable), a cheaper product might become more expensive, therefore resulting in these solitary scattered points. 
+        \par
+
+
+    \subsection{Experiment 16: Choosing method}
+    As introduced before, after an agent filters the available products according to their type, price, etc., it should choose one among those possibilities. There are three ways of picking a product: cheapest, random, weighted-random as previously explained. We will analyze these three choosing methods.
+
+    \begin{figure}[H]
+        \minipage{0.32\textwidth}
+            \includegraphics[width=\linewidth]{img/exp/16_1.png}\label{fig:cheapest}
+            \caption{Cheapest}
+        \endminipage\hfill
+        \minipage{0.32\textwidth}
+            \includegraphics[width=\linewidth]{img/exp/16_2.png}\label{fig:random}
+            \caption{Random}
+        \endminipage\hfill
+        \minipage{0.32\textwidth}
+            \includegraphics[width=\linewidth]{img/exp/16_3.png}\label{fig:weighted}
+            \caption{Random weighted}
+        \endminipage\hfill
+    \end{figure}
+
+    The first plot has already been analyzed and explained in the previous section (because the default choosing method is 'Cheapest'). We will compare it with other two methods. 
+    
+    In the middle plot, where a random method is used, we can see that agents will more easily buy more expensive products since we have more scattered points on the right hand-side of the plot (compared to the \ref{fig:cheapest}) as we wanted. Although products are selected at random despite the price, we must recall that we have a filtered list of \emph{possibilities} according to the budget of the agent. Thus, naturally, we have more points on the upper left part of the plot (i.e. small price = more sales) because these products are more frequently in this filtered list, therefore they will be picked more often too compared to expensive products which will get picked less often given the fact that they are not always present in that list. This explains why we do not have a totally horizontal blue line.
+
+    Finally, on the figure~\ref{fig:weighted} we can see a intermediary result: we see a mix of the two plots in the sense that sometimes we do make a random choice, but it biased towards cheapest possibilities.
+
+
