@@ -70,7 +70,6 @@ class Analysis:
         del df["ConnectedStates"]
         # Add Gini coefficient to each State
         df['Gini'] = df['Id'].apply(lambda id_: self.gini(self.DF_AGENTS_PRODUCTS[self.DF_AGENTS["State"] == id_]))
-        df['Purchases'] = df['Id'].apply(lambda id_: self.DF_AGENTS_PRODUCTS[self.DF_AGENTS_PRODUCTS["State"] == id_]['Sales'].sum())
         return df
 
     @staticmethod
