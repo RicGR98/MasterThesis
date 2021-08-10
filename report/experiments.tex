@@ -23,9 +23,9 @@ The default configuration file that we use is the following. Experiment after ex
 {
     "World": {
         "PRODUCT_CHOICE": "CHEAPEST",
-        "NB_STATES": 200,
-        "NB_AGENTS": 30000,
-        "NB_TICKS": 4000,
+        "NB_STATES": 500,
+        "NB_AGENTS": 25000,
+        "NB_TICKS": 3000,
         "NB_TICKS_SAVE_CSV": 100
     },
     "Connections": {
@@ -116,7 +116,7 @@ We will start our experiments with all the parameters related to the State. We s
 
         This experiment shows the importance of having taxes (in the broadest sense of the term) on several metrics in order for our society to advance and be more fair.
 
-    \subsection{Experiment 2: VAT}
+    \subsection{Experiment 2: VAT}\label{section:expVAT}
     We will now, for each of the four taxes that were presented, analyze their influence. First: the VAT. For this, we will generate many States with random values for the VAT (ranging from 0 to 1) and see if we can see any pattern emerging regarding some metrics.
 
         \subsubsection{State GDP and number of transactions}
@@ -124,7 +124,7 @@ We will start our experiments with all the parameters related to the State. We s
         \begin{wrapfigure}{l}{0.5\linewidth}
             \includegraphics[width=\linewidth]{img/exp/2_1.png}
         \end{wrapfigure} 
-        { \lipsum[1-2] %TODO
+        { At first, it is quite surprising to obtain such a plot where no correlation or pattern can be observed. Nonetheless, this makes sense because no matter what the VAT level is, agents will always be able to buy the same amount of products since the money collected from the taxes is always redistributed. For instance, if we have a VAT of 0, our agents will still be able to buy products because States have other taxes to collect money that they will redistribute afterwards. On the other side, if we have a VAT of 1, the State will have more money to redistribute, therefore agents will be richer. They could potentially buy more products, however this will not be the case because of such a high VAT rate making products more expensive.
         \par
 
         \subsubsection{Gini coefficient}
@@ -132,67 +132,57 @@ We will start our experiments with all the parameters related to the State. We s
         \begin{wrapfigure}{r}{0.5\linewidth}
             \includegraphics[width=\linewidth]{img/exp/2_3.png}
         \end{wrapfigure} 
-        { \lipsum[1-2] %TODONaturally, as we had seen before, the lower the VAT is, the more inequalities we will have since the State has less money to redistribute fairly. However, we can see that here, with a VAT of 0, the Gini coefficient is around 0.45 whereas it was at 0.91 before. This is because in this case, the other taxes are still present as shown in the default configuration allowing the State to distribute allowances and diminishing inequalities. Hence why the higher the VAT is, the less inequalities we have since the Gini coefficient tends to go to zero.
+        { \lipsum[1-2] Naturally, as we had seen before, the lower the VAT is, the more inequalities we will have since the State has less money to redistribute fairly. However, we can see that here, with a VAT of 0, the Gini coefficient is around 0.45 whereas it was at 0.91 before. This is because in this case, the other taxes are still present as shown in the default configuration allowing the State to distribute allowances and diminishing inequalities. Hence why the higher the VAT is, the less inequalities we have since the Gini coefficient tends to go to zero.
         \par
 
     \subsection{Experiment 3: Tariff}
     As for the VAT, we will now analyze the influence of the tariff tax by generating many States with random values (ranging from 0 to 1) and see if we can see any pattern emerging regarding some metrics. 
 
-        \subsubsection{State GDP and number of transactions}
+        \begin{figure}[H]
+            \minipage{0.5\textwidth}
+                \includegraphics[width=\linewidth]{img/exp/3_1.png}
+                \caption{State GDP and number of transactions}
+            \endminipage\hfill
+            \minipage{0.5\textwidth}
+                \includegraphics[width=\linewidth]{img/exp/3_3.png}
+                \caption{Gini coefficient}
+            \endminipage\hfill
+        \end{figure}
 
-        \begin{wrapfigure}{l}{0.5\linewidth}
-            \includegraphics[width=\linewidth]{img/exp/3_1.png}
-        \end{wrapfigure} 
-        { \lipsum[1-2] %TODO
-        \par
-
-        \subsubsection{Gini coefficient}
-
-        \begin{wrapfigure}{r}{0.5\linewidth}
-            \includegraphics[width=\linewidth]{img/exp/3_3.png}
-        \end{wrapfigure} 
-        { \lipsum[1-2] %TODO
-        \par
+        As for the previous experiment, the first plot might seem astonishing at first, but the explanation is exactly the same as for the previous experiment~\ref{section:expVAT}. The same goes for the second plot and the analysis of the Gini coefficient.
 
 
     \subsection{Experiment 4: Levy}
     We will now analyze the influence of the levy tax by generating many States with random values (ranging from 0 to 1) and see if we can see any pattern emerging regarding some metrics. 
 
-        \subsubsection{State GDP and number of transactions}
+        \begin{figure}[H]
+            \minipage{0.5\textwidth}
+                \includegraphics[width=\linewidth]{img/exp/4_1.png}
+                \caption{State GDP and number of transactions}
+            \endminipage\hfill
+            \minipage{0.5\textwidth}
+                \includegraphics[width=\linewidth]{img/exp/4_3.png}
+                \caption{Gini coefficient}
+            \endminipage\hfill
+        \end{figure}
 
-        \begin{wrapfigure}{l}{0.5\linewidth}
-            \includegraphics[width=\linewidth]{img/exp/4_1.png}
-        \end{wrapfigure} 
-        { \lipsum[1-2] %TODO
-        \par
-
-        \subsubsection{Gini coefficient}
-
-        \begin{wrapfigure}{r}{0.5\linewidth}
-            \includegraphics[width=\linewidth]{img/exp/4_3.png}
-        \end{wrapfigure} 
-        { \lipsum[1-2] %TODO
-        \par
-
+        As for the previous experiments, the first plot might seem astonishing at first, but the explanation is exactly the same as for the previous experiment~\ref{section:expVAT}. The same goes for the second plot and the analysis of the Gini coefficient. However, in this experiment, the Gini coefficient goes down until almost zero. This was to be expected because if we levy 100\% of the wealth of all agents, they will be moneyless. Therefore, after redistributing the allowances, they will all have the money. Indeed, the Fair and Flat allowance will be almost exactly the same since all agents have the same wealth: none.
 
     \subsection{Experiment 5: Wealth tax}
     We will now analyze the influence of the last tax: the wealth tax with the same methodologies as the previous taxes and see if we can see any pattern emerging regarding some metrics. 
 
-        \subsubsection{State GDP and number of transactions}
+        \begin{figure}[H]
+            \minipage{0.5\textwidth}
+                \includegraphics[width=\linewidth]{img/exp/5_1.png}
+                \caption{State GDP and number of transactions}
+            \endminipage\hfill
+            \minipage{0.5\textwidth}
+                \includegraphics[width=\linewidth]{img/exp/5_3.png}
+                \caption{Gini coefficient}
+            \endminipage\hfill
+        \end{figure}
 
-        \begin{wrapfigure}{l}{0.5\linewidth}
-            \includegraphics[width=\linewidth]{img/exp/5_1.png}
-        \end{wrapfigure} 
-        { \lipsum[1-2] %TODO
-        \par
-
-        \subsubsection{Gini coefficient}
-
-        \begin{wrapfigure}{r}{0.5\linewidth}
-            \includegraphics[width=\linewidth]{img/exp/5_3.png}
-        \end{wrapfigure} 
-        { \lipsum[1-2] %TODO
-        \par
+        As for the previous experiments, the first plot might seem astonishing at first, but the explanation is exactly the same as for the previous experiment~\ref{section:expVAT}. The same goes for the second plot and the analysis of the Gini coefficient.
 
 
     \subsection{Experiment 6: Unemployment}
@@ -397,8 +387,10 @@ We will start our experiments with all the parameters related to the State. We s
 
     The first plot has already been analyzed and explained in the previous section (because the default choosing method is 'Cheapest'). We will compare it with other two methods. 
     
-    In the middle plot, where a random method is used, we can see that agents will more easily buy more expensive products since we have more scattered points on the right hand-side of the plot (compared to the \ref{fig:cheapest}) as we wanted. Although products are selected at random despite the price, we must recall that we have a filtered list of \emph{possibilities} according to the budget of the agent. Thus, naturally, we have more points on the upper left part of the plot (i.e. small price = more sales) because these products are more frequently in this filtered list, therefore they will be picked more often too compared to expensive products which will get picked less often given the fact that they are not always present in that list. This explains why we do not have a totally horizontal blue line.
+    In the middle plot, where a random method is used, we can see that agents will more easily buy more expensive products since we have more scattered points on the right hand-side of the plot (compared to the first plot) as we wanted. Although products are selected at random despite the price, we must recall that we have a filtered list of \emph{possibilities} according to the budget of the agent. Thus, naturally, we have more points on the upper left part of the plot (i.e. small price = more sales) because these products are more frequently in this filtered list, therefore they will be picked more often too compared to expensive products which will get picked less often given the fact that they are not always present in that list. This explains why we do not have a totally horizontal blue line.
 
-    Finally, on the figure~\ref{fig:weighted} we can see a intermediary result: we see a mix of the two plots in the sense that sometimes we do make a random choice, but it biased towards cheapest possibilities.
+    Finally, on the last plot we can see a intermediary result: we see a mix of the two plots in the sense that sometimes we do make a random choice, but it biased towards cheapest possibilities.
 
 
+\section{Experiments conclusion}
+    As we have seen in these experiments, we had different kind of results: some which were quite straightforward and expected, others were very interesting to analyze and finally some were disappointing because they did not match the reality. In the latter case, we hypothesized that it might due to the many details of the real life which are not taken into account here. However, we were able to answer the majority of our research questions presented in the introduction.

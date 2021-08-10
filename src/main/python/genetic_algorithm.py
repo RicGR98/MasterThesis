@@ -177,4 +177,27 @@ class GeneticAlgorithm:
 def geneticAlgorithm():
     Path("params/opti").mkdir(parents=True, exist_ok=True)
     ga = GeneticAlgorithm()
-    ga.launch(popSize=10, nbSteps=5)
+    ga.launch(popSize=15, nbSteps=20)
+
+
+def func(params):
+    Config.resetAll()
+    c = Config("templateOptimization.json", "opti/opti.json")
+    c.setVat(params[0])
+    c.setLevy(params[1])
+    c.setTariff(params[2])
+    c.setWealth(params[3])
+    c.setUnemployment(params[4])
+    c.setBlack(params[5])
+    c.save()
+    c.run()
+    a = Analysis("opti/opti")
+    return a.gini(a.DF_AGENTS)
+
+
+def main():
+    x0 = [.2, .4, .5, .6, .8, .9]
+    from scipy.optimize import minimize
+    res = minimize(func, x0, bounds=((0, 0.99), (0, 0.99), (0, 0.99), (0, 0.99), (0, 0.99), (0, 0.99)))
+    print(res.x)
+
