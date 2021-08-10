@@ -210,7 +210,7 @@ def exp9():
     name = "exp/9"
     c = Config(DEFAULT_CONFIG_FILE, f"{name}.json")
     c.setProbConnection(0.3)
-    c.setClusterSize(c.getNbStates()//20)  # If 100 States => 5 connected states, thus number of connected States = 4
+    c.setClusterSize(5)
     c.save()
     if RUN:
         c.run()
@@ -219,6 +219,7 @@ def exp9():
         return
     a = Analysis(name)
     print(a.DF_STATES)
+    a.DF_STATES = a.DF_STATES[a.DF_STATES["Allowance"] == "Fair"]
     a.barChart(name + "_1", a.DF_STATES, "NbConnectedStates", "Gdp", "NbTransactions")
     a.barChart(name + "_2", a.DF_STATES, "NbConnectedStates", "PopTotalMoney", "StateMoney")
     a.barChart(name + "_3", a.DF_STATES, "NbConnectedStates", "Gini")
