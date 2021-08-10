@@ -296,30 +296,24 @@ We will start our experiments with all the parameters related to the State. We s
             
         As we can see on this plot, the simulation metrics start to stabilize after 2000 or 3000 ticks and going up to 6000 ticks provides no advantage (for a run-time 2-3 times longer). Hence, the default number of ticks in the configuration file is 3000.
         \par
-
     
+\section{Agent experiments}
+    After seeing and analyzing some State parameters, we will focus on those of the Agents.
 
-    \subsection{Experiment XYZ: XYZ}
-    
-        \subsubsection{State GDP and number of transactions}
-
-        \begin{wrapfigure}{l}{0.5\linewidth}
-            \includegraphics[width=\linewidth]{img/exp/8_1.png}
-        \end{wrapfigure} 
-        { \lipsum[1-2] %TODO
-        \par
-
-        \subsubsection{Gini coefficient}
+    \subsection{Experiment 11: Talent}
+    The talent an agent has lets it produce cheaper products therefore having more chances at getting picked by a potential buyer looking for the cheapest product. For this experiment, we will analyze how the talent of an agent (between 0 and 1) influences its sales and purchases by generating lots of homogeneous agents with different talent values.
 
         \begin{wrapfigure}{r}{0.5\linewidth}
-            \includegraphics[width=\linewidth]{img/exp/8_3.png}
+            \includegraphics[width=\linewidth]{img/exp/11.png}
         \end{wrapfigure} 
-        { \lipsum[1-2] %TODO
+        { This first plot may look quite chaotic and random at first, however we can see many interesting patterns by taking into account some particularities afterwards. First, generally we see a trend (red line behind the blue dots) that the more talent an agent has, the more sales it will make. Regarding the number of purchases, we have a rather odd pattern (which looks like the on in the Gini coefficient in the Unemployment experiment): as the talent increases, we are gradually able to make more purchases until a certain point around 0.5-0.7. After this point, there is a significant drop due to the fact that agents will produce products ``too cheap'', therefore not allowing them to earn enough wealth and make purchases. This is quite interesting because it shows that selling at such low prices is not always a good idea.
+        
+        However, it seems that the trends are not linear (as one could have expected) but this due to the fact a different products have different base prices (i.e. the original price of the product which is then lowered by a certain factor based on the agent's talent). For instance, if we have an agent A which produces a product with a base price of 10 with a talent of 0.1, then A will see its product at 9. Now if we have another agent B which produces a product with a base price of 200 with a talent of 0.7, its product will now cost 60. This means that, even though A has less talent (0.1) than B (0.7), it will \emph{probably} sell more products since its product remains cheaper, therefore we do not have a clear linear trend.
+        This is also the reason why we a trace of red scattered points going upwards: the same product: the point goes up (i.e. more sales) as the talent goes up too.
+
         \par
 
-    
 
-    
-%\section{Agent experiments}
+
     
 %\section{Product experiments}
