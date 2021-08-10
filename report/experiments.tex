@@ -342,5 +342,25 @@ We will start our experiments with all the parameters related to the State. We s
     As we can see on these plots (where 1 means that the agent is indeed a producer, and 0 means it is unemployed). Naturally, producers make more purchases than non-producers (2.2x times as much for 1000 ticks and 1.7x as much for 10000 ticks). However, we can see that in both cases, multiplying by 10 the number of ticks results in a \emph{roughly} 10 times increase of the number of purchases for both producers and non producers. This means that  non-producing agents can make purchases thanks to the redistribution system. Indeed, otherwise, if they were no allowances, the non-producing agents would be able to buy products up until a certain point where they have spent all their initial money. From that tick forward, they would not be able to make any purchase because they would not sell anything nor receive any money from the State, therefore a threshold would be reached, and increasing the number of ticks would not upgrade the threshold (contrary to here).
     
 
+    \subsection{Experiment 14: Wealth distribution}
+    We can see in the following comparison the difference between the wealth distribution among agents. This wealth distribution is presented by the Lorenz curve (in blue). 
+
+    \begin{figure}[H]
+        \minipage{0.5\textwidth}
+            \includegraphics[width=\linewidth]{img/exp/14_1.png}
+            \caption{Flat allowance State}
+        \endminipage\hfill
+        \minipage{0.5\textwidth}
+            \includegraphics[width=\linewidth]{img/exp/14_2.png}
+            \caption{Fair allowance State}
+        \endminipage\hfill
+    \end{figure}
+
+    We can read this plot as follows: if we take the x point 0.8 in the left hand-side plot, we can see that 80\% of the population owns around 25\% of the total wealth. On the other plot, we see that at 80\% of the population owns around 40\% of the total wealth. Therefore, the second case seems fairer. In a perfect equality society, we would obtain the red curve: 30\% of the population detains 30\% of the wealth, 80\% would own 80\%, etc. 
+    
+    Therefore, the bigger the area between the red and blue curves, the higher the inequalities will be. This area actually represents one metric that we have analyzed all along this thesis: the Gini coefficient. If both curve coincide, the Gini index will be 0. On the other side, if there is only one person holding all the wealth and all the others agents own nothing, then we would see a blue horizontal line at the bottom with a sudden peak at then end therefore resulting in a Gini coefficient very close to 1. \footnote{Not \emph{exactly} 1 because we would need an infinite amount of agents}.
+
+    The Gini coefficient on the left plot (where a flat allowance redistribution system is used) is equal to 0.618 whereas on the right hand-side the Gini index is equal to 0.546. Naturally, we can see that the right case is fairer as wealth is distributed a bit more fairly.
+
 
 %\section{Product experiments}
