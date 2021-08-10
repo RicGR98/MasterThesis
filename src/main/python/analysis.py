@@ -140,7 +140,6 @@ class Analysis:
         X = X.sort_values()
         lorenz_x = np.linspace(0.0, 1.0, X.size)
         lorenz_y = X.cumsum() / X.sum()
-        print(df)
         chart = Chart()
         chart.set_axis_labels("Fraction of population", "Fraction of wealth")
         chart.plot([0, 1], [0, 1], color='red', label="Perfect equality")

@@ -41,7 +41,6 @@ def exp1():
 
     for name in [name1, name2]:
         a = Analysis(name)
-        print(a.DF_STATES)
         a.DF_STATES = a.DF_STATES[a.DF_STATES["Allowance"] == "Fair"]
         a.barChart(name + "_1", a.DF_STATES, "VAT", "Gdp", "NbTransactions")
         a.barChart(name + "_2", a.DF_STATES, "VAT", "PopTotalMoney", "StateMoney")
@@ -63,7 +62,6 @@ def exp2():
     if not ANALYZE:
         return
     a = Analysis(name)
-    print(a.DF_STATES)
     a.DF_STATES = a.DF_STATES[a.DF_STATES["Allowance"] == "Fair"]
     a.linePointsChart(name + "_1", a.DF_STATES, "VAT", "Gdp", "NbTransactions")
     a.linePointsChart(name + "_2", a.DF_STATES, "VAT", "PopTotalMoney", "StateMoney")
@@ -85,7 +83,6 @@ def exp3():
     if not ANALYZE:
         return
     a = Analysis(name)
-    print(a.DF_STATES)
     a.DF_STATES = a.DF_STATES[a.DF_STATES["Allowance"] == "Fair"]
     a.linePointsChart(name + "_1", a.DF_STATES, "Tariff", "Gdp", "NbTransactions")
     a.linePointsChart(name + "_2", a.DF_STATES, "Tariff", "PopTotalMoney", "StateMoney")
@@ -107,7 +104,6 @@ def exp4():
     if not ANALYZE:
         return
     a = Analysis(name)
-    print(a.DF_STATES)
     a.DF_STATES = a.DF_STATES[a.DF_STATES["Allowance"] == "Fair"]
     a.linePointsChart(name + "_1", a.DF_STATES, "Levy", "Gdp", "NbTransactions")
     a.linePointsChart(name + "_2", a.DF_STATES, "Levy", "PopTotalMoney", "StateMoney")
@@ -130,7 +126,6 @@ def exp5():
     if not ANALYZE:
         return
     a = Analysis(name)
-    print(a.DF_STATES)
     a.DF_STATES = a.DF_STATES[a.DF_STATES["Allowance"] == "Fair"]
     a.linePointsChart(name + "_1", a.DF_STATES, "WealthTax", "Gdp", "NbTransactions")
     a.linePointsChart(name + "_2", a.DF_STATES, "WealthTax", "PopTotalMoney", "StateMoney")
@@ -152,8 +147,6 @@ def exp6():
     if not ANALYZE:
         return
     a = Analysis(name)
-    print(a.DF_STATES)
-    print(a.DF_AGENTS_PRODUCTS)
     a.DF_STATES = a.DF_STATES[a.DF_STATES["Allowance"] == "Fair"]
     a.linePointsChart(name + "_1", a.DF_STATES, "Unemployment", "Gdp", "NbTransactions")
     a.linePointsChart(name + "_2", a.DF_STATES, "Unemployment", "PopTotalMoney", "StateMoney")
@@ -175,7 +168,6 @@ def exp7():
     if not ANALYZE:
         return
     a = Analysis(name)
-    print(a.DF_STATES)
     a.DF_STATES = a.DF_STATES[a.DF_STATES["Allowance"] == "Fair"]
     a.linePointsChart(name + "_1", a.DF_STATES, "Black", "Gdp", "NbTransactions")
     a.linePointsChart(name + "_2", a.DF_STATES, "Black", "PopTotalMoney", "StateMoney")
@@ -196,7 +188,6 @@ def exp8():
     if not ANALYZE:
         return
     a = Analysis(name)
-    print(a.DF_STATES)
     a.barChart(name + "_1", a.DF_STATES, "Allowance", "Gdp", "NbTransactions")
     a.barChart(name + "_2", a.DF_STATES, "Allowance", "PopTotalMoney", "StateMoney")
     a.barChart(name + "_3", a.DF_STATES, "Allowance", "Gini")
@@ -218,7 +209,6 @@ def exp9():
     if not ANALYZE:
         return
     a = Analysis(name)
-    print(a.DF_STATES)
     a.DF_STATES = a.DF_STATES[a.DF_STATES["Allowance"] == "Fair"]
     a.barChart(name + "_1", a.DF_STATES, "NbConnectedStates", "Gdp", "NbTransactions")
     a.barChart(name + "_2", a.DF_STATES, "NbConnectedStates", "PopTotalMoney", "StateMoney")
@@ -242,8 +232,6 @@ def exp10():
     if not ANALYZE:
         return
     a = Analysis(name)
-    print(a.DF_TICKS)
-    print(a.DF_STATES)
     a.linePointsChart(name + "_1", a.DF_TICKS, "Tick", "WorldNbTransactions", "WorldGdp")
     a.linePointsChart(name + "_2", a.DF_TICKS, "Tick", "WorldStatesMoney", "WorldAgentsMoney")
 
@@ -268,7 +256,6 @@ def exp11():
     if not ANALYZE:
         return
     a = Analysis(name)
-    print(a.DF_AGENTS_PRODUCTS)
     a.linePointsChart(name, a.DF_AGENTS_PRODUCTS, "Talent", "Sales", "Purchases")
 
 
@@ -287,7 +274,6 @@ def exp12():
     if not ANALYZE:
         return
     a = Analysis(name)
-    print(a.DF_AGENTS_PRODUCTS)
     a.linePointsChart(name + "_1", a.DF_AGENTS_PRODUCTS, "AgentInitMoney", "Sales", "Purchases")
     a.linePointsChart(name + "_2", a.DF_AGENTS_PRODUCTS, "AgentInitMoney", "Stock")
 
@@ -361,7 +347,6 @@ def exp15():
     if not ANALYZE:
         return
     a = Analysis(name)
-    print(a.DF_AGENTS_PRODUCTS)
     a.linePointsChart(name, a.DF_AGENTS_PRODUCTS, "SellingPrice", "Stock", "Sales")
 
 

@@ -314,6 +314,33 @@ We will start our experiments with all the parameters related to the State. We s
         \par
 
 
+    \subsection{Experiment 12: Initial money}
+    Another interesting parameter is the initial money of an agent. Whether an agent starts the simulation with a small or huge amount of money could influence its purchases and sales. 
 
+        \begin{wrapfigure}{l}{0.5\linewidth}
+            \includegraphics[width=\linewidth]{img/exp/12_1.png}
+        \end{wrapfigure} 
+        { Again, the plot looks a bit chaotic because of the many points (i.e. agents). However, we can clearly see that there is absolutely no correlation between the agent's initial money and its sales or purchases (both the blue and red lines are horizontal and the scattered points are very sparse across the plot). This was to be expected because of the redistribution. Indeed, although an agent may start with little money, it will still be able to make purchases with the money it receives from its sales and from the allowances it will receive during the simulation. 
+        \par
+
+
+
+    \subsection{Experiment 13: Unemployment}
+    As we had seen in a previous experiment, unemployment (i.e. agent who never produces) plays a major role in the System. How can agents who do not produce make purchases ? For this experiment we will only have one State with a thousands agents and un employment rate of 0.3. To see the role of unemployment, we will compare one simulation which runs for 1000 ticks, and another for 10000 ticks.
+
+        \begin{figure}[H]
+            \minipage{0.5\textwidth}
+                \includegraphics[width=\linewidth]{img/exp/13_1.png}
+                \caption{1000 ticks}
+            \endminipage\hfill
+            \minipage{0.5\textwidth}
+                \includegraphics[width=\linewidth]{img/exp/13_2.png}
+                \caption{10000 ticks}
+            \endminipage\hfill
+        \end{figure}
+
+    As we can see on these plots (where 1 means that the agent is indeed a producer, and 0 means it is unemployed). Naturally, producers make more purchases than non-producers (2.2x times as much for 1000 ticks and 1.7x as much for 10000 ticks). However, we can see that in both cases, multiplying by 10 the number of ticks results in a \emph{roughly} 10 times increase of the number of purchases for both producers and non producers. This means that  non-producing agents can make purchases thanks to the redistribution system. Indeed, otherwise, if they were no allowances, the non-producing agents would be able to buy products up until a certain point where they have spent all their initial money. From that tick forward, they would not be able to make any purchase because they would not sell anything nor receive any money from the State, therefore a threshold would be reached, and increasing the number of ticks would not upgrade the threshold (contrary to here).
     
+
+
 %\section{Product experiments}
