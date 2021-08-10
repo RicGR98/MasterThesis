@@ -101,7 +101,7 @@ We will start our experiments with all the parameters related to the State. We s
 
         \subsubsection{Gini coefficient} 
         
-        Another interesting metric is the measure of inequalities, i.e. the Gini coefficient, the smaller it is, the more equal a society is. We can, naturally, see a tremendous difference between the two plots. Indeed, if the State has no taxes, it cannot collect nor distribute money. Therefore, the Gini coefficient skyrockets from $0.36$ to $0.91$.
+        Another interesting metric is the measure of inequalities, i.e. the Gini coefficient, the smaller it is, the more equal a society is. We can, naturally, see a tremendous difference between the two plots. Indeed, if the State has no taxes, it cannot collect nor distribute money. Therefore, the Gini coefficient skyrockets from $0.39$ to $0.96$.
 
         \begin{figure}[H]
             \minipage{0.5\textwidth}
@@ -124,7 +124,7 @@ We will start our experiments with all the parameters related to the State. We s
         \begin{wrapfigure}{l}{0.5\linewidth}
             \includegraphics[width=\linewidth]{img/exp/2_1.png}
         \end{wrapfigure} 
-        {Although the trend is not totally linear, we can still see a rather interesting correlation between the VAT of a State and its GDP and the number of transactions happening. As we can see on the plot, being in either of the two extremes (VAT close to 0 or to 1) is rather detrimental. Indeed, as we have seen in the previous experiment, having a very low VAT is bad for our these two metrics. However, having it too high is also problematic (close to 1 would mean that a product costing 100 will now cost 200) because products are now much more expensive, therefore agents will make fewer purchases and the GDP will be lowered too. 
+        { \lipsum[1-2] %TODO
         \par
 
         \subsubsection{Gini coefficient}
@@ -132,25 +132,67 @@ We will start our experiments with all the parameters related to the State. We s
         \begin{wrapfigure}{r}{0.5\linewidth}
             \includegraphics[width=\linewidth]{img/exp/2_3.png}
         \end{wrapfigure} 
-        {Naturally, as we had seen before, the lower the VAT is, the more inequalities we will have since the State has less money to redistribute fairly. However, we can see that here, with a VAT of 0, the Gini coefficient is around 0.45 whereas it was at 0.91 before. This is because in this case, the other taxes are still present as shown in the default configuration allowing the State to distribute allowances and diminishing inequalities. Hence why the higher the VAT is, the less inequalities we have since the Gini coefficient tends to go to zero.
+        { \lipsum[1-2] %TODONaturally, as we had seen before, the lower the VAT is, the more inequalities we will have since the State has less money to redistribute fairly. However, we can see that here, with a VAT of 0, the Gini coefficient is around 0.45 whereas it was at 0.91 before. This is because in this case, the other taxes are still present as shown in the default configuration allowing the State to distribute allowances and diminishing inequalities. Hence why the higher the VAT is, the less inequalities we have since the Gini coefficient tends to go to zero.
         \par
 
     \subsection{Experiment 3: Tariff}
     As for the VAT, we will now analyze the influence of the tariff tax by generating many States with random values (ranging from 0 to 1) and see if we can see any pattern emerging regarding some metrics. 
 
-        %TODO
+        \subsubsection{State GDP and number of transactions}
+
+        \begin{wrapfigure}{l}{0.5\linewidth}
+            \includegraphics[width=\linewidth]{img/exp/3_1.png}
+        \end{wrapfigure} 
+        { \lipsum[1-2] %TODO
+        \par
+
+        \subsubsection{Gini coefficient}
+
+        \begin{wrapfigure}{r}{0.5\linewidth}
+            \includegraphics[width=\linewidth]{img/exp/3_3.png}
+        \end{wrapfigure} 
+        { \lipsum[1-2] %TODO
+        \par
 
 
     \subsection{Experiment 4: Levy}
     We will now analyze the influence of the levy tax by generating many States with random values (ranging from 0 to 1) and see if we can see any pattern emerging regarding some metrics. 
 
-        %TODO
+        \subsubsection{State GDP and number of transactions}
+
+        \begin{wrapfigure}{l}{0.5\linewidth}
+            \includegraphics[width=\linewidth]{img/exp/4_1.png}
+        \end{wrapfigure} 
+        { \lipsum[1-2] %TODO
+        \par
+
+        \subsubsection{Gini coefficient}
+
+        \begin{wrapfigure}{r}{0.5\linewidth}
+            \includegraphics[width=\linewidth]{img/exp/4_3.png}
+        \end{wrapfigure} 
+        { \lipsum[1-2] %TODO
+        \par
 
 
     \subsection{Experiment 5: Wealth tax}
     We will now analyze the influence of the last tax: the wealth tax with the same methodologies as the previous taxes and see if we can see any pattern emerging regarding some metrics. 
 
-        %TODO
+        \subsubsection{State GDP and number of transactions}
+
+        \begin{wrapfigure}{l}{0.5\linewidth}
+            \includegraphics[width=\linewidth]{img/exp/5_1.png}
+        \end{wrapfigure} 
+        { \lipsum[1-2] %TODO
+        \par
+
+        \subsubsection{Gini coefficient}
+
+        \begin{wrapfigure}{r}{0.5\linewidth}
+            \includegraphics[width=\linewidth]{img/exp/5_3.png}
+        \end{wrapfigure} 
+        { \lipsum[1-2] %TODO
+        \par
 
 
     \subsection{Experiment 6: Unemployment}
@@ -185,7 +227,7 @@ We will start our experiments with all the parameters related to the State. We s
         \begin{wrapfigure}{l}{0.5\linewidth}
             \includegraphics[width=\linewidth]{img/exp/7_1.png}
         \end{wrapfigure} 
-        {We see almost no correlation. This is due to the fact that black transactions are still counted as transactions. As for the GDP, however \\ \\ \\ \\ \\%TODO 
+        {Until now, we were used to see a strong relation between the number of transactions and the State's GDP. However, this is not the case anymore because of the black economy (because even when no due tax is paid, the transaction is still counted). This results in a linear correlation between the black economy share and the GDP as expected, yet we see absolutely no correlation with the number of transactions since the blue line is quite straight.
         \par
 
         \subsubsection{Gini coefficient}
@@ -199,7 +241,82 @@ We will start our experiments with all the parameters related to the State. We s
 
 
     \subsection{Experiment 8: Allowances}
+    As we have seen, we have two types of allowances: the flat one (which mimics the Universal Basic Income in the sense that the money is distributed regardless of the agent's wealth), and the fair one (based on the agent's wealth). We will analyze the effects of these two types of redistribution mechanisms.
     
+        \subsubsection{State GDP and number of transactions}
+
+        \begin{wrapfigure}{l}{0.5\linewidth}
+            \includegraphics[width=\linewidth]{img/exp/8_1.png}
+        \end{wrapfigure} 
+        { On this side plot, we see that the flat redistribution mechanism seems to be \emph{slightly} superior to the fair one. The increase is of about $2\%$ (2.1\% for the GDP going from $19988$ to $20421$ and $1.7\%$ for the number of transactions going from 679 to 691). This increase is rather negligible and might be the result of the stochastic behavior of the simulation. Indeed, one would expect to not be a relevant difference on these metrics. For instance, the number of transactions is not penalized by the Flat allowance because poorer agents will still be able to afford buying products since they receive their (equal) share of the total money distributed: all Agents are still able to buy products,.
+        \par
+
+        \subsubsection{Gini coefficient}
+
+        \begin{wrapfigure}{r}{0.5\linewidth}
+            \includegraphics[width=\linewidth]{img/exp/8_3.png}
+        \end{wrapfigure} 
+        { On the contrary, one would expect a quite pertinent difference on the metric of inequalities as depicted on the plot. This results seems logical since it is was the \emph{main goal} of this redistribution system: State distributing the collected money in a fair way have, in average, a smaller Gini index (i.e. inequalities are limited) and vice-versa for the flat distribution mechanism. With this flat allowance, the wealthier agents will stay wealthier.
+
+        However, an important note to make is that both these systems clearly outperform the system where no redistribution is in place. Indeed, we had seen in the first experiment that, in this case, the Gini coefficient would skyrocket to $0.96$.
+        \par
+
+
+
+    \subsection{Experiment 9: Connections}
+    The final parameter of States that will be analyzed is the number of Connections it has. For this we will study both the bilateral connections and the cluster and their influence on our already well presented metrics. In this experiment, we have a probability of connection of 0.3 and a cluster of 5 States (thus each State is connected to 4 others).
+
+        \subsubsection{State GDP and number of transactions}
+
+        \begin{wrapfigure}{l}{0.5\linewidth}
+            \includegraphics[width=\linewidth]{img/exp/9_1.png}
+        \end{wrapfigure} 
+        { First, as the number of connected states increases, it seems that the average GDP of these states decreases. Although this may seem odd at first, it fits with our implementation because agents will tend to buy cheaper products since they have a wider range of choices. On the other side, the number of transactions remains quite constant (besides the small drop when a State is connected to 3 others which might be due to the fact that not many States have 3 connections and therefore the statistical relevance is biased).
+
+        With these metrics going towards opposite directions, we can notice something very interesting: the difference between the red (GDP) and blue (number of transactions) bars keeps increasing. Indeed, at first, when a State is connected to no other State, these two metrics are very related as we have seen up until now (besides in the black economy experiment). However, the difference is much more noticeable when a State is connected to 4 other States. The main hypothesis for this behavior is that agents perform as many transactions as before, however because they have access to other markets without any tariffs, they are able to buy some products at a cheaper price in another State therefore not increasing the GDP as much.
+
+        The results of this experiment are quite lackluster when compared to the state of the art. Indeed, an increase of the GDP was expected for State with more connections. This difference is due to the code implementation which does not mimic well enough the reality, and not to the simulation itself. The simulation results fit the implementation.
+        \par
+
+        \subsubsection{Gini coefficient}
+
+        \begin{wrapfigure}{r}{0.5\linewidth}
+            \includegraphics[width=\linewidth]{img/exp/9_3.png} 
+        \end{wrapfigure}   
+        { Regarding the measure of inequalities, we see that all the Gini coefficients are very similar to one another. The differences are quite negligible when compared to the others when had before (0.46 versus 0.55, or 0.39 versus 0.96). Having access to a larger market with cheaper prices does not, in fine, mean that inequalities will be reduced/accentuated for those agents since both the wealthiest and the poorest agents will buy these cheaper products, therefore no reduction of difference of wealth was expected. 
+        \par
+    
+
+    \subsection{Experiment 10: Number of ticks}
+        
+        \begin{wrapfigure}{l}{0.5\linewidth}
+            \includegraphics[width=\linewidth]{img/exp/10_2.png}
+        \end{wrapfigure} 
+        { Our last experiment of this section is not based on a parameter of the state \emph{per se}, but on the duration of the simulation and the evolution of some State metrics as the number of ticks increases. Deciding how long the simulation should run for is important to save computational power and run-time by checking at around how many ticks the simulation starts to stabilize. After this point of stabilization, there is no real advantage of running the simulation for even longer because no dramatic fluctuation should happen. 
+            
+        As we can see on this plot, the simulation metrics start to stabilize after 2000 or 3000 ticks and going up to 6000 ticks provides no advantage (for a run-time 2-3 times longer). Hence, the default number of ticks in the configuration file is 3000.
+        \par
+
+    
+
+    \subsection{Experiment XYZ: XYZ}
+    
+        \subsubsection{State GDP and number of transactions}
+
+        \begin{wrapfigure}{l}{0.5\linewidth}
+            \includegraphics[width=\linewidth]{img/exp/8_1.png}
+        \end{wrapfigure} 
+        { \lipsum[1-2] %TODO
+        \par
+
+        \subsubsection{Gini coefficient}
+
+        \begin{wrapfigure}{r}{0.5\linewidth}
+            \includegraphics[width=\linewidth]{img/exp/8_3.png}
+        \end{wrapfigure} 
+        { \lipsum[1-2] %TODO
+        \par
+
     
 
     
