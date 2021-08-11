@@ -33,9 +33,9 @@ $mvn package
 python3 src/main/python/main.py
 
 # Commands to copy file to cluster and launch the job:
-# Ricardo ==>  rsync -avz run.sh pom.xml src params rgomesro@lemaitre3:
-# Ricardo ==>  ssh lemaitre3
+# Ricardo ==>  rsync -avz run.sh pom.xml src params rgomesro@dragon2:
+# Ricardo ==>  ssh dragon2
 # Cluster ==>  sbatch run.sh
 # Cluster ==>  squeue -u rgomesro
 # Cluster ==>  scancel -u rgomesro
-# Ricardo ==>  rsync -avz rgomesro@lemaitre3:res .
+# Ricardo ==>  rsync -avz rgomesro@dragon2:res .
