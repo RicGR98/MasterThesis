@@ -1,9 +1,9 @@
 from experiments import runExperimentsParallel, plotGraphs
-from genetic_algorithm import geneticAlgorithm
+from optimization import optimize
 from config import Config
 
 if __name__ == '__main__':
     # runExperimentsParallel()
     # plotGraphs()
-    geneticAlgorithm()
+    optimize()
     Config.resetAll()
