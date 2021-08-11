@@ -1,8 +1,10 @@
 import random
 from typing import List
 
+import matplotlib.pyplot as plt
 import pyswarms as ps
 import numpy as np
+from pyswarms.utils.plotters import (plot_cost_history, plot_contour, plot_surface)
 
 from config import Config
 from analysis import Analysis
@@ -34,34 +36,49 @@ class Solution:
         self.config.setBlack(params[5])
         self.config.save()
 
-    def getGdp(self):
-        # We want to maximize this.
-        a = Analysis(f"opti/{self.id}")
-        return -a.DF_STATES["Gdp"][0]  # Minus because we will try to minimize the fitness
-
     def getGini(self):
         # We want to minimize this.
         a = Analysis(f"opti/{self.id}")
         return a.gini(a.DF_AGENTS)
 
+    def getGdp(self):
+        # We want to maximize this.
+        a = Analysis(f"opti/{self.id}")
+        return -a.DF_STATES["Gdp"][0]  # Minus because we will try to minimize the fitness
+
+    def getNbTransactions(self):
+        # We want to maximize this.
+        a = Analysis(f"opti/{self.id}")
+        return -a.DF_STATES["NbTransactions"][0] # Minus because we will try to minimize the fitness
+
     def getFitness(self):
-        return self.getGdp()
+        return self.getNbTransactions()
 
 
 def func(particles):
-    # Launch all configurations
-    Config.resetAll()
-    solutions: List[Solution] = []
-    for i, params in enumerate(particles):
-        s = Solution(i, params)
-        solutions.append(s)
-    Config.run()  # Run all in parallel
-    # Get fitness of each configuration
-    res = np.zeros(particles.shape[0])
-    for s in solutions:
-        res[s.id] = s.getFitness()
-    print("\nGini:", res)
-    return res
+    """
+    Function to optimize.
+    We run all configurations (given by the particles) in parallel.
+    We do this NB_RUNS times and get the average to have a better precision.
+    :param particles: Numpy array of particles, each containing all params
+    :return: Fitnesses of all particles
+    """
+    fitnesses = np.zeros(particles.shape[0])
+    NB_RUNS = 1
+    for _ in range(NB_RUNS):
+        # Launch all configurations
+        Config.resetAll()
+        solutions = []
+        for _id, params in enumerate(particles):
+            solution = Solution(_id, params)
+            solutions.append(solution)
+        # Run all in parallel
+        Config.run()
+        # Get fitness of each configuration
+        for solution in solutions:
+            fitnesses[solution.id] += solution.getFitness()
+    fitnesses /= NB_RUNS  # Average multiple runs
+    return fitnesses
 
 
 def optimize():
@@ -74,4 +91,6 @@ def optimize():
         bounds=bounds)
     cost, pos = optimizer.optimize(func, iters=20)
     print(cost, pos)
+    plot_cost_history(cost_history=optimizer.cost_history)
+    plt.show()
 
