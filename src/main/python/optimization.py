@@ -4,7 +4,7 @@ from typing import List
 import matplotlib.pyplot as plt
 import pyswarms as ps
 import numpy as np
-from pyswarms.utils.plotters import (plot_cost_history, plot_contour, plot_surface)
+from pyswarms.utils.plotters import plot_cost_history
 
 from config import Config
 from analysis import Analysis
@@ -110,5 +110,3 @@ def optimize():
             print(cost, pos)
             plot_cost_history(cost_history=optimizer.cost_history)
             plt.savefig(f'res/img/opti/{fitnessMetric}/{i}.png')
-
-
