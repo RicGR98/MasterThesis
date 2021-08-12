@@ -74,7 +74,7 @@ experiment3.json
 ABM provides numerous benefits, as stated before. Amongst these, we can cite two key points that motivate this thesis: \textquote{ABM captures emergent phenomena and it provides a natural description of a system}. This is important because our goal is to have an empirical understanding of our system \cite{tesfatsion_handbook}, i.e., we want to understand why some systems work while others do not. And this will be done with in very intuitive way based on a natural description of ours models which will interact.
 
 Nonetheless, we should also note some drawbacks of this approach; especially the issues revolving around social sciences such as irrational behavior or subjective choices which are difficult to quantify and pin down mathematically \cite{ABM}. In order to simulate some irrational behavior, we could introduce some non-deterministic behavior where the agents would make a random choice from time to time. However, such a stochastic behavior will be hard to calibrate. 
-Another problem that may rise is the required computational power. Simulating such a complex system made of different models with many thousands agents is expensive. Therefore, we shall use tools that allow us to perform heavy computations as described in the implementation section~\ref{section:implementation}. 
+Another problem that may rise is the required computational power. Simulating such a complex system made of different models with many thousands agents is expensive. Therefore, we shall use tools that allow us to perform heavy computations. 
 
 We will now focus on the different models that make up our economical system: the World, the WorldMarket, the States, the Market, the Agents and the Products. We will start by the smallest entity until the biggest: from Products to the World.
 
@@ -91,10 +91,10 @@ We will focus on four key aspects of an agent: its assets, its actions and its s
 
     \subsubsection{Assets}\label{section:assets}
     Usually an agent owns multiple and different types of assets. In our case, we will focus on the financial and material ones. Indeed, an agent has a certain amount of money on its bank account. This amount is, needless to say, variable. 
-    However, each agent will start the simulation with a certain amount of money and afterwards, it will be up to it to spend it as it wishes and also increase it by selling the products it produces (see section about skills~\ref{section:skills}). 
+    However, each agent will start the simulation with a certain amount of money and afterwards, it will be up to it to spend it as it wishes and also increase it by selling the products it produces (see section~\ref{section:produce}). 
     The amount of money an agent has will play a key part in the statistics that we will compute in order to study our study (for example to study the wealth distribution amongst agents). 
 
-    Our agent will also have material assets, namely the products it produces. It can only produce one type of products as described in section about skills~\ref{section:skills}. By producing a unit of a certain type of product, we increase the stock the agent has of that product. And, similarly, by selling a unit of a product, we decrease the stock if it was not empty. We can note that there is a lower bound (0 unit), and an upper bound depending on the parameter \texttt{Product.MAX\_STOCK}.
+    Our agent will also have material assets, namely the products it produces. It can only produce one type of products as described in section~\ref{section:produce}. By producing a unit of a certain type of product, we increase the stock the agent has of that product. And, similarly, by selling a unit of a product, we decrease the stock if it was not empty. We can note that there is a lower bound (0 unit), and an upper bound depending on the parameter \texttt{Product.MAX\_STOCK}.
 
 
     \subsubsection{Actions}\label{section:actions}
@@ -105,7 +105,7 @@ We will focus on four key aspects of an agent: its assets, its actions and its s
 
     The actions involving a product are described as followed:
 
-    \paragraph{Produce}
+    \paragraph{Produce}\label{section:produce}
     Producing is the primary goal of an agent. At first, the Agent chooses one Product type to produce. Depending on its \emph{talent} (a random value between 0 and 1), the Agent will be able to reduce the default selling price of that product as: 
 
     $$Product.sellingPrice = (1-talent) \cdot Product.defaultSellingPrice$$
@@ -114,7 +114,7 @@ We will focus on four key aspects of an agent: its assets, its actions and its s
 
     However, an agent will not be able to produce at each time step (a tick as described in section~\ref{section:world}). This will allow other agents (buyers, i.e., consumers) to have some time to buy our agent's products. Indeed, our agent should not produce all the time in order to avoid having too many stocks of unsold products. An agent will not be able to produce indefinitely, we have an upper bound: the max stock allowed by the parameters (\texttt{Product.MAX\_STOCK}).
 
-    \paragraph{Buy} 
+    \paragraph{Buy}\label{section:buy}
     An agent does not buy at every time step (tick), but when it does, it will analyse all its possibilities. It will choose one product it needs and try to find a seller. For this, we will analyze all the sellers and rank their products by price. This will be detailed in the Market section.
 
 

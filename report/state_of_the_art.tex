@@ -191,5 +191,99 @@ Because the State has collected money from different taxes, it will now have to 
 
     As for computer simulations, ABM is a very interesting tool to detect weak emergence and understand how it emerges. By understanding how it emerges, we are also able to make better predictions by changing some components and see the output. Finally, according to these predictions, one can make decisions and regulate the key parameters when transposing the computer simulation into real life. \cite{ctaiABMBersini}
 
-    %\subsection{Optimization}
-        %TODO
+\subsection{Optimization}
+
+    Finally, the last important field of computer science/mathematics that we will talk about is optimization. The goal of optimization is to either minimize or maximize a given an objective function. 
+
+    Given a function $f : A \rightarrow \mathbb{R}$ define over a set $A$ in $\mathbb{R}$, we want to find an element $\bar{x} $ of $A$ such that $f(\bar{x}) \leq f(x)$ for all $x \in A$.
+
+    Nowadays, there is a immense range of algorithms to perform such a task. Some are more suited for particular class of problems. We can classify an optimization algorithm into the several categories:
+
+    \begin{itemize}
+        \item discrete vs continuous
+        \item constrained vs unconstrained
+        \item single or multi objective
+        \item deterministic or stochastic
+    \end{itemize}
+    
+    Because of the nature of our problem, we will focus ourselves on continuous (because we have real values variables), constrained (because our variables must lay within certain bounds), single objective (we only optimize one objective function), stochastic algorithms. Moreover, we will focus ourselves on a certain property of stochastic algorithms: population-based methods. Indeed, these methods allow us to test, in parallel, multiple configurations (i.e. set of parameters) therefore speeding up the optimization process. Moreover, we should also note that the following two algorithms are heuristic and therefore do not guarantee to find the optimal solution. 
+
+    \subsubsection{Genetic algorithm}
+
+    \paragraph{Overview}
+        One of the oldest population-based method is the genetic algorithm (GA). Instead of having only one candidate solution that we improve over multiple iterations, we now have multiple candidate solutions making up a population allowing easy diversification since we have many individuals representing different solutions. To improve the population of candidates solutions, we apply three actions: selection of the fittest individuals in the population, create new offsprings that combine features of their parents (i.e. crossover), and introduce some mutation to allow the exploration of new solutions. One can also add a local search after mutation for instance to allow for more intensification of a good solution (since we already have the diversification property) which results in a memetic algorithm. \cite{contiGA}
+
+    \paragraph{Steps}
+
+        \begin{enumerate}
+            \item Keep the best individual that will be part of the next generation  
+            \item Keep the best fraction (an hyper-parameter we analyze later) of the population known as the elite.
+            \item Create offsprings that will represent our new population by
+            \begin{enumerate}
+                \item Crossover two randomly selected parent in the elite population and the artificial solution
+                \item Perform, with a certain probability (an hyper-parameter), a mutation on the resulting offsprings
+            \end{enumerate}
+            \item Replace the population by the offsprings (including the best individual which is not cleared from the population and survives to the next generation)
+            \item Check if any stopping criterion is met
+        \end{enumerate}
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.5\textwidth]{img/contiGA.png}
+            \caption{Flowchart of GA. Source: \cite{contiGA} Page 52}
+        \end{figure}
+    
+    \paragraph{Selection}
+        As in the natural selection, the fittest individuals will have more chance to survive and reproduce in order to transmit their good genes to their offsprings. For this, we select a fraction of the population as the elite by ranking the population according to their fitness. These individuals will be used in the crossover and are known as parents.
+    
+    \paragraph{Crossover/Mating}
+        The crossover will create new offsprings based on their parents. There are many crossover methods possible such a uniform crossover where each solution component of the offspring is taken from either parents with a certain probability. 
+    
+    \paragraph{Mutation} 
+        Now that we have brand new offsprings, we will, for each one of them, with a certain probability (an hyper-parameter), mutate it. The mutation procedure is rather easy as we simply change one (or multiple) solution component according to the probability.
+        This allows even more diversification thus avoiding a local optimum.
+
+    \subsubsection{Particle swarm optimization}
+
+    \paragraph{Overview}
+        Another continuous population-based method which is based on nature (bird flocks) is Particle Swarm Optimization (PSO). The flock cooperates to find the objective (e.g. food for birds). They cooperate by taking into account their own experience as well as the others'. \cite{pso} Each candidate solution is represented by a particle in the search space and a fitness corresponding to the quality of its current position in the search space. These particles will move around the search space at a certain speed towards a certain direction, these terms are encompassed by the \emph{velocity} of a particle. This velocity is influenced by the particle's own best position so far (hence each particle has a limited memory) as well as the best position of the other members of the flock (or only a subpart of it: the neighbors).
+
+    \paragraph{Steps}
+        \begin{enumerate}
+            \item Initialize (at random) the swarm of particles
+            \item Compute their fitness
+            \item Remember own personal best position
+            \item Check swarm best position
+            \item Update velocity according to personal and best position
+            \item Update position according to the velocity
+            \item Stop if any stopping criterion is met 
+        \end{enumerate}
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.5\textwidth]{img/pso.png}
+            \caption{Flowchart of PSO. Source: \cite{pso}}
+        \end{figure}
+
+    \paragraph{Position update}
+        To update the position of the particle, we must first compute its velocity as follows:
+
+        $$v_i^{t+1} = v_i^t + \phi_1 \cdot U_1^t \cdot (pb^t - x_i^t) + \phi_2 \cdot U_2^t \cdot (sb_i^t - x_i^t)$$
+
+        where 
+
+        \begin{itemize}
+            \item $v_i^t$ is the velocity of particle $i$ at time $t$
+            \item $\phi_1$ and $\phi_2$ are parameters that represent the importance of the personal best ($\phi_1$) and the importance of the swarm best ($\phi_2$). Therefore, a bigger $\phi_1$ than $\phi_2$ means we privilege the personal best to explore new solutions (i.e. diversification). Conversely, if $\phi_2$ is bigger than $\phi_1$, we will advantage the swarm best (i.e. intensification). There parameters define the speed component of the velocity, whereas the term $U_1^t \cdot (pb^t - x_i^t)$ defines the direction component.
+            \item $U_1^t$ and $U_2^t$ are random numbers in the range $[0, 1[$
+            \item $pb_i^t$ is the personal best of particle $i$ at instant $t$
+            \item $sb^t$ is the swarm best at instant $t$
+            \item $x_i^t$ is the current position of the particle $i$ at time $t$
+        \end{itemize}
+
+        According to the newly calculated velocity, we can update the position of the particle as follows: $x_i^{t+1} = x_i^t + v_i^{t+1}$. \cite{psoDorigo}
+
+
+
+
+
