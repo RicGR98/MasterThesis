@@ -1,1 +1,135 @@
 \chapter{Optimization}
+
+\section{Overview}
+    As we have detailed earlier, we will conclude this thesis with the optimization of some of the parameters we have seen and analyzed, namely the 4 taxes (VAT, Levy, Tariff and Wealth tax), the unemployment rate and the black economy share in order to improve different metrics which will be used as the objective function, namely the Gini coefficient (to be minimized), the GDP (to be maximized) and the number of transactions (to be maximized). We will focus on a single objective (for instance the Gini coefficient) at the time while optimizing a solution with 6 dimensions (4 taxes + 2 rates) stored in a list as follows: \texttt{[VAT, LEVY, TARIFF, WEALTH\_TAX, UNEMPLOYMENT, BLACK\_ECONOMY]}(which represents the DNA in the Genetic Algorithm or a particle in the PSO). All values are, of course, in the range $[0, 1]$. For the optimization, we use another default configuration file \texttt{templateOptimization.json} with only one State, 1000 agents and 2000 ticks.
+    
+    As mentioned in the section~\ref{section:state_of_the_art} \nameref{section:state_of_the_art}, we will use population-based methods as they allow us multiple configurations (Worlds with different parameters) in parallel: the genetic algorithm (GA) and particle swarm optimization (PSO).
+
+\section{Algorithms}
+
+    \subsection{Genetic Algorithm}
+
+    The first optimization algorithm which was tried is the genetic algorithm (GA) as explained in the state-of-the-art. The algorithm was developed from scratch and it used the following operators:
+
+        \paragraph{Initialization} A population of candidate solutions is generated at random. Each candidate solutions has its own DNA: \texttt{[VAT, LEVY, TARIFF, WEALTH\_TAX, UNEMPLOYMENT, BLACK\_ECONOMY]}.
+
+        \paragraph{Selection} The 20\% best of the population (with the highest fitness) were kept to undergo reproduction (crossover).
+
+        \paragraph{Crossover} Two crossover were tested: the uniform and the 1 point crossover. The uniform crossover will, for each solution component, either copy it from parent 1 or from parent 2 according to a certain probability. The 1 point crossover will choose one point in the DNA. All solution components before that point will be copied from the first parent, and all solution components after that point will be copied into the offspring from the second parent.
+
+        \paragraph{Mutation} According to a certain mutation rate, we will stochastically mutate one solution component in the candidate solution. The replacing solution component is taken at random in $[0, 1]$.
+
+        \paragraph{Results} Unfortunately, this GA resulted in quite poor results, no clear pattern was emerging. The main hypothesis of why such a behavior happened is that the crossover operations were not fitted for such a problem where the different solution components are very independent from one another, and cannot simply be copied partially. The algorithm has been deleted (but remains available in a previous commit on the Github repository)
+
+    \subsection{Particle Swarm Optimization}
+
+    The first optimization algorithm which was tried is the Particle swarm optimization (PSO) as explained in the state-of-the-art. This time, instead of redoing everything from scratch, a python3 library was used: \texttt{pyswarms}. We used a swarm of 50 particles for 50 iterations with $\phi_1 = 0.5$ and $\phi_2 = 0.3$ (therefore advantaging exploration/diversification). We also set the inertia parameter $w$ to $0.9$. This parameter is used to control the particles' speed of convergence, we favour, again, diversification of the search process by setting it this high. \cite{psoDorigo}
+    
+    This algorithm has proven itself to be much better than the GA, hence we will analyze the solutions is has computed. 
+
+\section{Analysis}
+    Whenever we try one configuration, we run it 3 times, and average the resulting fitnesses in order to take into account the stochasticity of the simulation. We will analyze three optimized metrics: the Gini coefficient (to be minimized), the GDP (to be maximized) and the number of transactions (to be maximized). For each of them, we will run the optimization algorithm 10 times in order to see the results produced. We do 10 times in order to see the optimized parameters that were found, and see if, there are any patterns between the 10 solutions found. It takes around 19 hours on the cluster for everything to run (3 metrics * 10 PSOs made of 50 iterations of 50 particles with 3 simulations averaged).
+
+    \subsection{Gini coefficient}
+
+        Usually, we want to decrease the inequalities between the agents of a State, therefore we should optimize the Gini coefficient by minimizing it. The following results were obtained:
+    
+        \begin{table}[H]
+        \centering
+        \begin{tabular}{|c|c|c|c|c|c|c|c|}
+            \hline
+            \textbf{\#} & \textbf{Gini}  & \textbf{VAT} & \textbf{Levy} & \textbf{Tariff} & \textbf{Wealth} & \textbf{Unemployment} & \textbf{Black} \\ \hline
+            \textbf{1} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+            \textbf{2} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+            \textbf{3} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+            \textbf{4} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+            \textbf{5} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+            \textbf{6} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+            \textbf{7} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+            \textbf{8} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+            \textbf{9} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+            \textbf{10} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+        \end{tabular}
+        \end{table}
+
+        We can see that... %TODO
+
+        We can also see in the following plot the decrease of the Gini coefficient across iterations (cost history):
+
+        %TODO
+        % \begin{figure}[H]
+        %     \centering
+        %     \includegraphics[width=0.5\textwidth]{img/opti/costHistoryGini.png}
+        %     \caption{Cost history of the Gini coefficient}
+        % \end{figure}
+        
+
+
+    \subsection{GDP}
+
+        Naturally, we want to maximize the GDP of a State. The following results were obtained:
+    
+        \begin{table}[H]
+        \centering
+        \begin{tabular}{|c|c|c|c|c|c|c|c|}
+            \hline
+            \textbf{\#} & \textbf{GDP}  & \textbf{VAT} & \textbf{Levy} & \textbf{Tariff} & \textbf{Wealth} & \textbf{Unemployment} & \textbf{Black} \\ \hline
+            \textbf{0} & 36 739 & 0.043 & 0.729 & 0.376 & 0.769 & 0.309 & 0.036 \\ \hline
+            \textbf{1} & 37 152 & 0.054 & 0.651 & 0.272 & 0.988 & 0.175 & 0.018 \\ \hline
+            \textbf{2} & 36 749 & 0.059 & 0.945 & 0.528 & 0.021 & 0.337 & 0.034 \\ \hline
+            \textbf{3} & 37 691 & 0.005 & 0.994 & 0.675 & 0.66 & 0.268 & 0.052 \\ \hline
+            \textbf{4} & 36 334 & 0.0 & 0.846 & 0.537 & 0.833 & 0.387 & 0.014 \\ \hline
+            \textbf{5} & 36 453 & 0.001 & 0.819 & 0.443 & 0.209 & 0.077 & 0.081 \\ \hline
+            \textbf{6} & 36 703 & 0.043 & 0.91 & 0.505 & 0.285 & 0.13 & 0.006 \\ \hline
+            \textbf{7} & 35 130 & 0.025 & 0.47 & 0.525 & 0.51 & 0.285 & 0.082 \\ \hline
+            \textbf{8} & 35 556 & 0.198 & 0.944 & 0.37 & 0.957 & 0.423 & 0.028 \\ \hline
+            \textbf{10} & 36 339 & 0.109 & 0.924 & 0.519 & 0.426 & 0.096 & 0.047 \\ \hline
+        \end{tabular}
+        \end{table}
+
+        We can see some interesting patterns in the table. Indeed, we see that the VAT rates are very close to one another, the same goes for the black economy share. This actually fits our state-of-the-art and our experiments. Indeed, if we see, for instance, in \nameref{exp:black}, we had noticed that, as the black economy share grows, the GDP decreases (however the number of transactions stays the same, therefore in the next analysis, this black economy parameter should not have a important influence). Therefore, reducing black economy at such low levels drastically increases the GDP.
+        On the other side, we see no real pattern for the other parameters, i.e. they do not significantly influence the GDP.
+
+        We can also see in the following plot the decrease of the GDP across iterations (cost history). PSO will minimize the opposite of the GDP (thus maximizing the GDP), that is why the costs are negative, and we want them to be as low as possible.
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.9\textwidth]{img/opti/costHistoryGDP.png}
+            \caption{Cost history of the GDP}
+        \end{figure}
+
+
+    \subsection{Number of transactions}
+
+        Naturally, we want to maximize the number of transactions in a State. The following results were obtained:
+    
+        \begin{table}[H]
+        \centering
+        \begin{tabular}{|c|c|c|c|c|c|c|c|}
+            \hline
+            \textbf{\#} & \textbf{Nb transactions}  & \textbf{VAT} & \textbf{Levy} & \textbf{Tariff} & \textbf{Wealth} & \textbf{Unemployment} & \textbf{Black} \\ \hline
+            \textbf{1} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+            \textbf{2} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+            \textbf{3} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+            \textbf{4} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+            \textbf{5} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+            \textbf{6} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+            \textbf{7} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+            \textbf{8} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+            \textbf{9} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+            \textbf{10} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+        \end{tabular}
+        \end{table}
+
+        We can see that... %TODO
+
+        We can also see in the following plot the decrease of the number of transactions across iterations (cost history). PSO will minimize the opposite of the number of transactions (thus maximizing the number of transactions), that is why the costs are negative, and we want them to be as low as possible.
+
+        %TODO
+        % \begin{figure}[H]
+        %     \centering
+        %     \includegraphics[width=0.5\textwidth]{img/opti/costHistoryNbTransactions.png}
+        %     \caption{Cost history of the number of transactions}
+        % \end{figure}
+
+

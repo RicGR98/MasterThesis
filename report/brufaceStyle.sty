@@ -88,6 +88,14 @@
 	}%
 }
 
+\@ifundefined{HUUGE}{%
+	\newcommand\HUUGE{\@setfontsize\Huge{35}{50}}
+}
+
+\@ifundefined{HUGE}{%
+	\newcommand\HUGE{\@setfontsize\Huge{26}{40}}
+}
+
 \@ifundefined{coSupervisor}{%
 	\newcommand{\coSupervisor}[1]{%
 		\makeatletter%
@@ -116,7 +124,7 @@
 				{\hfill
 				\transparent{0.125}\includegraphics[width=0.57\linewidth]{img/logos/ulb_sceau.png}%
 				\hfill}%
-				\vspace*{5cm}
+				\vspace*{4.6cm}
 			    
 			}%
 			}
@@ -127,14 +135,14 @@
 			\raisebox{\height}{\includegraphics[height=2cm]{img/logos/ulb_fac_sciences.png}}%
 		\end{minipage}
 		
-		\vspace{2cm}
+		\vspace{1cm}
 		
 		\hspace{5mm}\begin{minipage}{\dimexpr\textwidth-1.2cm}
-			{\linespread{1} \color{vubblue} \Huge \textsf{\textbf{\@title}}\par}%
+			{\linespread{1} \color{vubblue} \HUUGE \textsf{\textbf{\@title}}\par}%
 			
-			\vspace{5mm}
+			\vspace{10mm}
 			
-			{\linespread{1} \color{vubblue} \huge \textsf{\@subtitle}}%
+			{\linespread{1} \color{vubblue} \HUGE \textsf{\@subtitle}}%
 			
 			\vspace{1cm}
 			
