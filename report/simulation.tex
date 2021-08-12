@@ -57,9 +57,9 @@ All parameters of the simulation have been regrouped into a single configuration
 
 \section{Main}
 
-    The simulation has been coded using Java 16 for its large range of libraries, robustness, rapidness (compared to Python for instance), its strongly typed paradigm and, of course, because of its Object Oriented Programming paradigm (OOP) which fits how we will code our models (see next section). 
+    The simulation has been coded using Java 16 for its large range of libraries, robustness, rapidness (compared to Python for instance), its strongly typed paradigm and, of course, because of its Object Oriented Programming paradigm (OOP) which fits how we will code our models (see next section).
 
-    Everything starts with the \texttt{Main.java} file. Multiple simulations can be ran in parallel thanks to the use of threads (one simulation = one World = one thread). Each line in the \texttt{params/configs.txt} file corresponds to one configuration (thus one \texttt{.json} file containing all the parameters located in the \texttt{params} directory) that will be launch. For instance:
+    Everything starts with the \texttt{Main.java} file. Multiple simulations can be ran in parallel thanks to the use of threads (one simulation = one World = one thread). Because we have a linear timing (we advanced tick after tick, and each tick cannot start before the previous has finished since it depends on the previous state of the system), we cannot parallelize the simulation itself. Each line in the \texttt{params/configs.txt} file corresponds to one configuration (thus one \texttt{.json} file containing all the parameters located in the \texttt{params} directory) that will be launch. For instance:
 
     \begin{lstlisting}[language=json,firstnumber=1]
 experiment1.json
