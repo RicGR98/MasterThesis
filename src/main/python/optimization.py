@@ -86,7 +86,7 @@ def func(particles, fitnessMetric):
             if fitnessMetric == Fitness.GINI:
                 fitness = solution.getGini()
             elif fitnessMetric == Fitness.GDP:
-                fitness = solution.getGini()
+                fitness = solution.getGdp()
             elif fitnessMetric == Fitness.NB_TRANSACTIONS:
                 fitness = solution.getNbTransactions()
             fitnesses[solution.id] += fitness
@@ -97,16 +97,16 @@ def func(particles, fitnessMetric):
 def optimize():
     bounds = (np.zeros(Solution.NB_PARAMS), np.ones(Solution.NB_PARAMS))
     options = {'c1': 0.5, 'c2': 0.3, 'w': 0.9}
-    optimizer = ps.single.GlobalBestPSO(
-        n_particles=50,
-        dimensions=Solution.NB_PARAMS,
-        options=options,
-        bounds=bounds)
     for fitnessMetric in [Fitness.GINI, Fitness.GDP, Fitness.NB_TRANSACTIONS]:
         Path(f'res/img/opti/{fitnessMetric}').mkdir(parents=True, exist_ok=True)
-        print(fitnessMetric)
+        print(fitnessMetric, flush=True)
         for i in range(10):
+            optimizer = ps.single.GlobalBestPSO(
+                n_particles=50,
+                dimensions=Solution.NB_PARAMS,
+                options=options,
+                bounds=bounds)
             cost, pos = optimizer.optimize(func, iters=50, fitnessMetric=fitnessMetric, verbose=False)
-            print(cost, pos)
+            print(cost, pos, flush=True)
             plot_cost_history(cost_history=optimizer.cost_history)
             plt.savefig(f'res/img/opti/{fitnessMetric}/{i}.png')
