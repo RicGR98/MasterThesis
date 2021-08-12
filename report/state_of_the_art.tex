@@ -211,7 +211,7 @@ Because the State has collected money from different taxes, it will now have to 
     \subsubsection{Genetic algorithm}
 
     \paragraph{Overview}
-        One of the oldest population-based method is the genetic algorithm (GA). Instead of having only one candidate solution that we improve over multiple iterations, we now have multiple candidate solutions making up a population allowing easy diversification since we have many individuals representing different solutions. To improve the population of candidates solutions, we apply three actions: selection of the fittest individuals in the population, create new offsprings that combine features of their parents (i.e. crossover), and introduce some mutation to allow the exploration of new solutions. One can also add a local search after mutation for instance to allow for more intensification of a good solution (since we already have the diversification property) which results in a memetic algorithm. \cite{contiGA}
+        One of the oldest population-based method is the genetic algorithm (GA). Instead of having only one candidate solution that we improve over multiple iterations, we now have multiple candidate solutions making up a population allowing easy diversification since we have many individuals representing different solutions. To improve the population of candidates solutions, we apply three actions: selection of the fittest individuals in the population, create new offsprings that combine features of their parents (i.e. crossover), and introduce some mutation to allow the exploration of new solutions. One can also add a local search after mutation for instance to allow for more intensification of a good solution (since we already have the diversification property) which results in a memetic algorithm. \cite{contiGA} \cite{holland1992genetic}
 
     \paragraph{Steps}
 
@@ -237,7 +237,7 @@ Because the State has collected money from different taxes, it will now have to 
         As in the natural selection, the fittest individuals will have more chance to survive and reproduce in order to transmit their good genes to their offsprings. For this, we select a fraction of the population as the elite by ranking the population according to their fitness. These individuals will be used in the crossover and are known as parents.
     
     \paragraph{Crossover/Mating}
-        The crossover will create new offsprings based on their parents. There are many crossover methods possible such a uniform crossover where each solution component of the offspring is taken from either parents with a certain probability. 
+        The crossover will create new offsprings based on their parents. There are many crossover methods possible such a uniform crossover where each solution component of the offspring is taken from either parents with a certain probability. \cite{falkenauer1999worth}
     
     \paragraph{Mutation} 
         Now that we have brand new offsprings, we will, for each one of them, with a certain probability (an hyper-parameter), mutate it. The mutation procedure is rather easy as we simply change one (or multiple) solution component according to the probability.
@@ -256,7 +256,7 @@ Because the State has collected money from different taxes, it will now have to 
             \item Check swarm best position
             \item Update velocity according to personal and best position
             \item Update position according to the velocity
-            \item Stop if any stopping criterion is met 
+            \item Stop if any stopping criterion is met
         \end{enumerate}
 
         \begin{figure}[H]
