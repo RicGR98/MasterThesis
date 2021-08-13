@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import pyswarms as ps
 import numpy as np
 from pyswarms.utils.plotters import plot_cost_history
+from scipy.stats import ranksums
 
 from config import Config
 from analysis import Analysis
@@ -110,3 +111,72 @@ def optimize():
             print(cost, pos, flush=True)
             plot_cost_history(cost_history=optimizer.cost_history)
             plt.savefig(f'res/img/opti/{fitnessMetric}/{i}.png')
+
+
+def parse(text):
+    """
+    Parse results computed by the cluster into a list of list of params
+    """
+    results = []
+    text = text.split("\n")
+    for lineNumber, line in enumerate(text):
+        cost, params = line.split(" [")
+        params = params.replace("  ", " ")
+        params = params.replace("[", "")
+        params = params.replace("]", "")
+        params = params.strip()
+        params = params.split(" ")
+        results.append([])
+        for i in range(len(params)):
+            results[lineNumber].append(float(params[i]))
+    return results
+
+
+def pairedStatisticalTest(text):
+    """Perform a Wilcoxon rank-sums test for each pair of params"""
+    lst = parse(text)
+    for i in range(len(lst)):
+        for j in range(i):
+            print(i, j, ranksums(lst[i], lst[j]))
+
+
+def runStatisticalTests():
+    giniResults = """0.0 [0.78296694 0.99881254 0.99959293 0.20902644 0.33317086 0.20051856]
+    0.0 [0.30144084 0.99860142 0.37065729 0.68155468 0.37714027 0.590301 ]
+    0.0 [0.01772531 0.99829416 0.75250993 0.43391462 0.99807285 0.82774047]
+    0.0 [0.32314067 0.99809475 0.25458039 0.10116164 0.99859338 0.06262362]
+    0.0 [0.91511962 0.99904147 0.45782447 0.65013515 0.52505633 0.65631024]
+    0.0 [0.97764115 0.99947836 0.80763019 0.94576495 0.02214306 0.53298088]
+    0.0 [0.21536561 0.75664012 0.78444353 0.14184332 0.99852087 0.29912114]
+    0.0 [0.61758812 0.9988726  0.33361776 0.65789626 0.65659407 0.63287918]
+    0.0 [0.43700863 0.99980639 0.73081392 0.96514933 0.8359512  0.53215895]
+    0.0 [0.53806149 0.99923635 0.76308956 0.55352696 0.44458342 0.46110084]"""
+
+    gdpResults = """36 739 [0.043 0.729 0.376 0.769 0.309 0.036]
+    37 152 [0.054 0.651 0.272 0.988 0.175 0.018]
+    36 749 [0.059 0.945 0.528 0.021 0.337 0.034]
+    37 691 [0.005 0.994 0.675 0.66 0.268 0.052]
+    36 334 [0.0 0.846 0.537 0.833 0.387 0.014]
+    36 453 [0.001 0.819 0.443 0.209 0.077 0.081]
+    36 703 [0.043 0.91 0.505 0.285 0.13 0.006]
+    35 130 [0.025 0.47 0.525 0.51 0.285 0.082]
+    35 556 [0.198 0.944 0.37 0.957 0.423 0.028]
+    36 339 [0.109 0.924 0.519 0.426 0.096 0.047]"""
+
+    nbTransactionsResults = """-739.232 [0.45644013 0.82414527 0.48717931 0.55620089 0.02098815 0.95419875]
+    -788.491 [0.74144255 0.87123517 0.17963736 0.46206969 0.06325276 0.99617088]
+    -753.234 [0.70800585 0.90566502 0.93928871 0.88358684 0.04059233 0.99260746]
+    -737.609 [0.41875696 0.69149552 0.13727464 0.55063112 0.00475353 0.82611749]
+    -726.233 [0.0913617  0.92423802 0.90412399 0.17531116 0.04438932 0.71443348]
+    -752.394 [0.41169195 0.75873572 0.55423928 0.6708929  0.00426397 0.91694267]
+    -747.217 [0.60810094 0.97423309 0.58792603 0.74256649 0.0051371  0.95702863]
+    -725.796 [0.30598029 0.6817043  0.55040464 0.79405084 0.06180396 0.96167136]
+    -740.271 [0.96286245 0.85767502 0.32298138 0.47168047 0.01842042 0.99444171]
+    -746.258 [6.71520271e-01 4.78867346e-01 7.33314493e-02 8.09039459e-01 5.81886721e-04 9.53616374e-01]"""
+
+    print("Statistical test ====> Gini")
+    pairedStatisticalTest(giniResults)
+    print("Statistical test ====> GDP")
+    pairedStatisticalTest(gdpResults)
+    print("Statistical test ====> Number of transactions")
+    pairedStatisticalTest(nbTransactionsResults)
