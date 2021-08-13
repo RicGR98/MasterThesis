@@ -23,7 +23,7 @@
 
     \subsection{Particle Swarm Optimization}
 
-    The first optimization algorithm which was tried is the Particle swarm optimization (PSO) as explained in the state-of-the-art. This time, instead of redoing everything from scratch, a python3 library was used: \texttt{pyswarms}. We used a swarm of 50 particles for 50 iterations with $\phi_1 = 0.5$ and $\phi_2 = 0.3$ (therefore advantaging exploration/diversification). We also set the inertia parameter $w$ to $0.9$. This parameter is used to control the particles' speed of convergence, we favour, again, diversification of the search process by setting it this high. \cite{psoDorigo}
+    The first optimization algorithm which was tried is the Particle swarm optimization (PSO) as explained in the state-of-the-art. This time, instead of redoing everything from scratch, a python3 library was used: \texttt{pyswarms}. We used a swarm of 50 particles for 50 iterations with $\phi_1 = 0.5$ and $\phi_2 = 0.3$ (therefore advantaging exploration/diversification). We also set the inertia parameter $w$ to $0.9$. This parameter is used to control the particles' speed of convergence, we favour, again, diversification of the search process by setting it this high. \cite{psoDorigo} Other hyper-parameters have been tested (such as a very low inertia, and a $\phi_1$ smaller than $\phi_2$ to favor intensification instead), however, due to the high number of particles and iterations, no significant improvements have been noticed.
     
     This algorithm has proven itself to be much better than the GA, hence we will analyze the solutions is has computed. 
 
@@ -32,62 +32,67 @@
 
     \subsection{Gini coefficient}
 
-        Usually, we want to decrease the inequalities between the agents of a State, therefore we should optimize the Gini coefficient by minimizing it. The following results were obtained:
+        Usually, we want to decrease the inequalities between the agents of a State, therefore we should optimize the Gini coefficient by minimizing it. The following results were obtained.
     
+        \subsubsection{Optimized parameters}
         \begin{table}[H]
         \centering
         \begin{tabular}{|c|c|c|c|c|c|c|c|}
             \hline
             \textbf{\#} & \textbf{Gini}  & \textbf{VAT} & \textbf{Levy} & \textbf{Tariff} & \textbf{Wealth} & \textbf{Unemployment} & \textbf{Black} \\ \hline
-            \textbf{1} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
-            \textbf{2} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
-            \textbf{3} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
-            \textbf{4} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
-            \textbf{5} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
-            \textbf{6} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
-            \textbf{7} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
-            \textbf{8} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
-            \textbf{9} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
-            \textbf{10} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+            \textbf{1} & 0.0 & 0.783 & 0.999 & 1.0 & 0.209 & 0.333 & 0.201 \\ \hline
+            \textbf{2} & 0.0 & 0.301 & 0.999 & 0.371 & 0.682 & 0.377 & 0.59 \\ \hline
+            \textbf{3} & 0.0 & 0.018 & 0.998 & 0.753 & 0.434 & 0.998 & 0.828 \\ \hline
+            \textbf{4} & 0.0 & 0.323 & 0.998 & 0.255 & 0.101 & 0.999 & 0.063 \\ \hline
+            \textbf{5} & 0.0 & 0.915 & 0.999 & 0.458 & 0.65 & 0.525 & 0.656 \\ \hline
+            \textbf{6} & 0.0 & 0.978 & 0.999 & 0.808 & 0.946 & 0.022 & 0.533 \\ \hline
+            \textbf{7} & 0.0 & 0.215 & 0.757 & 0.784 & 0.142 & 0.999 & 0.299 \\ \hline
+            \textbf{8} & 0.0 & 0.618 & 0.999 & 0.334 & 0.658 & 0.657 & 0.633 \\ \hline
+            \textbf{9} & 0.0 & 0.437 & 1.0 & 0.731 & 0.965 & 0.836 & 0.532 \\ \hline
+            \textbf{10} & 0.0 & 0.538 & 0.999 & 0.763 & 0.554 & 0.445 & 0.461 \\ \hline
         \end{tabular}
         \end{table}
 
-        We can see that... %TODO
+        We see that all optimization runs could lower the Gini coefficient to 0, i.e. perfect equality. We can see that the Levy tax is the one who is almost at the same for all the optimizations, i.e. it is the most important parameter influencing the Gini coefficient.  This makes sense, because as detailed in \nameref{exp:levy}, if we levy close to 100\% of the money of all agents, and then redistribute, they will all get the same money therefore greatly reducing inequalities. However, this result can, of course, difficulty be applied in real life. 
+        
+        We can also see that one optimization has not reach a very high VAT of $\approx 0.999$ which is the \#7, this is quite peculiar but it is explained by the high level of unemployment of $0.999$. If all agents do not produce, naturally they will be as poor, therefore receive the same (very small) allowance making them quite equal.
 
         We can also see in the following plot the decrease of the Gini coefficient across iterations (cost history):
 
-        %TODO
-        % \begin{figure}[H]
-        %     \centering
-        %     \includegraphics[width=0.5\textwidth]{img/opti/costHistoryGini.png}
-        %     \caption{Cost history of the Gini coefficient}
-        % \end{figure}
-        
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.9\textwidth]{img/opti/costHistoryGini.png}
+            \caption{Cost history of the Gini coefficient}
+        \end{figure}
 
+        \subsubsection{Statistical analysis}
+        %TODO
+        
 
     \subsection{GDP}
 
-        Naturally, we want to maximize the GDP of a State. The following results were obtained:
+        Naturally, we want to maximize the GDP of a State. The following results were obtained.
     
+        \subsubsection{Optimized parameters}
         \begin{table}[H]
         \centering
         \begin{tabular}{|c|c|c|c|c|c|c|c|}
             \hline
             \textbf{\#} & \textbf{GDP}  & \textbf{VAT} & \textbf{Levy} & \textbf{Tariff} & \textbf{Wealth} & \textbf{Unemployment} & \textbf{Black} \\ \hline
-            \textbf{0} & 36 739 & 0.043 & 0.729 & 0.376 & 0.769 & 0.309 & 0.036 \\ \hline
-            \textbf{1} & 37 152 & 0.054 & 0.651 & 0.272 & 0.988 & 0.175 & 0.018 \\ \hline
-            \textbf{2} & 36 749 & 0.059 & 0.945 & 0.528 & 0.021 & 0.337 & 0.034 \\ \hline
-            \textbf{3} & 37 691 & 0.005 & 0.994 & 0.675 & 0.66 & 0.268 & 0.052 \\ \hline
-            \textbf{4} & 36 334 & 0.0 & 0.846 & 0.537 & 0.833 & 0.387 & 0.014 \\ \hline
-            \textbf{5} & 36 453 & 0.001 & 0.819 & 0.443 & 0.209 & 0.077 & 0.081 \\ \hline
-            \textbf{6} & 36 703 & 0.043 & 0.91 & 0.505 & 0.285 & 0.13 & 0.006 \\ \hline
-            \textbf{7} & 35 130 & 0.025 & 0.47 & 0.525 & 0.51 & 0.285 & 0.082 \\ \hline
-            \textbf{8} & 35 556 & 0.198 & 0.944 & 0.37 & 0.957 & 0.423 & 0.028 \\ \hline
+            \textbf{1} & 36 739 & 0.043 & 0.729 & 0.376 & 0.769 & 0.309 & 0.036 \\ \hline
+            \textbf{2} & 37 152 & 0.054 & 0.651 & 0.272 & 0.988 & 0.175 & 0.018 \\ \hline
+            \textbf{3} & 36 749 & 0.059 & 0.945 & 0.528 & 0.021 & 0.337 & 0.034 \\ \hline
+            \textbf{4} & 37 691 & 0.005 & 0.994 & 0.675 & 0.66 & 0.268 & 0.052 \\ \hline
+            \textbf{5} & 36 334 & 0.0 & 0.846 & 0.537 & 0.833 & 0.387 & 0.014 \\ \hline
+            \textbf{6} & 36 453 & 0.001 & 0.819 & 0.443 & 0.209 & 0.077 & 0.081 \\ \hline
+            \textbf{7} & 36 703 & 0.043 & 0.91 & 0.505 & 0.285 & 0.13 & 0.006 \\ \hline
+            \textbf{8} & 35 130 & 0.025 & 0.47 & 0.525 & 0.51 & 0.285 & 0.082 \\ \hline
+            \textbf{9} & 35 556 & 0.198 & 0.944 & 0.37 & 0.957 & 0.423 & 0.028 \\ \hline
             \textbf{10} & 36 339 & 0.109 & 0.924 & 0.519 & 0.426 & 0.096 & 0.047 \\ \hline
         \end{tabular}
         \end{table}
 
-        We can see some interesting patterns in the table. Indeed, we see that the VAT rates are very close to one another, the same goes for the black economy share. This actually fits our state-of-the-art and our experiments. Indeed, if we see, for instance, in \nameref{exp:black}, we had noticed that, as the black economy share grows, the GDP decreases (however the number of transactions stays the same, therefore in the next analysis, this black economy parameter should not have a important influence). Therefore, reducing black economy at such low levels drastically increases the GDP.
+        We can see some interesting patterns in the table. Indeed, we see that the VAT rates are very close to one another, the same goes for the black economy share. This actually fits our state-of-the-art and our experiments. Indeed, if we see, for instance, in \nameref{exp:black}, we had noticed that, as the black economy share grows, the GDP decreases. Therefore, reducing black economy at such low levels drastically increases the GDP.
         On the other side, we see no real pattern for the other parameters, i.e. they do not significantly influence the GDP.
 
         We can also see in the following plot the decrease of the GDP across iterations (cost history). PSO will minimize the opposite of the GDP (thus maximizing the GDP), that is why the costs are negative, and we want them to be as low as possible.
@@ -98,38 +103,45 @@
             \caption{Cost history of the GDP}
         \end{figure}
 
+        \subsubsection{Statistical analysis}
+        %TODO
 
     \subsection{Number of transactions}
 
-        Naturally, we want to maximize the number of transactions in a State. The following results were obtained:
+        Naturally, we want to maximize the number of transactions in a State. The following results were obtained.
     
+        \subsubsection{Optimized parameters}
         \begin{table}[H]
         \centering
         \begin{tabular}{|c|c|c|c|c|c|c|c|}
             \hline
             \textbf{\#} & \textbf{Nb transactions}  & \textbf{VAT} & \textbf{Levy} & \textbf{Tariff} & \textbf{Wealth} & \textbf{Unemployment} & \textbf{Black} \\ \hline
-            \textbf{1} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
-            \textbf{2} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
-            \textbf{3} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
-            \textbf{4} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
-            \textbf{5} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
-            \textbf{6} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
-            \textbf{7} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
-            \textbf{8} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
-            \textbf{9} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
-            \textbf{10} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ \hline
+            \textbf{1} & 739 & 0.456 & 0.824 & 0.487 & 0.556 & 0.021 & 0.954 \\ \hline
+            \textbf{2} & 788 & 0.741 & 0.871 & 0.18 & 0.462 & 0.063 & 0.996 \\ \hline
+            \textbf{3} & 753 & 0.708 & 0.906 & 0.939 & 0.884 & 0.041 & 0.993 \\ \hline
+            \textbf{4} & 737 & 0.419 & 0.691 & 0.137 & 0.551 & 0.005 & 0.826 \\ \hline
+            \textbf{5} & 726 & 0.091 & 0.924 & 0.904 & 0.175 & 0.044 & 0.714 \\ \hline
+            \textbf{6} & 752 & 0.412 & 0.759 & 0.554 & 0.671 & 0.004 & 0.917 \\ \hline
+            \textbf{7} & 747 & 0.608 & 0.974 & 0.588 & 0.743 & 0.005 & 0.957 \\ \hline
+            \textbf{8} & 725 & 0.306 & 0.682 & 0.55 & 0.794 & 0.062 & 0.962 \\ \hline
+            \textbf{9} & 740 & 0.963 & 0.858 & 0.323 & 0.472 & 0.018 & 0.994 \\ \hline
+            \textbf{10} & 746 & 0.672 & 0.479 & 0.073 & 0.809 & 0.001 & 0.954 \\ \hline
         \end{tabular}
         \end{table}
 
-        We can see that... %TODO
+        We can see two patterns emerging. First, for the number of transactions to be high, we need a very small unemployment rate as we can see on the table (i.e. this is the `common denominator' of all these optimizations). This makes sense, because more unemployment means more non-producers, therefore less products on the market to buy and less transactions. This fits our \nameref{exp:unemployment} where we saw a linear correlation between the unemployment rate and the number of transactions.
+
+        Secondly, we can see that, generally but not always, the black economy share is very high. This is due to the fact that a black transaction is still counted towards the total number of transactions, however no due taxes are paid. This is quite surprising as it is not exactly what we had seen in \nameref{exp:black} where we saw no real correlation between the black economy share and the number of transactions.
 
         We can also see in the following plot the decrease of the number of transactions across iterations (cost history). PSO will minimize the opposite of the number of transactions (thus maximizing the number of transactions), that is why the costs are negative, and we want them to be as low as possible.
 
-        %TODO
-        % \begin{figure}[H]
-        %     \centering
-        %     \includegraphics[width=0.5\textwidth]{img/opti/costHistoryNbTransactions.png}
-        %     \caption{Cost history of the number of transactions}
-        % \end{figure}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.9\textwidth]{img/opti/costHistoryNbTransactions.png}
+            \caption{Cost history of the number of transactions}
+        \end{figure}
 
+
+        \subsubsection{Statistical analysis}
+        %TODO
 
