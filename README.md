@@ -13,6 +13,7 @@ my Master Thesis.
 - Python 3.4 or higher
 - Pandas 1.0.3
 - Numpy 1.18.2
+- Scipy 1.4.1
 - Matplotlib 3.4.2
 - Pyswarms 1.3.0
 

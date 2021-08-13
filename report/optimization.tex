@@ -35,38 +35,61 @@
         Usually, we want to decrease the inequalities between the agents of a State, therefore we should optimize the Gini coefficient by minimizing it. The following results were obtained.
     
         \subsubsection{Optimized parameters}
-        \begin{table}[H]
-        \centering
-        \begin{tabular}{|c|c|c|c|c|c|c|c|}
-            \hline
-            \textbf{\#} & \textbf{Gini}  & \textbf{VAT} & \textbf{Levy} & \textbf{Tariff} & \textbf{Wealth} & \textbf{Unemployment} & \textbf{Black} \\ \hline
-            \textbf{1} & 0.0 & 0.783 & 0.999 & 1.0 & 0.209 & 0.333 & 0.201 \\ \hline
-            \textbf{2} & 0.0 & 0.301 & 0.999 & 0.371 & 0.682 & 0.377 & 0.59 \\ \hline
-            \textbf{3} & 0.0 & 0.018 & 0.998 & 0.753 & 0.434 & 0.998 & 0.828 \\ \hline
-            \textbf{4} & 0.0 & 0.323 & 0.998 & 0.255 & 0.101 & 0.999 & 0.063 \\ \hline
-            \textbf{5} & 0.0 & 0.915 & 0.999 & 0.458 & 0.65 & 0.525 & 0.656 \\ \hline
-            \textbf{6} & 0.0 & 0.978 & 0.999 & 0.808 & 0.946 & 0.022 & 0.533 \\ \hline
-            \textbf{7} & 0.0 & 0.215 & 0.757 & 0.784 & 0.142 & 0.999 & 0.299 \\ \hline
-            \textbf{8} & 0.0 & 0.618 & 0.999 & 0.334 & 0.658 & 0.657 & 0.633 \\ \hline
-            \textbf{9} & 0.0 & 0.437 & 1.0 & 0.731 & 0.965 & 0.836 & 0.532 \\ \hline
-            \textbf{10} & 0.0 & 0.538 & 0.999 & 0.763 & 0.554 & 0.445 & 0.461 \\ \hline
-        \end{tabular}
-        \end{table}
 
-        We see that all optimization runs could lower the Gini coefficient to 0, i.e. perfect equality. We can see that the Levy tax is the one who is almost at the same for all the optimizations, i.e. it is the most important parameter influencing the Gini coefficient.  This makes sense, because as detailed in \nameref{exp:levy}, if we levy close to 100\% of the money of all agents, and then redistribute, they will all get the same money therefore greatly reducing inequalities. However, this result can, of course, difficulty be applied in real life. 
-        
-        We can also see that one optimization has not reach a very high VAT of $\approx 0.999$ which is the \#7, this is quite peculiar but it is explained by the high level of unemployment of $0.999$. If all agents do not produce, naturally they will be as poor, therefore receive the same (very small) allowance making them quite equal.
-
-        We can also see in the following plot the decrease of the Gini coefficient across iterations (cost history):
-
-        \begin{figure}[H]
+            \begin{table}[H]
             \centering
-            \includegraphics[width=0.9\textwidth]{img/opti/costHistoryGini.png}
-            \caption{Cost history of the Gini coefficient}
+            \begin{tabular}{|c|c|c|c|c|c|c|c|}
+                \hline
+                \textbf{\#} & \textbf{Gini}  & \textbf{VAT} & \textbf{Levy} & \textbf{Tariff} & \textbf{Wealth} & \textbf{Unemployment} & \textbf{Black} \\ \hline
+                \textbf{1} & 0.0 & 0.783 & 0.999 & 1.0 & 0.209 & 0.333 & 0.201 \\ \hline
+                \textbf{2} & 0.0 & 0.301 & 0.999 & 0.371 & 0.682 & 0.377 & 0.59 \\ \hline
+                \textbf{3} & 0.0 & 0.018 & 0.998 & 0.753 & 0.434 & 0.998 & 0.828 \\ \hline
+                \textbf{4} & 0.0 & 0.323 & 0.998 & 0.255 & 0.101 & 0.999 & 0.063 \\ \hline
+                \textbf{5} & 0.0 & 0.915 & 0.999 & 0.458 & 0.65 & 0.525 & 0.656 \\ \hline
+                \textbf{6} & 0.0 & 0.978 & 0.999 & 0.808 & 0.946 & 0.022 & 0.533 \\ \hline
+                \textbf{7} & 0.0 & 0.215 & 0.757 & 0.784 & 0.142 & 0.999 & 0.299 \\ \hline
+                \textbf{8} & 0.0 & 0.618 & 0.999 & 0.334 & 0.658 & 0.657 & 0.633 \\ \hline
+                \textbf{9} & 0.0 & 0.437 & 1.0 & 0.731 & 0.965 & 0.836 & 0.532 \\ \hline
+                \textbf{10} & 0.0 & 0.538 & 0.999 & 0.763 & 0.554 & 0.445 & 0.461 \\ \hline
+            \end{tabular}
+            \end{table}
+
+            We see that all optimization runs could lower the Gini coefficient to 0, i.e. perfect equality. We can see that the Levy tax is the one who is almost at the same for all the optimizations, i.e. it is the most important parameter influencing the Gini coefficient.  This makes sense, because as detailed in \nameref{exp:levy}, if we levy close to 100\% of the money of all agents, and then redistribute, they will all get the same money therefore greatly reducing inequalities. However, this result can, of course, difficulty be applied in real life. 
+            
+            We can also see that one optimization has not reach a very high VAT of $\approx 0.999$ which is the \#7, this is quite peculiar but it is explained by the high level of unemployment of $0.999$. If all agents do not produce, naturally they will be as poor, therefore receive the same (very small) allowance making them quite equal.
+
+            We can also see in the following plot the decrease of the Gini coefficient across iterations (cost history):
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.9\textwidth]{img/opti/costHistoryGini.png}
+                \caption{Cost history of the Gini coefficient}
         \end{figure}
 
         \subsubsection{Statistical analysis}
-        %TODO
+        
+            Our null hypothesis H0 is that our two samples (two sets of optimized parameters obtained by the same PSO on two different runs) have the same distribution. We will use an $\alpha$ value of 0.05 to test the hypothesis. Thus if we reject H0, i.e. the resulting p-value is < $\alpha$, our two PSOs have different distributions, otherwise, if the p-value is $> \alpha$, our two PSOs have identical distributions.
+
+            We show in the following table (which is symmetrical of course) the p-values for each pair of two runs obtained by the \texttt{ranksums} function of the \texttt{scipy} library. All p-values are above our threshold of 0.05, i.e. all of our optimized parameters come from the same algorithm/distribution with a confidence level of 5\%.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        \textbf{\#}& \textbf{1}& \textbf{2}& \textbf{3}& \textbf{4}& \textbf{5}& \textbf{6}& \textbf{7}& \textbf{8}& \textbf{9}& \textbf{10}\\ \hline
+        \textbf{1}  & 1.0 & 1.0 & 1.0 & 0.337 & 0.631 & 0.749 & 0.631 & 0.749 & 0.423 & 0.749\\ \hline
+        \textbf{2}  & 1.0 & 1.0 & 0.423 & 0.262 & 0.262 & 0.337 & 0.631 & 0.423 & 0.15 & 0.423\\ \hline
+        \textbf{3}  & 1.0 & 0.423 & 1.0 & 0.631 & 1.0 & 0.749 & 0.631 & 0.631 & 0.749 & 0.873\\ \hline
+        \textbf{4}  & 0.337 & 0.262 & 0.631 & 1.0 & 0.2 & 0.522 & 0.749 & 0.2 & 0.2 & 0.2\\ \hline
+        \textbf{5}  & 0.631 & 0.262 & 1.0 & 0.2 & 1.0 & 0.522 & 0.423 & 0.873 & 0.631 & 0.631\\ \hline
+        \textbf{6}  & 0.749 & 0.337 & 0.749 & 0.522 & 0.522 & 1.0 & 0.337 & 0.522 & 0.873 & 0.423\\ \hline
+        \textbf{7}  & 0.631 & 0.631 & 0.631 & 0.749 & 0.423 & 0.337 & 1.0 & 0.631 & 0.262 & 0.522\\ \hline
+        \textbf{8}  & 0.749 & 0.423 & 0.631 & 0.2 & 0.873 & 0.522 & 0.631 & 1.0 & 0.423 & 0.631\\ \hline
+        \textbf{9}  & 0.423 & 0.15 & 0.749 & 0.2 & 0.631 & 0.873 & 0.262 & 0.423 & 1.0 & 0.522\\ \hline
+        \textbf{10}  & 0.749 & 0.423 & 0.873 & 0.2 & 0.631 & 0.423 & 0.522 & 0.631 & 0.522 & 1.0\\ \hline
+    \end{tabular}
+\end{table}
+            
         
 
     \subsection{GDP}
@@ -74,74 +97,117 @@
         Naturally, we want to maximize the GDP of a State. The following results were obtained.
     
         \subsubsection{Optimized parameters}
-        \begin{table}[H]
-        \centering
-        \begin{tabular}{|c|c|c|c|c|c|c|c|}
-            \hline
-            \textbf{\#} & \textbf{GDP}  & \textbf{VAT} & \textbf{Levy} & \textbf{Tariff} & \textbf{Wealth} & \textbf{Unemployment} & \textbf{Black} \\ \hline
-            \textbf{1} & 36 739 & 0.043 & 0.729 & 0.376 & 0.769 & 0.309 & 0.036 \\ \hline
-            \textbf{2} & 37 152 & 0.054 & 0.651 & 0.272 & 0.988 & 0.175 & 0.018 \\ \hline
-            \textbf{3} & 36 749 & 0.059 & 0.945 & 0.528 & 0.021 & 0.337 & 0.034 \\ \hline
-            \textbf{4} & 37 691 & 0.005 & 0.994 & 0.675 & 0.66 & 0.268 & 0.052 \\ \hline
-            \textbf{5} & 36 334 & 0.0 & 0.846 & 0.537 & 0.833 & 0.387 & 0.014 \\ \hline
-            \textbf{6} & 36 453 & 0.001 & 0.819 & 0.443 & 0.209 & 0.077 & 0.081 \\ \hline
-            \textbf{7} & 36 703 & 0.043 & 0.91 & 0.505 & 0.285 & 0.13 & 0.006 \\ \hline
-            \textbf{8} & 35 130 & 0.025 & 0.47 & 0.525 & 0.51 & 0.285 & 0.082 \\ \hline
-            \textbf{9} & 35 556 & 0.198 & 0.944 & 0.37 & 0.957 & 0.423 & 0.028 \\ \hline
-            \textbf{10} & 36 339 & 0.109 & 0.924 & 0.519 & 0.426 & 0.096 & 0.047 \\ \hline
-        \end{tabular}
-        \end{table}
 
-        We can see some interesting patterns in the table. Indeed, we see that the VAT rates are very close to one another, the same goes for the black economy share. This actually fits our state-of-the-art and our experiments. Indeed, if we see, for instance, in \nameref{exp:black}, we had noticed that, as the black economy share grows, the GDP decreases. Therefore, reducing black economy at such low levels drastically increases the GDP.
-        On the other side, we see no real pattern for the other parameters, i.e. they do not significantly influence the GDP.
-
-        We can also see in the following plot the decrease of the GDP across iterations (cost history). PSO will minimize the opposite of the GDP (thus maximizing the GDP), that is why the costs are negative, and we want them to be as low as possible.
-
-        \begin{figure}[H]
+            \begin{table}[H]
             \centering
-            \includegraphics[width=0.9\textwidth]{img/opti/costHistoryGDP.png}
-            \caption{Cost history of the GDP}
-        \end{figure}
+            \begin{tabular}{|c|c|c|c|c|c|c|c|}
+                \hline
+                \textbf{\#} & \textbf{GDP}  & \textbf{VAT} & \textbf{Levy} & \textbf{Tariff} & \textbf{Wealth} & \textbf{Unemployment} & \textbf{Black} \\ \hline
+                \textbf{1} & 36 739 & 0.043 & 0.729 & 0.376 & 0.769 & 0.309 & 0.036 \\ \hline
+                \textbf{2} & 37 152 & 0.054 & 0.651 & 0.272 & 0.988 & 0.175 & 0.018 \\ \hline
+                \textbf{3} & 36 749 & 0.059 & 0.945 & 0.528 & 0.021 & 0.337 & 0.034 \\ \hline
+                \textbf{4} & 37 691 & 0.005 & 0.994 & 0.675 & 0.66 & 0.268 & 0.052 \\ \hline
+                \textbf{5} & 36 334 & 0.0 & 0.846 & 0.537 & 0.833 & 0.387 & 0.014 \\ \hline
+                \textbf{6} & 36 453 & 0.001 & 0.819 & 0.443 & 0.209 & 0.077 & 0.081 \\ \hline
+                \textbf{7} & 36 703 & 0.043 & 0.91 & 0.505 & 0.285 & 0.13 & 0.006 \\ \hline
+                \textbf{8} & 35 130 & 0.025 & 0.47 & 0.525 & 0.51 & 0.285 & 0.082 \\ \hline
+                \textbf{9} & 35 556 & 0.198 & 0.944 & 0.37 & 0.957 & 0.423 & 0.028 \\ \hline
+                \textbf{10} & 36 339 & 0.109 & 0.924 & 0.519 & 0.426 & 0.096 & 0.047 \\ \hline
+            \end{tabular}
+            \end{table}
+
+            We can see some interesting patterns in the table. Indeed, we see that the VAT rates are very close to one another, the same goes for the black economy share. This actually fits our state-of-the-art and our experiments. Indeed, if we see, for instance, in \nameref{exp:black}, we had noticed that, as the black economy share grows, the GDP decreases. Therefore, reducing black economy at such low levels drastically increases the GDP.
+            On the other side, we see no real pattern for the other parameters, i.e. they do not significantly influence the GDP.
+
+            We can also see in the following plot the decrease of the GDP across iterations (cost history). PSO will minimize the opposite of the GDP (thus maximizing the GDP), that is why the costs are negative, and we want them to be as low as possible.
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.9\textwidth]{img/opti/costHistoryGDP.png}
+                \caption{Cost history of the GDP}
+            \end{figure}
 
         \subsubsection{Statistical analysis}
-        %TODO
+
+        Again, our null hypothesis H0 is that our two samples (two sets of optimized parameters obtained by the same PSO on two different runs) have the same distribution. We will use an $\alpha$ value of 0.05 to test the hypothesis. 
+
+        We show in the following table the p-values for each pair of two runs obtained by the \texttt{ranksums} function of the \texttt{scipy} library. All p-values are above our threshold of 0.05, i.e. all of our optimized parameters come from the same algorithm/distribution with a confidence level of 5\%.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+    \textbf{\#}& \textbf{1}& \textbf{2}& \textbf{3}& \textbf{4}& \textbf{5}& \textbf{6}& \textbf{7}& \textbf{8}& \textbf{9}& \textbf{10}\\ \hline
+    \textbf{1}  & 1.0 & 0.749 & 0.631 & 1.0 & 0.749 & 0.749 & 0.689 & 0.749 & 0.631 & 0.749\\ \hline
+    \textbf{2}  & 0.749 & 1.0 & 0.873 & 0.749 & 1.0 & 0.749 & 0.749 & 0.873 & 0.522 & 1.0\\ \hline
+    \textbf{3}  & 0.631 & 0.873 & 1.0 & 0.631 & 0.873 & 1.0 & 0.873 & 0.873 & 0.423 & 0.631\\ \hline
+    \textbf{4}  & 1.0 & 0.749 & 0.631 & 1.0 & 0.873 & 0.522 & 0.631 & 0.631 & 0.873 & 0.749\\ \hline
+    \textbf{5}  & 0.749 & 1.0 & 0.873 & 0.873 & 1.0 & 0.522 & 0.749 & 0.631 & 0.631 & 1.0\\ \hline
+    \textbf{6}  & 0.749 & 0.749 & 1.0 & 0.522 & 0.522 & 1.0 & 0.749 & 0.423 & 0.337 & 0.522\\ \hline
+    \textbf{7}  & 0.689 & 0.749 & 0.873 & 0.631 & 0.749 & 0.749 & 1.0 & 0.689 & 0.337 & 0.631\\ \hline
+    \textbf{8}  & 0.749 & 0.873 & 0.873 & 0.631 & 0.631 & 0.423 & 0.689 & 1.0 & 0.631 & 0.873\\ \hline
+    \textbf{9}  & 0.631 & 0.522 & 0.423 & 0.873 & 0.631 & 0.337 & 0.337 & 0.631 & 1.0 & 0.631\\ \hline
+    \textbf{10}  & 0.749 & 1.0 & 0.631 & 0.749 & 1.0 & 0.522 & 0.631 & 0.873 & 0.631 & 1.0\\ \hline
+\end{tabular}
+\end{table}
 
     \subsection{Number of transactions}
 
         Naturally, we want to maximize the number of transactions in a State. The following results were obtained.
     
         \subsubsection{Optimized parameters}
-        \begin{table}[H]
-        \centering
-        \begin{tabular}{|c|c|c|c|c|c|c|c|}
-            \hline
-            \textbf{\#} & \textbf{Nb transactions}  & \textbf{VAT} & \textbf{Levy} & \textbf{Tariff} & \textbf{Wealth} & \textbf{Unemployment} & \textbf{Black} \\ \hline
-            \textbf{1} & 739 & 0.456 & 0.824 & 0.487 & 0.556 & 0.021 & 0.954 \\ \hline
-            \textbf{2} & 788 & 0.741 & 0.871 & 0.18 & 0.462 & 0.063 & 0.996 \\ \hline
-            \textbf{3} & 753 & 0.708 & 0.906 & 0.939 & 0.884 & 0.041 & 0.993 \\ \hline
-            \textbf{4} & 737 & 0.419 & 0.691 & 0.137 & 0.551 & 0.005 & 0.826 \\ \hline
-            \textbf{5} & 726 & 0.091 & 0.924 & 0.904 & 0.175 & 0.044 & 0.714 \\ \hline
-            \textbf{6} & 752 & 0.412 & 0.759 & 0.554 & 0.671 & 0.004 & 0.917 \\ \hline
-            \textbf{7} & 747 & 0.608 & 0.974 & 0.588 & 0.743 & 0.005 & 0.957 \\ \hline
-            \textbf{8} & 725 & 0.306 & 0.682 & 0.55 & 0.794 & 0.062 & 0.962 \\ \hline
-            \textbf{9} & 740 & 0.963 & 0.858 & 0.323 & 0.472 & 0.018 & 0.994 \\ \hline
-            \textbf{10} & 746 & 0.672 & 0.479 & 0.073 & 0.809 & 0.001 & 0.954 \\ \hline
-        \end{tabular}
-        \end{table}
-
-        We can see two patterns emerging. First, for the number of transactions to be high, we need a very small unemployment rate as we can see on the table (i.e. this is the `common denominator' of all these optimizations). This makes sense, because more unemployment means more non-producers, therefore less products on the market to buy and less transactions. This fits our \nameref{exp:unemployment} where we saw a linear correlation between the unemployment rate and the number of transactions.
-
-        Secondly, we can see that, generally but not always, the black economy share is very high. This is due to the fact that a black transaction is still counted towards the total number of transactions, however no due taxes are paid. This is quite surprising as it is not exactly what we had seen in \nameref{exp:black} where we saw no real correlation between the black economy share and the number of transactions.
-
-        We can also see in the following plot the decrease of the number of transactions across iterations (cost history). PSO will minimize the opposite of the number of transactions (thus maximizing the number of transactions), that is why the costs are negative, and we want them to be as low as possible.
-
-        \begin{figure}[H]
+            
+            \begin{table}[H]
             \centering
-            \includegraphics[width=0.9\textwidth]{img/opti/costHistoryNbTransactions.png}
-            \caption{Cost history of the number of transactions}
-        \end{figure}
+            \begin{tabular}{|c|c|c|c|c|c|c|c|}
+                \hline
+                \textbf{\#} & \textbf{Nb transactions}  & \textbf{VAT} & \textbf{Levy} & \textbf{Tariff} & \textbf{Wealth} & \textbf{Unemployment} & \textbf{Black} \\ \hline
+                \textbf{1} & 739 & 0.456 & 0.824 & 0.487 & 0.556 & 0.021 & 0.954 \\ \hline
+                \textbf{2} & 788 & 0.741 & 0.871 & 0.18 & 0.462 & 0.063 & 0.996 \\ \hline
+                \textbf{3} & 753 & 0.708 & 0.906 & 0.939 & 0.884 & 0.041 & 0.993 \\ \hline
+                \textbf{4} & 737 & 0.419 & 0.691 & 0.137 & 0.551 & 0.005 & 0.826 \\ \hline
+                \textbf{5} & 726 & 0.091 & 0.924 & 0.904 & 0.175 & 0.044 & 0.714 \\ \hline
+                \textbf{6} & 752 & 0.412 & 0.759 & 0.554 & 0.671 & 0.004 & 0.917 \\ \hline
+                \textbf{7} & 747 & 0.608 & 0.974 & 0.588 & 0.743 & 0.005 & 0.957 \\ \hline
+                \textbf{8} & 725 & 0.306 & 0.682 & 0.55 & 0.794 & 0.062 & 0.962 \\ \hline
+                \textbf{9} & 740 & 0.963 & 0.858 & 0.323 & 0.472 & 0.018 & 0.994 \\ \hline
+                \textbf{10} & 746 & 0.672 & 0.479 & 0.073 & 0.809 & 0.001 & 0.954 \\ \hline
+            \end{tabular}
+            \end{table}
+
+            We can see two patterns emerging. First, for the number of transactions to be high, we need a very small unemployment rate as we can see on the table (i.e. this is the `common denominator' of all these optimizations). This makes sense, because more unemployment means more non-producers, therefore less products on the market to buy and less transactions. This fits our \nameref{exp:unemployment} where we saw a linear correlation between the unemployment rate and the number of transactions.
+
+            Secondly, we can see that, generally but not always, the black economy share is very high. This is due to the fact that a black transaction is still counted towards the total number of transactions, however no due taxes are paid. This is quite surprising as it is not exactly what we had seen in \nameref{exp:black} where we saw no real correlation between the black economy share and the number of transactions. This is probably due to the fact that now, we have a very high levy tax compared to before where the default configuration set it at 0.1.
+
+            We can also see in the following plot the decrease of the number of transactions across iterations (cost history). PSO will minimize the opposite of the number of transactions (thus maximizing the number of transactions), that is why the costs are negative, and we want them to be as low as possible.
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.9\textwidth]{img/opti/costHistoryNbTransactions.png}
+                \caption{Cost history of the number of transactions}
+            \end{figure}
 
 
         \subsubsection{Statistical analysis}
-        %TODO
 
+        Again, our null hypothesis H0 is that our two samples (two sets of optimized parameters obtained by the same PSO on two different runs) have the same distribution. We will use an $\alpha$ value of 0.05 to test the hypothesis. 
+
+        We show in the following table the p-values for each pair of two runs obtained by the \texttt{ranksums} function of the \texttt{scipy} library. All p-values are above our threshold of 0.05, i.e. all of our optimized parameters come from the same algorithm/distribution with a confidence level of 5\%.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+    \textbf{\#}& \textbf{1}& \textbf{2}& \textbf{3}& \textbf{4}& \textbf{5}& \textbf{6}& \textbf{7}& \textbf{8}& \textbf{9}& \textbf{10}\\ \hline
+    \textbf{1}  & 1.0 & 0.873 & 0.2 & 0.522 & 0.873 & 0.873 & 0.337 & 0.873 & 0.749 & 0.749\\ \hline
+    \textbf{2}  & 0.873 & 1.0 & 0.423 & 0.423 & 0.631 & 0.873 & 0.749 & 0.873 & 0.873 & 0.749\\ \hline
+    \textbf{3}  & 0.2 & 0.423 & 1.0 & 0.055 & 0.337 & 0.15 & 0.522 & 0.262 & 0.631 & 0.2\\ \hline
+    \textbf{4}  & 0.522 & 0.423 & 0.055 & 1.0 & 0.631 & 0.631 & 0.2 & 0.631 & 0.337 & 0.873\\ \hline
+    \textbf{5}  & 0.873 & 0.631 & 0.337 & 0.631 & 1.0 & 1.0 & 0.522 & 0.749 & 0.522 & 0.873\\ \hline
+    \textbf{6}  & 0.873 & 0.873 & 0.15 & 0.631 & 1.0 & 1.0 & 0.423 & 0.873 & 0.631 & 1.0\\ \hline
+    \textbf{7}  & 0.337 & 0.749 & 0.522 & 0.2 & 0.522 & 0.423 & 1.0 & 0.631 & 1.0 & 0.423\\ \hline
+    \textbf{8}  & 0.873 & 0.873 & 0.262 & 0.631 & 0.749 & 0.873 & 0.631 & 1.0 & 0.631 & 0.749\\ \hline
+    \textbf{9}  & 0.749 & 0.873 & 0.631 & 0.337 & 0.522 & 0.631 & 1.0 & 0.631 & 1.0 & 0.522\\ \hline
+    \textbf{10}  & 0.749 & 0.749 & 0.2 & 0.873 & 0.873 & 1.0 & 0.423 & 0.749 & 0.522 & 1.0\\ \hline
+\end{tabular}
+\end{table}

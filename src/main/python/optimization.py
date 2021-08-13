@@ -135,12 +135,16 @@ def parse(text):
 def pairedStatisticalTest(text):
     """Perform a Wilcoxon rank-sums test for each pair of params"""
     lst = parse(text)
+    pvaluesMatrix = np.zeros((len(lst), len(lst)))
     for i in range(len(lst)):
-        for j in range(i):
-            print(i, j, ranksums(lst[i], lst[j]))
+        for j in range(i+1):
+            pvaluesMatrix[i][j] = round(ranksums(lst[i], lst[j])[1], 3)  # Keep p-value only
+            pvaluesMatrix[j][i] = pvaluesMatrix[i][j]
+    print(pvaluesMatrix)
 
 
 def runStatisticalTests():
+    """Run all statistical tests with the results obtained on the Cluster"""
     giniResults = """0.0 [0.78296694 0.99881254 0.99959293 0.20902644 0.33317086 0.20051856]
     0.0 [0.30144084 0.99860142 0.37065729 0.68155468 0.37714027 0.590301 ]
     0.0 [0.01772531 0.99829416 0.75250993 0.43391462 0.99807285 0.82774047]
