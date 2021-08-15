@@ -70,9 +70,9 @@ The default configuration file that we use is the following. Experiment after ex
 }
 \end{lstlisting}
 
-Whenever points are scattered on a plot, we will also plot a line which interpolates, with a degree 2, these points to better highlight the trend. Also, in the bar charts, an average is computed in order to give a global overview. We also have to pay attention that most plots have two $y$ axis (red is for the left hand-side, blue for the right hand-side). There are over 40 plots in the folder \texttt{./report/img/exp/}, we will only focus on the most interesting ones.
+In the following experiments, whenever points are scattered on a plot, we will also plot a line which interpolates, with a degree 2, these points to better highlight the trend. Also, in the bar charts, an average is computed in order to give a global overview. We also have to pay attention that most plots have two $y$ axis (red is for the left hand-side, blue for the right hand-side). There are over 40 plots in the folder \texttt{./report/img/exp/}, we will only focus on the most interesting ones.
 
-For each experiment, we will compare it with the state-of-the-art presented earlier, and try to answers the many research questions introduced in the section~\ref{section:motivation_objectives}.
+For each experiment, we will compare it with the State-of-the-art presented earlier, and try to answers the many research questions introduced in the section~\ref{section:motivation_objectives}.
 
 
 \section{State experiments}
@@ -86,7 +86,7 @@ We will start our experiments with all the parameters related to the State. We s
 
         We can see on the following plots that a State with no taxes (thus VAT of 0, but the other taxes are also set to 0) will generally have a smaller GDP and the number of transactions is also decreased compared to a State with taxes (left plot where the VAT is 0.2 for instance). 
         
-        At first this might seem rather odd since we expect products to be cheaper, therefore more transactions should be happening (hence the GDP would be boosted too). However, if we think more about it, this seems rather logical because a State with no tax will not be able to distribute allowances, and thus some agents will concentrate all the money at the expense of other agents who will not be able to buy products anymore after some time, eventually diminishing both the GDP and the number of transactions.
+        At first this might seem rather odd since we expect products to be cheaper, therefore more transactions should be happening (hence the GDP would be boosted too). However, if we think more about it, this seems rather logical because a State with no tax will not be able to distribute allowances, and thus some agents will concentrate all the money at the expense of other agents who will not be able to buy products anymore after some time, eventually diminishing both the GDP and the number of transactions. Poorer agents not buying able to buy any product is damaging for the whole economy in this case.
 
         \begin{figure}[H]
             \minipage{0.5\textwidth}
@@ -124,7 +124,7 @@ We will start our experiments with all the parameters related to the State. We s
         \begin{wrapfigure}{l}{0.5\linewidth}
             \includegraphics[width=\linewidth]{img/exp/2_1.png}
         \end{wrapfigure} 
-        { At first, it is quite surprising to obtain such a plot where no correlation or pattern can be observed. Nonetheless, this makes sense because no matter what the VAT level is, agents will always be able to buy the same amount of products since the money collected from the taxes is always redistributed. For instance, if we have a VAT of 0, our agents will still be able to buy products because States have other taxes to collect money that they will redistribute afterwards. On the other side, if we have a VAT of 1, the State will have more money to redistribute, therefore agents will be richer. They could potentially buy more products, however this will not be the case because of such a high VAT rate making products more expensive.
+        { At first, it is quite surprising to obtain such a plot where no correlation or pattern can be observed. Nonetheless, this makes sense because no matter what the VAT level is, agents will always be able to buy the same amount of products since the money collected from other taxes is always redistributed. For instance, if we have a VAT of 0, our agents will still be able to buy products because States have other taxes to collect money that they will redistribute afterwards. On the other side, if we have a VAT of 1, the State will have more money to redistribute, therefore agents will be richer. They could potentially buy more products, however this will not be the case because of such a high VAT rate making products more expensive. There is a balance between both: higher rate results in more money to distribute but higher prices; smaller rate results in less money to distribute but smaller prices. 
         \par
 
         \subsubsection{Gini coefficient}
@@ -132,7 +132,7 @@ We will start our experiments with all the parameters related to the State. We s
         \begin{wrapfigure}{r}{0.5\linewidth}
             \includegraphics[width=\linewidth]{img/exp/2_3.png}
         \end{wrapfigure} 
-        { \lipsum[1-2] Naturally, as we had seen before, the lower the VAT is, the more inequalities we will have since the State has less money to redistribute fairly. However, we can see that here, with a VAT of 0, the Gini coefficient is around 0.45 whereas it was at 0.91 before. This is because in this case, the other taxes are still present as shown in the default configuration allowing the State to distribute allowances and diminishing inequalities. Hence why the higher the VAT is, the less inequalities we have since the Gini coefficient tends to go to zero.
+        { Naturally, as we had seen before, the lower the VAT is, the more inequalities we will have since the State has less money to redistribute fairly. However, we can see that here, with a VAT of 0, the Gini coefficient is around 0.45 whereas it was at 0.91 before. This is because in this case, the other taxes are still present as shown in the default configuration allowing the State to distribute allowances and diminishing inequalities. Hence the higher the VAT is, the less inequalities we have since the Gini coefficient tends to go to zero.
         \par
 
     \subsection{Experiment 3: Tariff}
@@ -166,7 +166,7 @@ We will start our experiments with all the parameters related to the State. We s
             \endminipage\hfill
         \end{figure}
 
-        As for the previous experiments, the first plot might seem astonishing at first, but the explanation is exactly the same as for the previous experiment~\ref{section:expVAT}. The same goes for the second plot and the analysis of the Gini coefficient. However, in this experiment, the Gini coefficient goes down until almost zero. This was to be expected because if we levy 100\% of the wealth of all agents, they will be moneyless. Therefore, after redistributing the allowances, they will all have the money. Indeed, the Fair and Flat allowance will be almost exactly the same since all agents have the same wealth: none.
+        As for the previous experiments, the first plot might seem astonishing at first, but the explanation is exactly the same as for the previous experiment~\ref{section:expVAT}. The same goes for the second plot and the analysis of the Gini coefficient. However, in this experiment, the Gini coefficient goes down until almost zero. This was to be expected because if we levy 100\% of the wealth of all agents, they will be moneyless. Therefore, after redistributing the allowances, both systems, the Fair and Flat allowance, will be almost exactly the same since all agents have the same wealth: none. After which, they will all have the same amount, therefore very few inequalities.
 
     \subsection{Experiment 5: Wealth tax}
     We will now analyze the influence of the last tax: the wealth tax with the same methodologies as the previous taxes and see if we can see any pattern emerging regarding some metrics. 
@@ -202,7 +202,7 @@ We will start our experiments with all the parameters related to the State. We s
         \begin{wrapfigure}{r}{0.5\linewidth}
             \includegraphics[width=\linewidth]{img/exp/6_3.png}
         \end{wrapfigure} 
-        {The plot on the side is a bit tricky but more interesting to analyze. If we only look at the scattered points, we see that there is a linear correlation from the rate 0.0 until 0.8: the more non-producing agents we have, the bigger the Gini coefficient is. This is logical because producing agents will still be able to sell their products and make some money thus accumulating more wealth compared to others, increasing the inequalities.
+        {The plot on the side is a bit tricky but more interesting to analyze. If we only look at the scattered points, we see that there is a linear correlation from the rate 0.0 until 0.8: the more non-producing agents we have, the bigger the Gini coefficient is. This is logical because producing agents will still be able to sell their products and make some money thus accumulating more wealth compared to other non-producing agents, increasing the inequalities.
 
         However, after the 0.8 rate on the $x$ axis, we can see a significant drop, and the previous statement does not hold true anymore: the Gini coefficient gets very close to zero, i.e. perfect equality. Actually, it also makes sense because if almost everybody is unemployed, then no one can afford to buy any product, thus we have almost no transactions happening and no money flowing between agents, and no agent can therefore become richer than others.
         \par
@@ -238,7 +238,7 @@ We will start our experiments with all the parameters related to the State. We s
         \begin{wrapfigure}{l}{0.5\linewidth}
             \includegraphics[width=\linewidth]{img/exp/8_1.png}
         \end{wrapfigure} 
-        { On this side plot, we see that the flat redistribution mechanism seems to be \emph{slightly} superior to the fair one. The increase is of about $2\%$ (2.1\% for the GDP going from $19988$ to $20421$ and $1.7\%$ for the number of transactions going from 679 to 691). This increase is rather negligible and might be the result of the stochastic behavior of the simulation. Indeed, one would expect to not be a relevant difference on these metrics. For instance, the number of transactions is not penalized by the Flat allowance because poorer agents will still be able to afford buying products since they receive their (equal) share of the total money distributed: all Agents are still able to buy products,.
+        { On this side plot, we see that the flat redistribution mechanism seems to be \emph{slightly} superior to the fair one. The increase is of about $2\%$ (2.1\% for the GDP going from $19988$ to $20421$ and $1.7\%$ for the number of transactions going from 679 to 691). This increase is rather negligible and might be the result of the stochastic behavior of the simulation. Indeed, one would expect to not be a relevant difference on these metrics. For instance, the number of transactions is not penalized by the Flat allowance because poorer agents will still be able to afford buying products since they receive their (equal) share of the total money distributed: all Agents are still able to buy products. Richer agents will always be able to make purchases, whereas poorer agents will, in both cases also be able to make purchases since they still receive money.
         \par
 
         \subsubsection{Gini coefficient}
@@ -248,7 +248,7 @@ We will start our experiments with all the parameters related to the State. We s
         \end{wrapfigure} 
         { On the contrary, one would expect a quite pertinent difference on the metric of inequalities as depicted on the plot. This results seems logical since it is was the \emph{main goal} of this redistribution system: State distributing the collected money in a fair way have, in average, a smaller Gini index (i.e. inequalities are limited) and vice-versa for the flat distribution mechanism. With this flat allowance, the wealthier agents will stay wealthier.
 
-        However, an important note to make is that both these systems clearly outperform the system where no redistribution is in place. Indeed, we had seen in the first experiment that, in this case, the Gini coefficient would skyrocket to $0.96$.
+        However, an important note to make is that both these systems clearly outperform the system where no redistribution is in place. Indeed, we had seen in the first experiment that, in such a case, the Gini coefficient would skyrocket to $0.96$.
         \par
 
 
@@ -265,7 +265,7 @@ We will start our experiments with all the parameters related to the State. We s
 
         With these metrics going towards opposite directions, we can notice something very interesting: the difference between the red (GDP) and blue (number of transactions) bars keeps increasing. Indeed, at first, when a State is connected to no other State, these two metrics are very related as we have seen up until now (besides in the black economy experiment). However, the difference is much more noticeable when a State is connected to 4 other States. The main hypothesis for this behavior is that agents perform as many transactions as before, however because they have access to other markets without any tariffs, they are able to buy some products at a cheaper price in another State therefore not increasing the GDP as much.
 
-        The results of this experiment are quite lackluster when compared to the state of the art. Indeed, an increase of the GDP was expected for State with more connections. This difference is due to the code implementation which does not mimic well enough the reality, and not to the simulation itself. The simulation results fit the implementation.
+        The results of this experiment are quite lackluster when compared to the state of the art. Indeed, an increase of the GDP was expected for State with more connections. This difference is due to the code implementation which does not mimic well enough the reality. The simulation results fit the implementation that we have made. Therefore, as we will talk about later, there is still room for improvements in future works if one wishes to improve the way clusters are made.
         \par
 
         \subsubsection{Gini coefficient}
@@ -282,30 +282,27 @@ We will start our experiments with all the parameters related to the State. We s
         \begin{wrapfigure}{l}{0.5\linewidth}
             \includegraphics[width=\linewidth]{img/exp/10_2.png}
         \end{wrapfigure} 
-        { Our last experiment of this section is not based on a parameter of the state \emph{per se}, but on the duration of the simulation and the evolution of some State metrics as the number of ticks increases. Deciding how long the simulation should run for is important to save computational power and run-time by checking at around how many ticks the simulation starts to stabilize. After this point of stabilization, there is no real advantage of running the simulation for even longer because no dramatic fluctuation should happen. 
-            
-        As we can see on this plot, the simulation metrics start to stabilize after 2000 or 3000 ticks and going up to 6000 ticks provides no advantage (for a run-time 2-3 times longer). Hence, the default number of ticks in the configuration file is 3000.
+        { Our last experiment of this section is not based on a parameter of the state \emph{per se}, but on the duration of the simulation and the evolution of some State metrics as the number of ticks increases. Deciding how long the simulation should run for is important to save computational power and run-time by checking at around how many ticks the simulation starts to stabilize. After this point of stabilization, there is no real advantage of running the simulation for even longer because no dramatic fluctuation should happen.
+        As we can see on this plot, the simulation metrics start to stabilize after 3000 ticks and going up to 6000 ticks provides no advantage (for a run-time 2-3 times longer). Hence, the default number of ticks in the configuration file is 3000.
         \par
     
 \section{Agent experiments}
-    After seeing and analyzing some State parameters, we will focus on those of the Agents.
 
-    \subsection{Experiment 11: Talent}
+    \subsection{Experiment 11: Talent}\label{exp:talent}
     The talent an agent has lets it produce cheaper products therefore having more chances at getting picked by a potential buyer looking for the cheapest product. For this experiment, we will analyze how the talent of an agent (between 0 and 1) influences its sales and purchases by generating lots of homogeneous agents with different talent values.
 
         \begin{wrapfigure}{r}{0.5\linewidth}
             \includegraphics[width=\linewidth]{img/exp/11.png}
         \end{wrapfigure} 
-        { This first plot may look quite chaotic and random at first, however we can see many interesting patterns by taking into account some particularities afterwards. First, generally we see a trend (red line behind the blue dots) that the more talent an agent has, the more sales it will make. Regarding the number of purchases, we have a rather odd pattern (which looks like the on in the Gini coefficient in the Unemployment experiment): as the talent increases, we are gradually able to make more purchases until a certain point around 0.5-0.7. After this point, there is a significant drop due to the fact that agents will produce products ``too cheap'', therefore not allowing them to earn enough wealth and make purchases. This is quite interesting because it shows that selling at such low prices is not always a good idea.
+        { This first plot may look quite chaotic and random at first, however we can see many interesting patterns by taking into account some particularities afterwards. First, generally we see a trend (red line behind the blue dots) that the more talent an agent has, the more sales it will make. Regarding the number of purchases, we have a rather odd pattern (which looks like the one in the Gini coefficient in the \nameref{exp:unemployment}): as the talent increases, we are gradually able to make more purchases until a certain point around 0.5-0.7. After this point, there is a significant drop due to the fact that agents will produce products ``too cheap'', therefore not allowing them to earn enough wealth and make purchases. This is quite interesting because it shows that selling at such low prices is not always a good idea.
         
-        However, it seems that the trends are not linear (as one could have expected) but this due to the fact a different products have different base prices (i.e. the original price of the product which is then lowered by a certain factor based on the agent's talent). For instance, if we have an agent A which produces a product with a base price of 10 with a talent of 0.1, then A will see its product at 9. Now if we have another agent B which produces a product with a base price of 200 with a talent of 0.7, its product will now cost 60. This means that, even though A has less talent (0.1) than B (0.7), it will \emph{probably} sell more products since its product remains cheaper, therefore we do not have a clear linear trend.
-        This is also the reason why we a trace of red scattered points going upwards: the same product: the point goes up (i.e. more sales) as the talent goes up too.
-
+        However, it seems that the trends are not linear (as one could have expected) but this due to the fact a different products have different base prices (i.e. the original price of the product which is then lowered by a certain factor based on the agent's talent). For instance, if we have an agent A which produces a product with a base price of 10 with a talent of 0.1, then A will sell its product at 9. Now if we have another agent B which produces a product with a base price of 200 with a talent of 0.7, its product will now cost 60. This means that, even though A has less talent (0.1) than B (0.7), it will \emph{probably} sell more products since its product remains cheaper, therefore we do not have a clear linear trend.
+        This is also the reason why we a trace of red scattered points going upwards (same product with different talent, thus different amount of sales).
         \par
 
 
     \subsection{Experiment 12: Initial money}
-    Another interesting parameter is the initial money of an agent. Whether an agent starts the simulation with a small or huge amount of money could influence its purchases and sales. 
+    Another interesting parameter is the initial money of an agent. Whether an agent starts the simulation with a small or huge amount of money could influence some metrics. 
 
         \begin{wrapfigure}{l}{0.5\linewidth}
             \includegraphics[width=\linewidth]{img/exp/12_1.png}
@@ -316,7 +313,7 @@ We will start our experiments with all the parameters related to the State. We s
 
 
     \subsection{Experiment 13: Unemployment}
-    As we had seen in a previous experiment, unemployment (i.e. agent who never produces) plays a major role in the System. How can agents who do not produce make purchases ? For this experiment we will only have one State with a thousands agents and un employment rate of 0.3. To see the role of unemployment, we will compare one simulation which runs for 1000 ticks, and another for 10000 ticks.
+    As we had seen in a previous experiment, unemployment (i.e. agent who never produces) plays a major role in the System. How can agents who do not produce make purchases ? For this experiment we will only have one State with a thousands agents and unemployment rate of 0.3. To see the role of unemployment, we will compare one simulation which runs for 1000 ticks, and another for 10000 ticks.
 
         \begin{figure}[H]
             \minipage{0.5\textwidth}
@@ -329,7 +326,7 @@ We will start our experiments with all the parameters related to the State. We s
             \endminipage\hfill
         \end{figure}
 
-    As we can see on these plots (where 1 means that the agent is indeed a producer, and 0 means it is unemployed). Naturally, producers make more purchases than non-producers (2.2x times as much for 1000 ticks and 1.7x as much for 10000 ticks). However, we can see that in both cases, multiplying by 10 the number of ticks results in a \emph{roughly} 10 times increase of the number of purchases for both producers and non producers. This means that  non-producing agents can make purchases thanks to the redistribution system. Indeed, otherwise, if they were no allowances, the non-producing agents would be able to buy products up until a certain point where they have spent all their initial money. From that tick forward, they would not be able to make any purchase because they would not sell anything nor receive any money from the State, therefore a threshold would be reached, and increasing the number of ticks would not upgrade the threshold (contrary to here).
+    On this plot, 1 means that the agent is indeed a producer, and 0 means it is unemployed. Naturally, producers make more purchases than non-producers (2.2x times as much for 1000 ticks and 1.7x as much for 10000 ticks). However, we can see that in both cases, multiplying by 10 the number of ticks results in a \emph{roughly} 10 times increase of the number of purchases for both producers and non producers. This means that  non-producing agents can make purchases thanks to the redistribution system. Indeed, otherwise, if they were no allowances, the non-producing agents would be able to buy products up until a certain point where they have spent all their initial money. From that tick forward, they would not be able to make any purchase because they would not sell anything nor receive any money from the State, therefore a threshold would be reached, and increasing the number of ticks would not upgrade the threshold (contrary to here).
     
 
     \subsection{Experiment 14: Wealth distribution}
@@ -348,7 +345,7 @@ We will start our experiments with all the parameters related to the State. We s
 
     We can read this plot as follows: if we take the x point 0.8 in the left hand-side plot, we can see that 80\% of the population owns around 25\% of the total wealth. On the other plot, we see that at 80\% of the population owns around 40\% of the total wealth. Therefore, the second case seems fairer. In a perfect equality society, we would obtain the red curve: 30\% of the population detains 30\% of the wealth, 80\% would own 80\%, etc. 
     
-    Therefore, the bigger the area between the red and blue curves, the higher the inequalities will be. This area actually represents one metric that we have analyzed all along this thesis: the Gini coefficient. If both curve coincide, the Gini index will be 0. On the other side, if there is only one person holding all the wealth and all the others agents own nothing, then we would see a blue horizontal line at the bottom with a sudden peak at then end therefore resulting in a Gini coefficient very close to 1. \footnote{Not \emph{exactly} 1 because we would need an infinite amount of agents}.
+    Therefore, the bigger the area between the red and blue curves, the higher the inequalities will be. This area actually represents one metric that we have analyzed all along this thesis: the Gini coefficient. If both curve coincide, the Gini index will be 0. On the other side, if there is only one person holding all the wealth and all the others agents own nothing, then we would see a blue horizontal line at the bottom with a sudden peak at then end therefore resulting in a Gini coefficient very close to 1. \footnote{Not \emph{exactly} 1 because we would need an infinite amount of agents with no wealth}.
 
     The Gini coefficient on the left plot (where a flat allowance redistribution system is used) is equal to 0.618 whereas on the right hand-side the Gini index is equal to 0.546. Naturally, we can see that the right case is fairer as wealth is distributed a bit more fairly.
 
@@ -363,7 +360,7 @@ We will start our experiments with all the parameters related to the State. We s
         \begin{wrapfigure}{l}{0.5\linewidth}
             \includegraphics[width=\linewidth]{img/exp/15.png}
         \end{wrapfigure} 
-        { The first basic parameter of a product is the selling price. We can analyze its impact on two metrics: the number of stocks remaining, and, of course, the number of sales of that product. Naturally, these two curves metrics are the opposite of each other: more sales means less stocks remaining. We see that the trends are not totally linear. This is because we are analyzing the selling price without any taxes. By adding the VAT and the custom tariffs (if applicable), a cheaper product might become more expensive, therefore resulting in these solitary scattered points. 
+        { The first basic parameter of a product is the selling price. We can analyze its impact on two metrics: the number of stocks remaining, and, of course, the number of sales of that product. Naturally, these two curves metrics are the opposite of each other: more sales means less stocks remaining. We see that the trends are not totally linear. First, this is because we are analyzing the selling price without any taxes. By adding the VAT and the custom tariffs (if applicable), a cheaper product might become more expensive, therefore resulting in these solitary scattered points. Secondly, it is also because of the same reason as explained in \nameref{exp:talent}
         \par
 
 

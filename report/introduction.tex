@@ -4,16 +4,16 @@
 
 An economic system is a very complex set of mechanisms and rules in order to produce, exchange and consume goods and services. Despite its complexity, this structure is a key part of our day-to-day life and we will try to understand different parameters of our system and their influences on key aspects such as efficiency or equality.
 
-Unfortunately, such systems are virtually impossible to pin down analytically due to the many roles, rules and parameters: no set of mathematical formulas can model them properly due because of many reasons such as the randomness introduced in the simulation, the large amounts of entities it is made of, the many parameters, etc.
+Unfortunately, such systems are virtually impossible to pin down analytically due to the many roles, rules and parameters: no set of mathematical formulas can model them properly because of many reasons such as the randomness introduced in the simulation, the large amounts of entities it is made of, the many parameters, etc.
 As stated by Leigh Tesfatsion, numerous algorithms have already tried to model social processes. We can cite a few of them such as genetic algorithms or reinforcement learning algorithms (Q-learning for instance). These algorithms have been developed with one purpose: optimality \cite{tesfatsion_bottom_up}. 
 
 In our case, we will use a computer-based simulation approach to study different types of economic systems. This approach will allow us to simulate a macro-structure (i.e. economic system) by the interactions of multiple autonomous micro-structures (i.e. agents) under a predefined set of rules. This approach falls into the area of Agent-based Computational Economics (ACE). The focus will put on the role of a State. More specifically, its redistributing role in order to correct the inequalities that may, and most probably will, occur in the system. 
 
-It goes without saying that such a simulation cannot model perfectly an economic system either, however it lets us see emerging patterns that can be studied and analysed to better understand how and why our systems work or do not work. The definition of a working system is not universal, but in our case we will settle for a definition based on the efficiency and the equality of our system.
+It goes without saying that such a simulation cannot model perfectly an economic system either, however it lets us see emerging patterns that can be studied and analysed to better understand how and why our systems work or do not work. The definition of a working system is not universal, but in our case we will settle for a definition based on the efficiency and the equality among agents.
 
 This trade-off has previously been studied by multiple people, in particular in the paper wrote by Hugues Bersini and Nicolas van Zeebroeck titled \textquote{Why should an economy be competitive?} \cite{bersini}. It draws the conclusion that a \textquote{competitive market is efficiently superior to a random market, however, inequalities will be much more present}. This thesis goes even further by incorporating the notion of a State whose main role will be to redistribute the money it collects from taxes for instance. 
 
-The aforementioned paper applied an ACE-based approach to \textquote{simulate the interactions of agents producing and trading goods within different market structures}. As previously stated, the agent-based method works well in case of a bottom-up approach: the agents, that can  produce, consume and exchange, will interact with one another. With large amounts of autonomous agents, we will be able to study emerging phenomena and see how the rules and parameters influence our economical system. In order to do this, many key parameters have been incorporated into the simulation to make it as exhaustive as possible. All of these parameters (i.e. VAT rate, unemployment rate, etc.) can be tuned, analyzed (and optimized) to see the effects on key metrics such as the Gini coefficient or the number of transactions among others. 
+The aforementioned paper applied an ACE-based approach to \textquote{simulate the interactions of agents producing and trading goods within different market structures}. As previously stated, the agent-based method works well in case of a bottom-up approach: the agents, that can  produce, consume and exchange, will interact with one another. With large amounts of autonomous agents, we will be able to study emerging phenomena and see how the rules and parameters influence our economical system. In order to do this, many key parameters have been incorporated into the simulation to make it as exhaustive as possible. All of these parameters (i.e. VAT rate, unemployment rate, etc.) can be tuned, analyzed and eventually optimized to see the effects on key metrics such as the Gini coefficient or the number of transactions among agents. 
 
 Our simulation will be made of different models all working together - similarly to a society. These four main entities are: the State, the Agent, the Product and the Market. Each one contains essential parameters as well as multiple properties that will be studied as key metrics to understand the role of each parameter. We will precisely describe these models later on.
 
@@ -30,11 +30,11 @@ In the first objective, the goal is to understand why some systems as we know th
 
 In the second objective, the purpose it to understand the impact of parameters and see how the system changes under different initial conditions. The dynamics of the system might change heavily with some parameters, less so with others.
 
-Finally, an interesting goal would be to optimise all the parameters that we have mentioned so far. Because the searching space of these numerous parameters is vast, we plan on using another algorithm to tweak these parameters in order to reach two different goals which are at the antithesis from one another: the amount of money present in the system and its distribution among the agents. 
+Finally, an interesting goal would be to optimise all the parameters that we have mentioned so far. Because the searching space of these numerous parameters is vast, we plan on using another algorithm to tweak these parameters in order to reach two different goals which are at the antithesis from one another: efficiency and equality. 
 
 \subsection{Research questions}
 
-The main research question that will be studied in this report is:
+The main research question that will be studied in this report is the following:
 
 \vspace*{0.5cm}
 
@@ -44,20 +44,20 @@ The main research question that will be studied in this report is:
 
 \vspace*{0.5cm}
 
-This question will depend on multiple factors that have already been studied in a real systems as we are going to see in the \nameref{section:state_of_the_art} chapter~\ref{section:state_of_the_art}. We will divide them into different categories representing the four models we have mentioned: the Product, the Agent, the State and the Market. 
+This question will depend on multiple factors that have already been studied in a real systems as we are going to see in the \nameref{section:state_of_the_art} chapter~\ref{section:state_of_the_art}. We will divide our questions into different categories representing the four models we have mentioned: the Product, the Agent, the State and the Market. 
 
 \subsubsection{Products}
 
 \begin{itemize}
     \item How does the selling price of a product affect its sales ?
-    \item An agent can choose a product to buy from a variety of products available on the market. There are multiple strategies to pick a product, how will it affect the sales of a product for instance?
+    \item An agent can choose a product to buy from a variety of products available on the market. There are multiple strategies to pick a product, how will each one affect the sales of a product for instance?
 \end{itemize}
 
 
 \subsubsection{Agents}
 
 \begin{itemize}
-    \item How will the money that an agent receives at the beginning affect its ability to purchase products ? What if, instead of all agents starting with the same amount of money, we make some agents richer and poorer than others? This is useful to study the equality of opportunity.
+    \item How will the money that an agent receives at the beginning affect its ability to purchase products ? What if, instead of all agents starting with the same amount of money, we make some agents richer and others poorer? This is useful to study the equality of opportunity.
     \item What would happen if some agents do not pay their taxes (i.e. black or shadow economy) ? Would do State crash if an important part of its agents do not pay them? 
     \item What would happen if some agents never produce anything (i.e. unemployment) ?
     \item How can a non-producer agent make purchases ?
@@ -67,9 +67,9 @@ This question will depend on multiple factors that have already been studied in 
 \subsubsection{States}
 
 \begin{itemize}
-    \item How will the VAT value affect the EET? Extreme cases might be useful to study to see clearer patterns such as what would happen if the State collects 100\% of VAT? What about 0\%?
-    \item What about the customs tax?
-    \item What about the levy rate?
+    \item How will the VAT value affect the Efficiency-Equality Trade-off (EET)? Extreme cases might be useful to study to see clearer patterns such as what would happen if the State collects 100\% of VAT? What about 0\%?
+    \item What about the custom tariff tax?
+    \item What about the levy tax?
     \item How would a wealth tax affect the EET?
     \item Which redistribution system works the best?
     \item What if there is no redistribution system?
@@ -87,7 +87,7 @@ This question will depend on multiple factors that have already been studied in 
 
 
 
-\noindent We will also experiment the interactions of these entities. Finally, we can see that most of the questions we will try to answer revolve around the State's choices and how it impacts its agents with regards to the efficiency and equality. This is the main focus of this thesis.
+\noindent We will also experiment the interactions of these entities. Finally, we can see that most of the questions we will try to answer revolve around the State's choices and how they impact its agents with regards to the efficiency and equality. This is the main focus of this thesis.
 
 \section{Notions and vocabulary}
 To better understand the next parts of this thesis, we will briefly define a few terms which will frequently appear. Some of these will be thoroughly explained later when needed.

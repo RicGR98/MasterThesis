@@ -3,7 +3,7 @@
 \section{Overview}
     As we have detailed earlier, we will conclude this thesis with the optimization of some of the parameters we have seen and analyzed, namely the 4 taxes (VAT, Levy, Tariff and Wealth tax), the unemployment rate and the black economy share in order to improve different metrics which will be used as the objective function, namely the Gini coefficient (to be minimized), the GDP (to be maximized) and the number of transactions (to be maximized). We will focus on a single objective (for instance the Gini coefficient) at the time while optimizing a solution with 6 dimensions (4 taxes + 2 rates) stored in a list as follows: \texttt{[VAT, LEVY, TARIFF, WEALTH\_TAX, UNEMPLOYMENT, BLACK\_ECONOMY]}(which represents the DNA in the Genetic Algorithm or a particle in the PSO). All values are, of course, in the range $[0, 1]$. For the optimization, we use another default configuration file \texttt{templateOptimization.json} with only one State, 1000 agents and 2000 ticks.
     
-    As mentioned in the section~\ref{section:state_of_the_art} \nameref{section:state_of_the_art}, we will use population-based methods as they allow us multiple configurations (Worlds with different parameters) in parallel: the genetic algorithm (GA) and particle swarm optimization (PSO).
+    As mentioned in the section~\ref{section:state_of_the_art} \nameref{section:state_of_the_art}, we will use population-based methods as they allow us to run multiple configurations (Worlds with different parameters) in parallel: the genetic algorithm (GA) and particle swarm optimization (PSO).
 
 \section{Algorithms}
 
@@ -23,12 +23,12 @@
 
     \subsection{Particle Swarm Optimization}
 
-    The first optimization algorithm which was tried is the Particle swarm optimization (PSO) as explained in the state-of-the-art. This time, instead of redoing everything from scratch, a python3 library was used: \texttt{pyswarms}. We used a swarm of 50 particles for 50 iterations with $\phi_1 = 0.5$ and $\phi_2 = 0.3$ (therefore advantaging exploration/diversification). We also set the inertia parameter $w$ to $0.9$. This parameter is used to control the particles' speed of convergence, we favour, again, diversification of the search process by setting it this high. \cite{psoDorigo} Other hyper-parameters have been tested (such as a very low inertia, and a $\phi_1$ smaller than $\phi_2$ to favor intensification instead), however, due to the high number of particles and iterations, no significant improvements have been noticed.
+    The other optimization algorithm which was tried is the Particle swarm optimization (PSO) as explained in the state-of-the-art. This time, instead of redoing everything from scratch, a python3 library was used: \texttt{pyswarms}. We used a swarm of 50 particles for 50 iterations with $\phi_1 = 0.5$ and $\phi_2 = 0.3$ (therefore advantaging exploration/diversification). We also set the inertia parameter $w$ to $0.9$. This parameter is used to control the particles' speed of convergence; we favour, again, diversification of the search process by setting it this high. \cite{psoDorigo} Other hyper-parameters have been tested (such as a very low inertia, and a $\phi_1$ smaller than $\phi_2$ to favor intensification instead), however, due to the high number of particles and iterations, no significant improvements have been noticed.
     
     This algorithm has proven itself to be much better than the GA, hence we will analyze the solutions is has computed. 
 
 \section{Analysis}
-    Whenever we try one configuration, we run it 3 times, and average the resulting fitnesses in order to take into account the stochasticity of the simulation. We will analyze three optimized metrics: the Gini coefficient (to be minimized), the GDP (to be maximized) and the number of transactions (to be maximized). For each of them, we will run the optimization algorithm 10 times in order to see the results produced. We do 10 times in order to see the optimized parameters that were found, and see if, there are any patterns between the 10 solutions found. It takes around 19 hours on the cluster for everything to run (3 metrics * 10 PSOs made of 50 iterations of 50 particles with 3 simulations averaged).
+    Whenever we try one configuration, we run it 3 times, and average the resulting fitnesses in order to take into account the stochasticity of the simulation. We will analyze three optimized metrics: the Gini coefficient (to be minimized), the GDP (to be maximized) and the number of transactions (to be maximized). For each of them, we will run the optimization algorithm 10 times in order to see the results produced. We do this 10 times in order to see the optimized parameters that were found, and see if, there are any patterns between the 10 solutions found. It takes around 19 hours on the cluster for everything to run (3 metrics * 10 PSOs made of 50 iterations of 50 particles with 3 simulations averaged).
 
     \subsection{Gini coefficient}
 
@@ -68,7 +68,7 @@
 
         \subsubsection{Statistical analysis}
         
-            Our null hypothesis H0 is that our two samples (two sets of optimized parameters obtained by the same PSO on two different runs) have the same distribution. We will use an $\alpha$ value of 0.05 to test the hypothesis. Thus if we reject H0, i.e. the resulting p-value is < $\alpha$, our two PSOs have different distributions, otherwise, if the p-value is $> \alpha$, our two PSOs have identical distributions.
+            Our null hypothesis H0 is that our two samples (two sets of optimized parameters obtained by the same PSO on two different runs) have the same distribution. We will use an $\alpha$ value of 0.05 to test the hypothesis. Thus if we reject H0, i.e. the resulting p-value is $\leq \alpha$, our two PSOs have different distributions, otherwise, if the p-value is $> \alpha$, our two PSOs have identical distributions.
 
             We show in the following table (which is symmetrical of course) the p-values for each pair of two runs obtained by the \texttt{ranksums} function of the \texttt{scipy} library. All p-values are above our threshold of 0.05, i.e. all of our optimized parameters come from the same algorithm/distribution with a confidence level of 5\%.
 
@@ -117,9 +117,9 @@
             \end{table}
 
             We can see some interesting patterns in the table. Indeed, we see that the VAT rates are very close to one another, the same goes for the black economy share. This actually fits our state-of-the-art and our experiments. Indeed, if we see, for instance, in \nameref{exp:black}, we had noticed that, as the black economy share grows, the GDP decreases. Therefore, reducing black economy at such low levels drastically increases the GDP.
-            On the other side, we see no real pattern for the other parameters, i.e. they do not significantly influence the GDP.
+            On the other side, we see no real pattern for the other parameters, i.e. they do not significantly influence the GDP compared to the black economy share for instance.
 
-            We can also see in the following plot the decrease of the GDP across iterations (cost history). PSO will minimize the opposite of the GDP (thus maximizing the GDP), that is why the costs are negative, and we want them to be as low as possible.
+            We can also see in the following plot the decrease of the GDP across iterations (cost history). PSO will minimize the opposite of the GDP (i.e. minimize -GDP, thus maximize the GDP), that is why the costs are negative, and we want them to be as low as possible.
 
             \begin{figure}[H]
                 \centering

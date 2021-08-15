@@ -57,9 +57,9 @@ All parameters of the simulation have been regrouped into a single configuration
 
 \section{Main}
 
-    The simulation has been coded using Java 16 for its large range of libraries, robustness, rapidness (compared to Python for instance), its strongly typed paradigm and, of course, because of its Object Oriented Programming paradigm (OOP) which fits how we will code our models (see next section).
+    The simulation has been coded using Java 16 because of its large range of libraries, its robustness, rapidness (compared to Python for instance), its strongly typed paradigm and, of course, because of its Object Oriented Programming paradigm (OOP) which fits how we will code our models (see next section).
 
-    Everything starts with the \texttt{Main.java} file. Multiple simulations can be ran in parallel thanks to the use of threads (one simulation = one World = one thread). Because we have a linear timing (we advanced tick after tick, and each tick cannot start before the previous has finished since it depends on the previous state of the system), we cannot parallelize the simulation itself. Each line in the \texttt{params/configs.txt} file corresponds to one configuration (thus one \texttt{.json} file containing all the parameters located in the \texttt{params} directory) that will be launch. For instance:
+    Everything starts with the \texttt{Main.java} file. Multiple simulations can be ran in parallel thanks to the use of threads (one simulation = one World = one thread). Because we have a linear timing (i.e. we advanced tick after tick, and each tick cannot start before the previous has finished since it depends on the previous state of the system), we cannot parallelize the simulation itself. Each line in the \texttt{params/configs.txt} file corresponds to one configuration (thus one \texttt{.json} file containing all the parameters located in the \texttt{params} directory) that will be launch. For instance, 3 configurations/experiments will be run in parallel:
 
     \begin{lstlisting}[language=json,firstnumber=1]
 experiment1.json
@@ -80,17 +80,17 @@ We will now focus on the different models that make up our economical system: th
 
 
 \subsection{Product}\label{section:product}
-In the real world, we have two different types of products: the goods and the services. However, in this paper, we will not distinguish these two terms because the only thing that matters is that one producer and one consumer perform an exchange of a product in return of a certain amount of money. From now on, we will use the word \emph{product} to encompass these two words.
+In the real world, we have two different types of products: the goods and the services. However, in this thesis, we will not distinguish these two terms because the only thing that matters is that one producer and one consumer perform an exchange of a product in return of a certain amount of money. From now on, we will use the word \emph{product} to encompass these two words.
 
-Each Product belongs to one Agent has a type (which is a simple number) to represent different kinds of products (apples, clothes, cars, ...), a default selling price (which will be updated by the Agent according to its skills) and the stock units.
+Each Product belongs to one Agent has a type (which is a simple number) to represent different kinds of products (e.g. apples, clothes, cars, ...), a default selling price (which will be updated by the Agent according to its skills) and the stock units.
 
 We should also note that by "exchange of product", we mean a sale-purchase relationship: after receiving the money, the producer does not have any right on the sold product anymore as opposed to a location or a license. We also assume that any product sold is directly consumed by the buyer.
 
 \subsection{Agent}\label{section:agent}
-We will focus on four key aspects of an agent: its assets, its actions and its skills. Each agent is unique. This will allow us to have an heterogeneous 'society' similarly to the one in which we live where each and every one of us has some assets and different skills.
+We will focus on four key aspects of an agent: its assets, its actions and its skills/talent. Each agent is unique. This will allow us to have an heterogeneous 'society' similarly to the one in which we live where each and every one of us has some assets and different skills.
 
     \subsubsection{Assets}\label{section:assets}
-    Usually an agent owns multiple and different types of assets. In our case, we will focus on the financial and material ones. Indeed, an agent has a certain amount of money on its bank account. This amount is, needless to say, variable. 
+    Usually an agent owns multiple and different types of assets. In our case, we will focus on the financial and material ones. Indeed, an agent has a certain initial amount of money on its bank account. This amount is, needless to say, variable. 
     However, each agent will start the simulation with a certain amount of money and afterwards, it will be up to it to spend it as it wishes and also increase it by selling the products it produces (see section~\ref{section:produce}). 
     The amount of money an agent has will play a key part in the statistics that we will compute in order to study our study (for example to study the wealth distribution amongst agents). 
 
@@ -98,10 +98,10 @@ We will focus on four key aspects of an agent: its assets, its actions and its s
 
 
     \subsubsection{Actions}\label{section:actions}
-    An agent can be seen as a person who has both duties and rights. The agent \emph{can} produce, make a transaction (which encompasses the selling and buying actions) and consume products. These actions belong to the rights of the agent. Performing any of those actions will involve different components: a product, some money, a buyer (or consumer) and a seller (or producer) and the States to which our agents belong. 
+    An agent can be seen as a person who has both duties and rights. The agent \emph{can} makes transactions (which encompasses the selling and buying actions). These actions belong to the rights of the agent. Performing any of those actions will involve different components: a product, some money, a buyer (or consumer) and a seller (or producer) and the States to which our agents belong. 
 
     However, we should also note that an agent has duties. Indeed, in our system we will introduce the concept of State (in the section~\ref{section:state}). Because an agent belongs to a State, it \emph{has} to pay certain taxes. 
-    For instance, the well-known VAT (Value Added Tax) which has to be payed to the State each time an agent \emph{sells} a product. The rate the VAT will be State-dependent. Depending on the State, we may have different taxes that we will study to see how they influence our system. All these taxes are examples of duties an agent has. 
+    For instance, the well-known VAT (Value Added Tax) which has to be payed to the State each time an agent \emph{sells} a product. The VAT rate will be State-dependent. Depending on the State, we may have different taxes that we will study to see how they influence our system. All these taxes are examples of duties an agent has. 
 
     The actions involving a product are described as followed:
 
@@ -119,18 +119,18 @@ We will focus on four key aspects of an agent: its assets, its actions and its s
 
 
 \subsection{State}\label{section:state}
-In this work, we introduce a new concept of 'State' which we will define as an entity containing multiple agents constituting a community operating on the same sets of rules.
+In this work, we introduce a new concept of 'State' which we will define as an entity containing multiple agents constituting a community operating on the same sets of rules (i.e. same taxes and redistribution system).
 
     \subsubsection{Rights and duties}
-    All of the agents in our simulation will be assigned to only one State: an many-to-one kind of relationship (multiple agents belong to one State). As stated previously, agents have some duties towards the State they belong to: taxes.
+    All of the agents in our simulation will be assigned to only one State: a many-to-one kind of relationship (multiple agents belong to one State). As stated previously, agents have some duties towards the State they belong to: taxes.
 
         \paragraph{Duties}
             Whenever an agent sells a product to another agent, it has to pay a certain amount to the State to which it belongs. This is an already existing concept: the Value Added Tax (VAT). This amount is computed as a percentage of the product's price. The VAT's value will be decided by the State. Other taxes have been introduced too:
 
             \begin{itemize}
-                \item the levy which is a contribution to the State. This levy will happen every time a certain number of ticks have been performed. The amount of this levy is fixed according to a certain percentage of the financial assets of an agent.
-                \item custom tariffs which will discourage buying from non-connected States as they penalize the price of a Product sold by another State with which there is no connection.
-                \item a wealth tax which will not be payed by all agents, only the wealthiest. This tax is optional and not all States will impose it. It will be obligatory for the top 10\% richest agents.
+                \item the levy which is a contribution to the State. This levy will happen every time a certain number of ticks have been performed (100 by default). The amount of this levy is fixed according to a certain percentage of the financial assets of an agent.
+                \item custom tariffs which will discourage buying from non-connected States as they penalize the price of a Product sold by another State with which there is no connection to encourage local purchases.
+                \item a wealth tax which will not be payed by all agents, only the wealthiest 10\% agents. They will pay a certain percentage (decided by the State) of their fortune as tax.
             \end{itemize}
 
             The default values of these taxes were chosen to be close to the averages of the OECD's.
@@ -143,7 +143,7 @@ In this work, we introduce a new concept of 'State' which we will define as an e
             
 
             \subparagraph{Allowance}
-                The amount of an allowance will depend greatly on the wealthiness of its receiver because its goals is to distribute wealth (what is called the \texttt{Fair} allowance in the code). To compute the amount that each Agent receives, we have to take into account the following three conditions:
+                The amount of an allowance will depend greatly on the wealthiness of its receiver because the goals is to distribute wealth more equally and reduce inequalities (called the \texttt{Fair} allowance in the code). To compute the amount that each Agent receives, we have to take into account the following three conditions:
                 
                 \begin{itemize}
                     \item The State cannot distribute more money than it has
@@ -158,24 +158,27 @@ In this work, we introduce a new concept of 'State' which we will define as an e
                     \item Compute, for each agent, the difference between its money and the average. If the Agent has more money than the average, the difference will be set to zero.
                     \item Now we know how much money the State has to distribute. However we have two cases that might happen: either the State has enough money, or not.
                     \item If the State has enough money, we simply give each Agent its computed difference with the average, and divide the rest of the money the State has equally between all agents.
-                    \item If the State has not enough money, we compute the share of an agent based on a simple computation: $\frac{\text{stateMoneyToDistribute} \cdot \text{difference}}{\text{totalToDistribute}}$. This guarantees the State does not spend more money than it has, while reducing inequalities.
+                    \item If the State has not enough money, we compute the share of an agent based on a simple computation: $\frac{\text{stateMoneyToDistribute} \times
+                    \text{difference}}{\text{totalToDistribute}}$. This guarantees the State does not spend more money than it has, while reducing inequalities.
                 \end{enumerate}
 
                 \subparagraph{Example}
-                The State has 100 units of money to distribute among 4 agents. Currently, A is the poorest and has 10 units of money, B 20, C 100 and D 170. The Gini coefficient is equal to 0.467 and the average money of an agent is therefore $\frac{10 + 20 + 100 + 170}{4} = 75$. Hence A's difference is thus $75-10=65$, B's 55, C's 0 and D's 0. However, the State does not have sufficient money to pay both A and B (total of 120, yet the State has only 100). Thus, A will receive $\frac{100 \cdot 65}{120} \approx 54.1$, and B $\frac{100 \cdot 55}{120} \approx 45.8$. The total distributed money is therefore 100, and the inequalities between agents has been reduced: A, B, C have 100, D has 170. This respects our three conditions from earlier and the Gini coefficient is equal to 0.112 (closer to 0 means more equality)
+                The State has 100 units of money to distribute among 4 agents. Currently, A is the poorest and has 10 units of money, B 20, C 100 and D 170. The Gini coefficient is equal to 0.467 and the average money of an agent is therefore $\frac{10 + 20 + 100 + 170}{4} = 75$. Hence A's difference is thus $75-10=65$, B's 55, C's 0 and D's 0. However, the State does not have sufficient money to pay both A and B (total of 120, yet the State has only 100). Thus, A will receive $\frac{100 \times
+                65}{120} \approx 54.1$, and B $\frac{100 \times
+                55}{120} \approx 45.8$. The total distributed money is therefore 100, and the inequalities between agents has been reduced: A, B, C have 100, D has 170. This respects our three conditions from earlier and the Gini coefficient is equal to 0.112 (closer to 0 means more equality)
 
 
         \paragraph{Wealth distribution}
         The taxes and allowances are introduced in order to limit the money difference between the richest and poorest agents and allow a better distribution of the wealth in the system. Because all these parameters are adjustable, different type of States will emerge.
 
-        Traditionally, States can, very roughly, be divided in three categories: pure socialism, pure capitalism or mixed. If a State decides to collect no taxes and offer absolutely no wealth distribution, we would label it as a pure capitalist economy. Conversely, if a State decides to opt for a planned economy (or pure socialism), every agent would work for the State it belongs to, and would not be able to increase its own financial assets because the taxes are too high for instance in our simulation.
+        Traditionally, States can, very roughly, be divided in three categories: pure socialism, pure capitalism or mixed. If a State decides to collect no taxes and offer absolutely no wealth distribution, we would label it as a pure capitalist economy. Conversely, if a State decides to opt for a planned economy (or pure socialism), every agent would work for the State it belongs to, and would not be able to increase its own financial assets because the taxes are too high (100\% for instance in our simulation).
         However, most real markets today are not that extreme and fall into the mixed market category where some wealth distribution is present. This is a very simplified classification but it will suffice in our case to study and understand our simulation.
 
         Wealth distribution will be one of the key factors when we will analyse the simulation.
 
 
     \subsubsection{Black economy}
-    The black economy is a share of the economy from which the State gets no tax. This is a parameter of the System and each State has one value in between 0 and 1 (e.g. 0.2). Thus, whenever one of its agents makes a purchase, it will not, according to a certain probability defined by the State, pay VAT, nor augment the GDP of the State. However, agents will still pay the levy and the wealth tax (for those concerned about it).
+    The black economy is a share of the economy from which the State gets no tax. This is a parameter of the System and each State has one value in between 0 and 1 (e.g. 0.2). Thus, whenever one of its agents makes a purchase, it will not, according to a certain probability defined by the State, pay the VAT, nor augment the GDP of the State. However, agents will still pay the levy and the wealth tax (for those concerned about it). Moreover, the number of transactions is still increased.
 
     \subsubsection{Unemployment}
     Another interesting parameter is the unemployment rate. It is also a parameter of the System and each State has one value in between 0 and 1 (e.g. 0.2). According to this probability, some agents of the State will simply never produce during the course of the simulation. This is a probability, therefore, if the State has 100 agents and an unemployment rate of 0.2, \emph{around} 20 agents will not produce.
@@ -183,9 +186,9 @@ In this work, we introduce a new concept of 'State' which we will define as an e
 
 
 \subsection{Connections}\label{section:connections}
-    The World we live in is very connected: States are very connected to one another and lots of exchanges take place across two different States. However, in our simulation, we will not connect them all in order to study the globalization phenomenon and the importance of custom tariffs. 
+    The World we live in is very connected: States are very connected to one another and lots of exchanges take place across two (or more) different States. However, in our simulation, we will not connect them all in order to study the globalization phenomenon and the importance of custom tariffs. 
 
-    In our simulation, when two States are connected, we mean that a transaction may happen between a seller of one State A and a buyer from a State B without any custom tariff. However, if they are not connected, there will be a custom tariff on the sale which varies from State (\texttt{parameter State.Tax.TARIFF}). 
+    In our simulation, when two States are connected, we mean that a transaction may happen between a seller of one State A and a buyer from a State B without any custom tariff. However, if they are not connected, there will be a custom tariff on the sale which varies from State (see parameter \texttt{State.Tax.TARIFF}). 
 
     An interesting form of connection that might happen will be clusters: groups of inter-connected States. Such clusters happen in real life such as the European Union where no custom taxes are collected when a transaction happens between a seller and a buyer from two different States. The same will apply in our simulation. 
 
@@ -204,12 +207,12 @@ In this work, we introduce a new concept of 'State' which we will define as an e
 
 
 \subsection{Market}\label{section:market}
-The Market regroups all the products sold by the agents of one State, thus we have one Market for each State. Whenever a transaction takes place, the Market will compute the price of the exchange by including all the taxes (VAT, Tariff if the agents come from two different States which might not be connected). Whenever an agent wants to buy a Product, we will simply scan all the products available in the market and see which ones fit the demand by filtering on the price (buyer must have enough money) and the stocks of the product. To optimize this search, a HashMap has been created such that products are already sorted by their type and the search is, when profiled, \emph{much} faster, especially when we have tens of thousands of agents.
+The Market regroups all the products sold by the agents of one State, thus we have one Market for each State. Whenever a transaction takes place, the Market will compute the price of the exchange by including all the taxes (VAT and customs tariff if the agents come from two different States which might not be connected). Whenever an agent wants to buy a Product, we will simply scan all the products available in the market and see which ones fit the demand by filtering on the price (buyer must have enough money) and the stocks of the product. To optimize this search, a HashMap has been created such that products are already sorted by their type and the search is, when profiled, \emph{much} faster, especially when we have tens of thousands of products.
 
-Whenever an agent wants to buy a product, we get a filtered list of all products the agent \emph{can} buy. There are multiple way of choosing a product from this list. Naturally, we could simply choose the cheapest one among those. However, other choosing methods have been developed to compare them. The other two methods are called \texttt{random} and \texttt{weightedRandom}. The former is rather obvious as we simply choose at random. This means that it is possible that the agent chooses the most expensive product (which is still affordable for the agent since the list has been previously filtered). The $3^{rd}$ method is a mix of the other two as we introduce some random but cheaper products have better chances at getting picked. The higher the price of the product, the less chances it will have at getting picked thanks because each product is associated with a probability which is inverse of its price.
+Whenever an agent wants to buy a product, we get a filtered list of all products the agent \emph{can} buy. There are multiple strategies to choose a product from this list. Naturally, we could simply choose the cheapest one among those. However, other choosing methods have been developed to compare them. The other two methods are called \texttt{random} and \texttt{weightedRandom}. The former is rather obvious as we simply choose at random. This means that it is possible that the agent chooses the most expensive product (which is still affordable for the agent since the list has been previously filtered). The $3^{rd}$ method is a mix of the other two as we introduce some random but cheaper products have better chances at getting picked. The higher the price of the product, the less chances it will have at getting picked because each product is associated with a probability of getting picked which is inverse of its price.
 
 \subsection{World Market}\label{section:WorldMarket}
-The role of the World Market is simply to connected all the markets of all States because each Market only contains the products of the agents in that State, yet, agents can buy products from other States, which is why we need this link. Thus whenever an agent wants to make a purchase, we scan the markets of all States of the world and get a filtered list of products for each of them and simply combine them all into a single list of products to choose from. The World Market takes care of the transaction, the Gdp, the payments and other variables such as the black economy share depending which States the buyer and the seller belong to. It also allows us to get some interesting statistics such as the total number of purchases/transactions happening in the World.
+The role of the World Market is simply to connect all the markets of all States because each Market only contains the products of the agents in that State, yet, agents can buy products from other States, which is why we need this link. Thus whenever an agent wants to make a purchase, we scan the markets of all States of the world and get a filtered list of products for each of them and simply combine them all into a single list of products to choose from. The World Market takes care of the transaction, the Gdp, the payments and other variables such as the black economy share depending which States the buyer and the seller belong to. It also allows us to get some interesting statistics such as the total number of purchases/transactions happening in the World.
 
 
 \subsection{World}\label{section:world}
@@ -217,8 +220,7 @@ After describing all our models, we eventually finish with the one that will enc
 
 The World will also handle the time step: a tick. Indeed, because computers are discrete machines, we have divide time into time steps (ticks). At each time step, our World will allow agents and States to perform actions such as producing, buying a product, collecting a tax or distributing allowances.
 
-However, as previously expressed, not all agents will perform an action at every tick. Only a certain percentage of the agents will do something: either produce, or buy, or do nothing (in case it has no money to either produce or buy, therefore it waits for someone to buy one of its products or for the State to give him an allowance). However, the action of selling may happen at anytime. This means that an consumer will be able to buy a product from a seller without waiting for him to also perform an action (otherwise, the system would be blocked very often).
-This percentage value will be rather small due to the fact that a tick is something that will happen very often.
+However, as previously expressed, not all agents will perform an action at every tick. Only a certain percentage of the agents will do something: either produce, buy, or do nothing (in case it has no money to either produce or buy, therefore it waits for someone to buy one of its products or for the State to give him an allowance). However, the action of selling may happen at anytime. This means that an consumer will be able to buy a product from a seller without waiting for him to also perform an action (otherwise, the system would be blocked very often).
 
 Finally, because our World contains all of the models we have defined (i.e. the products, the agents, the States and the World Market), it will allow us to have an overview of all that is going on in our simulation. It will also be very useful in order to study the system and make some statistics. To compute these statistics, we will save all the key metrics of the World (e.g. number of transactions at a certain time/tick), the States (e.g. current Gini coefficient of all States), the Agents (e.g. initial and current money) and the Products (e.g. number of purchases and sales). 
 

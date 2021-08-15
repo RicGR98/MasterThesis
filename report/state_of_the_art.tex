@@ -1,7 +1,7 @@
 \chapter{State of the Art}\label{section:state_of_the_art}
 
-We will now depict the current state-of-the-art of what research is happening on the same topic in both economics and computer science.
-Our goal will be to see if the state-of-the-art research presented hereunder does match the results that our simulation will yield. The state-of-the-art will not detail every metric thoroughly as the goal is to have an overview of these metrics and their roles, and not to do a thesis for each of them. Hence, we will briefly define the notion, see its application in the real world and analyze the importance of the parameter on other metrics according to the literature.
+We will now depict the current state-of-the-art research that is happening on the same topic in both economics and computer science.
+Our goal will be to see if the state-of-the-art research presented hereunder does match the results that our simulation will yield. We will not detail every metric thoroughly as the goal is to have an overview of these metrics and their roles, and not to do a thesis for each of them. Hence, we will briefly define the notion, see its application in the real world and analyze the importance of the parameter on other metrics according to the literature.
 
 \section{In economics}
 
@@ -13,7 +13,7 @@ Prof. Bayenet, Professor of ``Politique économique" (taught at ULB), presents e
     \item \textbf{Redistribution}: the State should correct the inequalities in the distribution of wealth among its agents. This is the part we are the interested the most in. We have some leverage on this part thanks to the taxes that a State collects in order to distribute wealth later on. We will also check the influence of other parameters hereunder.
 \end{itemize} 
 
-To make these possible, the State should make expenses, create some rules and levy taxes. We will study the choices of the State regarding its taxation and its distribution system which will influence the agents of the State. For this we will analyze two sets of parameters: the ones that a State can directly choose (VAT rate, wealth tax, clusters, ...), and those that the State cannot \emph{directly} operate on (unemployment, black economy). We will now explain these parameters and analyze the current state-of-the-art regarding them.
+To make these possible, the State should make expenses, create some rules and levy taxes. We will study the choices of the State regarding its taxation and its distribution system which will influence the agents of the State. For this we will analyze two sets of parameters: the ones that a State can directly choose (VAT rate, wealth tax, clusters, ...), and those that the State cannot \emph{directly} operate on (unemployment rate and black economy share). We will now explain these parameters and analyze the current state-of-the-art regarding them.
 
 \subsection{Taxes}
 
@@ -24,23 +24,23 @@ To make these possible, the State should make expenses, create some rules and le
 
     \subsubsection{Value Added Tax (VAT)}
     
-    The VAT is a rather modern tax which started to spread around the world in the late 1960s. Nowadays, the vast majority of the countries apply this tax also known under the name of Goods and Services Tax (GST) in some countries, however, not all of them do. It is not rare for a country to have multiple VAT rates for different kind of products (for instance one rate for necessary products and another for luxurious products).
+    The VAT is a rather modern tax which started to spread around the world in the late 1960s. Nowadays, the vast majority of countries apply this tax also known under the name of Goods and Services Tax (GST) in some countries, however, not all of them do. It is not rare for a country to have multiple VAT rates for different kind of products (for instance one rate for necessary products and another for `luxurious' products).
     
-    The VAT is a major source of income for the States that have implemented it. Indeed, the VAT accounts generally for more than 20\% of the total tax revenue in the countries of the Organisation for Economic Co-operation and Development (OECD) \cite{TheModernVAT}. Contrariwise, \textquote{the revenue-generating potential of the VAT is relative to a country’s administrative capacity. The VAT produces far less revenue, far less efficiently, in countries with weak administrative capacity.} \cite{OriginOfVAT}. According to the Table 1.5 of "The Modern VAT" \cite{TheModernVAT}, \textquote{countries that have implemented a VAT are relatively more developed}. 
+    The VAT is a major source of income for the States that have implemented it. Indeed, the VAT accounts generally for more than 20\% of the total tax revenue in the countries of the Organization for Economic Co-operation and Development (OECD) \cite{TheModernVAT}. Contrariwise, \textquote{the revenue-generating potential of the VAT is relative to a country’s administrative capacity. The VAT produces far less revenue, far less efficiently, in countries with weak administrative capacity.} \cite{OriginOfVAT}. According to the Table 1.5 of "The Modern VAT" \cite{TheModernVAT}, \textquote{countries that have implemented a VAT are relatively more developed}. 
     
-    It interesting to note that the United States of America, the country whose GDP (Gross Domestic Product) is the highest, do not have a federal VAT. Instead, a sales and use tax is used in most USA states. In our case, there is no real difference between the VAT and the Sales tax because we only have one layer: the producer directly sells its product to the final consumer. Thus we will be using the VAT and Sales tax reciprocally. 
+    It is interesting to note that the United States of America, the country whose GDP (Gross Domestic Product) is the highest, do not have a federal VAT. Instead, a sales and use tax is used in most USA states. In our case, there is no real difference between the VAT and the Sales tax because we only have one layer: the producer directly sells its product to the final consumer. Thus we will be using the VAT and Sales tax reciprocally. 
     However, it should be noted that, in the real world, the difference is quite important and we will very briefly describe it. In the case of VAT, each producer pays directly the VAT of the product it sold to the State, whereas in the Sales tax, only the final consumer will pay for it. Therefore, in the case of a Sales tax, the State has to "wait" for final good to be sold in order to receive the tax, whereas in the case of VAT, the State will receive the money gradually: only the 'added value' is taxed from one layer to another \cite{OriginOfVAT}.
     
-    The standard VAT rate varies greatly between countries, from 0\% (in Hong Kong for instance) to 28\% in India (in the case of luxurious products). Albeit this rate may vary, a lot the majority of the countries in the OECD set it to be around 20\% \footnote{\url{https://www.oecd.org/tax/consumption-tax-trends-19990979.htm}}. Moreover, we can note that the European Union obliges its member states to have a standard VAT rate of \emph{at least} 15\% \footnote{\url{https://europa.eu/youreurope/business/taxation/vat/vat-rules-rates/index_en.htm}}.
+    The standard VAT rate varies greatly between countries, from 0\% (in Hong Kong for instance) to 28\% in India (in the case of luxurious products). Albeit this rate may vary, the majority of the countries in the OECD set it to be around 20\% \footnote{\url{https://www.oecd.org/tax/consumption-tax-trends-19990979.htm}}. Moreover, we can note that the European Union obliges its member states to have a standard VAT rate of \emph{at least} 15\% \footnote{\url{https://europa.eu/youreurope/business/taxation/vat/vat-rules-rates/index_en.htm}}.
     
     
     \subsubsection{Customs Tariffs}
     
     Whenever we import a product from another country, a certain amount of money has to be paid to the State in which the good is imported, this is known as tariff. It should be noted that the tariff rate usually varies from one product to another. This tax on customs is another tool that a State can use to levy money from its agents. Usually, this tax is a way to regulate and limit foreign imports in order to protect and stimulate domestic production.
     
-    The rate of this tariff depends a lot from one country to another, and is a good indicator of the country's protectionism level. Indeed, it well known that the tariff's rate is a great tool to either boost or limit the trades between foreign countries. By setting a high rate, the imports will be greatly decreased and the local production will be favoured. Contrariwise, a low or null rate will encourage  free trade (thus leading to a globalised country) and a competitive market economy \cite{virmani2002towards}.
+    The rate of this tariff depends a lot from one country to another, and is a good indicator of the country's protectionism level. Indeed, it well known that the tariff's rate is a great tool to either boost or limit the trades between foreign countries. By setting a high rate, the imports will be greatly decreased and the local production will be favoured. Contrariwise, a low or null rate will encourage  free trade (thus leading to a globalized country) and a competitive market economy \cite{virmani2002towards}.
     
-    In its very famous publication \textquote{Wealth of Nations}\footnote{\url{https://www.ibiblio.org/ml/libri/s/SmithA_WealthNations_p.pdf}} from 1776, when globalisation was very limited, Adam Smith advocates in favour of free trade which encourages economic growth according to him. Nowadays, the tariffs rate have generally drastically declined in comparison to the $19^{th}$ century as shown in Figure~\ref{fig:average_tariffs_history}.
+    In its very famous publication \textquote{Wealth of Nations}\footnote{\url{https://www.ibiblio.org/ml/libri/s/SmithA_WealthNations_p.pdf}} from 1776, when globalization was very limited, Adam Smith advocates in favour of free trade which encourages economic growth according to him. Nowadays, the tariffs rate have generally drastically declined in comparison to the $19^{th}$ century as shown in Figure~\ref{fig:average_tariffs_history}.
     
     \begin{figure}[H]
         \centering
@@ -49,7 +49,7 @@ To make these possible, the State should make expenses, create some rules and le
         \label{fig:average_tariffs_history}
     \end{figure}
     
-    Albeit these tariffs have greatly decreased, many still exist in order to protect some at-risk domestic productions. However, nowadays, countries living in autarky (e.g. self-sufficient) are close to non-existent. Even North-Korea trades goods and services with countries such as Russia or China for instance.
+    Albeit these tariffs have greatly decreased, many still exist in order to protect some at-risk domestic productions. However, nowadays, countries living in autarky (i.e. self-sufficient) are virtually non-existent. Even North-Korea trades goods and services with countries such as Russia or China for instance.
     
     Today, the tariff rates all around the world vary from 0\% to roughly 20\%. A map summarising the average weighted tariff rate applied across all products is presented in Figure~\ref{fig:world_bank_tariffs}. This map is openly available on the World Bank's website\footnote{\url{https://data.worldbank.org/indicator/TM.TAX.MRCH.WM.AR.ZS?end=2018&start=2018&view=map}}.
     
@@ -67,7 +67,7 @@ To make these possible, the State should make expenses, create some rules and le
     
     This levy tax can be seen as the income tax in the real world. Nevertheless, the levy tax in our model will be much simpler than the income tax which is a tax based on the income of a year, a time measure which does not exist in our timely discrete World made of ticks.
     
-    This tax targets the income and profits earned by an agent, usually during a one-year period. This tax has been around for much longer than the VAT for instance as it appeared in the United Kingdom as early as 1799. In the great majority of the world, this tax is paid by an agent to the State in which it resides. It may be different in some countries (for example in the USA which taxes its citizens, even the non-residents ones), but this particularities go beyond our simulation which only knows the concept of residents.
+    This tax targets the income and profits earned by an agent, usually during a one-year period. This tax has been around for much longer than the VAT for instance as it appeared in the United Kingdom as early as 1799. In the great majority of the world, this tax is paid by an agent to the State in which it resides. It may be different in some countries (for example the USA which tax their citizens, even the non-residents ones), but this particularities go beyond our simulation which only knows the concept of residents.
     
     The income tax can usually be classified in one of the following categories:
     
@@ -85,16 +85,16 @@ To make these possible, the State should make expenses, create some rules and le
     
     The wealth tax is a taxation on the assets held by an agent. In our case, we will only take into account the financial assets, and more precisely the money an agent has in its "bank account".
     
-    It is, once again, another tool that a State can use to increase its revenues. The idea of a wealth tax is as old as the Ancient Greek civilisation. Indeed, the symmoria \footnote{\url{https://en.wikipedia.org/wiki/Symmoria}} were a group of wealthy citizens that were grouped together with the purpose of collecting a higher tax: a wealth tax to put is simply.
+    It is, once again, another tool that a State can use to increase its revenues. The idea of a wealth tax is as old as the Ancient Greek civilization. Indeed, the symmoria \footnote{\url{https://en.wikipedia.org/wiki/Symmoria}} were a group of wealthy citizens that were grouped together with the purpose of collecting a higher tax: a wealth tax to put is simply.
     
-    Nowadays, a wealth tax is present in several countries, but it not as generalised at other taxes such as the ones we have previously mentioned. This wealth tax is generally described as a certain percentage of the asset's which has to be paid to the State if the total amount of the assets exceeds a certain threshold. Multiple thresholds can be defined in order to have a progressive wealth tax. For example, taxing 2\% for assets worth more than \$50.000.000 and 6\% for assets worth more than \$1.000.000.000 (1 billion dollars). These are the numbers cited by US senator Elisabeth Warren \footnote{\url{https://www.cbsnews.com/news/elizabeth-warren-wealth-tax-who-would-pay-and-how-much/}}. However, a wealth tax can introduced starting much lower amounts. In Spain for example, the wealth tax starts gradually from 700.000\euro \footnote{\url{https://www.spanishpropertyinsight.com/tax-and-pensions/spanish-wealth-tax-patrimonio/}}.
+    Nowadays, a wealth tax is present in several countries, but it not as generalised as other taxes such as the ones we have previously mentioned. This wealth tax is generally described as a certain percentage of the asset's which has to be paid to the State if the total amount of the assets exceeds a certain threshold. Multiple thresholds can be defined in order to have a progressive wealth tax. For example, taxing 2\% for assets worth more than \$50.000.000 and 6\% for assets worth more than \$1.000.000.000 (1 billion dollars). These are the numbers cited by US senator Elisabeth Warren \footnote{\url{https://www.cbsnews.com/news/elizabeth-warren-wealth-tax-who-would-pay-and-how-much/}}. However, a wealth tax can introduced starting much lower amounts. In Spain for example, the wealth tax starts gradually from 700.000\euro \footnote{\url{https://www.spanishpropertyinsight.com/tax-and-pensions/spanish-wealth-tax-patrimonio/}}.
     
-    A huge drawback of the wealth tax is tax evasion and tax havens. Our imperfect simulation will not be able to take these into account unfortunately. According to Åsa Hansson, such a tax could dampen economic growth by reducing the level of investment. However the impact would be very limited.\cite{hansson2010wealth} Again, our imperfect system is not able to model investment and R\&D, therefore, the results in our simulation might be very different.
+    A huge drawback of the wealth tax is tax evasion and tax havens. Our imperfect simulation will not be able to take these into account unfortunately. According to Åsa Hansson, such a tax could dampen economic growth by reducing the level of investment. However the impact would be very limited.\cite{hansson2010wealth} Again, our imperfect system is not able to model investment and R\&D (Research and Development), therefore, the results in our simulation might be a bit different.
 
 
 \subsection{Parameters which the State has direct no leverage on}
     
-    As mentioned earlier, there are some key parameters, or rates, which the State cannot influence \emph{directly} contrariwise to the taxes rates. We will dive into two significant rate which have an important role in a economy: the black economy share, and the unemployment rate.
+    As mentioned earlier, there are some key parameters, or rates, which the State cannot influence \emph{directly} contrariwise to the taxes rates. We will dive into two significant rates which have an important role in a economy: the black economy share, and the unemployment rate.
 
     \subsubsection{Black economy}
     Black economy, also known as shadow economy or non-observed economy \cite{oecdBlack}, is a part of the economy which goes ``unseen'' by the State, usually in order to avoid paying due taxes. One can also note that the formal standardized definition does not include illegal activities (such as drug selling or prostitution) in the black economy share. \cite{pyle1989tax} 
@@ -102,7 +102,7 @@ To make these possible, the State should make expenses, create some rules and le
     Avoiding paying such taxes allows, on the one hand, the agents to pay less money for their products, therefore being able to buy more products. However, on the other hand, the State will see its taxes revenue decrease. 
     If black economy is limited, then its impacts may be negligible. However, if the black economy takes a large part of the total economy, the State will not be able to play its redistribution role resulting eventually in more inequalities among the agents. As noted by Anna Krajewska, one big disadvantage of this underground economy is the ``deepening [of] income differentiation''. Contrariwise ``high  taxes  and  transfers  lead  to  more  equal  distribution  of incomes.'' \cite{blackEcoImpact} We will see in our experiments what role this rate plays regarding different metrics including the income difference between agents (Gini coefficient).
 
-    Unfortunately, the black economy is hard to measure precisely. Economists have come up with different kind of methods to evaluate this share such as sampling a portion of the population tax returns and analyze them thoroughly. From this, one can extrapolate the results to a larger scale. \cite{pyle1989tax}. This non-observed economy share has been estimated for several countries, among which some countries of the OECD (Organization for Economic Co-operation and Development) as presented in the figure~\ref{fig:black_economy_oecd} below. It is computed as a share of the total GDP of the country. For instance, Belgium sits at around 22\%. This is a rather significant estimate.
+    Unfortunately, the black economy is hard to measure precisely. Economists have come up with different kinds of methods to evaluate this share such as sampling a portion of the population tax returns and analyze them thoroughly. From this, one can extrapolate the results to a larger scale. \cite{pyle1989tax}. This non-observed economy share has been estimated for several countries, among which some countries of the OECD (Organization for Economic Co-operation and Development) as presented in the figure~\ref{fig:black_economy_oecd} below. It is computed as a share of the total GDP of the country. For instance, Belgium sits at around 22\%. This is a rather significant estimate.
     
     \begin{figure}[H]
         \centering
@@ -130,7 +130,7 @@ To make these possible, the State should make expenses, create some rules and le
 
 \subsection{Allowance and Universal Basic Income}
 
-Because the State has collected money from different taxes, it will now have to redistribute it. In our simulation, there will not be any infrastructure or services that the agents can take advantage of such as public roads or free education. Therefore, all the money levied through taxes will go fully to the wealth distribution system which can be of two types in our system: either through allowances, or through the universal basic income (UBI). It is a exclusive choice, it is either one or the other, not both. So each fictional State will have to make a choice.
+Because the State has collected money from different taxes, it will now have to redistribute it. In our simulation, there will not be any infrastructure or services that the agents can take advantage of such as public roads or free education. Therefore, all the money levied through taxes will go fully to the wealth distribution system which can be of two types in our system: either through allowances, or through the universal basic income (UBI). It is a exclusive choice, it is either one or the other, not both. So each fictional State will have to make a choice (one method is chosen at random for each State).
 
     \subsubsection{Allowance}
     
@@ -152,7 +152,7 @@ Because the State has collected money from different taxes, it will now have to 
 \subsection{Economic clusters}
     As we have seen before, countries can impose tariffs on customs in order to discourage imports and encourage local consumption. However, what if countries had agreements between them in order to allow free trade (thus a null customs tariff) in-between a cluster? The most simple cluster would be made of two States freely importing and exporting from and to one another. This is known as a bilateral agreement. However, we can extrapolate this idea to more countries: a cluster made of a single market where no import tariffs would be levied by its member states.
     
-    A very famous real-world example is the European Union (EU). The EU currently counts 27 member states exchanging in one single market with no tariffs on customs. The EU holds lots of advantages among these we can cite a few such as the freedom of movement or worker's protection across all member states, and the most important one being the large common market where goods and services can be exchanged at a cheaper price because of the lack of tariffs which also encourages investment.
+    A very famous real-world example is the European Union (EU). The EU currently counts 27 member states exchanging in one single market with no tariffs on customs. The EU holds lots of advantages; among these we can cite a few such as the freedom of movement or worker's protection across all member states, and the most important one being the large common market where goods and services can be exchanged at a cheaper price because of the lack of tariffs which also encourages investment.
     
     It also has some drawbacks such as the membership cost, the non-unique currency, and more bureaucracy. However, these will not be present in our simulation which does not model these aspects.
     
@@ -161,7 +161,7 @@ Because the State has collected money from different taxes, it will now have to 
 \subsection{Efficiency/Equality trade-off}
     Finally, we will briefly discuss the broad question of the efficiency/equality trade-off and why it is a trade-off. Indeed, a trade-off means that improving one side will, generally, deteriorate the other side.
     
-    This trade-off has actually been studied in previous works related to this one with the original work being the one of Bersini and van Zeebroeck: \textquote{Why should an economy be competitive ?}. This publication concludes that \textquote{a competitive market distributes welfare much less equally and is responsible for inequality amplifying effect} \cite{bersini}. We will also do an empirical analysis of this trade-off and analyze the results computed by our simulation.
+    This trade-off has actually been studied in previous works related to this one with the original work being the one of Bersini and van Zeebroeck: \textquote{Why should an economy be competitive ?}. This publication concludes that \textquote{a competitive market distributes welfare much less equally and is responsible for inequality amplifying effect} \cite{bersini}. We will also do an empirical analysis of this trade-off and analyze the results yielded by our simulation.
     
 
 \section{In computer science}
@@ -175,14 +175,14 @@ Because the State has collected money from different taxes, it will now have to 
     There are lots of examples in our society where computer simulation are used daily. For instance in weather forecasting, power distribution and needs, traffic engineering, aerodynamics of car models, fluids, etc. These state-of-the-art examples (which actually get better and more precise everyday) come from different fields of science and engineering. \cite{weatherForecasting} Some people even argue \emph{we} actually live in a simulation...
 
     \subsection{Agent-based modelling}
-    Agent-based modelling (ABM) relies on computer simulation as we simulate lots of independent and heterogeneous agents (commonly, an agent represents a person, however it can also represent an entity such as a State) that interact with one another. As the simulation goes on and entities interact, we will be to see some patterns emerge and therefore study the parameters that have led to such patterns. Usually, lots of simple entities will lead to interesting phenomena on a large scale and, naturally, the more entities/agents we have in our simulation, the more accurate our results will be (at the disadvantage of having a longer run-time). Thus, the interactions happening between micro-structures (our agents/entities) allow us to see patterns at the macro level (an economic system for instance).
+    Agent-based modelling (ABM) relies on computer simulation as we simulate lots of independent and heterogeneous agents (commonly, an agent represents a person, however it can also represent an entity such as a State) that interact with one another. As the simulation goes on and entities interact, we will be able to see some patterns emerge and therefore study the parameters that have led to such patterns. Usually, lots of simple entities will lead to interesting phenomena on a large scale and, naturally, the more entities/agents we have in our simulation, the more accurate our results will be (at the disadvantage of having a longer run-time). Thus, the interactions happening between micro-structures (our agents/entities) allow us to see patterns at the macro level (an economic system for instance).
     
     This is presented by Prof. Bersini as ``Weak emergence''.\cite{ctaiABMBersini} A simple example of this is life. ``Living cells are made of mineral particle, yet, it impossible to find characteristics of life in the simple components of these particles such as atoms of hydrogen, oxygen, carbon, and nitrogen''. Therefore, ``life is in the whole, not the parts'' as Durkheim concludes. \cite{ctaiABMBersini}.
 
     There are three main types of ABM \cite{ctaiABMBersini} :
 
     \begin{itemize}
-        \item Automata: they are the simplest kind as they only repeat a set of (simple actions without any kind of knowledge. 
+        \item Automata: they are the simplest kind as they only repeat a set of (i.e. simple actions without any kind of knowledge). 
         \item Interested: they are a bit more advanced as they make biased choices. For instance in game theory, we might prefer one action over another depending on a payoff matrix.
         \item Adaptive: they try to learn as the simulation runs in order to adapt and maximize some kind fitness.
     \end{itemize}
@@ -195,9 +195,9 @@ Because the State has collected money from different taxes, it will now have to 
 
     Finally, the last important field of computer science/mathematics that we will talk about is optimization. The goal of optimization is to either minimize or maximize a given an objective function. 
 
-    Given a function $f : A \rightarrow \mathbb{R}$ define over a set $A$ in $\mathbb{R}$, we want to find an element $\bar{x} $ of $A$ such that $f(\bar{x}) \leq f(x)$ for all $x \in A$.
+    Given a function $f : A \rightarrow \mathbb{R}$ defined over a set $A$ in $\mathbb{R}$, we want to find an element $\bar{x} $ of $A$ such that $f(\bar{x}) \leq f(x)$ for all $x \in A$.
 
-    Nowadays, there is a immense range of algorithms to perform such a task. Some are more suited for particular class of problems. We can classify an optimization algorithm into the several categories:
+    Nowadays, there is an immense range of algorithms to perform such a task. Some are more suited for particular class of problems. We can classify an optimization algorithm into the several categories:
 
     \begin{itemize}
         \item discrete vs continuous
@@ -216,15 +216,15 @@ Because the State has collected money from different taxes, it will now have to 
     \paragraph{Steps}
 
         \begin{enumerate}
-            \item Keep the best individual that will be part of the next generation  
-            \item Keep the best fraction (an hyper-parameter we analyze later) of the population known as the elite.
+            \item Initialize a (random) population of individuals represent different candidate solutions
+            \item Keep a fraction of the best individuals of the population (elite) according to their fitness
             \item Create offsprings that will represent our new population by
             \begin{enumerate}
-                \item Crossover two randomly selected parent in the elite population and the artificial solution
+                \item Crossover two randomly selected parent in the elite population to obtain offsprings
                 \item Perform, with a certain probability (an hyper-parameter), a mutation on the resulting offsprings
             \end{enumerate}
-            \item Replace the population by the offsprings (including the best individual which is not cleared from the population and survives to the next generation)
-            \item Check if any stopping criterion is met
+            \item Replace the population by the offsprings 
+            \item Check if any stopping criterion is met, otherwise repeat from step 2
         \end{enumerate}
 
         \begin{figure}[H]
